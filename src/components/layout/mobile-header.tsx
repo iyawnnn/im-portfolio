@@ -21,7 +21,12 @@ export function MobileHeader() {
       {/* Left: Profile (Avatar + Name) */}
       <div className="flex items-center gap-3">
         <Avatar className="h-9 w-9 border border-primary/10 shadow-sm">
-          <AvatarImage src="/my-profile.jpg" alt="Ian Macabulos" />
+          {/* UPDATED: Correct path and object-cover */}
+          <AvatarImage 
+            src="/about/profile.jpg" 
+            alt="Ian Macabulos" 
+            className="object-cover" 
+          />
           <AvatarFallback className="bg-primary text-xs font-bold text-primary-foreground">
             IM
           </AvatarFallback>

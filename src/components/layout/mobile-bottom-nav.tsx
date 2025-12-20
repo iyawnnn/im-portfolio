@@ -15,9 +15,9 @@ const MOBILE_LINKS = [
   { href: "/stack", label: "Stack", icon: CodeXml },
   { href: "/resume", label: "Resume", icon: FileText },
   { href: "/contact", label: "Contact", icon: Mail },
-  { href: "https://linkedin.com", label: "LinkedIn", icon: Linkedin, isExternal: true },
-  { href: "https://github.com", label: "Github", icon: Github, isExternal: true },
-  { href: "https://instagram.com", label: "Instagram", icon: Instagram, isExternal: true },
+  { href: "https://www.linkedin.com/in/ian-sebastian-macabulos/", label: "LinkedIn", icon: Linkedin, isExternal: true },
+  { href: "https://github.com/iyawnnn", label: "Github", icon: Github, isExternal: true },
+  { href: "https://www.instagram.com/iann.mac/", label: "Instagram", icon: Instagram, isExternal: true },
 ] as const;
 
 export function MobileBottomNav() {

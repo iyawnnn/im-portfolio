@@ -5,9 +5,19 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
-  Home, User, Briefcase, CodeXml, FileText, Mail, Linkedin, Github, Instagram,
-  Sun, Moon, ArrowUpRight,
-  ChevronLeft
+  Home,
+  User,
+  Briefcase,
+  CodeXml,
+  FileText,
+  Mail,
+  Linkedin,
+  Github,
+  Instagram,
+  Sun,
+  Moon,
+  ArrowUpRight,
+  ChevronLeft,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -25,19 +35,33 @@ const MAIN_LINKS = [
 
 const CONNECT_LINKS = [
   { title: "Contact", href: "/contact", icon: Mail, shortcut: "C" },
-  { title: "LinkedIn", href: "https://linkedin.com", icon: Linkedin, isExternal: true },
-  { title: "Github", href: "https://github.com", icon: Github, isExternal: true },
-  { title: "Instagram", href: "https://instagram.com", icon: Instagram, isExternal: true },
+  {
+    title: "LinkedIn",
+    href: "https://www.linkedin.com/in/ian-sebastian-macabulos/",
+    icon: Linkedin,
+    isExternal: true,
+  },
+  {
+    title: "Github",
+    href: "https://github.com/iyawnnn",
+    icon: Github,
+    isExternal: true,
+  },
+  {
+    title: "Instagram",
+    href: "https://www.instagram.com/iann.mac/",
+    icon: Instagram,
+    isExternal: true,
+  },
 ] as const;
 
-// 1. EXTRACTED COMPONENT: Defined outside AppSidebar to fix the error
-function NavSection({ 
-  title, 
-  links, 
-  isCollapsed, 
-  pathname 
-}: { 
-  title: string; 
+function NavSection({
+  title,
+  links,
+  isCollapsed,
+  pathname,
+}: {
+  title: string;
   links: typeof MAIN_LINKS | typeof CONNECT_LINKS;
   isCollapsed: boolean;
   pathname: string;
@@ -53,7 +77,7 @@ function NavSection({
         {links.map((link) => {
           const isActive = pathname === link.href;
           const isExternal = "isExternal" in link && link.isExternal;
-          
+
           return (
             <li key={link.title} className="w-full">
               <Link
@@ -67,35 +91,51 @@ function NavSection({
                     : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 )}
               >
-                <div className={cn(
-                  "flex items-center transition-all",
-                  isCollapsed ? "gap-0" : "gap-4"
-                )}>
+                <div
+                  className={cn(
+                    "flex items-center transition-all",
+                    isCollapsed ? "gap-0" : "gap-4"
+                  )}
+                >
                   <link.icon
                     className={cn(
                       "h-5 w-5 transition-all",
                       isActive ? "stroke-[2.5px]" : "stroke-2"
                     )}
                   />
-                  <span className={cn(
-                    "transition-all duration-300 overflow-hidden whitespace-nowrap",
-                    isCollapsed ? "w-0 opacity-0 invisible" : "w-auto opacity-100 visible ml-4"
-                  )}>
+                  <span
+                    className={cn(
+                      "transition-all duration-300 overflow-hidden whitespace-nowrap",
+                      isCollapsed
+                        ? "w-0 opacity-0 invisible"
+                        : "w-auto opacity-100 visible ml-4"
+                    )}
+                  >
                     {link.title}
                   </span>
                 </div>
 
-                <div className={cn(
-                  "hidden md:flex transition-all duration-300 overflow-hidden",
-                  isCollapsed ? "w-0 opacity-0 invisible" : "w-auto opacity-100 visible"
-                )}>
-                  <span className={cn(
-                    "flex h-6 w-6 items-center justify-center rounded border text-xs font-bold transition-all shadow-sm",
-                    isActive 
-                      ? "border-foreground/10 bg-background text-foreground" 
-                      : "border-sidebar-border bg-sidebar text-muted-foreground group-hover:border-foreground/10 group-hover:bg-background group-hover:text-foreground"
-                  )}>
-                    {"shortcut" in link ? link.shortcut : <ArrowUpRight className="h-3.5 w-3.5" />}
+                <div
+                  className={cn(
+                    "hidden md:flex transition-all duration-300 overflow-hidden",
+                    isCollapsed
+                      ? "w-0 opacity-0 invisible"
+                      : "w-auto opacity-100 visible"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "flex h-6 w-6 items-center justify-center rounded border text-xs font-bold transition-all shadow-sm",
+                      isActive
+                        ? "border-foreground/10 bg-background text-foreground"
+                        : "border-sidebar-border bg-sidebar text-muted-foreground group-hover:border-foreground/10 group-hover:bg-background group-hover:text-foreground"
+                    )}
+                  >
+                    {"shortcut" in link ? (
+                      link.shortcut
+                    ) : (
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    )}
                   </span>
                 </div>
               </Link>
@@ -141,11 +181,12 @@ export function AppSidebar() {
   }, [router]);
 
   return (
-    <aside className={cn(
-      "relative flex h-full w-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300",
-      isCollapsed ? "p-3 items-center" : "p-6"
-    )}>
-      
+    <aside
+      className={cn(
+        "relative flex h-full w-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300",
+        isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-6"
+      )}
+    >
       {/* COLLAPSE TOGGLE BUTTON */}
       <Button
         variant="ghost"
@@ -160,55 +201,76 @@ export function AppSidebar() {
       </Button>
 
       {/* Profile Header */}
-      <header className={cn(
-        "mb-10 flex items-center transition-all duration-300",
-        isCollapsed ? "justify-center px-0 gap-0" : "gap-4 px-1"
-      )}>
-        <Avatar className={cn(
-          "shrink-0 border border-sidebar-border shadow-sm transition-all",
-          isCollapsed ? "h-10 w-10" : "h-12 w-12"
-         )}>
-          <AvatarImage src="/my-profile.jpg" alt="Ian Macabulos" />
-          <AvatarFallback className="bg-sidebar-primary text-xs font-bold text-sidebar-primary-foreground">IM</AvatarFallback>
+      <header
+        className={cn(
+          "mb-10 flex items-center transition-all duration-300",
+          isCollapsed ? "justify-center px-0 gap-0" : "gap-4 px-1"
+        )}
+      >
+        <Avatar
+          className={cn(
+            "shrink-0 border border-sidebar-foreground/20 shadow-sm transition-all",
+            isCollapsed ? "h-10 w-10" : "h-12 w-12"
+          )}
+        >
+          <AvatarImage
+            src="/about/profile.jpg"
+            alt="Ian Macabulos"
+            className="object-cover"
+          />
+          <AvatarFallback className="bg-sidebar-primary text-xs font-bold text-sidebar-primary-foreground">
+            IM
+          </AvatarFallback>
         </Avatar>
-        
-        <div className={cn(
-          "flex flex-1 flex-col min-w-0 space-y-0 transition-all duration-300 overflow-hidden",
-          isCollapsed ? "w-0 opacity-0 invisible" : "w-auto opacity-100 visible"
-        )}>
-          <h1 className="truncate text-lg font-extrabold leading-none tracking-tight">Ian Macabulos</h1>
-          <p className="whitespace-nowrap text-sm font-medium text-muted-foreground">Full-Stack Developer</p>
+
+        <div
+          className={cn(
+            "flex flex-1 flex-col min-w-0 space-y-0 transition-all duration-300 overflow-hidden",
+            isCollapsed
+              ? "w-0 opacity-0 invisible"
+              : "w-auto opacity-100 visible"
+          )}
+        >
+          <h1 className="truncate text-lg font-extrabold leading-none tracking-tight">
+            Ian Macabulos
+          </h1>
+          <p className="whitespace-nowrap text-sm font-medium text-muted-foreground">
+            Full-Stack Developer
+          </p>
         </div>
       </header>
 
       {/* Navigation */}
       <nav className="flex flex-1 flex-col space-y-8 overflow-y-auto overflow-x-hidden w-full">
-        {/* 2. USED COMPONENT: Pass the props down here */}
-        <NavSection 
-          title="Main" 
-          links={MAIN_LINKS} 
-          isCollapsed={isCollapsed} 
-          pathname={pathname} 
+        <NavSection
+          title="Main"
+          links={MAIN_LINKS}
+          isCollapsed={isCollapsed}
+          pathname={pathname}
         />
-        <NavSection 
-          title="Connect" 
-          links={CONNECT_LINKS} 
-          isCollapsed={isCollapsed} 
-          pathname={pathname} 
+        <NavSection
+          title="Connect"
+          links={CONNECT_LINKS}
+          isCollapsed={isCollapsed}
+          pathname={pathname}
         />
       </nav>
 
       {/* Footer */}
-      <footer className={cn(
+      <footer
+        className={cn(
           "mt-auto border-t border-sidebar-border pt-6 w-full transition-all",
-           isCollapsed ? "flex justify-center" : ""
-      )}>
+          isCollapsed ? "flex justify-center" : ""
+        )}
+      >
         <Button
           variant="outline"
           size="lg"
           className={cn(
             "rounded-xl border-sidebar-border bg-background text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all",
-            isCollapsed ? "w-auto justify-center px-3" : "w-full justify-start gap-4 px-3"
+            isCollapsed
+              ? "w-auto justify-center px-3"
+              : "w-full justify-start gap-4 px-3"
           )}
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
@@ -218,11 +280,19 @@ export function AppSidebar() {
             ) : (
               <Moon className="h-5 w-5 stroke-2" />
             ))}
-          <span className={cn(
-             "text-sm font-medium transition-all duration-300 overflow-hidden whitespace-nowrap",
-             isCollapsed ? "w-0 opacity-0 hidden" : "w-auto opacity-100 visible ml-4"
-          )}>
-            {mounted ? (theme === "dark" ? "Light Mode" : "Dark Mode") : "Theme"}
+          <span
+            className={cn(
+              "text-sm font-medium transition-all duration-300 overflow-hidden whitespace-nowrap",
+              isCollapsed
+                ? "w-0 opacity-0 hidden"
+                : "w-auto opacity-100 visible ml-4"
+            )}
+          >
+            {mounted
+              ? theme === "dark"
+                ? "Light Mode"
+                : "Dark Mode"
+              : "Theme"}
           </span>
         </Button>
       </footer>

@@ -44,7 +44,7 @@
 }
 
 :root {
-  --radius: 0.625rem;
+  --radius: 0.5rem;
   
   /* LIGHT MODE */
   --background: oklch(1 0 0);          /* Pure White for Content */
@@ -130,5 +130,33 @@
   }
   ::selection {
     @apply bg-primary text-primary-foreground;
+  }
+}
+
+@layer utilities {
+  /* 1. FLOAT ANIMATION (Keep for the Stack Card) */
+  @keyframes float-up {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(-150px) scale(0.5); opacity: 0; }
+  }
+  .animate-float {
+    animation: float-up 12s infinite linear;
+  }
+
+  /* 2. RADAR RIPPLE (New Effect for Projects) */
+  @keyframes ripple {
+    0% {
+      transform: scale(0.8);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+  .animate-ripple {
+    animation: ripple 3s ease-out infinite;
   }
 }
