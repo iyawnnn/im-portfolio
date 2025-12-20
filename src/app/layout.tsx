@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
-// Import the new provider and wrapper
 import { SidebarProvider } from "@/hooks/use-sidebar";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 

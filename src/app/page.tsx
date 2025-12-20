@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import {
   Layers,
@@ -21,23 +22,109 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Counter } from "@/components/ui/counter";
 import { MovingDots, Radar } from "@/components/ui/animated-backgrounds";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect"; 
 
 export default function ExplorePage() {
+
+  // --- SCROLL FIX ---
+  useEffect(() => {
+    if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
+  // --- DATA DEFINITIONS ---
+  
+  const wordsLine1 = [
+    { text: "Hey," },
+    { text: "I’m" },
+    { text: "Ian,", className: "text-foreground" }, 
+  ];
+
+  // Desktop Line 2 (Combined)
+  const wordsLine2Desktop = [
+    { text: "A", className: "text-muted-foreground" }, 
+    { text: "Full-Stack", className: "text-muted-foreground" },
+    { text: "Developer.", className: "text-muted-foreground" },
+  ];
+
+  // Mobile Line 2 (Split Part A)
+  const wordsLine2Mobile = [
+    { text: "A", className: "text-muted-foreground" }, 
+    { text: "Full-Stack", className: "text-muted-foreground" },
+  ];
+
+  // Mobile Line 3 (Split Part B)
+  const wordsLine3Mobile = [
+    { text: "Developer.", className: "text-muted-foreground" },
+  ];
+
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-8 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
+      
       {/* --- HERO SECTION --- */}
-      <section className="flex max-w-2xl flex-col gap-4 md:gap-6">
-        <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-5xl">
-          Hey, I’m Ian, <br />
-          <span className="text-muted-foreground">A Full-Stack Developer.</span>
-        </h1>
+      <section className="flex max-w-2xl flex-col gap-2 md:gap-4">
+        
+        {/* HEADER CONTAINER */}
+        {/* text-5xl: Base size (Mobile) -> HUGE.
+            lg:text-6xl: Desktop size -> STANDARD (Not increased to 7xl).
+            leading-[1.15]: Adds breathing room between lines.
+        */}
+        <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.15]">
+           
+           {/* --- LINE 1 (SHARED) --- */}
+           <TypewriterEffectSmooth 
+              words={wordsLine1} 
+              className="p-0 m-0"
+              cursorClassName="bg-primary"
+              duration={1.5} 
+              hideCursorOnComplete={true} 
+           />
+           
+           {/* --- DESKTOP VIEW (MD and larger) --- */}
+           {/* Negative margin pulls desktop text tight since it is only 2 lines */}
+           <div className="hidden md:block mt-1 lg:mt-2">
+             <TypewriterEffectSmooth 
+                words={wordsLine2Desktop} 
+                className="p-0"
+                cursorClassName="bg-muted-foreground"
+                delay={1.5} 
+                duration={1.5}
+             />
+           </div>
+
+           {/* --- MOBILE VIEW (Smaller than MD) --- */}
+           {/* No negative margin on wrapper so it breathes. */}
+           <div className="block md:hidden flex flex-col items-start mt-0">
+             {/* Mobile Line 2 */}
+             <TypewriterEffectSmooth 
+                words={wordsLine2Mobile} 
+                className="p-0"
+                cursorClassName="bg-muted-foreground"
+                delay={1.5} 
+                duration={1.2} 
+                hideCursorOnComplete={true} 
+             />
+             {/* Mobile Line 3 */}
+             <TypewriterEffectSmooth 
+                words={wordsLine3Mobile} 
+                className="p-0 mt-1" // Small margin between split lines
+                cursorClassName="bg-muted-foreground"
+                delay={2.7} 
+                duration={1.2}
+             />
+           </div>
+
+        </div>
+        
         <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
           I build web apps, learn new tech, and occasionally argue with my
           laptop — basically, I spend most of my time debugging my own
           decisions.
         </p>
 
-        <div className="flex flex-wrap gap-3 md:gap-4">
+        <div className="flex flex-wrap gap-3 mt-2">
           <Button
             asChild
             variant="secondary"
@@ -61,7 +148,7 @@ export default function ExplorePage() {
       </section>
 
       {/* --- PROJECTS OVERVIEW --- */}
-      <section className="flex flex-col gap-4 md:gap-6">
+      <section className="flex flex-col gap-4 md:gap-6 mt-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold tracking-tight sm:text-2xl">
             Projects Overview
