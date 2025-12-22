@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import React from "react";
 
 export const LoaderOne = () => {
@@ -9,38 +9,26 @@ export const LoaderOne = () => {
       repeat: Infinity,
       repeatType: "loop" as const,
       delay: x * 0.2,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
     };
   };
   return (
     <div className="flex items-center gap-2">
       <motion.div
-        initial={{
-          y: 0,
-        }}
-        animate={{
-          y: [0, 10, 0],
-        }}
+        initial={{ y: 0 }}
+        animate={{ y: [0, 10, 0] }}
         transition={transition(0)}
         className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
       />
       <motion.div
-        initial={{
-          y: 0,
-        }}
-        animate={{
-          y: [0, 10, 0],
-        }}
+        initial={{ y: 0 }}
+        animate={{ y: [0, 10, 0] }}
         transition={transition(1)}
         className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
       />
       <motion.div
-        initial={{
-          y: 0,
-        }}
-        animate={{
-          y: [0, 10, 0],
-        }}
+        initial={{ y: 0 }}
+        animate={{ y: [0, 10, 0] }}
         transition={transition(2)}
         className="h-4 w-4 rounded-full border border-neutral-300 bg-gradient-to-b from-neutral-400 to-neutral-300"
       />
@@ -55,38 +43,26 @@ export const LoaderTwo = () => {
       repeat: Infinity,
       repeatType: "loop" as const,
       delay: x * 0.2,
-      ease: "easeInOut",
+      ease: "easeInOut" as const,
     };
   };
   return (
     <div className="flex items-center">
       <motion.div
         transition={transition(0)}
-        initial={{
-          x: 0,
-        }}
-        animate={{
-          x: [0, 20, 0],
-        }}
+        initial={{ x: 0 }}
+        animate={{ x: [0, 20, 0] }}
         className="h-4 w-4 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
       />
       <motion.div
-        initial={{
-          x: 0,
-        }}
-        animate={{
-          x: [0, 20, 0],
-        }}
+        initial={{ x: 0 }}
+        animate={{ x: [0, 20, 0] }}
         transition={transition(0.4)}
         className="h-4 w-4 -translate-x-2 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
       />
       <motion.div
-        initial={{
-          x: 0,
-        }}
-        animate={{
-          x: [0, 20, 0],
-        }}
+        initial={{ x: 0 }}
+        animate={{ x: [0, 20, 0] }}
         transition={transition(0.8)}
         className="h-4 w-4 -translate-x-4 rounded-full bg-neutral-200 shadow-md dark:bg-neutral-500"
       />
@@ -97,14 +73,13 @@ export const LoaderTwo = () => {
 export const LoaderThree = () => {
   return (
     <div className="relative flex h-24 w-24 items-center justify-center">
-      
       {/* 1. OUTER SPINNER RING */}
       <motion.span
         className="absolute h-full w-full rounded-full border-4 border-neutral-200 border-t-neutral-800 dark:border-neutral-700 dark:border-t-white"
         animate={{ rotate: 360 }}
         transition={{
           duration: 1,
-          ease: "linear",
+          ease: "linear" as const,
           repeat: Infinity,
         }}
       />
@@ -124,11 +99,11 @@ export const LoaderThree = () => {
           d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"
           animate={{
             fill: ["rgba(253, 224, 71, 0)", "rgba(253, 224, 71, 1)", "rgba(253, 224, 71, 0)"],
-            scale: [1, 1.15, 1], 
+            scale: [1, 1.15, 1],
           }}
           transition={{
             duration: 1.5,
-            ease: "easeInOut",
+            ease: "easeInOut" as const,
             repeat: Infinity,
           }}
         />
@@ -142,15 +117,16 @@ export const LoaderFour = ({ text = "Loading..." }: { text?: string }) => {
     <div className="relative font-bold text-black [perspective:1000px] dark:text-white">
       <motion.span
         animate={{
-          skew: [0, -40, 0],
+          // UPDATED: Changed 'skew' to 'skewX' to fix TypeScript error
+          skewX: [0, -40, 0],
           scaleX: [1, 2, 1],
         }}
         transition={{
           duration: 0.05,
           repeat: Infinity,
-          repeatType: "reverse",
+          repeatType: "reverse" as const,
           repeatDelay: 2,
-          ease: "linear",
+          ease: "linear" as const,
           times: [0, 0.2, 0.5, 0.8, 1],
         }}
         className="relative z-20 inline-block"
@@ -167,8 +143,8 @@ export const LoaderFour = ({ text = "Loading..." }: { text?: string }) => {
         transition={{
           duration: 0.5,
           repeat: Infinity,
-          repeatType: "reverse",
-          ease: "linear",
+          repeatType: "reverse" as const,
+          ease: "linear" as const,
           times: [0, 0.2, 0.5, 0.8, 1],
         }}
       >
@@ -184,8 +160,8 @@ export const LoaderFour = ({ text = "Loading..." }: { text?: string }) => {
         transition={{
           duration: 0.8,
           repeat: Infinity,
-          repeatType: "reverse",
-          ease: "linear",
+          repeatType: "reverse" as const,
+          ease: "linear" as const,
           times: [0, 0.3, 0.6, 0.8, 1],
         }}
       >
@@ -215,9 +191,9 @@ export const LoaderFive = ({ text }: { text: string }) => {
           transition={{
             duration: 0.5,
             repeat: Infinity,
-            repeatType: "loop",
+            repeatType: "loop" as const,
             delay: i * 0.05,
-            ease: "easeInOut",
+            ease: "easeInOut" as const,
             repeatDelay: 2,
           }}
         >

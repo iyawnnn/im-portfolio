@@ -9,12 +9,12 @@ import {
 import { cn } from "@/lib/utils";
 
 const MOBILE_LINKS = [
-  { href: "/", label: "Explore", icon: Home },
-  { href: "/about", label: "About", icon: User },
-  { href: "/projects", label: "Projects", icon: Briefcase },
-  { href: "/stack", label: "Stack", icon: CodeXml },
-  { href: "/resume", label: "Resume", icon: FileText },
-  { href: "/contact", label: "Contact", icon: Mail },
+  { href: "/", label: "Explore", icon: Home, isExternal: false },
+  { href: "/about", label: "About", icon: User, isExternal: false },
+  { href: "/projects", label: "Projects", icon: Briefcase, isExternal: false },
+  { href: "/stack", label: "Stack", icon: CodeXml, isExternal: false },
+  { href: "/resume", label: "Resume", icon: FileText, isExternal: false },
+  { href: "/contact", label: "Contact", icon: Mail, isExternal: false },
   { href: "https://www.linkedin.com/in/ian-sebastian-macabulos/", label: "LinkedIn", icon: Linkedin, isExternal: true },
   { href: "https://github.com/iyawnnn", label: "Github", icon: Github, isExternal: true },
   { href: "https://www.instagram.com/iann.mac/", label: "Instagram", icon: Instagram, isExternal: true },
@@ -40,7 +40,6 @@ export function MobileBottomNav() {
                 href={link.href}
                 target={link.isExternal ? "_blank" : undefined}
                 className={cn(
-                  // CHANGE: rounded-2xl -> rounded-lg for a squarer look
                   "snap-center group flex min-w-[5rem] flex-col items-center justify-center gap-1 rounded-lg py-2 px-2 transition-all duration-300",
                   isActive 
                     ? "bg-secondary text-primary shadow-sm" 
