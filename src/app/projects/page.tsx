@@ -18,10 +18,8 @@ import { Badge } from "@/components/ui/badge";
 const PROJECTS = [
   {
     title: "ClimaPH",
-    // 2-line description: Focuses on the unique selling point (Philippines-specific) and core features (lifestyle metrics).
     description:
       "A high-performance weather platform tailored for the Philippines, integrating real-time forecasts with lifestyle metrics like laundry and umbrella guides.",
-    // Tags: Highlight the modern stack.
     tags: ["Next.js 15", "TypeScript", "API"],
     link: "/projects/climaph",
     image: "/projects/climaph/climaph-cover.png",
@@ -38,7 +36,7 @@ const PROJECTS = [
     title: "MovieLoom",
     description:
       "A cinematic discovery interface allowing users to explore detailed movie metadata, cast profiles, and filmographies via the TMDb API.",
-    tags: ["React", "Vite", "API", "CSS3",],
+    tags: ["React", "Vite", "API", "CSS3"],
     link: "/projects/movieloom",
     image: "/projects/movieloom/movieloom-cover.png",
   },
@@ -62,13 +60,15 @@ const PROJECTS = [
 
 export default function ProjectsPage() {
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-8 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
+    <div className="flex w-full max-w-6xl mx-auto flex-col gap-10 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
+      
       {/* --- HEADER --- */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="flex flex-col gap-4 max-w-2xl"
+        // UPDATED: Changed 'max-w-2xl' to 'w-full max-w-4xl' to align with the grid width
+        className="flex flex-col gap-4 w-full max-w-4xl"
       >
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight lg:text-6xl text-foreground leading-[1.15]">
           Crafted Projects
@@ -89,7 +89,6 @@ export default function ProjectsPage() {
       >
         {PROJECTS.map((project, idx) => (
           <Link key={idx} href={project.link} className="group block h-full">
-            {/* UPDATED: Added 'gap-2' to override the default gap-6 */}
             <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
               {/* IMAGE THUMBNAIL AREA */}
               <div className="relative w-full overflow-hidden border-b border-border/50">

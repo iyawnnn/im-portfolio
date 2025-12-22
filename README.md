@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Portfolio
 
-## Getting Started
+A modern, high-performance personal portfolio website designed and developed to showcase my web development projects, technical skills, and professional journey. This application focuses on clean aesthetics, responsive design, and seamless user interactions.
 
-First, run the development server:
+## Technologies Used
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project leverages a modern tech stack to ensure speed, scalability, and type safety:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+* **Framework:** Next.js 15 (App Router)
+* **Language:** TypeScript
+* **Styling:** Tailwind CSS
+* **Animations:** Framer Motion
+* **Email Service:** Resend (Server Actions)
+* **Icons:** Lucide React
+* **Deployment:** Vercel
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Highlights
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **Responsive Interface:** A fully fluid layout optimized for mobile, tablet, and desktop devices.
+* **Backend Integration:** Secure email transmission using Next.js Server Actions and the Resend API.
+* **Interactive UI:** Smooth page transitions, scroll animations, and interactive components.
+* **Project Showcase:** Detailed case studies for web applications including tech stack breakdowns.
+* **Performance:** Optimized images, fonts, and component rendering for high Lighthouse scores.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
