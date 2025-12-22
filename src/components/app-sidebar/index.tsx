@@ -69,7 +69,7 @@ function NavSection({
   return (
     <section className="w-full">
       {!isCollapsed && (
-        <h2 className="mb-3 px-3 text-xs font-bold uppercase text-muted-foreground/60 transition-opacity duration-300">
+        <h2 className="mb-3 px-3 text-[10px] font-bold uppercase text-muted-foreground/60 transition-opacity duration-300 tracking-widest">
           {title}
         </h2>
       )}
@@ -84,7 +84,7 @@ function NavSection({
                 href={link.href}
                 target={isExternal ? "_blank" : undefined}
                 className={cn(
-                  "group flex items-center rounded-xl py-3 text-base font-medium transition-all",
+                  "group flex items-center rounded-xl py-2.5 text-sm font-semibold transition-all",
                   isCollapsed ? "justify-center px-2" : "justify-between px-3",
                   isActive
                     ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm"
@@ -94,13 +94,13 @@ function NavSection({
                 <div
                   className={cn(
                     "flex items-center transition-all",
-                    isCollapsed ? "gap-0" : "gap-4"
+                    isCollapsed ? "gap-0" : "gap-3"
                   )}
                 >
                   <link.icon
                     className={cn(
                       "h-5 w-5 transition-all",
-                      isActive ? "stroke-[2.5px]" : "stroke-2"
+                      isActive ? "stroke-[2.5px] text-foreground" : "stroke-2"
                     )}
                   />
                   <span
@@ -108,7 +108,7 @@ function NavSection({
                       "transition-all duration-300 overflow-hidden whitespace-nowrap",
                       isCollapsed
                         ? "w-0 opacity-0 invisible"
-                        : "w-auto opacity-100 visible ml-4"
+                        : "w-auto opacity-100 visible"
                     )}
                   >
                     {link.title}
@@ -125,7 +125,7 @@ function NavSection({
                 >
                   <span
                     className={cn(
-                      "flex h-6 w-6 items-center justify-center rounded border text-xs font-bold transition-all shadow-sm",
+                      "flex h-5 w-5 items-center justify-center rounded border text-[10px] font-bold transition-all shadow-sm",
                       isActive
                         ? "border-foreground/10 bg-background text-foreground"
                         : "border-sidebar-border bg-sidebar text-muted-foreground group-hover:border-foreground/10 group-hover:bg-background group-hover:text-foreground"
@@ -134,7 +134,7 @@ function NavSection({
                     {"shortcut" in link ? (
                       link.shortcut
                     ) : (
-                      <ArrowUpRight className="h-3.5 w-3.5" />
+                      <ArrowUpRight className="h-3 w-3" />
                     )}
                   </span>
                 </div>
@@ -184,10 +184,9 @@ export function AppSidebar() {
     <aside
       className={cn(
         "relative flex h-full w-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300",
-        isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-6"
+        isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-5" // Reduced padding from p-6 to p-5
       )}
     >
-      {/* COLLAPSE TOGGLE BUTTON */}
       <Button
         variant="ghost"
         size="icon"
@@ -200,7 +199,6 @@ export function AppSidebar() {
         <ChevronLeft className="h-3.5 w-3.5" />
       </Button>
 
-      {/* Profile Header */}
       <header
         className={cn(
           "mb-10 flex items-center transition-all duration-300",
@@ -231,17 +229,16 @@ export function AppSidebar() {
               : "w-auto opacity-100 visible"
           )}
         >
-          <h1 className="truncate text-lg font-extrabold leading-none tracking-tight">
+          <h1 className="truncate text-base font-bold leading-none tracking-tight">
             Ian Macabulos
           </h1>
-          <p className="whitespace-nowrap text-sm font-medium text-muted-foreground">
+          <p className="whitespace-nowrap text-[12px] font-medium text-muted-foreground mt-1">
             Full-Stack Developer
           </p>
         </div>
       </header>
 
-      {/* Navigation */}
-      <nav className="flex flex-1 flex-col space-y-8 overflow-y-auto overflow-x-hidden w-full">
+      <nav className="flex flex-1 flex-col space-y-8 overflow-y-auto overflow-x-hidden w-full no-scrollbar">
         <NavSection
           title="Main"
           links={MAIN_LINKS}
@@ -256,7 +253,6 @@ export function AppSidebar() {
         />
       </nav>
 
-      {/* Footer */}
       <footer
         className={cn(
           "mt-auto border-t border-sidebar-border pt-6 w-full transition-all",
@@ -267,25 +263,25 @@ export function AppSidebar() {
           variant="outline"
           size="lg"
           className={cn(
-            "rounded-xl border-sidebar-border bg-background text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all",
+            "rounded-xl border-sidebar-border bg-background text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all h-10",
             isCollapsed
-              ? "w-auto justify-center px-3"
-              : "w-full justify-start gap-4 px-3"
+              ? "w-auto justify-center px-2.5"
+              : "w-full justify-start gap-3 px-3"
           )}
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
           {mounted &&
             (theme === "dark" ? (
-              <Sun className="h-5 w-5 stroke-2" />
+              <Sun className="h-4 w-4 stroke-2" />
             ) : (
-              <Moon className="h-5 w-5 stroke-2" />
+              <Moon className="h-4 w-4 stroke-2" />
             ))}
           <span
             className={cn(
-              "text-sm font-medium transition-all duration-300 overflow-hidden whitespace-nowrap",
+              "text-xs font-semibold transition-all duration-300 overflow-hidden whitespace-nowrap",
               isCollapsed
                 ? "w-0 opacity-0 hidden"
-                : "w-auto opacity-100 visible ml-4"
+                : "w-auto opacity-100 visible"
             )}
           >
             {mounted

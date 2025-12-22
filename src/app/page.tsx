@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image"; 
 import {
   Layers,
   LayoutTemplate,
@@ -9,6 +10,7 @@ import {
   User,
   CodeXml,
   ArrowRight,
+  FileText, // ADDED: Import FileText for the Resume icon
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -42,20 +44,17 @@ export default function ExplorePage() {
     { text: "Ian,", className: "text-foreground" }, 
   ];
 
-  // Desktop Line 2 (Combined)
   const wordsLine2Desktop = [
     { text: "A", className: "text-muted-foreground" }, 
     { text: "Full-Stack", className: "text-muted-foreground" },
     { text: "Developer.", className: "text-muted-foreground" },
   ];
 
-  // Mobile Line 2 (Split Part A)
   const wordsLine2Mobile = [
     { text: "A", className: "text-muted-foreground" }, 
     { text: "Full-Stack", className: "text-muted-foreground" },
   ];
 
-  // Mobile Line 3 (Split Part B)
   const wordsLine3Mobile = [
     { text: "Developer.", className: "text-muted-foreground" },
   ];
@@ -67,13 +66,8 @@ export default function ExplorePage() {
       <section className="flex max-w-2xl flex-col gap-2 md:gap-4">
         
         {/* HEADER CONTAINER */}
-        {/* text-5xl: Base size (Mobile) -> HUGE.
-            lg:text-6xl: Desktop size -> STANDARD (Not increased to 7xl).
-            leading-[1.15]: Adds breathing room between lines.
-        */}
         <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.15]">
            
-           {/* --- LINE 1 (SHARED) --- */}
            <TypewriterEffectSmooth 
               words={wordsLine1} 
               className="p-0 m-0"
@@ -82,8 +76,6 @@ export default function ExplorePage() {
               hideCursorOnComplete={true} 
            />
            
-           {/* --- DESKTOP VIEW (MD and larger) --- */}
-           {/* Negative margin pulls desktop text tight since it is only 2 lines */}
            <div className="hidden md:block mt-1 lg:mt-2">
              <TypewriterEffectSmooth 
                 words={wordsLine2Desktop} 
@@ -94,10 +86,7 @@ export default function ExplorePage() {
              />
            </div>
 
-           {/* --- MOBILE VIEW (Smaller than MD) --- */}
-           {/* No negative margin on wrapper so it breathes. */}
            <div className="block md:hidden flex flex-col items-start mt-0">
-             {/* Mobile Line 2 */}
              <TypewriterEffectSmooth 
                 words={wordsLine2Mobile} 
                 className="p-0"
@@ -106,10 +95,9 @@ export default function ExplorePage() {
                 duration={1.2} 
                 hideCursorOnComplete={true} 
              />
-             {/* Mobile Line 3 */}
              <TypewriterEffectSmooth 
                 words={wordsLine3Mobile} 
-                className="p-0 mt-1" // Small margin between split lines
+                className="p-0 mt-1"
                 cursorClassName="bg-muted-foreground"
                 delay={2.7} 
                 duration={1.2}
@@ -163,42 +151,84 @@ export default function ExplorePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6">
-          <Card className="overflow-hidden rounded-xl shadow-sm transition-all hover:shadow-md border border-border/50 bg-card">
-            <div className="aspect-video w-full bg-secondary/30 flex items-center justify-center border-b border-border/50">
-              <LayoutTemplate className="h-16 w-16 text-muted-foreground/20 sm:h-20 sm:w-20" />
-            </div>
-            <CardHeader>
-              <CardTitle>Project 1</CardTitle>
-              <CardDescription>Lorem ipsum dolor sit amet.</CardDescription>
-            </CardHeader>
-            <CardFooter className="gap-2">
-              <Badge variant="secondary" className="rounded-md">
-                Next.js
-              </Badge>
-              <Badge variant="secondary" className="rounded-md">
-                Tailwind
-              </Badge>
-            </CardFooter>
-          </Card>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start">
+          
+          {/* CARD 1: CLIMAPH */}
+          <Link href="/projects/climaph" className="group block h-full">
+            <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
+              <div className="relative w-full overflow-hidden border-b border-border/50">
+                <Image
+                  src="/projects/climaph/climaph-cover.png"
+                  alt="ClimaPH"
+                  width={0}
+                  height={0}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
+              </div>
 
-          <Card className="overflow-hidden rounded-xl shadow-sm transition-all hover:shadow-md border border-border/50 bg-card">
-            <div className="aspect-video w-full bg-secondary/30 flex items-center justify-center border-b border-border/50">
-              <Layers className="h-16 w-16 text-muted-foreground/20 sm:h-20 sm:w-20" />
-            </div>
-            <CardHeader>
-              <CardTitle>Project 2</CardTitle>
-              <CardDescription>Lorem ipsum dolor sit amet.</CardDescription>
-            </CardHeader>
-            <CardFooter className="gap-2">
-              <Badge variant="secondary" className="rounded-md">
-                React
-              </Badge>
-              <Badge variant="secondary" className="rounded-md">
-                Node.js
-              </Badge>
-            </CardFooter>
-          </Card>
+              <CardHeader className="px-6 pt-3 pb-1">
+                <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                  ClimaPH
+                </CardTitle>
+                <CardDescription className="line-clamp-2 text-sm sm:text-base">
+                  A high-performance weather platform tailored for the Philippines.
+                </CardDescription>
+              </CardHeader>
+
+              <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
+                <Badge variant="secondary" className="rounded-md group-hover:bg-background transition-colors">
+                  Next.js 15
+                </Badge>
+                <Badge variant="secondary" className="rounded-md group-hover:bg-background transition-colors">
+                  TypeScript
+                </Badge>
+                <Badge variant="secondary" className="rounded-md group-hover:bg-background transition-colors">
+                  OpenWeather
+                </Badge>
+              </CardFooter>
+            </Card>
+          </Link>
+
+          {/* CARD 2: THRYVE */}
+          <Link href="/projects/thryve" className="group block h-full">
+            <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
+              <div className="relative w-full overflow-hidden border-b border-border/50">
+                <Image
+                  src="/projects/thryve/thryve-cover.png"
+                  alt="Thryve"
+                  width={0}
+                  height={0}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
+              </div>
+
+              <CardHeader className="px-6 pt-3 pb-1">
+                <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                  Thryve
+                </CardTitle>
+                <CardDescription className="line-clamp-2 text-sm sm:text-base">
+                   A unified health and fitness application tracking workouts and meals.
+                </CardDescription>
+              </CardHeader>
+
+              <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
+                <Badge variant="secondary" className="rounded-md group-hover:bg-background transition-colors">
+                  Vue.js
+                </Badge>
+                <Badge variant="secondary" className="rounded-md group-hover:bg-background transition-colors">
+                  Express
+                </Badge>
+                <Badge variant="secondary" className="rounded-md group-hover:bg-background transition-colors">
+                  MongoDB
+                </Badge>
+              </CardFooter>
+            </Card>
+          </Link>
+
         </div>
       </section>
 
@@ -234,6 +264,8 @@ export default function ExplorePage() {
 
       {/* --- NAVIGATION CARDS --- */}
       <section className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
+        
+        {/* CARD 1: STACK */}
         <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
           <MovingDots />
           <CardHeader className="relative z-10">
@@ -255,13 +287,15 @@ export default function ExplorePage() {
           </CardFooter>
         </Card>
 
+        {/* CARD 2: RESUME (Replaces Projects) */}
         <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
           <Radar />
           <CardHeader className="relative z-10">
-            <LayoutTemplate className="h-8 w-8 text-primary mb-2 sm:h-10 sm:w-10" />
-            <CardTitle className="text-lg sm:text-xl">Projects</CardTitle>
+            {/* Changed Icon to FileText for Resume */}
+            <FileText className="h-8 w-8 text-primary mb-2 sm:h-10 sm:w-10" />
+            <CardTitle className="text-lg sm:text-xl">Resume</CardTitle>
             <CardDescription className="text-xs sm:text-sm">
-              A showcase of my recent work.
+              My professional journey and qualifications.
             </CardDescription>
           </CardHeader>
           <CardFooter className="relative z-10">
@@ -271,10 +305,12 @@ export default function ExplorePage() {
               size="sm"
               className="w-full rounded-md shadow-sm transition-all hover:opacity-90 active:scale-95 md:w-auto md:h-10 md:px-4 md:py-2"
             >
-              <Link href="/projects">View Projects</Link>
+              {/* Changed Link to /resume */}
+              <Link href="/resume">View Resume</Link>
             </Button>
           </CardFooter>
         </Card>
+
       </section>
     </div>
   );

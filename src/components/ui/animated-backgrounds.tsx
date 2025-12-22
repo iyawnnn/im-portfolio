@@ -6,27 +6,35 @@ import { cn } from "@/lib/utils";
 // EFFECT 1: Moving Dots (Good visibility, calm float)
 export const MovingDots = () => {
   const [dots, setDots] = useState<React.CSSProperties[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const newDots = new Array(15).fill(null).map(() => ({
-      left: `${Math.random() * 100}%`,
-      bottom: "-20px",
-      width: `${Math.random() * 8 + 4}px`, 
-      height: `${Math.random() * 8 + 4}px`,
-      animationDelay: `${Math.random() * 5}s`,
-      animationDuration: `${Math.random() * 10 + 10}s`,
-    }));
-    setDots(newDots);
+    setMounted(true);
+    // Use requestIdleCallback or a small timeout to let the page finish loading first
+    const timer = setTimeout(() => {
+      const newDots = new Array(15).fill(null).map(() => ({
+        left: `${Math.random() * 100}%`,
+        bottom: "-20px",
+        width: `${Math.random() * 8 + 4}px`, 
+        height: `${Math.random() * 8 + 4}px`,
+        animationDelay: `${Math.random() * 5}s`,
+        animationDuration: `${Math.random() * 10 + 10}s`,
+      }));
+      setDots(newDots);
+    }, 100); // 100ms delay gives the UI time to breath
+
+    return () => clearTimeout(timer);
   }, []);
 
+  if (!mounted) return null;
+
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none">
+    <div className="absolute inset-0 overflow-hidden pointer-events-none select-none transform-gpu">
       {dots.map((style, idx) => (
         <span
           key={idx}
-          className={cn(
-            "absolute bg-primary/30 rounded-full animate-float backdrop-blur-[1px] shadow-sm"
-          )}
+          // ADDED: will-change-transform
+          className="absolute bg-primary/30 rounded-full animate-float backdrop-blur-[1px] shadow-sm will-change-transform"
           style={style}
         />
       ))}
