@@ -22,7 +22,7 @@ export const sendEmail = async (formData: FormData) => {
       to: ["iannmacabulos@gmail.com"],
       
       // This allows you to click "Reply" in Gmail and reply directly to the user
-      reply_to: email,
+      replyTo: email,
       
       subject: `Portfolio Message from ${name}`,
       text: message,
