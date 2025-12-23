@@ -44,7 +44,6 @@ export default function AboutPage() {
             About Me
           </h1>
 
-          {/* Regular text size (text-base) with sequential effect */}
           {/* Hero Section Intro */}
           <div className="space-y-4">
             <div className="text-base leading-relaxed text-muted-foreground">
@@ -57,7 +56,7 @@ export default function AboutPage() {
               <TextGenerateEffect
                 words={paragraph2}
                 className="text-muted-foreground font-normal"
-                delay={6} 
+                delay={3.6} 
               />
             </div>
           </div>
@@ -91,8 +90,8 @@ export default function AboutPage() {
             <div className="flex items-start gap-3">
               <Rocket className="mt-1 h-4 w-4 text-primary shrink-0" />
               <span>
-                <strong>Role:</strong> Actively seeking internships or
-                entry-level positions in Full-Stack or Front-End Development.
+                <strong>Role:</strong> Actively seeking internships, freelance projects, or
+                entry-level positions in Full-Stack Development.
               </span>
             </div>
             <div className="flex items-start gap-3">
@@ -222,8 +221,7 @@ export default function AboutPage() {
 
         <p className="mx-auto mt-4 max-w-lg text-muted-foreground leading-relaxed text-sm lg:text-base">
           I am ready to bring my skills, dedication, and attention to detail to
-          your team. Whether you have an internship opening or a full-time
-          opportunity, I’d love to connect.
+          your team. Whether you have an <strong>internship</strong> opening, a <strong>freelance project</strong>, or a <strong>full-time opportunity</strong>, I’d love to connect.
         </p>
 
         <div className="mt-10 flex justify-center">

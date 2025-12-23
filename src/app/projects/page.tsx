@@ -17,6 +17,14 @@ import { Badge } from "@/components/ui/badge";
 // --- PROJECT DATA ---
 const PROJECTS = [
   {
+    title: "Mama R's System",
+    description:
+      "A bespoke Inventory and Sales Management System featuring real-time analytics, stock tracking, and automated reporting for a local business.",
+    tags: ["MERN Stack", "Tailwind", "Recharts"],
+    link: "/projects/mamars",
+    image: "/projects/mamars/mamars-cover.png",
+  },
+  {
     title: "ClimaPH",
     description:
       "A high-performance weather platform tailored for the Philippines, integrating real-time forecasts with lifestyle metrics like laundry and umbrella guides.",
@@ -67,7 +75,6 @@ export default function ProjectsPage() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        // UPDATED: Changed 'max-w-2xl' to 'w-full max-w-4xl' to align with the grid width
         className="flex flex-col gap-4 w-full max-w-4xl"
       >
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight lg:text-6xl text-foreground leading-[1.15]">

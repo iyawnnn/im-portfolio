@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { motion, stagger, useAnimate } from "motion/react";
+import { motion, stagger, useAnimate } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const TextGenerateEffect = ({
@@ -8,17 +8,17 @@ export const TextGenerateEffect = ({
   className,
   filter = true,
   duration = 0.5,
-  delay = 0, // Added delay prop
+  delay = 0,
 }: {
   words: string;
   className?: string;
   filter?: boolean;
   duration?: number;
-  delay?: number; // Added type
+  delay?: number;
 }) => {
   const [scope, animate] = useAnimate();
   let wordsArray = words.split(" ");
-  
+
   useEffect(() => {
     animate(
       "span",
@@ -28,7 +28,8 @@ export const TextGenerateEffect = ({
       },
       {
         duration: duration ? duration : 1,
-        delay: stagger(0.2, { startDelay: delay }), // Use the delay here
+        // ADJUSTED SPEED: 0.08 -> 0.11 (Slower, more natural reading pace)
+        delay: stagger(0.11, { startDelay: delay }),
       }
     );
   }, [scope.current]);
@@ -40,7 +41,6 @@ export const TextGenerateEffect = ({
           return (
             <motion.span
               key={word + idx}
-              // Removed hardcoded colors to let className handle it
               className="opacity-0"
               style={{
                 filter: filter ? "blur(10px)" : "none",
@@ -55,9 +55,9 @@ export const TextGenerateEffect = ({
   };
 
   return (
-    <div className={cn(className)}> {/* Removed font-bold */}
-      <div className=""> {/* Removed mt-4 */}
-        <div className="leading-relaxed tracking-normal"> {/* Removed text-2xl and font-bold styles */}
+    <div className={cn("font-normal", className)}>
+      <div className="mt-4">
+        <div className="leading-relaxed tracking-wide">
           {renderWords()}
         </div>
       </div>
