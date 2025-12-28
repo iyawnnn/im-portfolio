@@ -17,7 +17,15 @@ import { Badge } from "@/components/ui/badge";
 // --- PROJECT DATA ---
 const PROJECTS = [
   {
-    title: "Mama R's System",
+    title: "SubTrack",
+    description:
+      "An intelligent financial dashboard for tracking subscriptions, visualizing spending velocity, and managing monthly burn across multiple currencies.",
+    tags: ["Next.js 15", "Supabase", "Google Auth"],
+    link: "/projects/subtrack",
+    image: "/projects/subtrack/subtrack-cover.png",
+  },
+  {
+    title: "Mama R's",
     description:
       "A bespoke Inventory and Sales Management System featuring real-time analytics, stock tracking, and automated reporting for a local business.",
     tags: ["MERN Stack", "Tailwind", "Recharts"],
@@ -36,7 +44,7 @@ const PROJECTS = [
     title: "Thryve",
     description:
       "A unified health and fitness application tracking workouts, meals, and sleep with personalized analytics and achievement goals.",
-    tags: ["MongoDB", "Express", "Vue.js", "Node.js"],
+    tags: ["MEVN Stack", "PrimeVue", "Pinia"],
     link: "/projects/thryve",
     image: "/projects/thryve/thryve-cover.png",
   },
@@ -55,14 +63,6 @@ const PROJECTS = [
     tags: ["PHP", "MongoDB", "E-commerce"],
     link: "/projects/kusinago",
     image: "/projects/kusinago/kusinago-cover.png",
-  },
-  {
-    title: "Agos Coffee",
-    description:
-      "A minimalist brand showcase for a local coffee shop, featuring a clean layout for menus and store information.",
-    tags: ["HTML5", "CSS3", "JavaScript"],
-    link: "/projects/agos-coffee",
-    image: "/projects/agoscoffee/agoscoffee-cover.png",
   },
 ];
 

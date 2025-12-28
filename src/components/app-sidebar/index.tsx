@@ -13,7 +13,6 @@ import {
   Mail,
   Linkedin,
   Github,
-  Instagram,
   Sun,
   Moon,
   ArrowUpRight,
@@ -24,6 +23,24 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/hooks/use-sidebar";
+
+// --- CUSTOM ICONS ---
+const PeerlistIcon = ({ className }: { className?: string }) => (
+  <svg 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="2" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* A stylized "P" to match Lucide's stroke style */}
+    <path d="M19 7a5 5 0 0 0-5-5H7v18" />
+    <path d="M7 12h7a5 5 0 0 0 0-10" />
+  </svg>
+);
 
 const MAIN_LINKS = [
   { title: "Explore", href: "/", icon: Home, shortcut: "1" },
@@ -48,9 +65,9 @@ const CONNECT_LINKS = [
     isExternal: true,
   },
   {
-    title: "Instagram",
-    href: "https://www.instagram.com/iann.mac/",
-    icon: Instagram,
+    title: "Peerlist",
+    href: "https://peerlist.io/iannmacabulos",
+    icon: PeerlistIcon, // Using our custom component
     isExternal: true,
   },
 ] as const;
@@ -184,7 +201,7 @@ export function AppSidebar() {
     <aside
       className={cn(
         "relative flex h-full w-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300",
-        isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-5" // Reduced padding from p-6 to p-5
+        isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-5"
       )}
     >
       <Button

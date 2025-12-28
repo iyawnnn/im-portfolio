@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, RotateCcw } from "lucide-react";
+import { Search, RotateCcw, ShieldCheck } from "lucide-react";
 import { 
   SiHtml5, SiCss3, SiJavascript, SiReact, SiVuedotjs, SiAngular, SiTypescript, 
   SiNextdotjs, SiNodedotjs, SiExpress, SiTailwindcss, SiBootstrap, 
   SiPython, SiPhp, SiMongodb, SiMysql, SiVercel, SiPostman, SiFigma, SiGithub, 
-  SiGit, SiDart, SiFlutter, SiNetlify, SiAmazon, SiWordpress
+  SiGit, SiDart, SiFlutter, SiNetlify, SiAmazon, SiWordpress,
+  SiSupabase, SiPrisma, SiFramer
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 
@@ -32,10 +33,10 @@ const toolsData: ToolCategory[] = [
     category: "Frontend Development",
     items: [
       {
-        name: "Next.js",
-        description: "The React Framework for the Web.",
+        name: "Next.js 15",
+        description: "The React Framework. Using App Router & Server Actions.",
         icon: SiNextdotjs,
-        tags: ["React", "SSR", "Full Stack"],
+        tags: ["React", "SSR", "RSC"],
       },
       {
         name: "React",
@@ -94,7 +95,7 @@ const toolsData: ToolCategory[] = [
     ],
   },
   {
-    category: "Backend & Languages",
+    category: "Backend & Services",
     items: [
       {
         name: "Node.js",
@@ -103,8 +104,14 @@ const toolsData: ToolCategory[] = [
         tags: ["Runtime", "Backend"],
       },
       {
+        name: "Prisma",
+        description: "Next-generation Node.js and TypeScript ORM.",
+        icon: SiPrisma,
+        tags: ["ORM", "Database"],
+      },
+      {
         name: "Express.js",
-        description: "Fast, unopinionated, minimalist web framework for Node.js.",
+        description: "Fast, unopinionated, minimalist web framework.",
         icon: SiExpress,
         tags: ["Framework", "API"],
       },
@@ -116,13 +123,13 @@ const toolsData: ToolCategory[] = [
       },
       {
         name: "Java",
-        description: "High-level, class-based, object-oriented programming language.",
+        description: "High-level, class-based, object-oriented language.",
         icon: FaJava,
         tags: ["Language", "OOP"],
       },
       {
         name: "PHP",
-        description: "Popular general-purpose scripting language for web development.",
+        description: "Popular general-purpose scripting language.",
         icon: SiPhp,
         tags: ["Language", "Server-side"],
       },
@@ -131,6 +138,12 @@ const toolsData: ToolCategory[] = [
   {
     category: "Databases",
     items: [
+      {
+        name: "Supabase",
+        description: "Open Source Firebase alternative. Powered by Postgres.",
+        icon: SiSupabase,
+        tags: ["BaaS", "Realtime"],
+      },
       {
         name: "MongoDB",
         description: "The application data platform for modern apps.",
@@ -149,16 +162,22 @@ const toolsData: ToolCategory[] = [
     category: "DevOps & Cloud",
     items: [
       {
+        name: "Vercel",
+        description: "Develop, Preview, Ship. For the best frontend experience.",
+        icon: SiVercel,
+        tags: ["Deployment", "Hosting"],
+      },
+      {
         name: "Amazon AWS",
         description: "Comprehensive, evolving cloud computing platform.",
         icon: SiAmazon,
         tags: ["Cloud", "Infrastructure"],
       },
       {
-        name: "Vercel",
-        description: "Develop, Preview, Ship. For the best frontend experience.",
-        icon: SiVercel,
-        tags: ["Deployment", "Hosting"],
+        name: "Netlify",
+        description: "The fastest way to build the fastest sites.",
+        icon: SiNetlify,
+        tags: ["Deployment", "CDN"],
       },
       {
         name: "Git",
@@ -171,12 +190,6 @@ const toolsData: ToolCategory[] = [
         description: "Platform for hosting and collaborating on code.",
         icon: SiGithub,
         tags: ["Collaboration", "Git"],
-      },
-      {
-        name: "Netlify",
-        description: "The fastest way to build the fastest sites.",
-        icon: SiNetlify,
-        tags: ["Deployment", "CDN"],
       },
     ],
   },
@@ -317,7 +330,7 @@ export default function StackPage() {
               ))}
             </div>
           ) : (
-            /* Premium Empty State */
+            /* Empty State */
             <div className="flex-grow flex items-center justify-center py-12">
               <div className="max-w-md w-full text-center space-y-8 animate-in fade-in zoom-in duration-300">
                 <div className="relative inline-block">

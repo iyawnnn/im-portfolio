@@ -4,13 +4,11 @@ import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image"; 
 import {
-  Layers,
-  LayoutTemplate,
-  Mail,
-  User,
   CodeXml,
   ArrowRight,
-  FileText, // ADDED: Import FileText for the Resume icon
+  FileText,
+  Mail,
+  User,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -69,11 +67,11 @@ export default function ExplorePage() {
         <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.15]">
            
            <TypewriterEffectSmooth 
-              words={wordsLine1} 
-              className="p-0 m-0"
-              cursorClassName="bg-primary"
-              duration={1.5} 
-              hideCursorOnComplete={true} 
+             words={wordsLine1} 
+             className="p-0 m-0"
+             cursorClassName="bg-primary"
+             duration={1.5} 
+             hideCursorOnComplete={true} 
            />
            
            <div className="hidden md:block mt-1 lg:mt-2">
@@ -173,7 +171,7 @@ export default function ExplorePage() {
                   ClimaPH
                 </CardTitle>
                 <CardDescription className="line-clamp-2 text-sm sm:text-base">
-                  A high-performance weather platform tailored for the Philippines.
+                  A high-performance weather platform tailored for the Philippines, integrating real-time forecasts with lifestyle metrics like laundry and umbrella guides.
                 </CardDescription>
               </CardHeader>
 
@@ -191,13 +189,13 @@ export default function ExplorePage() {
             </Card>
           </Link>
 
-          {/* CARD 2: THRYVE */}
-          <Link href="/projects/thryve" className="group block h-full">
+          {/* CARD 2: SUBTRACK (REPLACED THRYVE) */}
+          <Link href="/projects/subtrack" className="group block h-full">
             <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
               <div className="relative w-full overflow-hidden border-b border-border/50">
                 <Image
-                  src="/projects/thryve/thryve-cover.png"
-                  alt="Thryve"
+                  src="/projects/subtrack/subtrack-cover.png"
+                  alt="SubTrack"
                   width={0}
                   height={0}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -208,22 +206,22 @@ export default function ExplorePage() {
 
               <CardHeader className="px-6 pt-3 pb-1">
                 <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                  Thryve
+                  SubTrack
                 </CardTitle>
                 <CardDescription className="line-clamp-2 text-sm sm:text-base">
-                   A unified health and fitness application tracking workouts and meals.
+                   An intelligent financial dashboard for tracking subscriptions, visualizing spending velocity, and managing monthly burn across multiple currencies.
                 </CardDescription>
               </CardHeader>
 
               <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
                 <Badge variant="secondary" className="rounded-md group-hover:bg-background transition-colors">
-                  Vue.js
+                  Next.js 15
                 </Badge>
                 <Badge variant="secondary" className="rounded-md group-hover:bg-background transition-colors">
-                  Express
+                  Supabase
                 </Badge>
                 <Badge variant="secondary" className="rounded-md group-hover:bg-background transition-colors">
-                  MongoDB
+                  Google Auth
                 </Badge>
               </CardFooter>
             </Card>
@@ -287,11 +285,10 @@ export default function ExplorePage() {
           </CardFooter>
         </Card>
 
-        {/* CARD 2: RESUME (Replaces Projects) */}
+        {/* CARD 2: RESUME */}
         <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
           <Radar />
           <CardHeader className="relative z-10">
-            {/* Changed Icon to FileText for Resume */}
             <FileText className="h-8 w-8 text-primary mb-2 sm:h-10 sm:w-10" />
             <CardTitle className="text-lg sm:text-xl">Resume</CardTitle>
             <CardDescription className="text-xs sm:text-sm">
@@ -305,7 +302,6 @@ export default function ExplorePage() {
               size="sm"
               className="w-full rounded-md shadow-sm transition-all hover:opacity-90 active:scale-95 md:w-auto md:h-10 md:px-4 md:py-2"
             >
-              {/* Changed Link to /resume */}
               <Link href="/resume">View Resume</Link>
             </Button>
           </CardFooter>
