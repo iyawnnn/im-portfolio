@@ -12,19 +12,16 @@ import {
   Globe,
   Layout,
   Rocket,
-  CreditCard,
   TrendingUp,
   Wallet,
+  Bell,
+  TestTube,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-export default function SubTrackPage() {
+export default function SubVantagePage() {
   // Scroll to top on load
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,7 +44,7 @@ export default function SubTrackPage() {
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
-            SubTrack
+            SubVantage
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
             Intelligent Subscription Manager & Tracker
@@ -55,23 +52,26 @@ export default function SubTrackPage() {
         </div>
 
         <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          SubTrack is a comprehensive financial tool built to help users regain control
-          over their recurring expenses. It features a dynamic dashboard that calculates
-          monthly burn and annual forecasts in real-time. The platform supports multi-currency
-          conversion and visualizes spending velocity to prevent unwanted subscription renewals.
+          SubVantage is a comprehensive financial tool built to help users
+          regain control over their recurring expenses. It features a dynamic
+          dashboard that calculates monthly burn and annual forecasts in
+          real-time. The platform supports multi-currency conversion, visualizes
+          spending velocity, and sends intelligent alerts to prevent unwanted
+          renewals.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
           <Badge variant="secondary">Next.js 15</Badge>
           <Badge variant="secondary">TypeScript</Badge>
-          <Badge variant="secondary">Recharts</Badge>
+          <Badge variant="secondary">Resend</Badge>
           <Badge variant="secondary">Supabase</Badge>
+          <Badge variant="secondary">Vitest</Badge>
         </div>
       </div>
 
       {/* --- HERO MEDIA (Video) --- */}
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
-        {/* TODO: Add your SubTrack demo video here */}
+        {/* NOTE: Ensure you rename the folder in public/projects/ from 'subtrack' to 'subvantage' */}
         <video
           src="/projects/subtrack/subtrack-demo.mp4"
           autoPlay
@@ -92,7 +92,7 @@ export default function SubTrackPage() {
         </div>
         <div className="flex gap-3 w-full md:w-auto">
           <Button asChild className="flex-1 md:flex-none font-bold">
-            <Link href="https://subtrackweb.vercel.app/" target="_blank">
+            <Link href="https://subvantage.iansebastian.dev/" target="_blank">
               <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
             </Link>
           </Button>
@@ -101,7 +101,8 @@ export default function SubTrackPage() {
             variant="outline"
             className="flex-1 md:flex-none font-bold"
           >
-            <Link href="https://github.com/iyawnnn/SubTrack" target="_blank">
+            {/* Assuming GitHub repo is also renamed. If not, change this back. */}
+            <Link href="https://github.com/iyawnnn/SubVantage" target="_blank">
               <Github className="mr-2 h-4 w-4" /> Source Code
             </Link>
           </Button>
@@ -110,7 +111,6 @@ export default function SubTrackPage() {
 
       {/* --- DETAILED CONTENT --- */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        
         {/* LEFT COLUMN (Main Content) */}
         <div className="xl:col-span-2 space-y-12">
           {/* Core Features */}
@@ -121,20 +121,25 @@ export default function SubTrackPage() {
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-primary" /> Financial Pulse
+                  <TrendingUp className="w-4 h-4 text-primary" /> Financial
+                  Pulse
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  A real-time dashboard displaying Monthly Burn, Annual Forecasts, and
-                  Total Saved amounts. It helps users understand their immediate financial health at a glance.
+                  A real-time dashboard displaying Monthly Burn, Annual
+                  Forecasts, and Total Saved amounts. It helps users understand
+                  their immediate financial health at a glance.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                   <Globe className="w-4 h-4 text-primary" /> Multi-Currency Support
+                  <Bell className="w-4 h-4 text-primary" /> Smart Alerts via
+                  Resend
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Seamlessly converts subscription costs (e.g., USD, PHP, JPY) into the
-                  user's preferred base currency for accurate total calculations.
+                  Integrated <strong>Resend</strong> to automate email
+                  notifications. Users receive timely alerts 3 days before a
+                  subscription renews or a trial expires, helping prevent
+                  accidental charges.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
@@ -142,8 +147,9 @@ export default function SubTrackPage() {
                   <Wallet className="w-4 h-4 text-primary" /> Spending Velocity
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Interactive charts powered by Recharts that visualize spending trends over time,
-                  helping users identify months with heavy outgoing payments.
+                  Interactive charts powered by Recharts that visualize spending
+                  trends over time, helping users identify months with heavy
+                  outgoing payments.
                 </p>
               </div>
             </div>
@@ -158,11 +164,11 @@ export default function SubTrackPage() {
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
-                The primary challenge was managing state for currency conversions across
-                different subscription cards. Ensuring that the "Total Monthly Burn" updated
-                instantly when a user changed their preferred currency or added a new trial
-                required complex state management. Additionally, designing the cards to look
-                consistent regardless of the data length was a UI priority.
+                The primary challenge was managing state for currency
+                conversions across different subscription cards while ensuring
+                data reliability. Additionally, implementing a notification
+                system that reliably triggers based on server-side dates
+                required careful backend logic.
               </p>
             </div>
 
@@ -170,18 +176,57 @@ export default function SubTrackPage() {
               <h3 className="text-xl font-semibold">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
-                  <strong>Global State:</strong> Utilized React Context (or Zustand) to handle
-                  user preferences for currency and theme, ensuring settings persisted across pages.
+                  <strong>Global State:</strong> Utilized React Context to
+                  handle user preferences for currency and theme, ensuring
+                  settings persisted across pages.
                 </li>
                 <li>
-                  <strong>Dynamic Charts:</strong> Integrated Recharts to render the "Spending Velocity"
-                  graph, transforming raw date-value pairs into a responsive visualization.
+                  <strong>Transactional Emails:</strong> Leveraged Resend's API
+                  to handle transactional emails with high deliverability,
+                  decoupled from the main application thread.
                 </li>
                 <li>
-                  <strong>Component Architecture:</strong> Created reusable "Subscription Card" components
-                  that accept props for renewal dates, costs, and logos, ensuring code reusability.
+                  <strong>Component Architecture:</strong> Created reusable
+                  "Subscription Card" components that accept props for renewal
+                  dates, costs, and logos, ensuring code reusability.
                 </li>
               </ul>
+            </div>
+          </section>
+
+          {/* Testing & QA */}
+          <section className="space-y-6">
+            <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+              <TestTube className="w-6 h-6 text-primary" /> Quality Assurance
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              To ensure the application handles financial data accurately, I
+              moved beyond simple feature building and implemented a robust
+              testing strategy:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
+                <h4 className="font-semibold text-foreground mb-2">
+                  Unit & Integration Testing
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Using <strong>Vitest</strong>, I wrote tests for critical
+                  utility functions, ensuring that currency conversion math and
+                  date calculations (like "days until renewal") are 100%
+                  accurate.
+                </p>
+              </div>
+              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
+                <h4 className="font-semibold text-foreground mb-2">
+                  End-to-End (E2E) Testing
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Implemented <strong>Playwright</strong> to simulate real user
+                  flows, such as signing up, adding a new subscription, and
+                  verifying that the dashboard updates correctly without manual
+                  intervention.
+                </p>
+              </div>
             </div>
           </section>
 
@@ -191,17 +236,18 @@ export default function SubTrackPage() {
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Building SubTrack improved my skills in handling complex data arrays and
-              financial calculations on the frontend. I also refined my ability to use
-              Shadcn UI components to build a dashboard that is both functional and
-              aesthetically pleasing.
+              Building SubVantage improved my skills in handling complex data
+              arrays and financial calculations on the frontend. More
+              importantly, integrating <strong>Resend</strong> {" "}
+              and writing <strong>E2E tests</strong> taught me how to build
+              production-ready applications that are not just functional, but
+              reliable and user-centric.
             </p>
           </section>
         </div>
 
         {/* RIGHT COLUMN (Tech Stack & Meta) */}
         <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          
           {/* Tech Stack Widget */}
           <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
             <CardHeader>
@@ -225,23 +271,24 @@ export default function SubTrackPage() {
 
               <div>
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Backend & Database
+                  Backend & Services
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline">Supabase</Badge>
                   <Badge variant="outline">PostgreSQL</Badge>
+                  <Badge variant="outline">Resend</Badge>
                   <Badge variant="outline">Prisma</Badge>
                 </div>
               </div>
 
               <div>
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Tools
+                  Testing & Tools
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">Vercel</Badge>
-                  <Badge variant="outline">Google Auth</Badge>
+                  <Badge variant="outline">Vitest</Badge>
+                  <Badge variant="outline">Playwright</Badge>
                   <Badge variant="outline">Git</Badge>
                 </div>
               </div>
@@ -264,7 +311,7 @@ export default function SubTrackPage() {
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Timeline</span>
-                <span className="font-medium text-foreground">Dec 2025</span>
+                <span className="font-medium text-foreground">Jan 2026</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Role</span>
@@ -285,23 +332,18 @@ export default function SubTrackPage() {
             <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Platform</span>
-                <span className="font-medium text-foreground">
-                  Vercel
-                </span>
+                <span className="font-medium text-foreground">Vercel</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Version</span>
-                <span className="font-medium text-foreground">v0.8.0 (Beta)</span>
+                <span className="font-medium text-foreground">v1.0.0</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Database</span>
-                <span className="font-medium text-foreground">
-                  Supabase
-                </span>
+                <span className="font-medium text-foreground">Supabase</span>
               </div>
             </div>
           </Card>
-
         </div>
       </div>
     </div>

@@ -1,15 +1,17 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, RotateCcw, ShieldCheck } from "lucide-react";
+// 1. Add TestTube to lucide-react imports for the Playwright fallback
+import { Search, RotateCcw, TestTube } from "lucide-react";
 import { 
   SiHtml5, SiCss3, SiJavascript, SiReact, SiVuedotjs, SiAngular, SiTypescript, 
   SiNextdotjs, SiNodedotjs, SiExpress, SiTailwindcss, SiBootstrap, 
   SiPython, SiPhp, SiMongodb, SiMysql, SiVercel, SiPostman, SiFigma, SiGithub, 
   SiGit, SiDart, SiFlutter, SiNetlify, SiAmazon, SiWordpress,
-  SiSupabase, SiPrisma, SiFramer
+  SiSupabase, SiPrisma, SiPostgresql, SiVitest // 2. Removed SiPlaywright from here
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
+import { MdEmail } from "react-icons/md"; 
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -104,16 +106,22 @@ const toolsData: ToolCategory[] = [
         tags: ["Runtime", "Backend"],
       },
       {
+        name: "Express.js",
+        description: "Fast, unopinionated, minimalist web framework.",
+        icon: SiExpress,
+        tags: ["Framework", "API"],
+      },
+      {
         name: "Prisma",
         description: "Next-generation Node.js and TypeScript ORM.",
         icon: SiPrisma,
         tags: ["ORM", "Database"],
       },
       {
-        name: "Express.js",
-        description: "Fast, unopinionated, minimalist web framework.",
-        icon: SiExpress,
-        tags: ["Framework", "API"],
+        name: "Resend",
+        description: "Email API for developers.",
+        icon: MdEmail, 
+        tags: ["API", "Email"],
       },
       {
         name: "Python",
@@ -139,6 +147,12 @@ const toolsData: ToolCategory[] = [
     category: "Databases",
     items: [
       {
+        name: "PostgreSQL",
+        description: "The world's most advanced open source relational database.",
+        icon: SiPostgresql,
+        tags: ["Database", "SQL"],
+      },
+      {
         name: "Supabase",
         description: "Open Source Firebase alternative. Powered by Postgres.",
         icon: SiSupabase,
@@ -159,7 +173,30 @@ const toolsData: ToolCategory[] = [
     ],
   },
   {
-    category: "DevOps & Cloud",
+    category: "Testing & QA",
+    items: [
+      {
+        name: "Vitest",
+        description: "Blazing fast unit test framework powered by Vite.",
+        icon: SiVitest,
+        tags: ["Testing", "Unit"],
+      },
+      {
+        name: "Playwright",
+        description: "Reliable end-to-end testing for modern web apps.",
+        icon: TestTube, // 3. Replaced SiPlaywright with TestTube (Lucide)
+        tags: ["Testing", "E2E"],
+      },
+      {
+        name: "Postman",
+        description: "API platform for building and using APIs.",
+        icon: SiPostman,
+        tags: ["API", "Testing"],
+      },
+    ],
+  },
+  {
+    category: "DevOps & Deployment",
     items: [
       {
         name: "Vercel",
@@ -179,6 +216,11 @@ const toolsData: ToolCategory[] = [
         icon: SiNetlify,
         tags: ["Deployment", "CDN"],
       },
+    ],
+  },
+  {
+    category: "Tools & Workflow",
+    items: [
       {
         name: "Git",
         description: "Distributed version control system.",
@@ -190,6 +232,18 @@ const toolsData: ToolCategory[] = [
         description: "Platform for hosting and collaborating on code.",
         icon: SiGithub,
         tags: ["Collaboration", "Git"],
+      },
+      {
+        name: "Figma",
+        description: "The collaborative interface design tool.",
+        icon: SiFigma,
+        tags: ["Design", "UI/UX"],
+      },
+      {
+        name: "WordPress",
+        description: "Open source software you can use to create beautiful websites.",
+        icon: SiWordpress,
+        tags: ["CMS", "PHP"],
       },
     ],
   },
@@ -207,29 +261,6 @@ const toolsData: ToolCategory[] = [
         description: "Client-optimized language for fast apps on any platform.",
         icon: SiDart,
         tags: ["Language", "Mobile"],
-      },
-    ],
-  },
-  {
-    category: "Design, CMS & Tools",
-    items: [
-      {
-        name: "Figma",
-        description: "The collaborative interface design tool.",
-        icon: SiFigma,
-        tags: ["Design", "UI/UX"],
-      },
-      {
-        name: "WordPress",
-        description: "Open source software you can use to create beautiful websites.",
-        icon: SiWordpress,
-        tags: ["CMS", "PHP"],
-      },
-      {
-        name: "Postman",
-        description: "API platform for building and using APIs.",
-        icon: SiPostman,
-        tags: ["API", "Testing"],
       },
     ],
   },

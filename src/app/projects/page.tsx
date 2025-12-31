@@ -17,12 +17,12 @@ import { Badge } from "@/components/ui/badge";
 // --- PROJECT DATA ---
 const PROJECTS = [
   {
-    title: "SubTrack",
+    title: "SubVantage", 
     description:
       "An intelligent financial dashboard for tracking subscriptions, visualizing spending velocity, and managing monthly burn across multiple currencies.",
     tags: ["Next.js 15", "Supabase", "Google Auth"],
-    link: "/projects/subtrack",
-    image: "/projects/subtrack/subtrack-cover.png",
+    link: "/projects/subvantage", 
+    image: "/projects/subtrack/subtrack-cover.png", 
   },
   {
     title: "Mama R's",

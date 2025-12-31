@@ -89,7 +89,7 @@ export default function MovieLoomPage() {
         </div>
         <div className="flex gap-3 w-full md:w-auto">
           <Button asChild className="flex-1 md:flex-none font-bold">
-            <Link href="https://movie-loom.vercel.app/" target="_blank">
+            <Link href="https://movieloom.iansebastian.dev/" target="_blank">
               <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
             </Link>
           </Button>
@@ -258,7 +258,7 @@ export default function MovieLoomPage() {
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Timeline</span>
-                <span className="font-medium text-foreground">Aug 2025</span>
+                <span className="font-medium text-foreground">June 2025</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Role</span>

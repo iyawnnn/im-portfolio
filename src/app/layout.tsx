@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ian Macabulos | Full-Stack Developer",
+  title: "Ian Macabulos",
   description:
-    "Portfolio of Ian Macabulos, a Full-Stack Developer based in the Philippines.",
+    "I am Ian Macabulos, a Full-Stack Developer based in the Philippines dedicated to building scalable, high-performance web applications. I specialize in the modern JavaScript ecosystem, leveraging Next.js, TypeScript, and Node.js to craft seamless digital experiences.",
 };
 
 export default function RootLayout({

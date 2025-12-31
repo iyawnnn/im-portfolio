@@ -90,7 +90,7 @@ export default function ClimaPHPage() {
         </div>
         <div className="flex gap-3 w-full md:w-auto">
           <Button asChild className="flex-1 md:flex-none font-bold">
-            <Link href="https://climaph.vercel.app/" target="_blank">
+            <Link href="https://climaph.iansebastian.dev/" target="_blank">
               <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
             </Link>
           </Button>

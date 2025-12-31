@@ -69,7 +69,6 @@ export default function ResumePage() {
   };
 
   return (
-    // EXACT SAME CONTAINER CLASSES AS PROJECTS PAGE (NO INNER MAX-WIDTH)
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       
       {/* --- HEADER --- */}
@@ -140,8 +139,51 @@ export default function ResumePage() {
           <h2 className="text-xl font-bold tracking-tight">Experience</h2>
         </div>
 
-        <div className="relative border-l-2 border-border/50 ml-3 md:ml-4 space-y-10 pl-8 md:pl-10 py-2">
+        <div className="relative border-l-2 border-border/50 ml-3 md:ml-4 space-y-12 pl-8 md:pl-10 py-2">
+          
+          {/* FREELANCE ENTRY */}
           <div className="relative">
+            {/* FIXED COLOR CIRCLE */}
+            <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-primary shadow-sm" />
+            
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+              <h3 className="text-lg md:text-xl font-bold text-foreground">
+                Freelance Full Stack Developer
+              </h3>
+              <span className="text-sm font-mono text-muted-foreground bg-secondary px-2 py-0.5 rounded">
+                Aug 2025 - Present
+              </span>
+            </div>
+            
+            <p className="text-primary font-semibold mb-4">
+              Self-Employed / Remote
+            </p>
+            
+            <ul className="space-y-3 text-muted-foreground text-sm md:text-base leading-relaxed">
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+                <span>
+                  <strong>Digital Transformation:</strong> Architected and deployed a custom Inventory & Sales Management System for an SME client, successfully digitizing 100% of manual paper records.
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+                <span>
+                  <strong>Analytics & Optimization:</strong> Engineered a real-time analytics dashboard using React and Node.js, enabling data-driven decision-making that reduced inventory waste and optimized stock levels.
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+                <span>
+                  <strong>Security & Infrastructure:</strong> Implemented secure role-based authentication (JWT) and scalable cloud architecture, ensuring data integrity for sensitive business transactions.
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* BOF Inc. ENTRY */}
+          <div className="relative">
+            {/* FIXED COLOR CIRCLE (Changed from bg-muted-foreground/30 to bg-primary) */}
             <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-primary shadow-sm" />
             
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
@@ -149,7 +191,7 @@ export default function ResumePage() {
                 BOF Inc. (A Rural Bank)
               </h3>
               <span className="text-sm font-mono text-muted-foreground bg-secondary px-2 py-0.5 rounded">
-                Mar 20 - 29, 2023
+                Mar 20 - 31, 2023
               </span>
             </div>
             
@@ -176,6 +218,7 @@ export default function ResumePage() {
               </li>
             </ul>
           </div>
+
         </div>
       </motion.section>
 

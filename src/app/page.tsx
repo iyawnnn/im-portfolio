@@ -65,7 +65,7 @@ export default function ExplorePage() {
         
         {/* HEADER CONTAINER */}
         <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.15]">
-           
+            
            <TypewriterEffectSmooth 
              words={wordsLine1} 
              className="p-0 m-0"
@@ -189,13 +189,13 @@ export default function ExplorePage() {
             </Card>
           </Link>
 
-          {/* CARD 2: SUBTRACK (REPLACED THRYVE) */}
-          <Link href="/projects/subtrack" className="group block h-full">
+          {/* CARD 2: SUBVANTAGE (UPDATED) */}
+          <Link href="/projects/subvantage" className="group block h-full">
             <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
               <div className="relative w-full overflow-hidden border-b border-border/50">
                 <Image
-                  src="/projects/subtrack/subtrack-cover.png"
-                  alt="SubTrack"
+                  src="/projects/subtrack/subtrack-cover.png" 
+                  alt="SubVantage"
                   width={0}
                   height={0}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -206,7 +206,7 @@ export default function ExplorePage() {
 
               <CardHeader className="px-6 pt-3 pb-1">
                 <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                  SubTrack
+                  SubVantage
                 </CardTitle>
                 <CardDescription className="line-clamp-2 text-sm sm:text-base">
                    An intelligent financial dashboard for tracking subscriptions, visualizing spending velocity, and managing monthly burn across multiple currencies.
