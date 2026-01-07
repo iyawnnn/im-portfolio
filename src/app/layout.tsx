@@ -21,16 +21,11 @@ export const metadata: Metadata = {
   // 1. Base URL: Helps Google understand domain structure
   metadataBase: new URL("https://iansebastian.dev"),
 
-  // 2. Title Template: 
-  // "default" is for the Home page.
-  // "template" is for other pages (e.g., "Projects | Ian Macabulos")
-  title: {
-    default: "Ian Macabulos - Full-Stack Developer",
-    template: "%s | Ian Macabulos",
-  },
+  // 2. Title:
+  // This default title will only show on the Home page.
+  title: "Ian Macabulos",
 
   // 3. Description:
-  // Simplified, natural language loaded with keywords (Next.js, Philippines, Scalable).
   description:
     "A Full-Stack Developer based in the Philippines, crafting accessible and high-performance web applications with Next.js, TypeScript, and Node.js.",
 
@@ -45,15 +40,23 @@ export const metadata: Metadata = {
     "TypeScript",
   ],
 
-  // 5. Open Graph: Controls how links look when shared on Facebook/LinkedIn/Discord
+  // 5. Open Graph: Controls how links look when shared on social media
   openGraph: {
-    title: "Ian Macabulos - Full-Stack Developer",
+    title: "Ian Macabulos",
     description:
       "Building scalable, high-performance web applications with the modern tech stack.",
     url: "https://iansebastian.dev",
     siteName: "Ian Macabulos",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/about/profile.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Ian Macabulos Profile",
+      },
+    ],
   },
 };
 
