@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion"; // Added for uniformity
 import {
   BookOpen,
   Brain,
@@ -33,26 +34,31 @@ export default function AboutPage() {
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       {/* --- HERO SECTION --- */}
-      <section className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+      <motion.section 
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between"
+      >
         <div className="flex max-w-2xl flex-col gap-4">
           <div className="flex items-center gap-2 text-muted-foreground">
             <MapPin className="h-4 w-4" />
             <span className="text-sm font-medium">Based in Philippines</span>
           </div>
 
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
+          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight lg:text-6xl text-foreground leading-[1.15]">
             About Me
           </h1>
 
           {/* Hero Section Intro */}
           <div className="space-y-4">
-            <div className="text-base leading-relaxed text-muted-foreground">
+            <div className="text-base leading-relaxed text-muted-foreground sm:text-lg">
               <TextGenerateEffect
                 words={paragraph1}
                 className="text-muted-foreground font-normal"
               />
             </div>
-            <div className="text-base leading-relaxed text-muted-foreground">
+            <div className="text-base leading-relaxed text-muted-foreground sm:text-lg">
               <TextGenerateEffect
                 words={paragraph2}
                 className="text-muted-foreground font-normal"
@@ -75,10 +81,15 @@ export default function AboutPage() {
             />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* --- GRID SECTIONS --- */}
-      <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
+      <motion.section 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="grid grid-cols-1 gap-6 md:grid-cols-2"
+      >
         <Card className="bg-card border-border/50">
           <CardHeader className="flex flex-row items-center gap-4 space-y-0">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
@@ -207,10 +218,15 @@ export default function AboutPage() {
             </div>
           </CardContent>
         </Card>
-      </section>
+      </motion.section>
 
       {/* --- CALL TO ACTION --- */}
-      <section className="rounded-3xl border border-primary/20 bg-card p-8 text-center md:p-12 shadow-sm">
+      <motion.section 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="rounded-3xl border border-primary/20 bg-card p-8 text-center md:p-12 shadow-sm"
+      >
         <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
           <Sparkles className="h-6 w-6" />
         </div>
@@ -236,7 +252,7 @@ export default function AboutPage() {
             </HoverBorderGradient>
           </Link>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }

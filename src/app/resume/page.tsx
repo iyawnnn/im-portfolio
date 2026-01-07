@@ -150,8 +150,9 @@ export default function ResumePage() {
               <h3 className="text-lg md:text-xl font-bold text-foreground">
                 Freelance Full Stack Developer
               </h3>
-              <span className="text-sm font-mono text-muted-foreground bg-secondary px-2 py-0.5 rounded">
-                Aug 2025 - Present
+              {/* ADDED w-fit HERE */}
+              <span className="text-sm font-mono text-muted-foreground bg-secondary px-2 py-0.5 rounded w-fit">
+                2025 - Present
               </span>
             </div>
             
@@ -177,44 +178,6 @@ export default function ResumePage() {
                 <span>
                   <strong>Security & Infrastructure:</strong> Implemented secure role-based authentication (JWT) and scalable cloud architecture, ensuring data integrity for sensitive business transactions.
                 </span>
-              </li>
-            </ul>
-          </div>
-
-          {/* BOF Inc. ENTRY */}
-          <div className="relative">
-            {/* FIXED COLOR CIRCLE (Changed from bg-muted-foreground/30 to bg-primary) */}
-            <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-primary shadow-sm" />
-            
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
-              <h3 className="text-lg md:text-xl font-bold text-foreground">
-                BOF Inc. (A Rural Bank)
-              </h3>
-              <span className="text-sm font-mono text-muted-foreground bg-secondary px-2 py-0.5 rounded">
-                Mar 20 - 31, 2023
-              </span>
-            </div>
-            
-            <p className="text-primary font-semibold mb-4">
-              On-The-Job Training in Human Resource Department
-            </p>
-            
-            <ul className="space-y-2 text-muted-foreground text-sm md:text-base leading-relaxed">
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                Processed recruitment applications and maintained applicant databases.
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                Created comprehensive summaries for potential applicants from Job Fairs.
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                Managed email correspondence and sent out pre-employment examination materials.
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                Digitized and organized physical resume files for better data accessibility.
               </li>
             </ul>
           </div>
@@ -256,7 +219,7 @@ export default function ResumePage() {
               </p>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Award className="w-4 h-4" />
-                <span>Consistent Dean's and President's Lister (A.Y. 2023-2025)</span>
+                <span>Consistent Dean&apos;s and President&apos;s Lister (A.Y. 2023-2025)</span>
               </div>
             </div>
           </div>

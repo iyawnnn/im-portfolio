@@ -54,7 +54,7 @@ const CONNECT_LINKS = [
   { title: "Contact", href: "/contact", icon: Mail, shortcut: "C" },
   {
     title: "LinkedIn",
-    href: "https://www.linkedin.com/in/ian-sebastian-macabulos/",
+    href: "https://www.linkedin.com/in/ianmacabulos/",
     icon: Linkedin,
     isExternal: true,
   },

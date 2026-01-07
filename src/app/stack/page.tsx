@@ -1,17 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-// 1. Add TestTube to lucide-react imports for the Playwright fallback
 import { Search, RotateCcw, TestTube } from "lucide-react";
 import { 
   SiHtml5, SiCss3, SiJavascript, SiReact, SiVuedotjs, SiAngular, SiTypescript, 
   SiNextdotjs, SiNodedotjs, SiExpress, SiTailwindcss, SiBootstrap, 
   SiPython, SiPhp, SiMongodb, SiMysql, SiVercel, SiPostman, SiFigma, SiGithub, 
   SiGit, SiDart, SiFlutter, SiNetlify, SiAmazon, SiWordpress,
-  SiSupabase, SiPrisma, SiPostgresql, SiVitest // 2. Removed SiPlaywright from here
+  SiSupabase, SiPrisma, SiPostgresql, SiVitest, SiGithubactions
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
-import { MdEmail } from "react-icons/md"; 
+// Removed MdEmail import as Resend was removed
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -97,7 +96,7 @@ const toolsData: ToolCategory[] = [
     ],
   },
   {
-    category: "Backend & Services",
+    category: "Backend Development", // Renamed from "Backend & Services"
     items: [
       {
         name: "Node.js",
@@ -116,12 +115,6 @@ const toolsData: ToolCategory[] = [
         description: "Next-generation Node.js and TypeScript ORM.",
         icon: SiPrisma,
         tags: ["ORM", "Database"],
-      },
-      {
-        name: "Resend",
-        description: "Email API for developers.",
-        icon: MdEmail, 
-        tags: ["API", "Email"],
       },
       {
         name: "Python",
@@ -184,7 +177,7 @@ const toolsData: ToolCategory[] = [
       {
         name: "Playwright",
         description: "Reliable end-to-end testing for modern web apps.",
-        icon: TestTube, // 3. Replaced SiPlaywright with TestTube (Lucide)
+        icon: TestTube,
         tags: ["Testing", "E2E"],
       },
       {
@@ -215,6 +208,12 @@ const toolsData: ToolCategory[] = [
         description: "The fastest way to build the fastest sites.",
         icon: SiNetlify,
         tags: ["Deployment", "CDN"],
+      },
+      {
+        name: "GitHub Actions",
+        description: "Automate workflows from idea to production with CI/CD pipelines.", // Simplified description
+        icon: SiGithubactions,
+        tags: ["CI/CD", "Automation"],
       },
     ],
   },

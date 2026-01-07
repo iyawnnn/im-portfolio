@@ -18,9 +18,43 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ian Macabulos",
+  // 1. Base URL: Helps Google understand domain structure
+  metadataBase: new URL("https://iansebastian.dev"),
+
+  // 2. Title Template: 
+  // "default" is for the Home page.
+  // "template" is for other pages (e.g., "Projects | Ian Macabulos")
+  title: {
+    default: "Ian Macabulos - Full-Stack Developer",
+    template: "%s | Ian Macabulos",
+  },
+
+  // 3. Description:
+  // Simplified, natural language loaded with keywords (Next.js, Philippines, Scalable).
   description:
-    "I am Ian Macabulos, a Full-Stack Developer based in the Philippines dedicated to building scalable, high-performance web applications. I specialize in the modern JavaScript ecosystem, leveraging Next.js, TypeScript, and Node.js to craft seamless digital experiences.",
+    "A Full-Stack Developer based in the Philippines, crafting accessible and high-performance web applications with Next.js, TypeScript, and Node.js.",
+
+  // 4. Keywords: Helps search engines categorize your site
+  keywords: [
+    "Ian Macabulos",
+    "Ian Sebastian Macabulos",
+    "Full-Stack Developer",
+    "Web Developer Philippines",
+    "Next.js Developer",
+    "React",
+    "TypeScript",
+  ],
+
+  // 5. Open Graph: Controls how links look when shared on Facebook/LinkedIn/Discord
+  openGraph: {
+    title: "Ian Macabulos - Full-Stack Developer",
+    description:
+      "Building scalable, high-performance web applications with the modern tech stack.",
+    url: "https://iansebastian.dev",
+    siteName: "Ian Macabulos",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
@@ -35,8 +69,8 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"      
-          enableSystem={false}     
+          defaultTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
           <SidebarProvider>

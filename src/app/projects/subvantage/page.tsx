@@ -71,9 +71,8 @@ export default function SubVantagePage() {
 
       {/* --- HERO MEDIA (Video) --- */}
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
-        {/* NOTE: Ensure you rename the folder in public/projects/ from 'subtrack' to 'subvantage' */}
         <video
-          src="/projects/subtrack/subtrack-demo.mp4"
+          src="/projects/subvantage/subvantage-demo.mp4"
           autoPlay
           muted
           loop
@@ -101,7 +100,6 @@ export default function SubVantagePage() {
             variant="outline"
             className="flex-1 md:flex-none font-bold"
           >
-            {/* Assuming GitHub repo is also renamed. If not, change this back. */}
             <Link href="https://github.com/iyawnnn/SubVantage" target="_blank">
               <Github className="mr-2 h-4 w-4" /> Source Code
             </Link>

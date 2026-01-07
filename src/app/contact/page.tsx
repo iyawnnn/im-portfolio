@@ -112,7 +112,7 @@ export default function ContactPage() {
             </h3>
             <div className="relative group">
               <div className="absolute -inset-0.5 bg-gradient-to-r from-primary/20 to-primary/0 rounded-xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-              <div className="relative flex items-center gap-3 p-2 pr-2 rounded-xl border border-border bg-card/50 backdrop-blur-sm">
+              <div className="relative flex items-center gap-3 p-2 pr-2 rounded-xl border border-border bg-card/50">
                 <div className="h-10 w-10 rounded-lg bg-background flex items-center justify-center shrink-0 border border-border/50">
                   <Mail className="w-5 h-5 text-primary" />
                 </div>
@@ -221,7 +221,7 @@ export default function ContactPage() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="lg:col-span-7 flex flex-col gap-6"
         >
-          <Card className="border border-border/40 shadow-sm bg-card/30 backdrop-blur-sm overflow-hidden py-0">
+          <Card className="border border-border/40 shadow-sm bg-card/30 overflow-hidden py-0">
             <CardContent className="p-5 md:p-6">
               {isSuccess ? (
                 <motion.div 

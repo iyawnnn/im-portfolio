@@ -22,7 +22,7 @@ const PROJECTS = [
       "An intelligent financial dashboard for tracking subscriptions, visualizing spending velocity, and managing monthly burn across multiple currencies.",
     tags: ["Next.js 15", "Supabase", "Google Auth"],
     link: "/projects/subvantage", 
-    image: "/projects/subtrack/subtrack-cover.png", 
+    image: "/projects/subvantage/subvantage-cover.png", 
   },
   {
     title: "Mama R's",
