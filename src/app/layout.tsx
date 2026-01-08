@@ -18,18 +18,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  // 1. Base URL: Helps Google understand domain structure
+  // 1. Base URL
   metadataBase: new URL("https://iansebastian.dev"),
 
-  // 2. Title:
-  // This default title will only show on the Home page.
+  // 2. Title
   title: "Ian Macabulos",
 
-  // 3. Description:
+  // 3. Description
   description:
     "A Full-Stack Developer based in the Philippines, crafting accessible and high-performance web applications with Next.js, TypeScript, and Node.js.",
 
-  // 4. Keywords: Helps search engines categorize your site
+  // 4. Keywords
   keywords: [
     "Ian Macabulos",
     "Ian Sebastian Macabulos",
@@ -40,7 +39,7 @@ export const metadata: Metadata = {
     "TypeScript",
   ],
 
-  // 5. Open Graph: Controls how links look when shared on social media
+  // 5. Open Graph
   openGraph: {
     title: "Ian Macabulos",
     description:
@@ -65,8 +64,24 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // --- JSON-LD DATA FOR GOOGLE SITE NAME ---
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Ian Macabulos",
+    alternateName: ["Ian Sebastian Macabulos", "Ian Macabulos Portfolio"],
+    url: "https://iansebastian.dev",
+  };
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Injecting the JSON-LD script for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistSans.className} antialiased`}
       >

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image"; // Changed: Import Image from next/image
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
@@ -20,7 +21,7 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+// Removed: Avatar imports are no longer needed
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/hooks/use-sidebar";
 
@@ -216,27 +217,42 @@ export function AppSidebar() {
         <ChevronLeft className="h-3.5 w-3.5" />
       </Button>
 
-      <header
+<header
         className={cn(
           "mb-10 flex items-center transition-all duration-300",
           isCollapsed ? "justify-center px-0 gap-0" : "gap-4 px-1"
         )}
       >
-        <Avatar
+        {/* CONTAINER: Handles the shape (Circle) and Border */}
+        <div
           className={cn(
-            "shrink-0 border border-sidebar-foreground/20 shadow-sm transition-all",
+            "relative shrink-0 flex items-center justify-center overflow-hidden rounded-full border border-sidebar-foreground/20 shadow-sm transition-all",
+            // Sizing for collapsed vs expanded
             isCollapsed ? "h-10 w-10" : "h-12 w-12"
           )}
         >
-          <AvatarImage
-            src="/about/profile.jpg"
+          {/* 1. LIGHT MODE LOGO (Black Ink) */}
+          {/* Logic: Visible by default (block). HIDDEN when dark mode is active (dark:hidden). */}
+          <Image
+            src="/logo/personal-logo-black.png"
             alt="Ian Macabulos"
-            className="object-cover"
+            fill
+            sizes="(max-width: 768px) 48px, 48px"
+            priority
+            className="block dark:hidden object-cover"
           />
-          <AvatarFallback className="bg-sidebar-primary text-xs font-bold text-sidebar-primary-foreground">
-            IM
-          </AvatarFallback>
-        </Avatar>
+
+          {/* 2. DARK MODE LOGO (White Ink) */}
+          {/* Logic: Hidden by default (hidden). VISIBLE when dark mode is active (dark:block). */}
+          <Image
+            src="/logo/personal-logo-white.png"
+            alt="Ian Macabulos"
+            fill
+            sizes="(max-width: 768px) 48px, 48px"
+            priority
+            className="hidden dark:block object-cover"
+          />
+        </div>
 
         <div
           className={cn(
