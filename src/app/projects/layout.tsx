@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Projects | Ian Macabulos",
+  title: "Projects",
   description: "Explore my collection of web development projects. A showcase of full-stack applications, frontend interfaces, and technical experiments built with modern tools.",
   openGraph: {
     title: "Projects | Ian Macabulos",

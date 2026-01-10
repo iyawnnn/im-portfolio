@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Tech Stack | Ian Macabulos",
+  title: "Tech Stack",
   description: "Explore my development arsenal. A comprehensive list of languages, frameworks, and tools I use, including Next.js, React, Node.js, and PostgreSQL.",
   openGraph: {
     title: "Tech Stack | Ian Macabulos",

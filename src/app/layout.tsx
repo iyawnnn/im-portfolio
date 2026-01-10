@@ -21,8 +21,11 @@ export const metadata: Metadata = {
   // 1. Base URL
   metadataBase: new URL("https://iansebastian.dev"),
 
-  // 2. Title
-  title: "Ian Macabulos",
+  // 2. Title Template
+  title: {
+    default: "Ian Macabulos",
+    template: "%s | Ian Macabulos",
+  },
 
   // 3. Description
   description:
@@ -39,7 +42,14 @@ export const metadata: Metadata = {
     "TypeScript",
   ],
 
-  // 5. Open Graph
+  // 5. Favicon (Fixes the missing grey globe icon)
+  icons: {
+    icon: "/logo/personal-logo-black.png",
+    shortcut: "/logo/personal-logo-black.png",
+    apple: "/logo/personal-logo-black.png",
+  },
+
+  // 6. Open Graph (Fixes the link preview on Facebook/LinkedIn)
   openGraph: {
     title: "Ian Macabulos",
     description:
@@ -50,12 +60,20 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/about/profile.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Ian Macabulos Profile",
+        url: "/logo/personal-logo-black.png",
+        width: 800,
+        height: 800,
+        alt: "Ian Macabulos Portfolio Logo",
       },
     ],
+  },
+
+  // 7. Twitter Card (For X/Twitter previews)
+  twitter: {
+    card: "summary",
+    title: "Ian Macabulos",
+    description: "Full-Stack Developer based in the Philippines.",
+    images: ["/logo/personal-logo-black.png"],
   },
 };
 
@@ -64,13 +82,30 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // --- JSON-LD DATA FOR GOOGLE SITE NAME ---
+  // --- ENHANCED JSON-LD DATA ---
+  // This tells Google: "This website belongs to Ian Macabulos, the same person on LinkedIn."
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "Ian Macabulos",
-    alternateName: ["Ian Sebastian Macabulos", "Ian Macabulos Portfolio"],
-    url: "https://iansebastian.dev",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        name: "Ian Macabulos",
+        url: "https://iansebastian.dev",
+        alternateName: ["Ian Sebastian Macabulos", "Ian Macabulos Portfolio"],
+      },
+      {
+        "@type": "Person",
+        name: "Ian Macabulos",
+        url: "https://iansebastian.dev",
+        jobTitle: "Full-Stack Developer",
+        image: "https://iansebastian.dev/logo/personal-logo-black.png",
+        sameAs: [
+          "https://www.linkedin.com/in/ianmacabulos/",
+          "https://github.com/iyawnnn",
+          "https://peerlist.io/iannmacabulos",
+        ],
+      },
+    ],
   };
 
   return (
