@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { SidebarProvider } from "@/hooks/use-sidebar";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
+import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,14 +43,14 @@ export const metadata: Metadata = {
     "TypeScript",
   ],
 
-  // 5. Favicon (Fixes the missing grey globe icon)
+  // 5. Favicon
   icons: {
     icon: "/logo/personal-logo-black.png",
     shortcut: "/logo/personal-logo-black.png",
     apple: "/logo/personal-logo-black.png",
   },
 
-  // 6. Open Graph (Fixes the link preview on Facebook/LinkedIn)
+  // 6. Open Graph
   openGraph: {
     title: "Ian Macabulos",
     description:
@@ -68,7 +69,7 @@ export const metadata: Metadata = {
     ],
   },
 
-  // 7. Twitter Card (For X/Twitter previews)
+  // 7. Twitter Card
   twitter: {
     card: "summary",
     title: "Ian Macabulos",
@@ -82,8 +83,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // --- ENHANCED JSON-LD DATA ---
-  // This tells Google: "This website belongs to Ian Macabulos, the same person on LinkedIn."
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -111,7 +110,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Injecting the JSON-LD script for SEO */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -130,6 +128,8 @@ export default function RootLayout({
             <LayoutWrapper>{children}</LayoutWrapper>
           </SidebarProvider>
         </ThemeProvider>
+
+        <Analytics />
       </body>
     </html>
   );
