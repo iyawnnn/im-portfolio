@@ -34,7 +34,7 @@ export default function AboutPage() {
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       {/* --- HERO SECTION --- */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
@@ -62,7 +62,7 @@ export default function AboutPage() {
               <TextGenerateEffect
                 words={paragraph2}
                 className="text-muted-foreground font-normal"
-                delay={3.6} 
+                delay={3.6}
               />
             </div>
           </div>
@@ -84,7 +84,7 @@ export default function AboutPage() {
       </motion.section>
 
       {/* --- GRID SECTIONS --- */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
@@ -101,8 +101,8 @@ export default function AboutPage() {
             <div className="flex items-start gap-3">
               <Rocket className="mt-1 h-4 w-4 text-primary shrink-0" />
               <span>
-                <strong>Role:</strong> Actively seeking internships, freelance projects, or
-                entry-level positions in Full-Stack Development.
+                <strong>Role:</strong> Actively seeking internships, freelance
+                projects, or entry-level positions in Full-Stack Development.
               </span>
             </div>
             <div className="flex items-start gap-3">
@@ -221,7 +221,7 @@ export default function AboutPage() {
       </motion.section>
 
       {/* --- CALL TO ACTION --- */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 0.4 }}
@@ -237,7 +237,9 @@ export default function AboutPage() {
 
         <p className="mx-auto mt-4 max-w-lg text-muted-foreground leading-relaxed text-sm lg:text-base">
           I am ready to bring my skills, dedication, and attention to detail to
-          your team. Whether you have an <strong>internship</strong> opening, a <strong>freelance project</strong>, or a <strong>full-time opportunity</strong>, I’d love to connect.
+          your team. Whether you have an <strong>internship</strong> opening, a{" "}
+          <strong>freelance project</strong>, or a{" "}
+          <strong>full-time opportunity</strong>, I’d love to connect.
         </p>
 
         <div className="mt-10 flex justify-center">

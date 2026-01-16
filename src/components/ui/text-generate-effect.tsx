@@ -30,7 +30,7 @@ export const TextGenerateEffect = ({
         duration: duration ? duration : 1,
         // ADJUSTED SPEED: 0.08 -> 0.11 (Slower, more natural reading pace)
         delay: stagger(0.11, { startDelay: delay }),
-      }
+      },
     );
   }, [scope.current]);
 
@@ -57,9 +57,7 @@ export const TextGenerateEffect = ({
   return (
     <div className={cn("font-normal", className)}>
       <div className="mt-4">
-        <div className="leading-relaxed tracking-wide">
-          {renderWords()}
-        </div>
+        <div className="leading-relaxed tracking-wide">{renderWords()}</div>
       </div>
     </div>
   );

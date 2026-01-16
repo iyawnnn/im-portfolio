@@ -98,7 +98,11 @@ export const LoaderThree = () => {
         <motion.path
           d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"
           animate={{
-            fill: ["rgba(253, 224, 71, 0)", "rgba(253, 224, 71, 1)", "rgba(253, 224, 71, 0)"],
+            fill: [
+              "rgba(253, 224, 71, 0)",
+              "rgba(253, 224, 71, 1)",
+              "rgba(253, 224, 71, 0)",
+            ],
             scale: [1, 1.15, 1],
           }}
           transition={{

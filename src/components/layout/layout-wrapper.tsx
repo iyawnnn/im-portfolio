@@ -4,7 +4,7 @@ import * as React from "react";
 import { AppSidebar } from "@/components/app-sidebar/index";
 import { MobileBottomNav } from "@/components/layout/mobile-bottom-nav";
 import { MobileHeader } from "@/components/layout/mobile-header";
-import { SiteFooter } from "@/components/layout/site-footer"; 
+import { SiteFooter } from "@/components/layout/site-footer";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +20,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
       <aside
         className={cn(
           "hidden fixed h-full bg-background z-50 transition-all duration-300 ease-in-out lg:flex shrink-0 transform-gpu will-change-transform",
-          isCollapsed ? "w-[70px]" : "w-64"
+          isCollapsed ? "w-[70px]" : "w-64",
         )}
       >
         <AppSidebar />
@@ -38,13 +38,11 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
       <main
         className={cn(
           "flex-1 flex flex-col min-h-screen pt-16 lg:pt-0 pb-24 lg:pb-0 transition-all duration-300 ease-in-out transform-gpu will-change-transform",
-          isCollapsed ? "lg:ml-[70px]" : "lg:ml-64"
+          isCollapsed ? "lg:ml-[70px]" : "lg:ml-64",
         )}
       >
         {/* Page Content */}
-        <div className="flex-1 w-full">
-            {children}
-        </div>
+        <div className="flex-1 w-full">{children}</div>
 
         {/* FOOTER */}
         <SiteFooter />

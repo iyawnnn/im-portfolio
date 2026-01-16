@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 export default function NotFound() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-background px-6 relative">
-      
       {/* Centered Background 404 */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden h-full w-full">
         <span className="text-[25vw] font-bold text-primary/[0.03] select-none leading-none">
@@ -31,14 +30,15 @@ export default function NotFound() {
               Lost in space.
             </h2>
             <p className="text-muted-foreground text-base md:text-lg leading-relaxed pt-2">
-              The page you are looking for does not exist. It might have been moved or the link is simply broken.
+              The page you are looking for does not exist. It might have been
+              moved or the link is simply broken.
             </p>
           </div>
 
           <div className="pt-4">
-            <Button 
-              asChild 
-              variant="outline" 
+            <Button
+              asChild
+              variant="outline"
               className="rounded-md px-10 h-12 border-border bg-background hover:bg-secondary transition-all hover:px-12 group"
             >
               <Link href="/">

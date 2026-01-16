@@ -14,11 +14,7 @@ import {
   Rocket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export default function MovieLoomPage() {
@@ -52,11 +48,12 @@ export default function MovieLoomPage() {
         </div>
 
         <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          MovieLoom is a dynamic movie and TV show discovery platform designed to
-          provide users with an immersive browsing experience. It features comprehensive
-          databases for films, actors, and genres, allowing users to explore trending
-          titles, search for favorites, and dive deep into cast filmographies—all
-          wrapped in a fully responsive, custom-styled interface.
+          MovieLoom is a dynamic movie and TV show discovery platform designed
+          to provide users with an immersive browsing experience. It features
+          comprehensive databases for films, actors, and genres, allowing users
+          to explore trending titles, search for favorites, and dive deep into
+          cast filmographies—all wrapped in a fully responsive, custom-styled
+          interface.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
@@ -71,6 +68,7 @@ export default function MovieLoomPage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/movieloom/movieloom-demo.mp4"
+          poster="/projects/movieloom/movieloom-cover.png"
           autoPlay
           muted
           loop
@@ -107,7 +105,6 @@ export default function MovieLoomPage() {
 
       {/* --- DETAILED CONTENT --- */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        
         {/* LEFT COLUMN (Main Content) */}
         <div className="xl:col-span-2 space-y-12">
           {/* Core Features */}
@@ -121,8 +118,9 @@ export default function MovieLoomPage() {
                   Extensive Database
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Access to thousands of movies and TV shows with detailed metadata,
-                  including ratings, release dates, and plot summaries sourced via API.
+                  Access to thousands of movies and TV shows with detailed
+                  metadata, including ratings, release dates, and plot summaries
+                  sourced via API.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
@@ -130,8 +128,9 @@ export default function MovieLoomPage() {
                   Smart Search & Filtering
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Robust search functionality allows users to find specific titles,
-                  while genre-based filtering helps discover new content based on mood.
+                  Robust search functionality allows users to find specific
+                  titles, while genre-based filtering helps discover new content
+                  based on mood.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
@@ -139,8 +138,9 @@ export default function MovieLoomPage() {
                   Cast & Crew Insights
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Dedicated pages for actors and directors (People Page) displaying biographies
-                  and known-for credits, linking the entire cinematic universe.
+                  Dedicated pages for actors and directors (People Page)
+                  displaying biographies and known-for credits, linking the
+                  entire cinematic universe.
                 </p>
               </div>
             </div>
@@ -155,11 +155,11 @@ export default function MovieLoomPage() {
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
-                The primary challenge was managing the vast amount of data from the API
-                and presenting it in a visually consistent manner without relying on
-                CSS frameworks. Maintaining responsive grid layouts for movie posters
-                across different screen sizes using only custom CSS required precise
-                media query management.
+                The primary challenge was managing the vast amount of data from
+                the API and presenting it in a visually consistent manner
+                without relying on CSS frameworks. Maintaining responsive grid
+                layouts for movie posters across different screen sizes using
+                only custom CSS required precise media query management.
               </p>
             </div>
 
@@ -167,18 +167,20 @@ export default function MovieLoomPage() {
               <h3 className="text-xl font-semibold">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
-                  <strong>Modular CSS:</strong> I adopted a modular CSS approach, creating
-                  separate stylesheets for each page (e.g., `HomePage.css`, `PersonDetailsPage.css`)
-                  to maintain clean and maintainable styles.
+                  <strong>Modular CSS:</strong> I adopted a modular CSS
+                  approach, creating separate stylesheets for each page (e.g.,
+                  `HomePage.css`, `PersonDetailsPage.css`) to maintain clean and
+                  maintainable styles.
                 </li>
                 <li>
-                  <strong>Efficient Routing:</strong> Leveraged React Router to handle dynamic
-                  routes for Movie IDs and Person IDs, ensuring a seamless single-page
-                  application (SPA) experience.
+                  <strong>Efficient Routing:</strong> Leveraged React Router to
+                  handle dynamic routes for Movie IDs and Person IDs, ensuring a
+                  seamless single-page application (SPA) experience.
                 </li>
                 <li>
-                  <strong>API Abstraction:</strong> Created a centralized `api.js` utility using
-                  Axios to handle requests, simplifying data fetching logic across components.
+                  <strong>API Abstraction:</strong> Created a centralized
+                  `api.js` utility using Axios to handle requests, simplifying
+                  data fetching logic across components.
                 </li>
               </ul>
             </div>
@@ -190,16 +192,16 @@ export default function MovieLoomPage() {
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              MovieLoom honed my skills in vanilla CSS layout techniques (Flexbox & Grid)
-              and interacting with complex third-party REST APIs. It demonstrated the
-              importance of component reusability when building content-heavy applications.
+              MovieLoom honed my skills in vanilla CSS layout techniques
+              (Flexbox & Grid) and interacting with complex third-party REST
+              APIs. It demonstrated the importance of component reusability when
+              building content-heavy applications.
             </p>
           </section>
         </div>
 
         {/* RIGHT COLUMN (Tech Stack & Meta) */}
         <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          
           {/* Tech Stack Widget */}
           <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
             <CardHeader>
@@ -279,9 +281,7 @@ export default function MovieLoomPage() {
             <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Platform</span>
-                <span className="font-medium text-foreground">
-                  Vercel
-                </span>
+                <span className="font-medium text-foreground">Vercel</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Version</span>
@@ -289,13 +289,10 @@ export default function MovieLoomPage() {
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>API</span>
-                <span className="font-medium text-foreground">
-                  TMDB
-                </span>
+                <span className="font-medium text-foreground">TMDB</span>
               </div>
             </div>
           </Card>
-
         </div>
       </div>
     </div>

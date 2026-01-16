@@ -2,12 +2,38 @@
 
 import React, { useState } from "react";
 import { Search, RotateCcw, TestTube } from "lucide-react";
-import { 
-  SiHtml5, SiCss3, SiJavascript, SiReact, SiVuedotjs, SiAngular, SiTypescript, 
-  SiNextdotjs, SiNodedotjs, SiExpress, SiTailwindcss, SiBootstrap, 
-  SiPython, SiPhp, SiMongodb, SiMysql, SiVercel, SiPostman, SiFigma, SiGithub, 
-  SiGit, SiDart, SiFlutter, SiNetlify, SiAmazon, SiWordpress,
-  SiSupabase, SiPrisma, SiPostgresql, SiVitest, SiGithubactions
+import {
+  SiHtml5,
+  SiCss3,
+  SiJavascript,
+  SiReact,
+  SiVuedotjs,
+  SiAngular,
+  SiTypescript,
+  SiNextdotjs,
+  SiNodedotjs,
+  SiExpress,
+  SiTailwindcss,
+  SiBootstrap,
+  SiPython,
+  SiPhp,
+  SiMongodb,
+  SiMysql,
+  SiVercel,
+  SiPostman,
+  SiFigma,
+  SiGithub,
+  SiGit,
+  SiDart,
+  SiFlutter,
+  SiNetlify,
+  SiAmazon,
+  SiWordpress,
+  SiSupabase,
+  SiPrisma,
+  SiPostgresql,
+  SiVitest,
+  SiGithubactions,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 // Removed MdEmail import as Resend was removed
@@ -89,7 +115,8 @@ const toolsData: ToolCategory[] = [
       },
       {
         name: "Bootstrap",
-        description: "Powerful, extensible, and feature-packed frontend toolkit.",
+        description:
+          "Powerful, extensible, and feature-packed frontend toolkit.",
         icon: SiBootstrap,
         tags: ["CSS", "Framework"],
       },
@@ -141,7 +168,8 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "PostgreSQL",
-        description: "The world's most advanced open source relational database.",
+        description:
+          "The world's most advanced open source relational database.",
         icon: SiPostgresql,
         tags: ["Database", "SQL"],
       },
@@ -193,7 +221,8 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Vercel",
-        description: "Develop, Preview, Ship. For the best frontend experience.",
+        description:
+          "Develop, Preview, Ship. For the best frontend experience.",
         icon: SiVercel,
         tags: ["Deployment", "Hosting"],
       },
@@ -211,7 +240,8 @@ const toolsData: ToolCategory[] = [
       },
       {
         name: "GitHub Actions",
-        description: "Automate workflows from idea to production with CI/CD pipelines.", // Simplified description
+        description:
+          "Automate workflows from idea to production with CI/CD pipelines.", // Simplified description
         icon: SiGithubactions,
         tags: ["CI/CD", "Automation"],
       },
@@ -240,7 +270,8 @@ const toolsData: ToolCategory[] = [
       },
       {
         name: "WordPress",
-        description: "Open source software you can use to create beautiful websites.",
+        description:
+          "Open source software you can use to create beautiful websites.",
         icon: SiWordpress,
         tags: ["CMS", "PHP"],
       },
@@ -251,7 +282,8 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Flutter",
-        description: "Google's UI toolkit for building natively compiled applications.",
+        description:
+          "Google's UI toolkit for building natively compiled applications.",
         icon: SiFlutter,
         tags: ["Mobile", "Cross-platform"],
       },
@@ -268,26 +300,27 @@ const toolsData: ToolCategory[] = [
 export default function StackPage() {
   const [query, setQuery] = useState("");
 
-  const filteredTools = toolsData.map((category) => {
-    const filteredItems = category.items.filter((item) => {
-      const searchLower = query.toLowerCase();
-      return (
-        item.name.toLowerCase().includes(searchLower) ||
-        item.description.toLowerCase().includes(searchLower) ||
-        item.tags.some((tag) => tag.toLowerCase().includes(searchLower))
-      );
-    });
+  const filteredTools = toolsData
+    .map((category) => {
+      const filteredItems = category.items.filter((item) => {
+        const searchLower = query.toLowerCase();
+        return (
+          item.name.toLowerCase().includes(searchLower) ||
+          item.description.toLowerCase().includes(searchLower) ||
+          item.tags.some((tag) => tag.toLowerCase().includes(searchLower))
+        );
+      });
 
-    return {
-      ...category,
-      items: filteredItems,
-    };
-  }).filter((category) => category.items.length > 0);
+      return {
+        ...category,
+        items: filteredItems,
+      };
+    })
+    .filter((category) => category.items.length > 0);
 
   return (
     <main className="min-h-screen flex flex-col bg-background text-foreground py-10 lg:py-20 px-4 md:px-8">
       <div className="max-w-5xl mx-auto w-full flex flex-col flex-grow">
-        
         {/* Header Section */}
         <div className="space-y-6 lg:space-y-8 w-full shrink-0 mb-10 lg:mb-16">
           <div className="space-y-4">
@@ -295,17 +328,17 @@ export default function StackPage() {
               My Development Arsenal
             </h1>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              The languages, frameworks, databases, and tools that keep me coding, 
-              caffeinated, and occasionally questioning my life choices. These are 
-              the technologies I trust to make sure projects ship.
+              The languages, frameworks, databases, and tools that keep me
+              coding, caffeinated, and occasionally questioning my life choices.
+              These are the technologies I trust to make sure projects ship.
             </p>
           </div>
 
           <div className="relative w-full group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors duration-300" />
-            <Input 
-              type="text" 
-              placeholder="Search tools..." 
+            <Input
+              type="text"
+              placeholder="Search tools..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="pl-12 h-10 lg:h-12 w-full bg-secondary/50 border-transparent hover:border-border/50 focus:bg-background focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-2xl text-sm lg:text-base transition-all duration-300 placeholder:text-muted-foreground/70"
@@ -322,27 +355,32 @@ export default function StackPage() {
                   <h2 className="text-xs lg:text-sm font-semibold text-muted-foreground uppercase tracking-wider pl-1">
                     {category.category}
                   </h2>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4">
                     {category.items.map((tool, toolIdx) => (
-                      <Card 
-                        key={toolIdx} 
+                      <Card
+                        key={toolIdx}
                         className="group border-border bg-card py-1 lg:py-2 hover:border-primary/50 hover:shadow-sm transition-all duration-200"
                       >
                         <CardContent className="p-4 lg:p-5 flex items-start gap-4">
                           <div className="p-2 bg-secondary rounded-lg border border-border group-hover:border-primary/20 transition-colors shrink-0">
-                            <tool.icon className="w-6 h-6 text-foreground group-hover:text-primary transition-colors" aria-label={`${tool.name} logo`} />
+                            <tool.icon
+                              className="w-6 h-6 text-foreground group-hover:text-primary transition-colors"
+                              aria-label={`${tool.name} logo`}
+                            />
                           </div>
                           <div className="space-y-2 w-full">
                             <div className="space-y-1">
-                              <h3 className="font-semibold text-foreground text-lg">{tool.name}</h3>
+                              <h3 className="font-semibold text-foreground text-lg">
+                                {tool.name}
+                              </h3>
                               <p className="text-sm lg:text-base text-muted-foreground leading-relaxed">
                                 {tool.description}
                               </p>
                             </div>
                             <div className="flex flex-wrap gap-2 pt-1">
                               {tool.tags.map((tag, tagIdx) => (
-                                <Badge 
+                                <Badge
                                   key={tagIdx}
                                   variant="secondary"
                                   className="font-normal text-[10px] lg:text-xs px-2 py-0.5 border-border"
@@ -369,16 +407,21 @@ export default function StackPage() {
                     <Search className="w-10 h-10 text-muted-foreground/40" />
                   </div>
                 </div>
-                
+
                 <div className="space-y-3">
-                  <h3 className="text-2xl font-bold tracking-tight">No results found</h3>
+                  <h3 className="text-2xl font-bold tracking-tight">
+                    No results found
+                  </h3>
                   <p className="text-muted-foreground text-base px-6">
-                    We couldn't find any tools matching <span className="text-foreground font-semibold italic">"{query}"</span>. 
-                    Try adjusting your search or category.
+                    We couldn't find any tools matching{" "}
+                    <span className="text-foreground font-semibold italic">
+                      "{query}"
+                    </span>
+                    . Try adjusting your search or category.
                   </p>
                 </div>
 
-                <Button 
+                <Button
                   onClick={() => setQuery("")}
                   variant="outline"
                   className="rounded-md px-8 h-11 border-border bg-background hover:bg-secondary transition-colors"
@@ -390,7 +433,6 @@ export default function StackPage() {
             </div>
           )}
         </div>
-        
       </div>
     </main>
   );

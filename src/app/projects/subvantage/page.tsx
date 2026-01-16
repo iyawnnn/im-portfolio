@@ -73,6 +73,7 @@ export default function SubVantagePage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/subvantage/subvantage-demo.mp4"
+          poster="/projects/subvantage/subvantage-cover.png"
           autoPlay
           muted
           loop
@@ -236,10 +237,10 @@ export default function SubVantagePage() {
             <p className="text-muted-foreground leading-relaxed">
               Building SubVantage improved my skills in handling complex data
               arrays and financial calculations on the frontend. More
-              importantly, integrating <strong>Resend</strong> {" "}
-              and writing <strong>E2E tests</strong> taught me how to build
-              production-ready applications that are not just functional, but
-              reliable and user-centric.
+              importantly, integrating <strong>Resend</strong> and writing{" "}
+              <strong>E2E tests</strong> taught me how to build production-ready
+              applications that are not just functional, but reliable and
+              user-centric.
             </p>
           </section>
         </div>

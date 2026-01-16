@@ -2,15 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { 
-  Send, 
-  Mail, 
-  Loader2, 
-  CheckCircle2, 
-  Copy, 
-  Check, 
+import {
+  Send,
+  Mail,
+  Loader2,
+  CheckCircle2,
+  Copy,
+  Check,
   Clock,
-  Sparkles
+  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -70,7 +70,6 @@ export default function ContactPage() {
 
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      
       {/* --- HEADER --- */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
@@ -79,7 +78,10 @@ export default function ContactPage() {
         className="max-w-3xl"
       >
         <div className="flex items-center gap-3 mb-4">
-          <Badge variant="outline" className="px-3 py-1 border-primary/20 text-primary bg-primary/5">
+          <Badge
+            variant="outline"
+            className="px-3 py-1 border-primary/20 text-primary bg-primary/5"
+          >
             <span className="relative flex h-2 w-2 mr-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
@@ -91,15 +93,15 @@ export default function ContactPage() {
           Let's work together.
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          I'm currently looking for freelance opportunities or a full-time role. 
-          If you have a project that needs a clean, performant interface, I'd love to hear about it.
+          I'm currently looking for freelance opportunities or a full-time role.
+          If you have a project that needs a clean, performant interface, I'd
+          love to hear about it.
         </p>
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 xl:gap-20 items-start">
-        
         {/* --- LEFT COLUMN: INFO & STEPS --- */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -161,7 +163,6 @@ export default function ContactPage() {
               What happens next?
             </h3>
             <div className="space-y-6">
-              
               {/* STEP 1 */}
               <div className="flex gap-4">
                 {/* FIXED: Using Numbers + min-w-10 to ensure perfect circles */}
@@ -174,7 +175,8 @@ export default function ContactPage() {
                 <div className="pb-2 pt-2">
                   <h4 className="font-bold text-foreground">Send a Message</h4>
                   <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
-                    Fill out the form on the right. I'll receive an instant notification via my personal API integration.
+                    Fill out the form on the right. I'll receive an instant
+                    notification via my personal API integration.
                   </p>
                 </div>
               </div>
@@ -190,7 +192,8 @@ export default function ContactPage() {
                 <div className="pb-2 pt-2">
                   <h4 className="font-bold text-foreground">I'll Respond</h4>
                   <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
-                    As a student, I balance this with my studies, but I typically respond within the day.
+                    As a student, I balance this with my studies, but I
+                    typically respond within the day.
                   </p>
                 </div>
               </div>
@@ -205,17 +208,17 @@ export default function ContactPage() {
                 <div className="pt-2">
                   <h4 className="font-bold text-foreground">We Connect</h4>
                   <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
-                    If we're a good fit, we'll discuss your idea and how I can help bring it to life.
+                    If we're a good fit, we'll discuss your idea and how I can
+                    help bring it to life.
                   </p>
                 </div>
               </div>
-
             </div>
           </div>
         </motion.div>
 
         {/* --- RIGHT COLUMN: FORM & TIME --- */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
@@ -224,7 +227,7 @@ export default function ContactPage() {
           <Card className="border border-border/40 shadow-sm bg-card/30 overflow-hidden py-0">
             <CardContent className="p-5 md:p-6">
               {isSuccess ? (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center justify-center text-center py-10 space-y-4"
@@ -233,12 +236,14 @@ export default function ContactPage() {
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="text-xl font-bold text-foreground">Message received!</h3>
+                    <h3 className="text-xl font-bold text-foreground">
+                      Message received!
+                    </h3>
                     <p className="text-muted-foreground max-w-[280px] mx-auto text-sm">
                       Thank you for reaching out. I'll get back to you shortly.
                     </p>
                   </div>
-                  <Button 
+                  <Button
                     onClick={() => setIsSuccess(false)}
                     variant="outline"
                     size="sm"
@@ -251,47 +256,67 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
-                      <label htmlFor="name" className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide">Name</label>
-                      <Input 
-                        id="name" 
-                        name="name" 
-                        placeholder="John Doe" 
-                        required 
-                        className="bg-background/50 focus:bg-background transition-colors h-9" 
+                      <label
+                        htmlFor="name"
+                        className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide"
+                      >
+                        Name
+                      </label>
+                      <Input
+                        id="name"
+                        name="name"
+                        placeholder="John Doe"
+                        required
+                        className="bg-background/50 focus:bg-background transition-colors h-9"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <label htmlFor="email" className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide">Email</label>
-                      <Input 
-                        id="email" 
-                        name="email" 
-                        type="email" 
-                        placeholder="john@example.com" 
-                        required 
-                        className="bg-background/50 focus:bg-background transition-colors h-9" 
+                      <label
+                        htmlFor="email"
+                        className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide"
+                      >
+                        Email
+                      </label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="john@example.com"
+                        required
+                        className="bg-background/50 focus:bg-background transition-colors h-9"
                       />
                     </div>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label htmlFor="subject" className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide">Subject</label>
-                    <Input 
-                      id="subject" 
-                      name="subject" 
-                      placeholder="Project Inquiry / Just saying hi" 
-                      required 
-                      className="bg-background/50 focus:bg-background transition-colors h-9" 
+                    <label
+                      htmlFor="subject"
+                      className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide"
+                    >
+                      Subject
+                    </label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      placeholder="Project Inquiry / Just saying hi"
+                      required
+                      className="bg-background/50 focus:bg-background transition-colors h-9"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label htmlFor="message" className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide">Message</label>
-                    <Textarea 
-                      id="message" 
-                      name="message" 
-                      placeholder="Tell me about your project..." 
-                      required 
-                      className="min-h-[120px] bg-background/50 focus:bg-background resize-none p-4 transition-colors" 
+                    <label
+                      htmlFor="message"
+                      className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide"
+                    >
+                      Message
+                    </label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      placeholder="Tell me about your project..."
+                      required
+                      className="min-h-[120px] bg-background/50 focus:bg-background resize-none p-4 transition-colors"
                     />
                   </div>
 
@@ -303,14 +328,15 @@ export default function ContactPage() {
                   )}
 
                   <div className="pt-1">
-                    <Button 
-                      type="submit" 
-                      disabled={isSubmitting} 
+                    <Button
+                      type="submit"
+                      disabled={isSubmitting}
                       className="w-full font-bold shadow-sm transition-all hover:translate-y-[-1px] active:translate-y-[1px] h-9"
                     >
                       {isSubmitting ? (
                         <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+                          Sending...
                         </>
                       ) : (
                         <>
@@ -344,7 +370,6 @@ export default function ContactPage() {
             </div>
           </div>
         </motion.div>
-
       </div>
     </div>
   );

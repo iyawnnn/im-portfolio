@@ -20,7 +20,8 @@ export function SidebarProvider({ children }: { children: React.ReactNode }) {
     <SidebarContext.Provider value={{ isCollapsed, toggleSidebar }}>
       {children}
     </SidebarContext.Provider>
-  );}
+  );
+}
 
 export function useSidebar() {
   const context = useContext(SidebarContext);

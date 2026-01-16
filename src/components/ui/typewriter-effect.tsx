@@ -35,9 +35,12 @@ export const TypewriterEffectSmooth = ({
     }
 
     if (hideCursorOnComplete) {
-      endTimeout = setTimeout(() => {
-        setShowCursor(false);
-      }, (delay + duration) * 1000); 
+      endTimeout = setTimeout(
+        () => {
+          setShowCursor(false);
+        },
+        (delay + duration) * 1000,
+      );
     }
 
     return () => {
@@ -76,7 +79,9 @@ export const TypewriterEffectSmooth = ({
   };
 
   return (
-    <div className={cn("flex items-center space-x-1 my-0 min-h-[1em]", className)}>
+    <div
+      className={cn("flex items-center space-x-1 my-0 min-h-[1em]", className)}
+    >
       <motion.div
         className="overflow-hidden"
         initial={{
@@ -100,7 +105,7 @@ export const TypewriterEffectSmooth = ({
           {renderWords()}
         </div>{" "}
       </motion.div>
-      
+
       <motion.span
         initial={{
           opacity: 0,
@@ -116,7 +121,7 @@ export const TypewriterEffectSmooth = ({
         className={cn(
           "block rounded-sm w-[4px] h-[1em] bg-primary",
           cursorClassName,
-          !showCursor && "invisible" 
+          !showCursor && "invisible",
         )}
       ></motion.span>
     </div>

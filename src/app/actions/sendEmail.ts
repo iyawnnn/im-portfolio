@@ -17,13 +17,13 @@ export const sendEmail = async (formData: FormData) => {
     const data = await resend.emails.send({
       // FREE TIER RULE: You MUST use this email as the 'from' address
       from: "Contact Form <onboarding@resend.dev>",
-      
+
       // FREE TIER RULE: You can only send to your own verified email
       to: ["iannmacabulos@gmail.com"],
-      
+
       // This allows you to click "Reply" in Gmail and reply directly to the user
       replyTo: email,
-      
+
       subject: `Portfolio Message from ${name}`,
       text: message,
       html: `

@@ -12,13 +12,16 @@ import {
   Globe,
   Layout,
   Rocket,
-  Lock,
+  Bot,
+  Code,
+  TestTube,
+  Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-export default function MamaRsPage() {
+export default function KodaSyncPage() {
   // Scroll to top on load
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -41,34 +44,37 @@ export default function MamaRsPage() {
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
-            Mama R's
+            KodaSync
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Inventory & Sales Management System
+            Neural Code & Knowledge Engine
           </h2>
         </div>
 
         <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          Mama R's is a custom business tool built on the MERN stack (MongoDB,
-          Express, React, Node.js). It was a freelance project created to help a
-          local business move away from paper logs. The system helps the owner
-          track inventory, record customer orders, and see daily sales totals in
-          a secure digital environment.
+          KodaSync is a professional intelligence hub designed to centralize
+          technical knowledge for software engineers. It solves the "lost
+          context" problem in modern development by utilizing high-dimensional
+          vector embeddings to understand the underlying intent of your code. It
+          combines a high-performance <strong>Monaco Editor</strong> with
+          contextual AI agents to transform scattered snippets into a
+          searchable, neural knowledge base.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">React</Badge>
-          <Badge variant="secondary">Node.js</Badge>
-          <Badge variant="secondary">MongoDB</Badge>
-          <Badge variant="secondary">Tailwind CSS</Badge>
+          <Badge variant="secondary">Next.js 15</Badge>
+          <Badge variant="secondary">FastAPI</Badge>
+          <Badge variant="secondary">Groq SDK</Badge>
+          <Badge variant="secondary">pgvector</Badge>
+          <Badge variant="secondary">Docker</Badge>
         </div>
       </div>
 
-      {/* --- HERO MEDIA (Video Autoplay) --- */}
+      {/* --- HERO MEDIA (Video) --- */}
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
-          src="/projects/mamars/mamars-demo.mp4"
-          poster="/projects/mamars/mamars-cover.png"
+          src="/projects/kodasync/kodasync-demo.mp4"
+          poster="/projects/kodasync/kodasync-cover.png"
           autoPlay
           muted
           loop
@@ -82,26 +88,22 @@ export default function MamaRsPage() {
         <div className="space-y-1">
           <h3 className="text-lg font-bold">Project Links</h3>
           <p className="text-sm text-muted-foreground max-w-md">
-            The live application is secured for internal business use only. You
-            can review the source code on GitHub.
+            Experience the neural research assistant live or inspect the
+            architecture on GitHub.
           </p>
         </div>
         <div className="flex gap-3 w-full md:w-auto">
-          {/* Internal App Button (Disabled) */}
-          <Button
-            disabled
-            variant="secondary"
-            className="flex-1 md:flex-none font-bold opacity-80 cursor-not-allowed"
-          >
-            <Lock className="mr-2 h-4 w-4" /> Client Portal
+          <Button asChild className="flex-1 md:flex-none font-bold">
+            <Link href="https://kodasync.iansebastian.dev/" target="_blank">
+              <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+            </Link>
           </Button>
-
           <Button
             asChild
             variant="outline"
             className="flex-1 md:flex-none font-bold"
           >
-            <Link href="https://github.com/iyawnnn/mamar-s" target="_blank">
+            <Link href="https://github.com/iyawnnn/KodaSync" target="_blank">
               <Github className="mr-2 h-4 w-4" /> Source Code
             </Link>
           </Button>
@@ -119,33 +121,37 @@ export default function MamaRsPage() {
             </h2>
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1">
-                  Sales Dashboard
+                <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                  <Bot className="w-4 h-4 text-primary" /> Neural Chat Interface
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  A clear view of daily performance. It shows total sales and
-                  revenue numbers instantly so the owner knows how the business
-                  is doing without calculating it manually.
+                  An AI workspace using{" "}
+                  <strong>Retrieval Augmented Generation (RAG)</strong> to
+                  provide project-specific answers. It automatically retrieves
+                  relevant notes from your library to provide context-aware
+                  solutions.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1">
-                  Inventory Management
+                <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                  <Code className="w-4 h-4 text-primary" /> The Studio
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Allows the user to add products and update stock levels. It
-                  keeps a history of changes to ensure items are not lost and
-                  stock counts remain accurate.
+                  A full-featured code editor built with the{" "}
+                  <strong>Monaco Editor</strong> engine (VS Code core). It
+                  includes AI actions to Scan Security, Generate Tests, and
+                  Document code instantly.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1">
-                  Sales-Only Reporting
+                <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                  <Search className="w-4 h-4 text-primary" /> Semantic Knowledge
+                  Engine
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Generates simple reports focused strictly on income. It
-                  calculates total revenue from orders without complicating the
-                  view with expense tracking.
+                  Uses <strong>FastEmbed</strong> (384-dimension vectors) to
+                  enable natural language search. Includes a Knowledge Scraper
+                  to import technical documentation directly from URLs.
                 </p>
               </div>
             </div>
@@ -160,10 +166,11 @@ export default function MamaRsPage() {
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
-                The client needed to transition from manual pen-and-paper
-                tracking to a digital system. The main challenge was creating an
-                interface that was powerful enough to handle sales data but
-                simple enough for non-technical staff to use easily.
+                The main challenge was orchestrating the "Hybrid Architecture"
+                between a modern Next.js frontend and a high-performance Python
+                backend. I needed to ensure that heavy vector processing and AI
+                inference didn't block the UI, while maintaining a real-time
+                editing experience in the Monaco Editor.
               </p>
             </div>
 
@@ -171,21 +178,59 @@ export default function MamaRsPage() {
               <h3 className="text-xl font-semibold">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
-                  <strong>RESTful API Architecture:</strong> Designed a robust
-                  backend with Express.js to handle separate routes for products
-                  and orders. This keeps the data organized and secure.
+                  <strong>Async-First Backend:</strong> Built the API with
+                  FastAPI and <strong>SlowAPI</strong> rate limiting to handle
+                  high concurrency.
                 </li>
                 <li>
-                  <strong>Order Tracking:</strong> Built a system to record
-                  every customer order. This data is saved instantly to the
-                  database so revenue totals are always up to date.
+                  <strong>Neural Search:</strong> Implemented{" "}
+                  <strong>pgvector</strong> for efficient vector storage and
+                  retrieval, allowing the AI to "remember" project-specific
+                  context.
                 </li>
                 <li>
-                  <strong>Secure Authentication:</strong> Implemented JWT-based
-                  authentication. This protects sensitive business data and
-                  ensures only authorized staff can access the admin panel.
+                  <strong>Background Tasking:</strong> Offloaded tag generation
+                  and embedding calculations to background threads, keeping the
+                  UI responsive during complex data ingestion.
                 </li>
               </ul>
+            </div>
+          </section>
+
+          {/* Testing & QA */}
+          <section className="space-y-6">
+            <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
+              <TestTube className="w-6 h-6 text-primary" /> Quality Assurance
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              To ensure the neural engine remains reliable, I implemented a
+              comprehensive testing strategy that validates both the API logic
+              and the AI's streaming capabilities:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
+                <h4 className="font-semibold text-foreground mb-2">
+                  Integration Testing
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Using <strong>Pytest</strong> and <strong>TestClient</strong>,
+                  I wrote tests covering auth flows, vector search, and RAG
+                  logic. I specifically mocked AI streams to validate chat
+                  responses without calling expensive external APIs.
+                </p>
+              </div>
+              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
+                <h4 className="font-semibold text-foreground mb-2">
+                  CI/CD Pipeline
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  A robust <strong>GitHub Actions</strong> workflow that spins
+                  up ephemeral Docker containers for{" "}
+                  <strong>PostgreSQL (pgvector)</strong> and{" "}
+                  <strong>Redis</strong>. This ensures the full integration
+                  suite runs successfully on every push before deployment.
+                </p>
+              </div>
             </div>
           </section>
 
@@ -195,10 +240,12 @@ export default function MamaRsPage() {
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              This project honed my skills in translating specific business
-              requirements into code. It taught me how to build intuitive forms
-              for non-technical users and the importance of aggregating sales
-              data on the backend to keep the frontend fast.
+              KodaSync pushed my boundaries in Full-Stack Engineering,
+              specifically in bridging the gap between application logic and AI
+              infrastructure. Mastering <strong>Docker</strong> for
+              containerization and implementing a real-time <strong>RAG</strong>{" "}
+              pipeline gave me the tools to build production-grade AI
+              applications.
             </p>
           </section>
         </div>
@@ -218,33 +265,36 @@ export default function MamaRsPage() {
                   Frontend
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">React</Badge>
-                  <Badge variant="outline">Vite</Badge>
+                  <Badge variant="outline">Next.js 15</Badge>
+                  <Badge variant="outline">Monaco Editor</Badge>
                   <Badge variant="outline">Tailwind CSS</Badge>
+                  <Badge variant="outline">Shadcn UI</Badge>
                   <Badge variant="outline">Axios</Badge>
                 </div>
               </div>
 
               <div>
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Backend
+                  Backend & AI
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Node.js</Badge>
-                  <Badge variant="outline">Express.js</Badge>
-                  <Badge variant="outline">MongoDB</Badge>
-                  <Badge variant="outline">Mongoose</Badge>
+                  <Badge variant="outline">FastAPI</Badge>
+                  <Badge variant="outline">Groq SDK</Badge>
+                  <Badge variant="outline">Llama 3</Badge>
+                  <Badge variant="outline">SQLModel</Badge>
+                  <Badge variant="outline">FastEmbed</Badge>
                 </div>
               </div>
 
               <div>
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Services
+                  Infrastructure
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">JWT</Badge>
-                  <Badge variant="outline">Bcrypt</Badge>
-                  <Badge variant="outline">REST API</Badge>
+                  <Badge variant="outline">Docker</Badge>
+                  <Badge variant="outline">GitHub Actions</Badge>
+                  <Badge variant="outline">Supabase</Badge>
+                  <Badge variant="outline">Upstash Redis</Badge>
                 </div>
               </div>
             </div>
@@ -260,14 +310,13 @@ export default function MamaRsPage() {
             <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Type</span>
-                {/* UPDATED: Changed from 'Commission Work' to 'Freelance Project' */}
                 <span className="font-medium text-foreground">
-                  Freelance Project
+                  Personal Project
                 </span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Timeline</span>
-                <span className="font-medium text-foreground">Aug 2025</span>
+                <span className="font-medium text-foreground">Feb 2026</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Role</span>
@@ -288,7 +337,7 @@ export default function MamaRsPage() {
             <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Frontend</span>
-                <span className="font-medium text-foreground">Netlify</span>
+                <span className="font-medium text-foreground">Vercel</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Backend</span>
@@ -296,9 +345,11 @@ export default function MamaRsPage() {
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Database</span>
-                <span className="font-medium text-foreground">
-                  MongoDB Atlas
-                </span>
+                <span className="font-medium text-foreground">Supabase</span>
+              </div>
+              <div className="flex justify-between border-b border-border/50 pb-2">
+                <span>Redis</span>
+                <span className="font-medium text-foreground">Upstash</span>
               </div>
             </div>
           </Card>

@@ -14,11 +14,7 @@ import {
   Terminal, // Using Terminal icon for the System Info card
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export default function KusinaGoPage() {
@@ -55,8 +51,9 @@ export default function KusinaGoPage() {
           KusinaGo is a dedicated food ordering platform designed to bridge the
           gap between traditional Filipino dining and modern convenience. Built
           from the ground up using PHP and MongoDB, it features a seamless
-          ordering experience for customers and a robust administrative dashboard
-          for managing real-time inventory, sales reports, and order fulfillment.
+          ordering experience for customers and a robust administrative
+          dashboard for managing real-time inventory, sales reports, and order
+          fulfillment.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
@@ -71,6 +68,7 @@ export default function KusinaGoPage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/kusinago/kusinago-demo.mp4"
+          poster="/projects/kusinago/kusinago-cover.png"
           autoPlay
           muted
           loop
@@ -90,7 +88,11 @@ export default function KusinaGoPage() {
         </div>
         <div className="flex gap-3 w-full md:w-auto">
           {/* Live Demo Disabled for Local Project */}
-          <Button disabled variant="secondary" className="flex-1 md:flex-none font-bold opacity-50 cursor-not-allowed">
+          <Button
+            disabled
+            variant="secondary"
+            className="flex-1 md:flex-none font-bold opacity-50 cursor-not-allowed"
+          >
             <ExternalLink className="mr-2 h-4 w-4" /> Local Only
           </Button>
 
@@ -109,7 +111,6 @@ export default function KusinaGoPage() {
       {/* --- DETAILED CONTENT --- */}
       {/* UPDATED: Changed lg:grid-cols-3 to xl:grid-cols-3 for better responsiveness */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        
         {/* LEFT COLUMN (Main Content) */}
         {/* UPDATED: Changed lg:col-span-2 to xl:col-span-2 */}
         <div className="xl:col-span-2 space-y-12">
@@ -125,8 +126,8 @@ export default function KusinaGoPage() {
                 </h3>
                 <p className="text-muted-foreground text-sm">
                   Dynamic menu browsing, cart management with real-time updates,
-                  and a secure checkout process. Includes user account management
-                  and order history tracking.
+                  and a secure checkout process. Includes user account
+                  management and order history tracking.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
@@ -134,8 +135,9 @@ export default function KusinaGoPage() {
                   Admin Dashboard
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  A comprehensive admin panel featuring sales analytics, low-stock
-                  alerts, user management, and PDF report generation using DOMPDF.
+                  A comprehensive admin panel featuring sales analytics,
+                  low-stock alerts, user management, and PDF report generation
+                  using DOMPDF.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
@@ -177,14 +179,15 @@ export default function KusinaGoPage() {
                   real-time.
                 </li>
                 <li>
-                  <strong>Dependency Management:</strong> Integrated **Composer**
-                  to manage third-party libraries like `mongodb/mongodb` driver
-                  and `dompdf` for generating professional sales reports.
+                  <strong>Dependency Management:</strong> Integrated
+                  **Composer** to manage third-party libraries like
+                  `mongodb/mongodb` driver and `dompdf` for generating
+                  professional sales reports.
                 </li>
                 <li>
-                  <strong>Modular Architecture:</strong> Structured the application
-                  with clear separation for authentication, database configuration,
-                  and admin logic to maintain code scalability.
+                  <strong>Modular Architecture:</strong> Structured the
+                  application with clear separation for authentication, database
+                  configuration, and admin logic to maintain code scalability.
                 </li>
               </ul>
             </div>
@@ -196,10 +199,10 @@ export default function KusinaGoPage() {
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Building KusinaGo deepened my knowledge of server-side PHP programming
-              and the flexibility of NoSQL databases. It taught me how to bridge
-              raw data with meaningful user interfaces, from dynamic frontend
-              menus to complex backend reporting systems.
+              Building KusinaGo deepened my knowledge of server-side PHP
+              programming and the flexibility of NoSQL databases. It taught me
+              how to bridge raw data with meaningful user interfaces, from
+              dynamic frontend menus to complex backend reporting systems.
             </p>
           </section>
         </div>
@@ -207,7 +210,6 @@ export default function KusinaGoPage() {
         {/* RIGHT COLUMN (Tech Stack & Meta) */}
         {/* UPDATED: Responsive grid container for Tablet/Laptop sizes */}
         <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          
           {/* Tech Stack Widget */}
           {/* UPDATED: md:col-span-2 to span full width on tablet */}
           <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
@@ -289,21 +291,15 @@ export default function KusinaGoPage() {
             <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Environment</span>
-                <span className="font-medium text-foreground">
-                  Localhost
-                </span>
+                <span className="font-medium text-foreground">Localhost</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Status</span>
-                <span className="font-medium text-foreground">
-                  Prototype
-                </span>
+                <span className="font-medium text-foreground">Prototype</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Access</span>
-                <span className="font-medium text-foreground">
-                  Source Code
-                </span>
+                <span className="font-medium text-foreground">Source Code</span>
               </div>
             </div>
           </Card>

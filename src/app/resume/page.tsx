@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image"; 
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Download,
@@ -21,16 +21,16 @@ const CERTIFICATIONS = [
   {
     name: "Back End Development and APIs",
     org: "freeCodeCamp",
-    icon: "/icons/freecodecamp.png", 
-    imageClass: "p-2", 
+    icon: "/icons/freecodecamp.png",
+    imageClass: "p-2",
     date: "Sep 2025",
     link: "https://www.freecodecamp.org/certification/iyawn/back-end-development-and-apis",
   },
   {
     name: "CompTIA IT Fundamentals+ (ITF+)",
     org: "CompTIA",
-    icon: "/icons/comptia-white.png", 
-    imageClass: "", 
+    icon: "/icons/comptia-white.png",
+    imageClass: "",
     date: "Nov 2023",
     link: "https://www.credly.com/badges/82755364-a4a7-4272-a446-2d7d07662f48/linked_in_profile",
   },
@@ -70,9 +70,8 @@ export default function ResumePage() {
 
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      
       {/* --- HEADER --- */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
@@ -92,7 +91,7 @@ export default function ResumePage() {
               </span>
             </div>
           </div>
-          
+
           <Button
             onClick={handleDownload}
             size="lg"
@@ -126,7 +125,7 @@ export default function ResumePage() {
       </motion.div>
 
       {/* --- EXPERIENCE SECTION --- */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
@@ -140,12 +139,11 @@ export default function ResumePage() {
         </div>
 
         <div className="relative border-l-2 border-border/50 ml-3 md:ml-4 space-y-12 pl-8 md:pl-10 py-2">
-          
           {/* FREELANCE ENTRY */}
           <div className="relative">
             {/* FIXED COLOR CIRCLE */}
             <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-primary shadow-sm" />
-            
+
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
               <h3 className="text-lg md:text-xl font-bold text-foreground">
                 Freelance Full Stack Developer
@@ -155,38 +153,46 @@ export default function ResumePage() {
                 2025 - Present
               </span>
             </div>
-            
+
             <p className="text-primary font-semibold mb-4">
               Self-Employed / Remote
             </p>
-            
+
             <ul className="space-y-3 text-muted-foreground text-sm md:text-base leading-relaxed">
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  <strong>Digital Transformation:</strong> Architected and deployed a custom Inventory & Sales Management System for an SME client, successfully digitizing 100% of manual paper records.
+                  <strong>Digital Transformation:</strong> Architected and
+                  deployed a custom Inventory & Sales Management System for an
+                  SME client, successfully digitizing 100% of manual paper
+                  records.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  <strong>Analytics & Optimization:</strong> Engineered a real-time analytics dashboard using React and Node.js, enabling data-driven decision-making that reduced inventory waste and optimized stock levels.
+                  <strong>Analytics & Optimization:</strong> Engineered a
+                  real-time analytics dashboard using React and Node.js,
+                  enabling data-driven decision-making that reduced inventory
+                  waste and optimized stock levels.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  <strong>Security & Infrastructure:</strong> Implemented secure role-based authentication (JWT) and scalable cloud architecture, ensuring data integrity for sensitive business transactions.
+                  <strong>Security & Infrastructure:</strong> Implemented secure
+                  role-based authentication (JWT) and scalable cloud
+                  architecture, ensuring data integrity for sensitive business
+                  transactions.
                 </span>
               </li>
             </ul>
           </div>
-
         </div>
       </motion.section>
 
       {/* --- EDUCATION SECTION --- */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
@@ -210,16 +216,21 @@ export default function ResumePage() {
                   Bachelor of Science in Information Technology
                 </p>
               </div>
-              <Badge variant="outline" className="w-fit h-fit py-1">2023 — 2027</Badge>
+              <Badge variant="outline" className="w-fit h-fit py-1">
+                2023 — 2027
+              </Badge>
             </div>
-            
+
             <div className="flex flex-col gap-2">
               <p className="text-sm font-medium text-foreground">
                 Major in Web Development
               </p>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Award className="w-4 h-4" />
-                <span>Consistent Dean&apos;s and President&apos;s Lister (A.Y. 2023-2025)</span>
+                <span>
+                  Consistent Dean&apos;s and President&apos;s Lister (A.Y.
+                  2023-2025)
+                </span>
               </div>
             </div>
           </div>
@@ -227,7 +238,7 @@ export default function ResumePage() {
       </motion.section>
 
       {/* --- CERTIFICATIONS SECTION --- */}
-      <motion.section 
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.4 }}
@@ -242,7 +253,7 @@ export default function ResumePage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {CERTIFICATIONS.map((cert, idx) => (
-            <a 
+            <a
               key={idx}
               href={cert.link}
               target="_blank"
@@ -251,14 +262,14 @@ export default function ResumePage() {
             >
               {/* ICON CONTAINER */}
               <div className="h-12 w-12 shrink-0 relative bg-neutral-950 rounded-lg border border-border/50 overflow-hidden flex items-center justify-center shadow-inner">
-                 <Image 
-                   src={cert.icon} 
-                   alt={cert.org} 
-                   fill 
-                   className={`object-contain transition-transform duration-300 group-hover:scale-110 ${cert.imageClass}`}
-                 />
+                <Image
+                  src={cert.icon}
+                  alt={cert.org}
+                  fill
+                  className={`object-contain transition-transform duration-300 group-hover:scale-110 ${cert.imageClass}`}
+                />
               </div>
-              
+
               <div className="flex-1 min-w-0">
                 <h4 className="font-semibold text-sm md:text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">
                   {cert.name}

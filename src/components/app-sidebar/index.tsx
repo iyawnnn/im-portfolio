@@ -27,13 +27,13 @@ import { useSidebar } from "@/hooks/use-sidebar";
 
 // --- CUSTOM ICONS ---
 const PeerlistIcon = ({ className }: { className?: string }) => (
-  <svg 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="2" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     className={className}
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -106,19 +106,19 @@ function NavSection({
                   isCollapsed ? "justify-center px-2" : "justify-between px-3",
                   isActive
                     ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+                    : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                 )}
               >
                 <div
                   className={cn(
                     "flex items-center transition-all",
-                    isCollapsed ? "gap-0" : "gap-3"
+                    isCollapsed ? "gap-0" : "gap-3",
                   )}
                 >
                   <link.icon
                     className={cn(
                       "h-5 w-5 transition-all",
-                      isActive ? "stroke-[2.5px] text-foreground" : "stroke-2"
+                      isActive ? "stroke-[2.5px] text-foreground" : "stroke-2",
                     )}
                   />
                   <span
@@ -126,7 +126,7 @@ function NavSection({
                       "transition-all duration-300 overflow-hidden whitespace-nowrap",
                       isCollapsed
                         ? "w-0 opacity-0 invisible"
-                        : "w-auto opacity-100 visible"
+                        : "w-auto opacity-100 visible",
                     )}
                   >
                     {link.title}
@@ -138,7 +138,7 @@ function NavSection({
                     "hidden md:flex transition-all duration-300 overflow-hidden",
                     isCollapsed
                       ? "w-0 opacity-0 invisible"
-                      : "w-auto opacity-100 visible"
+                      : "w-auto opacity-100 visible",
                   )}
                 >
                   <span
@@ -146,7 +146,7 @@ function NavSection({
                       "flex h-5 w-5 items-center justify-center rounded border text-[10px] font-bold transition-all shadow-sm",
                       isActive
                         ? "border-foreground/10 bg-background text-foreground"
-                        : "border-sidebar-border bg-sidebar text-muted-foreground group-hover:border-foreground/10 group-hover:bg-background group-hover:text-foreground"
+                        : "border-sidebar-border bg-sidebar text-muted-foreground group-hover:border-foreground/10 group-hover:bg-background group-hover:text-foreground",
                     )}
                   >
                     {"shortcut" in link ? (
@@ -187,7 +187,7 @@ export function AppSidebar() {
       const target = allLinks.find(
         (link) =>
           "shortcut" in link &&
-          link.shortcut?.toLowerCase() === e.key.toLowerCase()
+          link.shortcut?.toLowerCase() === e.key.toLowerCase(),
       );
       if (target) {
         e.preventDefault();
@@ -202,7 +202,7 @@ export function AppSidebar() {
     <aside
       className={cn(
         "relative flex h-full w-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300",
-        isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-5"
+        isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-5",
       )}
     >
       <Button
@@ -211,16 +211,16 @@ export function AppSidebar() {
         onClick={toggleSidebar}
         className={cn(
           "absolute -right-3 top-8 z-50 h-6 w-6 rounded-full border border-sidebar-border bg-sidebar text-sidebar-foreground shadow-sm hover:bg-sidebar-accent",
-          isCollapsed ? "rotate-180" : ""
+          isCollapsed ? "rotate-180" : "",
         )}
       >
         <ChevronLeft className="h-3.5 w-3.5" />
       </Button>
 
-<header
+      <header
         className={cn(
           "mb-10 flex items-center transition-all duration-300",
-          isCollapsed ? "justify-center px-0 gap-0" : "gap-4 px-1"
+          isCollapsed ? "justify-center px-0 gap-0" : "gap-4 px-1",
         )}
       >
         {/* CONTAINER: Handles the shape (Circle) and Border */}
@@ -228,7 +228,7 @@ export function AppSidebar() {
           className={cn(
             "relative shrink-0 flex items-center justify-center overflow-hidden rounded-full border border-sidebar-foreground/20 shadow-sm transition-all",
             // Sizing for collapsed vs expanded
-            isCollapsed ? "h-10 w-10" : "h-12 w-12"
+            isCollapsed ? "h-10 w-10" : "h-12 w-12",
           )}
         >
           {/* 1. LIGHT MODE LOGO (Black Ink) */}
@@ -259,7 +259,7 @@ export function AppSidebar() {
             "flex flex-1 flex-col min-w-0 space-y-0 transition-all duration-300 overflow-hidden",
             isCollapsed
               ? "w-0 opacity-0 invisible"
-              : "w-auto opacity-100 visible"
+              : "w-auto opacity-100 visible",
           )}
         >
           <h1 className="truncate text-base font-bold leading-none tracking-tight">
@@ -289,7 +289,7 @@ export function AppSidebar() {
       <footer
         className={cn(
           "mt-auto border-t border-sidebar-border pt-6 w-full transition-all",
-          isCollapsed ? "flex justify-center" : ""
+          isCollapsed ? "flex justify-center" : "",
         )}
       >
         <Button
@@ -299,7 +299,7 @@ export function AppSidebar() {
             "rounded-xl border-sidebar-border bg-background text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all h-10",
             isCollapsed
               ? "w-auto justify-center px-2.5"
-              : "w-full justify-start gap-3 px-3"
+              : "w-full justify-start gap-3 px-3",
           )}
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
@@ -314,7 +314,7 @@ export function AppSidebar() {
               "text-xs font-semibold transition-all duration-300 overflow-hidden whitespace-nowrap",
               isCollapsed
                 ? "w-0 opacity-0 hidden"
-                : "w-auto opacity-100 visible"
+                : "w-auto opacity-100 visible",
             )}
           >
             {mounted

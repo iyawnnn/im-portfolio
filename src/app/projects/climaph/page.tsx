@@ -14,11 +14,7 @@ import {
   Rocket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export default function ClimaPHPage() {
@@ -72,6 +68,7 @@ export default function ClimaPHPage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/climaph/climaph-demo.mp4"
+          poster="/projects/climaph/climaph-cover.png"
           autoPlay
           muted
           loop
@@ -108,7 +105,6 @@ export default function ClimaPHPage() {
 
       {/* --- DETAILED CONTENT --- */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        
         {/* LEFT COLUMN (Main Content) */}
         <div className="xl:col-span-2 space-y-12">
           {/* Core Features */}
@@ -142,7 +138,8 @@ export default function ClimaPHPage() {
                 </h3>
                 <p className="text-muted-foreground text-sm">
                   Automatic geolocation detection, real-time city search with
-                  instant results via caching, and persistent favorite locations.
+                  instant results via caching, and persistent favorite
+                  locations.
                 </p>
               </div>
             </div>
@@ -169,9 +166,10 @@ export default function ClimaPHPage() {
               <h3 className="text-xl font-semibold">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
-                  <strong>Smart Caching:</strong> Implemented caching strategies for
-                  location searches and API calls. This drastically reduced redundant
-                  network requests and provided instant load times for revisited cities.
+                  <strong>Smart Caching:</strong> Implemented caching strategies
+                  for location searches and API calls. This drastically reduced
+                  redundant network requests and provided instant load times for
+                  revisited cities.
                 </li>
                 <li>
                   <strong>Data Transformation:</strong> Built logic to group
@@ -203,7 +201,6 @@ export default function ClimaPHPage() {
 
         {/* RIGHT COLUMN (Tech Stack & Meta) */}
         <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          
           {/* Tech Stack Widget */}
           <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
             <CardHeader>
@@ -287,9 +284,7 @@ export default function ClimaPHPage() {
             <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Platform</span>
-                <span className="font-medium text-foreground">
-                  Vercel
-                </span>
+                <span className="font-medium text-foreground">Vercel</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Version</span>
@@ -303,7 +298,6 @@ export default function ClimaPHPage() {
               </div>
             </div>
           </Card>
-
         </div>
       </div>
     </div>

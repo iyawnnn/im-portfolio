@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -13,16 +13,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton"; // <--- Import Skeleton
 
 // --- PROJECT DATA ---
 const PROJECTS = [
   {
-    title: "SubVantage", 
+    title: "KodaSync",
+    description:
+      "A professional intelligence hub combining a Monaco Editor with RAG-powered AI agents for a searchable, neural knowledge base.",
+    tags: ["Next.js 15", "FastAPI", "Groq SDK", "pgvector"],
+    link: "/projects/kodasync",
+    image: "/projects/kodasync/kodasync-cover.png",
+  },
+  {
+    title: "SubVantage",
     description:
       "An intelligent financial dashboard for tracking subscriptions, visualizing spending velocity, and managing monthly burn across multiple currencies.",
     tags: ["Next.js 15", "Supabase", "Google Auth"],
-    link: "/projects/subvantage", 
-    image: "/projects/subvantage/subvantage-cover.png", 
+    link: "/projects/subvantage",
+    image: "/projects/subvantage/subvantage-cover.png",
   },
   {
     title: "Mama R's",
@@ -69,7 +78,6 @@ const PROJECTS = [
 export default function ProjectsPage() {
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-10 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      
       {/* --- HEADER --- */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
@@ -95,47 +103,66 @@ export default function ProjectsPage() {
         className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start"
       >
         {PROJECTS.map((project, idx) => (
-          <Link key={idx} href={project.link} className="group block h-full">
-            <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
-              {/* IMAGE THUMBNAIL AREA */}
-              <div className="relative w-full overflow-hidden border-b border-border/50">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={0}
-                  height={0}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
-              </div>
-
-              {/* CARD CONTENT */}
-              <CardHeader className="px-6 pt-3 pb-1">
-                <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                  {project.title}
-                </CardTitle>
-                <CardDescription className="line-clamp-2 text-sm sm:text-base">
-                  {project.description}
-                </CardDescription>
-              </CardHeader>
-
-              {/* FOOTER */}
-              <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
-                {project.tags.map((tag) => (
-                  <Badge
-                    key={tag}
-                    variant="secondary"
-                    className="rounded-md group-hover:bg-background transition-colors"
-                  >
-                    {tag}
-                  </Badge>
-                ))}
-              </CardFooter>
-            </Card>
-          </Link>
+          <ProjectCard key={idx} project={project} />
         ))}
       </motion.section>
     </div>
+  );
+}
+
+// --- SUB-COMPONENT FOR INDIVIDUAL LOADING STATE ---
+function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  return (
+    <Link href={project.link} className="group block h-full">
+      <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
+        {/* IMAGE THUMBNAIL AREA */}
+        {/* 'aspect-video' forces 16:9 ratio (1920x1080) to prevent layout shift */}
+        <div className="relative w-full aspect-video overflow-hidden border-b border-border/50 bg-muted/20">
+          {/* SKELETON: Visible only while loading */}
+          {isLoading && (
+            <Skeleton className="absolute inset-0 h-full w-full z-10" />
+          )}
+
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill // Use fill for responsive aspect-video
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className={`object-cover transition-all duration-500 group-hover:scale-105 ${
+              isLoading ? "opacity-0" : "opacity-100"
+            }`}
+            onLoad={() => setIsLoading(false)}
+          />
+
+          {/* Dark Overlay on Hover */}
+          <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-20" />
+        </div>
+
+        {/* CARD CONTENT */}
+        <CardHeader className="px-6 pt-3 pb-1">
+          <CardTitle className="text-xl group-hover:text-primary transition-colors">
+            {project.title}
+          </CardTitle>
+          <CardDescription className="line-clamp-2 text-sm sm:text-base">
+            {project.description}
+          </CardDescription>
+        </CardHeader>
+
+        {/* FOOTER */}
+        <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
+          {project.tags.map((tag) => (
+            <Badge
+              key={tag}
+              variant="secondary"
+              className="rounded-md group-hover:bg-background transition-colors"
+            >
+              {tag}
+            </Badge>
+          ))}
+        </CardFooter>
+      </Card>
+    </Link>
   );
 }

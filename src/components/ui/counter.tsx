@@ -11,7 +11,7 @@ export function Counter({
   direction?: "up" | "down";
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  
+
   // 1. Set the starting value
   const motionValue = useMotionValue(direction === "down" ? value : 0);
 
@@ -37,7 +37,7 @@ export function Counter({
       if (ref.current) {
         // Format with commas (e.g., 1,000) and no decimals
         ref.current.textContent = Intl.NumberFormat("en-US").format(
-          Number(latest.toFixed(0))
+          Number(latest.toFixed(0)),
         );
       }
     });

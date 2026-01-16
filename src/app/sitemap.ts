@@ -19,7 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/projects`,
       lastModified: new Date(),
-      changeFrequency: "weekly", // Projects might update more often
+      changeFrequency: "weekly",
       priority: 0.8,
     },
     {
@@ -42,13 +42,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // --- INDIVIDUAL PROJECTS ---
     {
-      url: `${baseUrl}/projects/climaph`,
+      url: `${baseUrl}/projects/kodasync`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.8,
     },
     {
-      url: `${baseUrl}/projects/kusinago`,
+      url: `${baseUrl}/projects/subvantage`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -60,7 +60,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/projects/subvantage`,
+      url: `${baseUrl}/projects/climaph`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
@@ -73,6 +73,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/projects/movieloom`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/projects/kusinago`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,

@@ -14,11 +14,7 @@ import {
   Rocket,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export default function ThryvePage() {
@@ -52,11 +48,12 @@ export default function ThryvePage() {
         </div>
 
         <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          Thryve is a full-stack health and fitness application built on the MEVN
-          stack (MongoDB, Express, Vue.js, Node.js). It provides a unified platform
-          for users to monitor workouts, nutritional intake, hydration, and sleep
-          patterns. Beyond simple logging, Thryve gamifies the experience with
-          achievement badges and daily streaks to promote consistent self-improvement.
+          Thryve is a full-stack health and fitness application built on the
+          MEVN stack (MongoDB, Express, Vue.js, Node.js). It provides a unified
+          platform for users to monitor workouts, nutritional intake, hydration,
+          and sleep patterns. Beyond simple logging, Thryve gamifies the
+          experience with achievement badges and daily streaks to promote
+          consistent self-improvement.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
@@ -71,6 +68,7 @@ export default function ThryvePage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/thryve/thryve-demo.mp4"
+          poster="/projects/thryve/thryve-cover.png" // <--- FIXED: Changed 'climaph' to 'thryve'
           autoPlay
           muted
           loop
@@ -107,7 +105,6 @@ export default function ThryvePage() {
 
       {/* --- DETAILED CONTENT --- */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        
         {/* LEFT COLUMN (Main Content) */}
         <div className="xl:col-span-2 space-y-12">
           {/* Core Features */}
@@ -121,8 +118,9 @@ export default function ThryvePage() {
                   Holistic Tracking
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Comprehensive logging for four key pillars: Workouts (sets/reps),
-                  Nutrition (calories/macros), Sleep quality, and Water intake.
+                  Comprehensive logging for four key pillars: Workouts
+                  (sets/reps), Nutrition (calories/macros), Sleep quality, and
+                  Water intake.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
@@ -130,8 +128,9 @@ export default function ThryvePage() {
                   Gamification Engine
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Integrated achievement system that awards digital badges for milestones
-                  (e.g., "7-Day Streak", "1000 Calories Burned") to drive user retention.
+                  Integrated achievement system that awards digital badges for
+                  milestones (e.g., "7-Day Streak", "1000 Calories Burned") to
+                  drive user retention.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
@@ -139,8 +138,9 @@ export default function ThryvePage() {
                   Visual Analytics
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Interactive dashboards powered by Chart.js visualize progress over time,
-                  offering insights into weekly calorie deficits and workout consistency.
+                  Interactive dashboards powered by Chart.js visualize progress
+                  over time, offering insights into weekly calorie deficits and
+                  workout consistency.
                 </p>
               </div>
             </div>
@@ -155,10 +155,11 @@ export default function ThryvePage() {
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
-                The primary challenge was managing the state for multiple interconnected
-                data streams. For example, deleting a workout needed to immediately
-                update the user's daily progress bar, achievement eligibility, and
-                dashboard charts without requiring a page reload.
+                The primary challenge was managing the state for multiple
+                interconnected data streams. For example, deleting a workout
+                needed to immediately update the user's daily progress bar,
+                achievement eligibility, and dashboard charts without requiring
+                a page reload.
               </p>
             </div>
 
@@ -166,19 +167,20 @@ export default function ThryvePage() {
               <h3 className="text-xl font-semibold">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
-                  <strong>Reactive State Management:</strong> Leveraged Pinia stores
-                  to create a single source of truth for user data, ensuring instantaneous
-                  UI updates across all components.
+                  <strong>Reactive State Management:</strong> Leveraged Pinia
+                  stores to create a single source of truth for user data,
+                  ensuring instantaneous UI updates across all components.
                 </li>
                 <li>
-                  <strong>Modular Backend:</strong> Designed a clean REST API structure with
-                  separate controllers for each domain (Meals, Workouts, Sleep), kept DRY
-                  with reusable middleware for JWT authentication.
+                  <strong>Modular Backend:</strong> Designed a clean REST API
+                  structure with separate controllers for each domain (Meals,
+                  Workouts, Sleep), kept DRY with reusable middleware for JWT
+                  authentication.
                 </li>
                 <li>
                   <strong>Email Service:</strong> Integrated SendGrid to handle
-                  secure password reset flows and welcome emails, improving the user
-                  onboarding experience.
+                  secure password reset flows and welcome emails, improving the
+                  user onboarding experience.
                 </li>
               </ul>
             </div>
@@ -190,16 +192,16 @@ export default function ThryvePage() {
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Thryve was a deep dive into the modern Vue ecosystem (Vue 3 + Composition API).
-              It taught me the importance of scalable folder structures in full-stack apps
-              and how to effectively model relationships in a cloud-based NoSQL database like MongoDB Atlas.
+              Thryve was a deep dive into the modern Vue ecosystem (Vue 3 +
+              Composition API). It taught me the importance of scalable folder
+              structures in full-stack apps and how to effectively model
+              relationships in a cloud-based NoSQL database like MongoDB Atlas.
             </p>
           </section>
         </div>
 
         {/* RIGHT COLUMN (Tech Stack & Meta) */}
         <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          
           {/* Tech Stack Widget */}
           <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
             <CardHeader>
@@ -282,15 +284,11 @@ export default function ThryvePage() {
             <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Frontend</span>
-                <span className="font-medium text-foreground">
-                  Vercel
-                </span>
+                <span className="font-medium text-foreground">Vercel</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Backend</span>
-                <span className="font-medium text-foreground">
-                  Render
-                </span>
+                <span className="font-medium text-foreground">Render</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Database</span>
@@ -300,7 +298,6 @@ export default function ThryvePage() {
               </div>
             </div>
           </Card>
-
         </div>
       </div>
     </div>
