@@ -68,7 +68,7 @@ export default function MovieLoomPage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/movieloom/movieloom-demo.mp4"
-          poster="/projects/movieloom/movieloom-cover.png"
+          poster="/projects/movieloom/movieloom-cover.webp"
           autoPlay
           muted
           loop

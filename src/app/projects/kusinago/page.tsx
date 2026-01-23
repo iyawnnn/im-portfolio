@@ -68,7 +68,7 @@ export default function KusinaGoPage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/kusinago/kusinago-demo.mp4"
-          poster="/projects/kusinago/kusinago-cover.png"
+          poster="/projects/kusinago/kusinago-cover.webp"
           autoPlay
           muted
           loop

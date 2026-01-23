@@ -74,7 +74,7 @@ export default function KodaSyncPage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/kodasync/kodasync-demo.mp4"
-          poster="/projects/kodasync/kodasync-cover.png"
+          poster="/projects/kodasync/kodasync-cover.webp"
           autoPlay
           muted
           loop

@@ -147,7 +147,7 @@ export default function ExplorePage() {
             <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
               <div className="relative w-full overflow-hidden border-b border-border/50">
                 <Image
-                  src="/projects/climaph/climaph-cover.png"
+                  src="/projects/climaph/climaph-cover.webp"
                   alt="ClimaPH"
                   width={0}
                   height={0}
@@ -196,7 +196,7 @@ export default function ExplorePage() {
             <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
               <div className="relative w-full overflow-hidden border-b border-border/50">
                 <Image
-                  src="/projects/subvantage/subvantage-cover.png"
+                  src="/projects/subvantage/subvantage-cover.webp"
                   alt="SubVantage"
                   width={0}
                   height={0}

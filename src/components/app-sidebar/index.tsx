@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image"; // Changed: Import Image from next/image
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
@@ -21,7 +21,6 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-// Removed: Avatar imports are no longer needed
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/hooks/use-sidebar";
 
@@ -37,7 +36,6 @@ const PeerlistIcon = ({ className }: { className?: string }) => (
     className={className}
     xmlns="http://www.w3.org/2000/svg"
   >
-    {/* A stylized "P" to match Lucide's stroke style */}
     <path d="M19 7a5 5 0 0 0-5-5H7v18" />
     <path d="M7 12h7a5 5 0 0 0 0-10" />
   </svg>
@@ -68,7 +66,7 @@ const CONNECT_LINKS = [
   {
     title: "Peerlist",
     href: "https://peerlist.io/iannmacabulos",
-    icon: PeerlistIcon, // Using our custom component
+    icon: PeerlistIcon,
     isExternal: true,
   },
 ] as const;
@@ -87,7 +85,7 @@ function NavSection({
   return (
     <section className="w-full">
       {!isCollapsed && (
-        <h2 className="mb-3 px-3 text-[10px] font-bold uppercase text-muted-foreground/60 transition-opacity duration-300 tracking-widest">
+        <h2 className="mb-3 px-3 text-[10px] font-bold uppercase text-muted-foreground transition-opacity duration-300 tracking-widest">
           {title}
         </h2>
       )}
@@ -106,19 +104,19 @@ function NavSection({
                   isCollapsed ? "justify-center px-2" : "justify-between px-3",
                   isActive
                     ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                    : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 )}
               >
                 <div
                   className={cn(
                     "flex items-center transition-all",
-                    isCollapsed ? "gap-0" : "gap-3",
+                    isCollapsed ? "gap-0" : "gap-3"
                   )}
                 >
                   <link.icon
                     className={cn(
                       "h-5 w-5 transition-all",
-                      isActive ? "stroke-[2.5px] text-foreground" : "stroke-2",
+                      isActive ? "stroke-[2.5px] text-foreground" : "stroke-2"
                     )}
                   />
                   <span
@@ -126,7 +124,7 @@ function NavSection({
                       "transition-all duration-300 overflow-hidden whitespace-nowrap",
                       isCollapsed
                         ? "w-0 opacity-0 invisible"
-                        : "w-auto opacity-100 visible",
+                        : "w-auto opacity-100 visible"
                     )}
                   >
                     {link.title}
@@ -138,7 +136,7 @@ function NavSection({
                     "hidden md:flex transition-all duration-300 overflow-hidden",
                     isCollapsed
                       ? "w-0 opacity-0 invisible"
-                      : "w-auto opacity-100 visible",
+                      : "w-auto opacity-100 visible"
                   )}
                 >
                   <span
@@ -146,7 +144,7 @@ function NavSection({
                       "flex h-5 w-5 items-center justify-center rounded border text-[10px] font-bold transition-all shadow-sm",
                       isActive
                         ? "border-foreground/10 bg-background text-foreground"
-                        : "border-sidebar-border bg-sidebar text-muted-foreground group-hover:border-foreground/10 group-hover:bg-background group-hover:text-foreground",
+                        : "border-sidebar-border bg-sidebar text-muted-foreground group-hover:border-foreground/10 group-hover:bg-background group-hover:text-foreground"
                     )}
                   >
                     {"shortcut" in link ? (
@@ -187,7 +185,7 @@ export function AppSidebar() {
       const target = allLinks.find(
         (link) =>
           "shortcut" in link &&
-          link.shortcut?.toLowerCase() === e.key.toLowerCase(),
+          link.shortcut?.toLowerCase() === e.key.toLowerCase()
       );
       if (target) {
         e.preventDefault();
@@ -202,16 +200,17 @@ export function AppSidebar() {
     <aside
       className={cn(
         "relative flex h-full w-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300",
-        isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-5",
+        isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-5"
       )}
     >
       <Button
         variant="ghost"
         size="icon"
         onClick={toggleSidebar}
+        aria-label="Toggle Sidebar"
         className={cn(
           "absolute -right-3 top-8 z-50 h-6 w-6 rounded-full border border-sidebar-border bg-sidebar text-sidebar-foreground shadow-sm hover:bg-sidebar-accent",
-          isCollapsed ? "rotate-180" : "",
+          isCollapsed ? "rotate-180" : ""
         )}
       >
         <ChevronLeft className="h-3.5 w-3.5" />
@@ -220,7 +219,7 @@ export function AppSidebar() {
       <header
         className={cn(
           "mb-10 flex items-center transition-all duration-300",
-          isCollapsed ? "justify-center px-0 gap-0" : "gap-4 px-1",
+          isCollapsed ? "justify-center px-0 gap-0" : "gap-4 px-1"
         )}
       >
         {/* CONTAINER: Handles the shape (Circle) and Border */}
@@ -228,11 +227,10 @@ export function AppSidebar() {
           className={cn(
             "relative shrink-0 flex items-center justify-center overflow-hidden rounded-full border border-sidebar-foreground/20 shadow-sm transition-all",
             // Sizing for collapsed vs expanded
-            isCollapsed ? "h-10 w-10" : "h-12 w-12",
+            isCollapsed ? "h-10 w-10" : "h-12 w-12"
           )}
         >
           {/* 1. LIGHT MODE LOGO (Black Ink) */}
-          {/* Logic: Visible by default (block). HIDDEN when dark mode is active (dark:hidden). */}
           <Image
             src="/logo/personal-logo-black.png"
             alt="Ian Macabulos"
@@ -243,7 +241,6 @@ export function AppSidebar() {
           />
 
           {/* 2. DARK MODE LOGO (White Ink) */}
-          {/* Logic: Hidden by default (hidden). VISIBLE when dark mode is active (dark:block). */}
           <Image
             src="/logo/personal-logo-white.png"
             alt="Ian Macabulos"
@@ -259,7 +256,7 @@ export function AppSidebar() {
             "flex flex-1 flex-col min-w-0 space-y-0 transition-all duration-300 overflow-hidden",
             isCollapsed
               ? "w-0 opacity-0 invisible"
-              : "w-auto opacity-100 visible",
+              : "w-auto opacity-100 visible"
           )}
         >
           <h1 className="truncate text-base font-bold leading-none tracking-tight">
@@ -289,7 +286,7 @@ export function AppSidebar() {
       <footer
         className={cn(
           "mt-auto border-t border-sidebar-border pt-6 w-full transition-all",
-          isCollapsed ? "flex justify-center" : "",
+          isCollapsed ? "flex justify-center" : ""
         )}
       >
         <Button
@@ -299,7 +296,7 @@ export function AppSidebar() {
             "rounded-xl border-sidebar-border bg-background text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all h-10",
             isCollapsed
               ? "w-auto justify-center px-2.5"
-              : "w-full justify-start gap-3 px-3",
+              : "w-full justify-start gap-3 px-3"
           )}
           onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         >
@@ -314,7 +311,7 @@ export function AppSidebar() {
               "text-xs font-semibold transition-all duration-300 overflow-hidden whitespace-nowrap",
               isCollapsed
                 ? "w-0 opacity-0 hidden"
-                : "w-auto opacity-100 visible",
+                : "w-auto opacity-100 visible"
             )}
           >
             {mounted

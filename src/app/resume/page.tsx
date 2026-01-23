@@ -21,7 +21,7 @@ const CERTIFICATIONS = [
   {
     name: "Back End Development and APIs",
     org: "freeCodeCamp",
-    icon: "/icons/freecodecamp.png",
+    icon: "/icons/freecodecamp.webp",
     imageClass: "p-2",
     date: "Sep 2025",
     link: "https://www.freecodecamp.org/certification/iyawn/back-end-development-and-apis",
@@ -29,7 +29,7 @@ const CERTIFICATIONS = [
   {
     name: "CompTIA IT Fundamentals+ (ITF+)",
     org: "CompTIA",
-    icon: "/icons/comptia-white.png",
+    icon: "/icons/comptia-white.webp",
     imageClass: "",
     date: "Nov 2023",
     link: "https://www.credly.com/badges/82755364-a4a7-4272-a446-2d7d07662f48/linked_in_profile",
@@ -37,7 +37,7 @@ const CERTIFICATIONS = [
   {
     name: "Legacy JavaScript Algorithms and Data Structures",
     org: "freeCodeCamp",
-    icon: "/icons/freecodecamp.png",
+    icon: "/icons/freecodecamp.webp",
     imageClass: "p-2",
     date: "Mar 2025",
     link: "https://www.freecodecamp.org/certification/iyawn/javascript-algorithms-and-data-structures",
@@ -45,7 +45,7 @@ const CERTIFICATIONS = [
   {
     name: "Responsive Web Design",
     org: "freeCodeCamp",
-    icon: "/icons/freecodecamp.png",
+    icon: "/icons/freecodecamp.webp",
     imageClass: "p-2",
     date: "Sep 2024",
     link: "https://www.freecodecamp.org/certification/iyawn/responsive-web-design",

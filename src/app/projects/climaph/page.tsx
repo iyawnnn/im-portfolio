@@ -68,7 +68,7 @@ export default function ClimaPHPage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/climaph/climaph-demo.mp4"
-          poster="/projects/climaph/climaph-cover.png"
+          poster="/projects/climaph/climaph-cover.webp"
           autoPlay
           muted
           loop

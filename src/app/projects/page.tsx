@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton"; // <--- Import Skeleton
+import { Skeleton } from "@/components/ui/skeleton"; 
 
 // --- PROJECT DATA ---
 const PROJECTS = [
@@ -23,7 +23,7 @@ const PROJECTS = [
       "A professional intelligence hub combining a Monaco Editor with RAG-powered AI agents for a searchable, neural knowledge base.",
     tags: ["Next.js 15", "FastAPI", "Groq SDK", "pgvector"],
     link: "/projects/kodasync",
-    image: "/projects/kodasync/kodasync-cover.png",
+    image: "/projects/kodasync/kodasync-cover.webp",
   },
   {
     title: "SubVantage",
@@ -31,7 +31,7 @@ const PROJECTS = [
       "An intelligent financial dashboard for tracking subscriptions, visualizing spending velocity, and managing monthly burn across multiple currencies.",
     tags: ["Next.js 15", "Supabase", "Google Auth"],
     link: "/projects/subvantage",
-    image: "/projects/subvantage/subvantage-cover.png",
+    image: "/projects/subvantage/subvantage-cover.webp",
   },
   {
     title: "Mama R's",
@@ -39,7 +39,7 @@ const PROJECTS = [
       "A bespoke Inventory and Sales Management System featuring real-time analytics, stock tracking, and automated reporting for a local business.",
     tags: ["MERN Stack", "Tailwind", "Recharts"],
     link: "/projects/mamars",
-    image: "/projects/mamars/mamars-cover.png",
+    image: "/projects/mamars/mamars-cover.webp",
   },
   {
     title: "ClimaPH",
@@ -47,7 +47,7 @@ const PROJECTS = [
       "A high-performance weather platform tailored for the Philippines, integrating real-time forecasts with lifestyle metrics like laundry and umbrella guides.",
     tags: ["Next.js 15", "TypeScript", "API"],
     link: "/projects/climaph",
-    image: "/projects/climaph/climaph-cover.png",
+    image: "/projects/climaph/climaph-cover.webp",
   },
   {
     title: "Thryve",
@@ -55,7 +55,7 @@ const PROJECTS = [
       "A unified health and fitness application tracking workouts, meals, and sleep with personalized analytics and achievement goals.",
     tags: ["MEVN Stack", "PrimeVue", "Pinia"],
     link: "/projects/thryve",
-    image: "/projects/thryve/thryve-cover.png",
+    image: "/projects/thryve/thryve-cover.webp",
   },
   {
     title: "MovieLoom",
@@ -63,7 +63,7 @@ const PROJECTS = [
       "A cinematic discovery interface allowing users to explore detailed movie metadata, cast profiles, and filmographies via the TMDb API.",
     tags: ["React", "Vite", "API", "CSS3"],
     link: "/projects/movieloom",
-    image: "/projects/movieloom/movieloom-cover.png",
+    image: "/projects/movieloom/movieloom-cover.webp",
   },
   {
     title: "KusinaGo",
@@ -71,7 +71,7 @@ const PROJECTS = [
       "A dedicated food ordering system enabling seamless customer ordering and robust admin management for sales and inventory.",
     tags: ["PHP", "MongoDB", "E-commerce"],
     link: "/projects/kusinago",
-    image: "/projects/kusinago/kusinago-cover.png",
+    image: "/projects/kusinago/kusinago-cover.webp",
   },
 ];
 
@@ -96,7 +96,7 @@ export default function ProjectsPage() {
       </motion.div>
 
       {/* --- GRID --- */}
-      <motion.section
+      <motion.ul
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
@@ -105,7 +105,7 @@ export default function ProjectsPage() {
         {PROJECTS.map((project, idx) => (
           <ProjectCard key={idx} project={project} />
         ))}
-      </motion.section>
+      </motion.ul>
     </div>
   );
 }

@@ -73,7 +73,7 @@ export default function SubVantagePage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/subvantage/subvantage-demo.mp4"
-          poster="/projects/subvantage/subvantage-cover.png"
+          poster="/projects/subvantage/subvantage-cover.webp"
           autoPlay
           muted
           loop

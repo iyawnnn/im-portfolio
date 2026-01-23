@@ -68,7 +68,7 @@ export default function ThryvePage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/thryve/thryve-demo.mp4"
-          poster="/projects/thryve/thryve-cover.png" // <--- FIXED: Changed 'climaph' to 'thryve'
+          poster="/projects/thryve/thryve-cover.webp"
           autoPlay
           muted
           loop
