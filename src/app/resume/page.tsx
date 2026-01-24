@@ -1,20 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { motion } from "framer-motion";
 import {
-  Download,
   Briefcase,
   GraduationCap,
   Award,
-  Loader2,
   MapPin,
   Mail,
-  ChevronRight,
+  User,
+  Eye,
+  ArrowUpRight,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
 // --- CERTIFICATIONS DATA ---
 const CERTIFICATIONS = [
@@ -53,76 +54,73 @@ const CERTIFICATIONS = [
 ];
 
 export default function ResumePage() {
-  const [isDownloading, setIsDownloading] = useState(false);
-
-  const handleDownload = async () => {
-    if (isDownloading) return;
-    setIsDownloading(true);
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    const link = document.createElement("a");
-    link.href = "/resume.pdf";
-    link.download = "Ian_Macabulos_Resume.pdf";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    setIsDownloading(false);
-  };
-
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
+      
       {/* --- HEADER --- */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="space-y-6 w-full"
+        className="flex flex-col md:flex-row justify-between gap-8 md:items-center border-b border-border/40 pb-8"
       >
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-border/40 pb-8">
-          <div className="space-y-4 max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight lg:text-6xl text-foreground leading-[1.15]">
-              Ian Macabulos
-            </h1>
-            <div className="flex flex-wrap gap-4 text-muted-foreground text-sm font-medium">
-              <span className="flex items-center gap-1.5">
-                <MapPin className="w-4 h-4" /> Pampanga, Philippines
-              </span>
-              <span className="flex items-center gap-1.5">
-                <Mail className="w-4 h-4" /> iannmacabulos@gmail.com
-              </span>
+        <div className="space-y-4">
+            <div>
+                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground lg:text-6xl">
+                Ian Macabulos
+                </h1>
             </div>
-          </div>
 
-          <Button
-            onClick={handleDownload}
-            size="lg"
-            className={`rounded-md font-bold shadow-sm transition-all h-11 px-6
-              ${isDownloading ? "bg-primary/80 cursor-not-allowed" : "hover:translate-y-[-2px] active:translate-y-[1px]"}
-            `}
-          >
-            <AnimatePresence mode="wait">
-              {isDownloading ? (
-                <motion.div
-                  key="loading"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex items-center gap-2"
-                >
-                  <Loader2 className="h-4 w-4 animate-spin" /> Preparing...
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="static"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="flex items-center gap-2"
-                >
-                  <Download className="h-4 w-4" /> Download Resume
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </Button>
+            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground/80">
+                <div className="flex items-center gap-1.5">
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <span>Pampanga, Philippines</span>
+                </div>
+                <div className="hidden sm:block text-border">|</div>
+                <div className="flex items-center gap-1.5">
+                    <Mail className="w-4 h-4 text-primary" />
+                    <span>iannmacabulos@gmail.com</span>
+                </div>
+            </div>
+        </div>
+
+        {/* STYLISH VIEW RESUME BUTTON */}
+        <div className="flex shrink-0">
+          <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+            <HoverBorderGradient
+                containerClassName="rounded-full"
+                as="button"
+                className="bg-background text-foreground flex items-center space-x-2 px-6 py-3 font-semibold transition-all hover:scale-105 active:scale-95"
+            >
+                <Eye className="h-4 w-4" />
+                <span>View Resume</span>
+            </HoverBorderGradient>
+          </Link>
         </div>
       </motion.div>
+
+      {/* --- CAREER OBJECTIVE (FIXED CONSISTENCY) --- */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+        className="space-y-6 w-full"
+      >
+        <div className="flex items-center gap-3 pb-2 border-border/40 mb-2">
+          <div className="p-2 bg-primary/10 rounded-md text-primary">
+            <User className="w-5 h-5" />
+          </div>
+          <h2 className="text-xl font-bold tracking-tight ">Career Objective</h2>
+        </div>
+        
+        <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
+          Information Technology student and Full-Stack Developer with practical
+          experience building web applications using Next.js, React, Node.js, and
+          MongoDB. I am seeking an internship or entry-level role to contribute
+          to high-quality software solutions while continuing to grow within a
+          professional development team.
+        </p>
+      </motion.section>
 
       {/* --- EXPERIENCE SECTION --- */}
       <motion.section
@@ -139,51 +137,43 @@ export default function ResumePage() {
         </div>
 
         <div className="relative border-l-2 border-border/50 ml-3 md:ml-4 space-y-12 pl-8 md:pl-10 py-2">
-          {/* FREELANCE ENTRY */}
+          {/* MAMA R'S ENTRY */}
           <div className="relative">
-            {/* FIXED COLOR CIRCLE */}
             <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-primary shadow-sm" />
 
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
               <h3 className="text-lg md:text-xl font-bold text-foreground">
-                Freelance Full Stack Developer
+                Freelance Full-Stack Developer
               </h3>
-              {/* ADDED w-fit HERE */}
-              <span className="text-sm font-mono text-muted-foreground bg-secondary px-2 py-0.5 rounded w-fit">
-                2025 - Present
+              <span className="text-sm font-mono text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded w-fit">
+                2025 — Present
               </span>
             </div>
 
-            <p className="text-primary font-semibold mb-4">
-              Self-Employed / Remote
-            </p>
+            <div className="flex items-center gap-2 mb-4">
+                <span className="text-primary font-semibold">
+                Mama R&apos;s — Inventory & Sales Management System
+                </span>
+                <Badge variant="outline" className="text-[10px] py-0 h-5">Project</Badge>
+            </div>
 
             <ul className="space-y-3 text-muted-foreground text-sm md:text-base leading-relaxed">
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  <strong>Digital Transformation:</strong> Architected and
-                  deployed a custom Inventory & Sales Management System for an
-                  SME client, successfully digitizing 100% of manual paper
-                  records.
+                  <strong>Digital Transformation:</strong> Replaced manual paper logs with a fully digital custom MERN-stack solution, digitizing 100% of inventory records and reducing data retrieval time from minutes to seconds.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  <strong>Analytics & Optimization:</strong> Engineered a
-                  real-time analytics dashboard using React and Node.js,
-                  enabling data-driven decision-making that reduced inventory
-                  waste and optimized stock levels.
+                  <strong>Analytics Dashboard:</strong> Automated daily revenue and stock reporting through a dynamic dashboard, eliminating manual calculation errors and providing real-time performance insights.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  <strong>Security & Infrastructure:</strong> Implemented secure
-                  role-based authentication (JWT) and scalable cloud
-                  architecture, ensuring data integrity for sensitive business
-                  transactions.
+                  <strong>Security Implementation:</strong> Secured sensitive business transactions by implementing an administrative panel with JWT-based authentication and role-based access control.
                 </span>
               </li>
             </ul>
@@ -216,7 +206,7 @@ export default function ResumePage() {
                   Bachelor of Science in Information Technology
                 </p>
               </div>
-              <Badge variant="outline" className="w-fit h-fit py-1">
+              <Badge variant="secondary" className="w-fit h-fit py-1">
                 2023 — 2027
               </Badge>
             </div>
@@ -226,10 +216,10 @@ export default function ResumePage() {
                 Major in Web Development
               </p>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Award className="w-4 h-4" />
+                <Award className="w-4 h-4 text-primary" />
                 <span>
                   Consistent Dean&apos;s and President&apos;s Lister (A.Y.
-                  2023-2025)
+                  2023-2026)
                 </span>
               </div>
             </div>
@@ -251,7 +241,7 @@ export default function ResumePage() {
           <h2 className="text-xl font-bold tracking-tight">Certifications</h2>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {CERTIFICATIONS.map((cert, idx) => (
             <a
               key={idx}
@@ -260,7 +250,6 @@ export default function ResumePage() {
               rel="noreferrer"
               className="group relative overflow-hidden rounded-xl border border-border/50 bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md flex items-center gap-4"
             >
-              {/* ICON CONTAINER */}
               <div className="h-12 w-12 shrink-0 relative bg-neutral-950 rounded-lg border border-border/50 overflow-hidden flex items-center justify-center shadow-inner">
                 <Image
                   src={cert.icon}
@@ -281,7 +270,7 @@ export default function ResumePage() {
                 </div>
               </div>
 
-              <ChevronRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              <ArrowUpRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
             </a>
           ))}
         </div>

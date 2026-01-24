@@ -3,9 +3,6 @@
 import React, { useState } from "react";
 import { Search, RotateCcw, TestTube } from "lucide-react";
 import {
-  SiHtml5,
-  SiCss3,
-  SiJavascript,
   SiReact,
   SiVuedotjs,
   SiAngular,
@@ -34,9 +31,10 @@ import {
   SiPostgresql,
   SiVitest,
   SiGithubactions,
+  SiPytest, // Added
+  SiFastapi, // Added
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
-// Removed MdEmail import as Resend was removed
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -61,7 +59,7 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Next.js 15",
-        description: "The React Framework. Using App Router & Server Actions.",
+        description: "The React Framework for the Web.",
         icon: SiNextdotjs,
         tags: ["React", "SSR", "RSC"],
       },
@@ -79,7 +77,7 @@ const toolsData: ToolCategory[] = [
       },
       {
         name: "Tailwind CSS",
-        description: "Utility-first CSS framework for rapid UI development.",
+        description: "Utility-first CSS framework for rapid UI.",
         icon: SiTailwindcss,
         tags: ["CSS", "Styling"],
       },
@@ -91,73 +89,60 @@ const toolsData: ToolCategory[] = [
       },
       {
         name: "Angular",
-        description: "Platform for building mobile and desktop web apps.",
+        description: "Platform for building scalable web apps.",
         icon: SiAngular,
         tags: ["Framework", "Google"],
       },
       {
-        name: "JavaScript",
-        description: "The programming language of the Web.",
-        icon: SiJavascript,
-        tags: ["Language", "Web"],
-      },
-      {
-        name: "HTML5",
-        description: "The standard markup language for documents.",
-        icon: SiHtml5,
-        tags: ["Markup", "Structure"],
-      },
-      {
-        name: "CSS3",
-        description: "Style sheet language used for describing presentation.",
-        icon: SiCss3,
-        tags: ["Style", "Layout"],
-      },
-      {
         name: "Bootstrap",
-        description:
-          "Powerful, extensible, and feature-packed frontend toolkit.",
+        description: "Feature-packed frontend toolkit.",
         icon: SiBootstrap,
         tags: ["CSS", "Framework"],
       },
     ],
   },
   {
-    category: "Backend Development", // Renamed from "Backend & Services"
+    category: "Backend Development",
     items: [
       {
         name: "Node.js",
-        description: "JavaScript runtime built on Chrome's V8 engine.",
+        description: "JavaScript runtime on Chrome's V8 engine.",
         icon: SiNodedotjs,
         tags: ["Runtime", "Backend"],
       },
       {
         name: "Express.js",
-        description: "Fast, unopinionated, minimalist web framework.",
+        description: "Fast, minimalist web framework.",
         icon: SiExpress,
         tags: ["Framework", "API"],
       },
       {
+        name: "FastAPI",
+        description: "High-performance Python API framework.",
+        icon: SiFastapi,
+        tags: ["Python", "API"],
+      },
+      {
         name: "Prisma",
-        description: "Next-generation Node.js and TypeScript ORM.",
+        description: "Next-gen Node.js and TypeScript ORM.",
         icon: SiPrisma,
         tags: ["ORM", "Database"],
       },
       {
         name: "Python",
-        description: "Programming language that lets you work quickly.",
+        description: "Versatile language for rapid development.",
         icon: SiPython,
         tags: ["Language", "Data"],
       },
       {
         name: "Java",
-        description: "High-level, class-based, object-oriented language.",
+        description: "Robust, object-oriented language.",
         icon: FaJava,
         tags: ["Language", "OOP"],
       },
       {
         name: "PHP",
-        description: "Popular general-purpose scripting language.",
+        description: "Popular server-side scripting language.",
         icon: SiPhp,
         tags: ["Language", "Server-side"],
       },
@@ -168,26 +153,25 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "PostgreSQL",
-        description:
-          "The world's most advanced open source relational database.",
+        description: "Advanced open source relational database.",
         icon: SiPostgresql,
         tags: ["Database", "SQL"],
       },
       {
         name: "Supabase",
-        description: "Open Source Firebase alternative. Powered by Postgres.",
+        description: "Open Source Firebase alternative.",
         icon: SiSupabase,
         tags: ["BaaS", "Realtime"],
       },
       {
         name: "MongoDB",
-        description: "The application data platform for modern apps.",
+        description: "Modern application data platform.",
         icon: SiMongodb,
         tags: ["Database", "NoSQL"],
       },
       {
         name: "MySQL",
-        description: "The world's most popular open source database.",
+        description: "World's most popular open source DB.",
         icon: SiMysql,
         tags: ["Database", "SQL"],
       },
@@ -198,19 +182,25 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Vitest",
-        description: "Blazing fast unit test framework powered by Vite.",
+        description: "Blazing fast Vite-native unit testing.",
         icon: SiVitest,
         tags: ["Testing", "Unit"],
       },
       {
+        name: "Pytest",
+        description: "Mature full-featured Python testing tool.",
+        icon: SiPytest,
+        tags: ["Testing", "Python"],
+      },
+      {
         name: "Playwright",
-        description: "Reliable end-to-end testing for modern web apps.",
+        description: "Reliable E2E testing for modern apps.",
         icon: TestTube,
         tags: ["Testing", "E2E"],
       },
       {
         name: "Postman",
-        description: "API platform for building and using APIs.",
+        description: "Platform for building and using APIs.",
         icon: SiPostman,
         tags: ["API", "Testing"],
       },
@@ -221,27 +211,25 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Vercel",
-        description:
-          "Develop, Preview, Ship. For the best frontend experience.",
+        description: "Develop, Preview, Ship frontends fast.",
         icon: SiVercel,
         tags: ["Deployment", "Hosting"],
       },
       {
-        name: "Amazon AWS",
+        name: "Amazon Web Services",
         description: "Comprehensive, evolving cloud computing platform.",
         icon: SiAmazon,
         tags: ["Cloud", "Infrastructure"],
       },
       {
         name: "Netlify",
-        description: "The fastest way to build the fastest sites.",
+        description: "The fastest way to build modern sites.",
         icon: SiNetlify,
         tags: ["Deployment", "CDN"],
       },
       {
         name: "GitHub Actions",
-        description:
-          "Automate workflows from idea to production with CI/CD pipelines.", // Simplified description
+        description: "Automate software workflows with CI/CD.",
         icon: SiGithubactions,
         tags: ["CI/CD", "Automation"],
       },
@@ -258,20 +246,19 @@ const toolsData: ToolCategory[] = [
       },
       {
         name: "GitHub",
-        description: "Platform for hosting and collaborating on code.",
+        description: "Platform for code hosting and collaboration.",
         icon: SiGithub,
         tags: ["Collaboration", "Git"],
       },
       {
         name: "Figma",
-        description: "The collaborative interface design tool.",
+        description: "Collaborative interface design tool.",
         icon: SiFigma,
         tags: ["Design", "UI/UX"],
       },
       {
         name: "WordPress",
-        description:
-          "Open source software you can use to create beautiful websites.",
+        description: "Open source CMS for beautiful websites.",
         icon: SiWordpress,
         tags: ["CMS", "PHP"],
       },
@@ -282,14 +269,13 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Flutter",
-        description:
-          "Google's UI toolkit for building natively compiled applications.",
+        description: "UI toolkit for natively compiled apps.",
         icon: SiFlutter,
         tags: ["Mobile", "Cross-platform"],
       },
       {
         name: "Dart",
-        description: "Client-optimized language for fast apps on any platform.",
+        description: "Client-optimized language for fast apps.",
         icon: SiDart,
         tags: ["Language", "Mobile"],
       },
