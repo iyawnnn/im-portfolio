@@ -85,7 +85,9 @@ function NavSection({
   return (
     <section className="w-full">
       {!isCollapsed && (
-        <h2 className="mb-3 px-3 text-[10px] font-bold uppercase text-muted-foreground transition-opacity duration-300 tracking-widest">
+        // FIX: Changed 'text-muted-foreground' to 'text-sidebar-foreground/70'
+        // This increases contrast while keeping visual hierarchy.
+        <h2 className="mb-3 px-3 text-[10px] font-bold uppercase text-sidebar-foreground/70 transition-opacity duration-300 tracking-widest">
           {title}
         </h2>
       )}
@@ -214,6 +216,7 @@ export function AppSidebar() {
         )}
       >
         <ChevronLeft className="h-3.5 w-3.5" />
+        <span className="sr-only">Toggle Sidebar</span>
       </Button>
 
       <header
@@ -222,15 +225,12 @@ export function AppSidebar() {
           isCollapsed ? "justify-center px-0 gap-0" : "gap-4 px-1"
         )}
       >
-        {/* CONTAINER: Handles the shape (Circle) and Border */}
         <div
           className={cn(
             "relative shrink-0 flex items-center justify-center overflow-hidden rounded-full border border-sidebar-foreground/20 shadow-sm transition-all",
-            // Sizing for collapsed vs expanded
             isCollapsed ? "h-10 w-10" : "h-12 w-12"
           )}
         >
-          {/* 1. LIGHT MODE LOGO (Black Ink) */}
           <Image
             src="/logo/personal-logo-black.png"
             alt="Ian Macabulos"
@@ -239,8 +239,6 @@ export function AppSidebar() {
             priority
             className="block dark:hidden object-cover"
           />
-
-          {/* 2. DARK MODE LOGO (White Ink) */}
           <Image
             src="/logo/personal-logo-white.png"
             alt="Ian Macabulos"
