@@ -28,7 +28,6 @@ export const TextGenerateEffect = ({
       },
       {
         duration: duration ? duration : 1,
-        // ADJUSTED SPEED: 0.08 -> 0.11 (Slower, more natural reading pace)
         delay: stagger(0.11, { startDelay: delay }),
       },
     );
@@ -56,7 +55,11 @@ export const TextGenerateEffect = ({
 
   return (
     <div className={cn("font-normal", className)}>
-      <div className="mt-4">
+      {/* 1. SEO LAYER: Visible to Google/Screen Readers, hidden visually */}
+      <div className="sr-only">{words}</div>
+
+      {/* 2. ANIMATION LAYER: Visual only, hidden from Google to avoid duplicates */}
+      <div className="mt-4" aria-hidden="true">
         <div className="leading-relaxed tracking-wide">{renderWords()}</div>
       </div>
     </div>

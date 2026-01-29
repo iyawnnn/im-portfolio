@@ -148,7 +148,7 @@ export default function ExplorePage() {
               <div className="relative w-full overflow-hidden border-b border-border/50">
                 <Image
                   src="/projects/climaph/climaph-cover.webp"
-                  alt="ClimaPH"
+                  alt="ClimaPH Weather App Dashboard for the Philippines showing real-time forecasts and lifestyle guides"
                   width={0}
                   height={0}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -197,7 +197,7 @@ export default function ExplorePage() {
               <div className="relative w-full overflow-hidden border-b border-border/50">
                 <Image
                   src="/projects/subvantage/subvantage-cover.webp"
-                  alt="SubVantage"
+                  alt="SubVantage Subscription Management Dashboard displaying monthly spending analytics and currency tracking"
                   width={0}
                   height={0}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

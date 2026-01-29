@@ -81,7 +81,7 @@ export default function RootLayout({
         name: "Ian Macabulos",
         url: "https://iansebastian.dev",
         jobTitle: "Full-Stack Developer",
-        image: "https://iansebastian.dev/logo/personal-logo-black.png",
+        image: "https://iansebastian.dev/about/ian-macabulos-2026.webp",
         sameAs: [
           "https://www.linkedin.com/in/ianmacabulos/",
           "https://github.com/iyawnnn",
