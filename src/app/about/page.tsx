@@ -72,7 +72,7 @@ export default function AboutPage() {
         <div className="shrink-0 mx-auto md:mx-0">
           <div className="relative h-48 w-48 overflow-hidden rounded-2xl border border-border shadow-md sm:h-56 sm:w-56 md:h-64 md:w-64">
 <Image
-              src="/about/profile.webp"
+              src="/about/ian-macabulos-2026.webp"
               alt="Ian Macabulos"
               fill
               // 1. UPDATE SIZES: Match the tailwind classes (w-48, w-56, w-64) exactly
