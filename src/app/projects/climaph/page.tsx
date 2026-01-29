@@ -55,7 +55,6 @@ export default function ClimaPHPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      ;
       <div>
         <Link
           href="/projects"
