@@ -71,17 +71,12 @@ export default function AboutPage() {
         {/* Profile Image */}
         <div className="shrink-0 mx-auto md:mx-0">
           <div className="relative h-48 w-48 overflow-hidden rounded-2xl border border-border shadow-md sm:h-56 sm:w-56 md:h-64 md:w-64">
-<Image
+            <Image
               src="/about/ian-macabulos-2026.webp"
               alt="Ian Macabulos"
               fill
-              // 1. UPDATE SIZES: Match the tailwind classes (w-48, w-56, w-64) exactly
               sizes="(max-width: 640px) 192px, (max-width: 768px) 224px, 256px"
-              
-              // 2. ADD QUALITY: Defaults to 75, which can look soft on faces. 
-              // 95 ensures it looks crisp like the original file.
-              quality={95} 
-              
+              quality={95}
               priority
               className="object-cover"
             />
