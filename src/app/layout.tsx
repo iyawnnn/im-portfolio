@@ -43,13 +43,6 @@ export const metadata: Metadata = {
     "TypeScript",
   ],
 
-  // 5. Favicon
-  icons: {
-    icon: "/logo/personal-logo-black.png",
-    shortcut: "/logo/personal-logo-black.png",
-    apple: "/logo/personal-logo-black.png",
-  },
-
   // 6. Open Graph
   openGraph: {
     title: "Ian Macabulos",
@@ -59,22 +52,13 @@ export const metadata: Metadata = {
     siteName: "Ian Macabulos",
     locale: "en_US",
     type: "website",
-    images: [
-      {
-        url: "/logo/personal-logo-black.png",
-        width: 800,
-        height: 800,
-        alt: "Ian Macabulos Portfolio Logo",
-      },
-    ],
   },
 
   // 7. Twitter Card
   twitter: {
-    card: "summary",
+    card: "summary_large_image", 
     title: "Ian Macabulos",
     description: "Full-Stack Developer based in the Philippines.",
-    images: ["/logo/personal-logo-black.png"],
   },
 };
 
