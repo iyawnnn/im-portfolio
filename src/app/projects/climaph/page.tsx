@@ -23,9 +23,39 @@ export default function ClimaPHPage() {
     window.scrollTo(0, 0);
   }, []);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://iansebastian.dev",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projects",
+        item: "https://iansebastian.dev/projects",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "ClimaPH",
+        item: "https://iansebastian.dev/projects/climaph",
+      },
+    ],
+  };
+
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       {/* --- BACK NAVIGATION --- */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      ;
       <div>
         <Link
           href="/projects"
@@ -35,7 +65,6 @@ export default function ClimaPHPage() {
           All Projects
         </Link>
       </div>
-
       {/* --- HEADER --- */}
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
@@ -63,7 +92,6 @@ export default function ClimaPHPage() {
           <Badge variant="secondary">Tailwind CSS</Badge>
         </div>
       </div>
-
       {/* --- HERO MEDIA (Video) --- */}
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
@@ -76,7 +104,6 @@ export default function ClimaPHPage() {
           className="h-full w-full object-cover"
         />
       </div>
-
       {/* --- DEMO & CODE CARD --- */}
       <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
         <div className="space-y-1">
@@ -102,7 +129,6 @@ export default function ClimaPHPage() {
           </Button>
         </div>
       </div>
-
       {/* --- DETAILED CONTENT --- */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
         {/* LEFT COLUMN (Main Content) */}

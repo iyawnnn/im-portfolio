@@ -23,9 +23,38 @@ export default function KusinaGoPage() {
     window.scrollTo(0, 0);
   }, []);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://iansebastian.dev",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projects",
+        item: "https://iansebastian.dev/projects",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "KusinaGo",
+        item: "https://iansebastian.dev/projects/kusinago",
+      },
+    ],
+  };
+
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       {/* --- BACK NAVIGATION --- */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <div>
         <Link
           href="/projects"

@@ -57,6 +57,10 @@ export default function ExplorePage() {
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-8 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       {/* --- HERO SECTION --- */}
       <section className="flex max-w-2xl flex-col gap-2 md:gap-4">
+        <h1 className="sr-only">
+          Ian Macabulos - Full-Stack Developer Philippines
+        </h1>
+
         {/* HEADER CONTAINER */}
         <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.15]">
           <TypewriterEffectSmooth
@@ -97,9 +101,9 @@ export default function ExplorePage() {
         </div>
 
         <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-          I build web apps, learn new tech, and occasionally argue with my
-          laptop — basically, I spend most of my time debugging my own
-          decisions.
+          I am a Full-Stack Developer based in the Philippines who builds web
+          apps, learns new tech, and occasionally argues with my laptop —
+          basically, I spend most of my time debugging my own decisions.
         </p>
 
         <div className="flex flex-wrap gap-3 mt-2">
