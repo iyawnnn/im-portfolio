@@ -299,7 +299,7 @@ export default function KusinaGoPage() {
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Timeline</span>
-                <span className="font-medium text-foreground">Apr 2025</span>
+                <span className="font-medium text-foreground">Jan 2025</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Role</span>

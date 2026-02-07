@@ -10,7 +10,6 @@ import {
   Copy,
   Check,
   Clock,
-  Sparkles,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -90,10 +89,10 @@ export default function ContactPage() {
           </Badge>
         </div>
         <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground mb-4">
-          Let's work together.
+          Let’s work together.
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
-          I'm currently looking for freelance opportunities or a full-time role.
+          I’m currently looking for freelance opportunities or a full-time role.
           If you have a project that needs a clean, performant interface, I'd
           love to hear about it.
         </p>
@@ -165,7 +164,6 @@ export default function ContactPage() {
             <div className="space-y-6">
               {/* STEP 1 */}
               <div className="flex gap-4">
-                {/* FIXED: Using Numbers + min-w-10 to ensure perfect circles */}
                 <div className="flex flex-col items-center flex-none">
                   <div className="flex-none h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold z-10 border border-primary/20 shadow-sm">
                     1

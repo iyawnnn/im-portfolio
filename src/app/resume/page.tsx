@@ -65,41 +65,41 @@ export default function ResumePage() {
         className="flex flex-col md:flex-row justify-between gap-8 md:items-center border-b border-border/40 pb-8"
       >
         <div className="space-y-4">
-            <div>
-                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground lg:text-6xl">
-                Ian Macabulos
-                </h1>
-            </div>
+          <div>
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground lg:text-6xl">
+              Ian Macabulos
+            </h1>
+          </div>
 
-            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground/80">
-                <div className="flex items-center gap-1.5">
-                    <MapPin className="w-4 h-4 text-primary" />
-                    <span>Pampanga, Philippines</span>
-                </div>
-                <div className="hidden sm:block text-border">|</div>
-                <div className="flex items-center gap-1.5">
-                    <Mail className="w-4 h-4 text-primary" />
-                    <span>iannmacabulos@gmail.com</span>
-                </div>
+          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground/80">
+            <div className="flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-primary" />
+              <span>CSFP, Pampanga</span>
             </div>
+            <div className="hidden sm:block text-border">|</div>
+            <div className="flex items-center gap-1.5">
+              <Mail className="w-4 h-4 text-primary" />
+              <span>iannmacabulos@gmail.com</span>
+            </div>
+          </div>
         </div>
 
-        {/* STYLISH VIEW RESUME BUTTON */}
+        {/* VIEW RESUME BUTTON */}
         <div className="flex shrink-0">
           <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
             <HoverBorderGradient
-                containerClassName="rounded-full"
-                as="button"
-                className="bg-background text-foreground flex items-center space-x-2 px-6 py-3 font-semibold transition-all hover:scale-105 active:scale-95"
+              containerClassName="rounded-full"
+              as="button"
+              className="bg-background text-foreground flex items-center space-x-2 px-6 py-3 font-semibold transition-all hover:scale-105 active:scale-95"
             >
-                <Eye className="h-4 w-4" />
-                <span>View Resume</span>
+              <Eye className="h-4 w-4" />
+              <span>View Resume</span>
             </HoverBorderGradient>
           </Link>
         </div>
       </motion.div>
 
-      {/* --- CAREER OBJECTIVE (FIXED CONSISTENCY) --- */}
+      {/* --- CAREER OBJECTIVE --- */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -110,19 +110,18 @@ export default function ResumePage() {
           <div className="p-2 bg-primary/10 rounded-md text-primary">
             <User className="w-5 h-5" />
           </div>
-          <h2 className="text-xl font-bold tracking-tight ">Career Objective</h2>
+          <h2 className="text-xl font-bold tracking-tight">Career Objective</h2>
         </div>
         
         <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
-          Information Technology student and Full-Stack Developer with practical
-          experience building web applications using Next.js, React, Node.js, and
-          MongoDB. I am seeking an internship or entry-level role to contribute
-          to high-quality software solutions while continuing to grow within a
-          professional development team.
+          Ambitious Web Development student seeking an internship position to design and develop 
+          robust web applications using modern full stack technologies. I am dedicated to delivering 
+          efficient software solutions that drive business value while advancing my technical expertise 
+          within a professional development team by contributing to high-quality and user-centered digital solutions.
         </p>
       </motion.section>
 
-      {/* --- EXPERIENCE SECTION --- */}
+      {/* --- PROFESSIONAL EXPERIENCE --- */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -133,47 +132,47 @@ export default function ResumePage() {
           <div className="p-2 bg-primary/10 rounded-md text-primary">
             <Briefcase className="w-5 h-5" />
           </div>
-          <h2 className="text-xl font-bold tracking-tight">Experience</h2>
+          <h2 className="text-xl font-bold tracking-tight">Professional Experience</h2>
         </div>
 
         <div className="relative border-l-2 border-border/50 ml-3 md:ml-4 space-y-12 pl-8 md:pl-10 py-2">
+          
           {/* MAMA R'S ENTRY */}
           <div className="relative">
             <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-primary shadow-sm" />
 
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
               <h3 className="text-lg md:text-xl font-bold text-foreground">
-                Freelance Full-Stack Developer
+                Mama R&apos;s — Inventory & Sales Management System
               </h3>
               <span className="text-sm font-mono text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded w-fit">
-                2025 — Present
+                Freelance Developer
               </span>
             </div>
 
             <div className="flex items-center gap-2 mb-4">
-                <span className="text-primary font-semibold">
-                Mama R&apos;s — Inventory & Sales Management System
-                </span>
-                <Badge variant="outline" className="text-[10px] py-0 h-5">Project</Badge>
+                <Badge variant="outline" className="text-[10px] py-0 h-5">React</Badge>
+                <Badge variant="outline" className="text-[10px] py-0 h-5">Node.js</Badge>
+                <Badge variant="outline" className="text-[10px] py-0 h-5">MongoDB</Badge>
             </div>
 
             <ul className="space-y-3 text-muted-foreground text-sm md:text-base leading-relaxed">
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  <strong>Digital Transformation:</strong> Replaced manual paper logs with a fully digital custom MERN-stack solution, digitizing 100% of inventory records and reducing data retrieval time from minutes to seconds.
+                  Digitalized a local business&apos;s manual workflows by engineering a custom MERN-stack solution to replace paper logs (which significantly improved the speed of historical data retrieval).
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  <strong>Analytics Dashboard:</strong> Automated daily revenue and stock reporting through a dynamic dashboard, eliminating manual calculation errors and providing real-time performance insights.
+                  Automated daily revenue and stock reporting through a dynamic dashboard. This eliminated manual calculation errors and provided the owner with instant, real-time performance insights.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  <strong>Security Implementation:</strong> Secured sensitive business transactions by implementing an administrative panel with JWT-based authentication and role-based access control.
+                  Secured sensitive business transactions by implementing an administrative panel with JWT-based authentication and Bcrypt hashing to ensure strictly authorized access to records.
                 </span>
               </li>
             </ul>
@@ -207,7 +206,7 @@ export default function ResumePage() {
                 </p>
               </div>
               <Badge variant="secondary" className="w-fit h-fit py-1">
-                2023 — 2027
+                2023 — Present
               </Badge>
             </div>
 
@@ -218,8 +217,7 @@ export default function ResumePage() {
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Award className="w-4 h-4 text-primary" />
                 <span>
-                  Consistent Dean&apos;s and President&apos;s Lister (A.Y.
-                  2023-2026)
+                  Consistent Dean&apos;s and President&apos;s Lister, A.Y. 2023-2025
                 </span>
               </div>
             </div>

@@ -9,20 +9,25 @@ export const sendEmail = async (formData: FormData) => {
   const email = formData.get("email") as string;
   const message = formData.get("message") as string;
 
+  // 1. Basic Empty Check
   if (!name || !email || !message) {
     return { error: "Please fill out all fields." };
   }
 
+  // 2. Server-Side Email Validation
+  // This Regex checks if the email has an "@" and a "." domain part
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return { error: "Please enter a valid email address (e.g., you@example.com)." };
+  }
+
   try {
     const data = await resend.emails.send({
-      // FREE TIER RULE: You MUST use this email as the 'from' address
       from: "Contact Form <onboarding@resend.dev>",
-
-      // FREE TIER RULE: You can only send to your own verified email
       to: ["iannmacabulos@gmail.com"],
-
-      // This allows you to click "Reply" in Gmail and reply directly to the user
-      replyTo: email,
+      
+      // The user's email goes here so you can click 'Reply' in Gmail
+      replyTo: email, 
 
       subject: `Portfolio Message from ${name}`,
       text: message,
@@ -38,7 +43,11 @@ export const sendEmail = async (formData: FormData) => {
     });
 
     if (data.error) {
-      return { error: data.error.message };
+      // 3. Catch 'Technical' API errors and make them friendly
+      if (data.error.message.toLowerCase().includes("reply_to")) {
+         return { error: "Please enter a valid email address." };
+      }
+      return { error: "Failed to send message. Please try again later." };
     }
 
     return { success: true };

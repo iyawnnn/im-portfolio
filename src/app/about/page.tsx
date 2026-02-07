@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion"; // Added for uniformity
+import { motion } from "framer-motion";
 import {
   BookOpen,
   Brain,
@@ -229,7 +229,7 @@ export default function AboutPage() {
         className="rounded-3xl border border-primary/20 bg-card p-8 text-center md:p-12 shadow-sm"
       >
         <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
-          <Sparkles className="h-6 w-6" />
+          <Rocket className="h-6 w-6" />
         </div>
 
         <h2 className="text-2xl font-bold sm:text-3xl tracking-tight text-foreground">

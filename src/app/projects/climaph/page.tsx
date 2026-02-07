@@ -288,7 +288,7 @@ export default function ClimaPHPage() {
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Timeline</span>
-                <span className="font-medium text-foreground">Dec 2025</span>
+                <span className="font-medium text-foreground">Aug 2025</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Role</span>

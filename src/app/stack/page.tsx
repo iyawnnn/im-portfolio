@@ -31,8 +31,8 @@ import {
   SiPostgresql,
   SiVitest,
   SiGithubactions,
-  SiPytest, // Added
-  SiFastapi, // Added
+  SiPytest, 
+  SiFastapi, 
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 
