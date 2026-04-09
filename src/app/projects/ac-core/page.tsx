@@ -74,7 +74,7 @@ export default function AcCorePage() {
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
-            AC-CORE
+            AC-CORE (Angeles City Center for Operational Reporting and Engineering)
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
             Municipal Maintenance & Incident Reporting System
@@ -97,7 +97,7 @@ export default function AcCorePage() {
       {/* --- HERO MEDIA (Video) --- */}
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
-          src="/projects/subvantage/subvantage-demo.mp4"
+          src="/projects/ac-core/accore-demo.mp4"
           poster="/projects/ac-core/accore-cover.webp"
           autoPlay
           muted

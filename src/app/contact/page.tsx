@@ -325,21 +325,27 @@ export default function ContactPage() {
                     </div>
                   )}
 
-                  <div className="pt-1">
+                  <div className="pt-2">
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full font-bold shadow-sm transition-all hover:translate-y-[-1px] active:translate-y-[1px] h-9"
+                      className="group relative w-full font-bold shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 hover:-translate-y-0.5 active:translate-y-0.5 h-10 overflow-hidden"
                     >
                       {isSubmitting ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />{" "}
+                        <span className="flex items-center">
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                           Sending...
-                        </>
+                        </span>
                       ) : (
-                        <>
-                          Send Message <Send className="ml-2 h-4 w-4" />
-                        </>
+                        <span className="flex items-center justify-center w-full">
+                          Send Message
+                          <div className="relative ml-2 flex items-center justify-center w-4 h-4">
+                            {/* Outgoing icon */}
+                            <Send className="absolute transition-all duration-300 ease-in group-hover:translate-x-6 group-hover:-translate-y-6 group-hover:opacity-0 group-hover:scale-50 group-hover:rotate-45" />
+                            {/* Incoming icon */}
+                            <Send className="absolute transition-all duration-300 delay-75 ease-out -translate-x-6 translate-y-6 opacity-0 scale-50 -rotate-45 group-hover:translate-x-0 group-hover:translate-y-0 group-hover:opacity-100 group-hover:scale-100 group-hover:rotate-0" />
+                          </div>
+                        </span>
                       )}
                     </Button>
                   </div>

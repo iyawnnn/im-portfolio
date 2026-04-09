@@ -64,20 +64,21 @@ export default function ResumePage() {
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       
+      {/* --- RESPONSIVE HEADER --- */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="flex flex-col md:flex-row justify-between gap-8 md:items-center border-b border-border/40 pb-8"
+        className="flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-8 border-b border-border/40 pb-8 text-center md:text-left w-full"
       >
-        <div className="space-y-4">
+        <div className="flex flex-col items-center md:items-start space-y-4 w-full md:w-auto">
           <div>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground lg:text-6xl">
               Ian Macabulos
             </h1>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground/80">
+          <div className="flex flex-wrap justify-center md:justify-start items-center gap-3 sm:gap-4 text-sm text-muted-foreground/80">
             <div className="flex items-center gap-1.5">
               <MapPin className="w-4 h-4 text-primary" />
               <span>CSFP, Pampanga</span>
@@ -90,7 +91,7 @@ export default function ResumePage() {
           </div>
         </div>
 
-        <div className="flex shrink-0">
+        <div className="flex justify-center w-full md:w-auto shrink-0 mt-2 md:mt-0">
           <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
             <HoverBorderGradient
               containerClassName="rounded-full"
