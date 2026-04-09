@@ -12,16 +12,19 @@ import {
   Globe,
   Layout,
   Rocket,
-  TrendingUp,
   Shield,
-  Database,
-  TestTube,
+  Bot,
+  FileText,
+  KanbanSquare,
+  MessageSquare,
+  PenTool,
+  Zap
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-export default function SubVantagePage() {
+export default function GritPage() {
   // Scroll to top on load
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,8 +49,8 @@ export default function SubVantagePage() {
       {
         "@type": "ListItem",
         position: 3,
-        name: "SubVantage",
-        item: "https://iansebastian.dev/projects/subvantage",
+        name: "Grit",
+        item: "https://iansebastian.dev/projects/grit",
       },
     ],
   };
@@ -73,23 +76,23 @@ export default function SubVantagePage() {
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
-            SubVantage
+            Grit
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Intelligent Subscription Manager & Tracker
+            AI-Powered Job Application Tracker & Career Copilot
           </h2>
         </div>
 
         <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          SubVantage is a comprehensive financial tool built to help users regain control over their recurring expenses. Recently hardened with enterprise-grade security features, the platform utilizes strict API rate-limiting, secure HTTP headers, and Two-Factor Authentication (2FA). The dynamic dashboard calculates monthly burn and annual forecasts in real-time, all powered by a lightning-fast serverless PostgreSQL database.
+          Grit is a comprehensive career management platform engineered to automate and optimize the job search process. Built on the highly scalable TALL stack (Tailwind, Alpine.js, Laravel, Livewire), it utilizes lightning-fast Groq AI models to generate tailored cover letters, format messy job descriptions, and conduct interactive mock interviews. The platform is fortified with strict rate limiting, robust caching layers, and a secure serverless Neon PostgreSQL database deployed on Render.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">Next.js 15</Badge>
-          <Badge variant="secondary">TypeScript</Badge>
+          <Badge variant="secondary">Laravel 11</Badge>
+          <Badge variant="secondary">Livewire 3</Badge>
+          <Badge variant="secondary">Groq AI</Badge>
           <Badge variant="secondary">Neon Postgres</Badge>
-          <Badge variant="secondary">Prisma</Badge>
-          <Badge variant="secondary">2FA Security</Badge>
+          <Badge variant="secondary">Cloudinary</Badge>
         </div>
       </div>
 
@@ -97,7 +100,7 @@ export default function SubVantagePage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/subvantage/subvantage-demo.mp4"
-          poster="/projects/subvantage/subvantage-cover.webp"
+          poster="/projects/grit/grit-cover.webp"
           autoPlay
           muted
           loop
@@ -111,12 +114,12 @@ export default function SubVantagePage() {
         <div className="space-y-1">
           <h3 className="text-lg font-bold">Project Links</h3>
           <p className="text-sm text-muted-foreground max-w-md">
-            Explore the live application or review the codebase on GitHub.
+            Explore the live application or review the robust backend architecture on GitHub.
           </p>
         </div>
         <div className="flex gap-3 w-full md:w-auto">
           <Button asChild className="flex-1 md:flex-none font-bold">
-            <Link href="https://subvantage.iansebastian.dev/" target="_blank">
+            <Link href="https://grit.iansebastian.dev/" target="_blank">
               <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
             </Link>
           </Button>
@@ -125,7 +128,7 @@ export default function SubVantagePage() {
             variant="outline"
             className="flex-1 md:flex-none font-bold"
           >
-            <Link href="https://github.com/iyawnnn/SubVantage" target="_blank">
+            <Link href="https://github.com/iyawnnn/Grit" target="_blank">
               <Github className="mr-2 h-4 w-4" /> Source Code
             </Link>
           </Button>
@@ -139,46 +142,54 @@ export default function SubVantagePage() {
           {/* Core Features */}
           <section className="space-y-4">
             <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-              <Layout className="w-6 h-6 text-primary" /> Core Features
+              <Layout className="w-6 h-6 text-primary" /> Comprehensive Feature Suite
             </h2>
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-primary" /> Financial Pulse
+                  <Bot className="w-4 h-4 text-primary" /> AI Match Analysis & Action Plans
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  A real-time dashboard displaying Monthly Burn, Annual Forecasts, and Total Saved amounts. Interactive Recharts visualize spending velocity so users can identify heavy payment cycles effortlessly.
+                  The engine evaluates user resumes against specific job descriptions to calculate precise match scores. It then generates step-by-step Action Plans to help users bridge critical skill gaps before applying.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-primary" /> Advanced Security Architecture
+                  <PenTool className="w-4 h-4 text-primary" /> Job Description Formatting & Cover Letters
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Protects sensitive financial data using Time-based One-Time Password (TOTP) Two-Factor Authentication. The application is secured against common vulnerabilities with strict API rate-limiting and enforced HTTP security headers.
+                  Integrated a custom GroqFormatterService to automatically clean and restructure messy job description inputs into standardized formats. The system then uses this parsed data to generate highly tailored cover letters targeting the exact requirements of the role.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                  <Database className="w-4 h-4 text-primary" /> Serverless Data Management
+                  <MessageSquare className="w-4 h-4 text-primary" /> Interactive Mock Interviews
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Powered by a Neon Serverless PostgreSQL database and Prisma ORM. This architecture provides highly efficient connection pooling to ensure instant data retrieval when users modify their subscription portfolios.
+                  Provides a simulated interview environment utilizing the GroqMockInterviewService. The AI acts as a recruiter, asking highly specific questions based on the user's uploaded CV and the targeted role.
+                </p>
+              </div>
+              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
+                <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                  <KanbanSquare className="w-4 h-4 text-primary" /> Live Application Board
+                </h3>
+                <p className="text-muted-foreground text-sm">
+                  A dynamic, drag-and-drop Kanban board powered natively by Livewire 3. Users can visually track their application lifecycle from the initial submission to final offers without ever reloading the page.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Development Process */}
+          {/* Development Process & Architecture */}
           <section className="space-y-6">
             <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-              <Cpu className="w-6 h-6 text-primary" /> Development Process
+              <Cpu className="w-6 h-6 text-primary" /> Development & Architecture
             </h2>
 
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
-                As the application scaled, the primary challenge evolved from building the frontend UI to overhauling the backend architecture. Migrating the primary database to Neon while simultaneously implementing rigorous security measures (like 2FA and edge-level rate-limiting) required careful orchestration to prevent data loss or service disruption for existing users.
+                Running multiple AI tasks (parsing PDFs, generating cover letters, and simulating interviews) simultaneously creates massive server strain. The core challenge was preventing frontend timeouts, managing API rate limits from Groq, and ensuring the UI remained perfectly responsive while the backend processed heavy text generation.
               </p>
             </div>
 
@@ -186,41 +197,57 @@ export default function SubVantagePage() {
               <h3 className="text-xl font-semibold">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
-                  <strong>Database Migration:</strong> Seamlessly transitioned to Neon Postgres with Prisma, establishing a robust relational structure capable of handling high-volume currency conversions and state updates.
+                  <strong>Asynchronous Queue Jobs:</strong> Completely offloaded all heavy AI generation and document parsing to Laravel Redis queues. This guarantees that the user interface never freezes while complex career reports are being written.
                 </li>
                 <li>
-                  <strong>Security Hardening:</strong> Engineered a secure authentication pipeline incorporating 2FA verification steps, reinforced by Content Security Policies (CSP) and HTTP Strict Transport Security (HSTS).
+                  <strong>Reactive TALL Stack:</strong> Utilized Alpine.js and Laravel Livewire to construct a Single Page Application (SPA) feel, keeping all core business logic secure on the server while delivering instant visual feedback.
                 </li>
                 <li>
-                  <strong>Transactional Emails:</strong> Continued leveraging the Resend API to handle critical transactional emails (like trial expiry warnings and OTP codes) with high deliverability, fully decoupled from the main application thread.
+                  <strong>Prompt Engineering:</strong> Designed heavily constrained instruction sets for the Groq integration to eliminate AI hallucinations, ensuring the generated data and action plans remain strictly factual and actionable.
                 </li>
               </ul>
             </div>
           </section>
 
-          {/* Testing & QA */}
+          {/* Security & Performance */}
           <section className="space-y-6">
             <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-              <TestTube className="w-6 h-6 text-primary" /> Quality Assurance
+              <Shield className="w-6 h-6 text-primary" /> Security & Performance
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              To guarantee that the newly secured endpoints and database connections functioned flawlessly, I expanded the application's testing suite:
+              Because Grit manages highly sensitive career histories and relies on external API tokens, the infrastructure required enterprise-level protection and caching strategies:
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-semibold text-foreground mb-2">
-                  Unit & Integration Testing
+                <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-primary" /> Intelligent Caching
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  Using <strong>Vitest</strong>, I wrote extensive tests covering critical utility functions, ensuring currency math, security validations, and date logic remained 100% accurate post-migration.
+                  Engineered a robust caching layer to store previous AI analyses and match scores. This drastically reduces redundant API calls to Groq, saving token costs and dropping load times to near zero for returning queries.
+                </p>
+              </div>
+              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
+                <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-primary" /> Strict Rate Limiting
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  Configured strict Laravel API throttling and rate-limiting middleware to protect the server from DDoS attacks and prevent abuse of the expensive AI generation endpoints.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h4 className="font-semibold text-foreground mb-2">
-                  End-to-End (E2E) Testing
+                  Content Security Policies
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  Utilized <strong>Playwright</strong> to simulate complete user journeys, testing the full lifecycle from signing up and passing 2FA verification to adding subscriptions and viewing dynamic chart updates.
+                  Implemented a custom CSP policy class to strictly define trusted external assets, completely neutralizing Cross-Site Scripting (XSS) and injection vulnerabilities.
+                </p>
+              </div>
+              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
+                <h4 className="font-semibold text-foreground mb-2">
+                  Secure Data Vaults
+                </h4>
+                <p className="text-sm text-muted-foreground">
+                  PDF resumes are encrypted and vaulted via Cloudinary integrations, while relational user data is strictly guarded inside the serverless Neon PostgreSQL database.
                 </p>
               </div>
             </div>
@@ -232,7 +259,7 @@ export default function SubVantagePage() {
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Upgrading SubVantage drastically improved my understanding of production-level security and database management. Executing a live migration to <strong>Neon Postgres</strong> and enforcing <strong>2FA protocols</strong> taught me how to architect applications that prioritize data integrity and user trust without sacrificing frontend performance.
+              Building Grit proved my ability to architect a full-scale AI SaaS platform. Mastering Laravel's job queues, enforcing strict API rate limits, and implementing caching layers taught me exactly how to manage computing costs and maintain high performance in a production environment.
             </p>
           </section>
         </div>
@@ -252,35 +279,34 @@ export default function SubVantagePage() {
                   Frontend
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Next.js 15</Badge>
-                  <Badge variant="outline">React 19</Badge>
+                  <Badge variant="outline">Livewire 3</Badge>
+                  <Badge variant="outline">Alpine.js</Badge>
                   <Badge variant="outline">Tailwind CSS</Badge>
-                  <Badge variant="outline">Shadcn UI</Badge>
-                  <Badge variant="outline">Recharts</Badge>
+                  <Badge variant="outline">Filament</Badge>
                 </div>
               </div>
 
               <div>
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Backend & Services
+                  Backend & AI
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  <Badge variant="outline">Laravel 11</Badge>
+                  <Badge variant="outline">PHP 8</Badge>
+                  <Badge variant="outline">Groq SDK</Badge>
+                  <Badge variant="outline">Laravel Queues</Badge>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                  Infrastructure & Security
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline">Neon Postgres</Badge>
-                  <Badge variant="outline">Prisma ORM</Badge>
-                  <Badge variant="outline">Resend</Badge>
-                  <Badge variant="outline">2FA Auth</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Testing & Tools
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">Vitest</Badge>
-                  <Badge variant="outline">Playwright</Badge>
-                  <Badge variant="outline">Git</Badge>
+                  <Badge variant="outline">Cloudinary</Badge>
+                  <Badge variant="outline">Redis Caching</Badge>
+                  <Badge variant="outline">Render</Badge>
                 </div>
               </div>
             </div>
@@ -302,11 +328,11 @@ export default function SubVantagePage() {
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Timeline</span>
-                <span className="font-medium text-foreground">Dec 2025</span>
+                <span className="font-medium text-foreground">Apr 2026</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Role</span>
-                <span className="font-medium text-foreground">
+                <span className="font-medium text-foreground text-right max-w-[140px]">
                   Full Stack Developer
                 </span>
               </div>
@@ -323,15 +349,15 @@ export default function SubVantagePage() {
             <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Platform</span>
-                <span className="font-medium text-foreground">Vercel</span>
+                <span className="font-medium text-foreground">Render</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Version</span>
-                <span className="font-medium text-foreground">v2.0.0</span>
+                <span className="font-medium text-foreground">v1.0.0</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Database</span>
-                <span className="font-medium text-foreground">Neon</span>
+                <span className="font-medium text-foreground">Neon Postgres</span>
               </div>
             </div>
           </Card>

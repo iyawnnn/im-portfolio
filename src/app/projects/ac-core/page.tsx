@@ -12,16 +12,17 @@ import {
   Globe,
   Layout,
   Rocket,
-  TrendingUp,
-  Shield,
-  Database,
-  TestTube,
+  Activity,
+  ShieldCheck,
+  Zap,
+  Cloud,
+  Navigation
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-export default function SubVantagePage() {
+export default function AcCorePage() {
   // Scroll to top on load
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,8 +47,8 @@ export default function SubVantagePage() {
       {
         "@type": "ListItem",
         position: 3,
-        name: "SubVantage",
-        item: "https://iansebastian.dev/projects/subvantage",
+        name: "AC-CORE",
+        item: "https://iansebastian.dev/projects/ac-core",
       },
     ],
   };
@@ -73,23 +74,23 @@ export default function SubVantagePage() {
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
-            SubVantage
+            AC-CORE
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Intelligent Subscription Manager & Tracker
+            Municipal Maintenance & Incident Reporting System
           </h2>
         </div>
 
         <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          SubVantage is a comprehensive financial tool built to help users regain control over their recurring expenses. Recently hardened with enterprise-grade security features, the platform utilizes strict API rate-limiting, secure HTTP headers, and Two-Factor Authentication (2FA). The dynamic dashboard calculates monthly burn and annual forecasts in real-time, all powered by a lightning-fast serverless PostgreSQL database.
+          AC-CORE replaces reactive legacy infrastructure management with a proactive digital platform. Engineered for the local government of Angeles City, it connects everyday citizens directly with engineering departments to report hazards like clogged drains and road erosion. The system utilizes geospatial mapping and live environmental syncing to predict and prevent severe downstream flooding.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">Next.js 15</Badge>
-          <Badge variant="secondary">TypeScript</Badge>
-          <Badge variant="secondary">Neon Postgres</Badge>
-          <Badge variant="secondary">Prisma</Badge>
-          <Badge variant="secondary">2FA Security</Badge>
+          <Badge variant="secondary">Angular 18</Badge>
+          <Badge variant="secondary">Node.js</Badge>
+          <Badge variant="secondary">MongoDB</Badge>
+          <Badge variant="secondary">Leaflet.js</Badge>
+          <Badge variant="secondary">Cloudinary</Badge>
         </div>
       </div>
 
@@ -97,7 +98,7 @@ export default function SubVantagePage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/subvantage/subvantage-demo.mp4"
-          poster="/projects/subvantage/subvantage-cover.webp"
+          poster="/projects/ac-core/accore-cover.webp"
           autoPlay
           muted
           loop
@@ -111,13 +112,13 @@ export default function SubVantagePage() {
         <div className="space-y-1">
           <h3 className="text-lg font-bold">Project Links</h3>
           <p className="text-sm text-muted-foreground max-w-md">
-            Explore the live application or review the codebase on GitHub.
+            Explore the live production application or review the codebase on GitHub.
           </p>
         </div>
         <div className="flex gap-3 w-full md:w-auto">
           <Button asChild className="flex-1 md:flex-none font-bold">
-            <Link href="https://subvantage.iansebastian.dev/" target="_blank">
-              <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
+            <Link href="https://ac-core.vercel.app/" target="_blank">
+              <ExternalLink className="mr-2 h-4 w-4" /> Live Platform
             </Link>
           </Button>
           <Button
@@ -125,7 +126,7 @@ export default function SubVantagePage() {
             variant="outline"
             className="flex-1 md:flex-none font-bold"
           >
-            <Link href="https://github.com/iyawnnn/SubVantage" target="_blank">
+            <Link href="https://github.com/MMPA-Works/AC-CORE" target="_blank">
               <Github className="mr-2 h-4 w-4" /> Source Code
             </Link>
           </Button>
@@ -144,26 +145,26 @@ export default function SubVantagePage() {
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-primary" /> Financial Pulse
+                  <Activity className="w-4 h-4 text-primary" /> Frictionless Reporting & Tracker
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  A real-time dashboard displaying Monthly Burn, Annual Forecasts, and Total Saved amounts. Interactive Recharts visualize spending velocity so users can identify heavy payment cycles effortlessly.
+                  Allows citizens to log emergencies quickly using a Guest Reporting mode. The system utilizes Auto-Detect GPS for precision and includes a visual status timeline (the Pizza Tracker) so users can see exactly when their report is resolved.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-primary" /> Advanced Security Architecture
+                  <Cloud className="w-4 h-4 text-primary" /> Live Environmental Syncing
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Protects sensitive financial data using Time-based One-Time Password (TOTP) Two-Factor Authentication. The application is secured against common vulnerabilities with strict API rate-limiting and enforced HTTP security headers.
+                  Integrated the OpenWeatherMap API to automatically attach real-time rainfall and temperature data to every hazard report. This provides city engineers with immediate environmental context during monsoon storms.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                  <Database className="w-4 h-4 text-primary" /> Serverless Data Management
+                  <Navigation className="w-4 h-4 text-primary" /> LGU Command Center
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Powered by a Neon Serverless PostgreSQL database and Prisma ORM. This architecture provides highly efficient connection pooling to ensure instant data retrieval when users modify their subscription portfolios.
+                  A desktop dashboard featuring an interactive Leaflet map with MarkerCluster. Administrators can view active hazards, access the integrated 24/7 emergency directory, and export CSV reports for urban planning.
                 </p>
               </div>
             </div>
@@ -178,7 +179,7 @@ export default function SubVantagePage() {
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
-                As the application scaled, the primary challenge evolved from building the frontend UI to overhauling the backend architecture. Migrating the primary database to Neon while simultaneously implementing rigorous security measures (like 2FA and edge-level rate-limiting) required careful orchestration to prevent data loss or service disruption for existing users.
+                The primary challenge was designing a robust geospatial tracking application within a strict one-week academic sprint. The system needed to process high-resolution photo evidence and plot thousands of map markers without crashing browser threads on low-memory mobile devices.
               </p>
             </div>
 
@@ -186,41 +187,41 @@ export default function SubVantagePage() {
               <h3 className="text-xl font-semibold">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
-                  <strong>Database Migration:</strong> Seamlessly transitioned to Neon Postgres with Prisma, establishing a robust relational structure capable of handling high-volume currency conversions and state updates.
+                  <strong>Zoneless Architecture:</strong> Utilized the modern Angular 18 Zoneless architecture with Signals. This allowed the application to update specific screen components instead of scanning the entire page, drastically reducing battery drain.
                 </li>
                 <li>
-                  <strong>Security Hardening:</strong> Engineered a secure authentication pipeline incorporating 2FA verification steps, reinforced by Content Security Policies (CSP) and HTTP Strict Transport Security (HSTS).
+                  <strong>Cloud Visual Evidence:</strong> Integrated Cloudinary to handle all image uploads securely. This offloads heavy image processing from the local server to maintain fast response times.
                 </li>
                 <li>
-                  <strong>Transactional Emails:</strong> Continued leveraging the Resend API to handle critical transactional emails (like trial expiry warnings and OTP codes) with high deliverability, fully decoupled from the main application thread.
+                  <strong>Geospatial Logic:</strong> Engineered a Paved Paradox algorithm to automatically prioritize infrastructure reports from heavily paved commercial zones, preventing economic bottlenecks and accidents.
                 </li>
               </ul>
             </div>
           </section>
 
-          {/* Testing & QA */}
+          {/* Performance & Security */}
           <section className="space-y-6">
             <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-              <TestTube className="w-6 h-6 text-primary" /> Quality Assurance
+              <ShieldCheck className="w-6 h-6 text-primary" /> Security & Performance
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              To guarantee that the newly secured endpoints and database connections functioned flawlessly, I expanded the application's testing suite:
+              Because this platform is designed to handle sensitive municipal data and emergency spikes, security and speed were heavily prioritized during development:
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h4 className="font-semibold text-foreground mb-2">
-                  Unit & Integration Testing
+                  Strict Authentication
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  Using <strong>Vitest</strong>, I wrote extensive tests covering critical utility functions, ensuring currency math, security validations, and date logic remained 100% accurate post-migration.
+                  The admin portal is secured using JSON Web Tokens (JWT) and Bcrypt password hashing. Citizens can access the portal seamlessly using secure Google OAuth 2.0 integration.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h4 className="font-semibold text-foreground mb-2">
-                  End-to-End (E2E) Testing
+                  API Protection
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  Utilized <strong>Playwright</strong> to simulate complete user journeys, testing the full lifecycle from signing up and passing 2FA verification to adding subscriptions and viewing dynamic chart updates.
+                  Implemented Express Rate Limiting and Helmet middleware on the Node.js backend to protect the municipal database from malicious spam reporting and external attacks.
                 </p>
               </div>
             </div>
@@ -232,7 +233,7 @@ export default function SubVantagePage() {
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Upgrading SubVantage drastically improved my understanding of production-level security and database management. Executing a live migration to <strong>Neon Postgres</strong> and enforcing <strong>2FA protocols</strong> taught me how to architect applications that prioritize data integrity and user trust without sacrificing frontend performance.
+              Leading the development of AC-CORE demonstrated my ability to architect complex full-stack solutions under extreme time pressure. Translating a real-world bureaucratic problem into a highly optimized, map-driven application proved the direct impact that thoughtful software engineering has on public safety and infrastructure.
             </p>
           </section>
         </div>
@@ -252,11 +253,11 @@ export default function SubVantagePage() {
                   Frontend
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Next.js 15</Badge>
-                  <Badge variant="outline">React 19</Badge>
+                  <Badge variant="outline">Angular 18</Badge>
+                  <Badge variant="outline">TypeScript</Badge>
                   <Badge variant="outline">Tailwind CSS</Badge>
-                  <Badge variant="outline">Shadcn UI</Badge>
-                  <Badge variant="outline">Recharts</Badge>
+                  <Badge variant="outline">Spartan UI</Badge>
+                  <Badge variant="outline">Leaflet.js</Badge>
                 </div>
               </div>
 
@@ -265,22 +266,22 @@ export default function SubVantagePage() {
                   Backend & Services
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Neon Postgres</Badge>
-                  <Badge variant="outline">Prisma ORM</Badge>
-                  <Badge variant="outline">Resend</Badge>
-                  <Badge variant="outline">2FA Auth</Badge>
+                  <Badge variant="outline">Node.js</Badge>
+                  <Badge variant="outline">Express.js</Badge>
+                  <Badge variant="outline">Cloudinary</Badge>
+                  <Badge variant="outline">OpenWeather API</Badge>
                 </div>
               </div>
 
               <div>
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Testing & Tools
+                  Database & Security
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">Vitest</Badge>
-                  <Badge variant="outline">Playwright</Badge>
-                  <Badge variant="outline">Git</Badge>
+                  <Badge variant="outline">MongoDB</Badge>
+                  <Badge variant="outline">Mongoose</Badge>
+                  <Badge variant="outline">JWT Auth</Badge>
+                  <Badge variant="outline">Zod Validation</Badge>
                 </div>
               </div>
             </div>
@@ -297,17 +298,17 @@ export default function SubVantagePage() {
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Type</span>
                 <span className="font-medium text-foreground">
-                  Personal Project
+                  Academic (1-Week Sprint)
                 </span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Timeline</span>
-                <span className="font-medium text-foreground">Dec 2025</span>
+                <span className="font-medium text-foreground">Mar 2026</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Role</span>
-                <span className="font-medium text-foreground">
-                  Full Stack Developer
+                <span className="font-medium text-foreground text-right max-w-[140px]">
+                  Lead Full-Stack
                 </span>
               </div>
             </div>
@@ -322,16 +323,16 @@ export default function SubVantagePage() {
             </CardHeader>
             <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
               <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Platform</span>
+                <span>Frontend</span>
                 <span className="font-medium text-foreground">Vercel</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Version</span>
-                <span className="font-medium text-foreground">v2.0.0</span>
+                <span>Backend</span>
+                <span className="font-medium text-foreground">Render</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Database</span>
-                <span className="font-medium text-foreground">Neon</span>
+                <span className="font-medium text-foreground">MongoDB</span>
               </div>
             </div>
           </Card>
