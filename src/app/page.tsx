@@ -102,8 +102,8 @@ export default function ExplorePage() {
 
         <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
           I am a Full-Stack Developer based in the Philippines who builds web
-          apps, learns new tech, and occasionally argues with my laptop —
-          basically, I spend most of my time debugging my own decisions.
+          apps, learns new tech, and occasionally argues with my laptop
+          (basically, I spend most of my time debugging my own decisions).
         </p>
 
         <div className="flex flex-wrap gap-3 mt-2">
@@ -146,29 +146,26 @@ export default function ExplorePage() {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start">
-          {/* CARD 1: CLIMAPH */}
-          <Link href="/projects/climaph" className="group block h-full">
+          {/* CARD 1: AC-CORE */}
+          <Link href="/projects/ac-core" className="group block h-full">
             <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
-              <div className="relative w-full overflow-hidden border-b border-border/50">
+              <div className="relative w-full aspect-video overflow-hidden border-b border-border/50 bg-muted/20">
                 <Image
-                  src="/projects/climaph/climaph-cover.webp"
-                  alt="ClimaPH Weather App Dashboard for the Philippines showing real-time forecasts and lifestyle guides"
-                  width={0}
-                  height={0}
+                  src="/projects/ac-core/accore-cover.webp"
+                  alt="AC-CORE Platform Preview"
+                  fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-20" />
               </div>
 
               <CardHeader className="px-6 pt-3 pb-1">
                 <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                  ClimaPH
+                  AC-CORE (Angeles City Center for Operational Reporting and Engineering)
                 </CardTitle>
                 <CardDescription className="line-clamp-2 text-sm sm:text-base">
-                  A high-performance weather platform tailored for the
-                  Philippines, integrating real-time forecasts with lifestyle
-                  metrics like laundry and umbrella guides.
+                  A proactive GovTech platform for Angeles City featuring Geospatial Signal Routing (GSR) to predict flooding risks and a Paved Paradox algorithm to prioritize infrastructure repairs.
                 </CardDescription>
               </CardHeader>
 
@@ -177,37 +174,42 @@ export default function ExplorePage() {
                   variant="secondary"
                   className="rounded-md group-hover:bg-background transition-colors"
                 >
-                  Next.js 15
+                  MEAN Stack
                 </Badge>
                 <Badge
                   variant="secondary"
                   className="rounded-md group-hover:bg-background transition-colors"
                 >
-                  TypeScript
+                  Leaflet.js
                 </Badge>
                 <Badge
                   variant="secondary"
                   className="rounded-md group-hover:bg-background transition-colors"
                 >
-                  OpenWeather
+                  Zoneless
+                </Badge>
+                                <Badge
+                  variant="secondary"
+                  className="rounded-md group-hover:bg-background transition-colors"
+                >
+                  GeoJSON
                 </Badge>
               </CardFooter>
             </Card>
           </Link>
 
-          {/* CARD 2: SUBVANTAGE (UPDATED) */}
+          {/* CARD 2: SUBVANTAGE */}
           <Link href="/projects/subvantage" className="group block h-full">
             <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
-              <div className="relative w-full overflow-hidden border-b border-border/50">
+              <div className="relative w-full aspect-video overflow-hidden border-b border-border/50 bg-muted/20">
                 <Image
                   src="/projects/subvantage/subvantage-cover.webp"
-                  alt="SubVantage Subscription Management Dashboard displaying monthly spending analytics and currency tracking"
-                  width={0}
-                  height={0}
+                  alt="SubVantage Subscription Management Dashboard"
+                  fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="w-full h-auto transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10" />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-20" />
               </div>
 
               <CardHeader className="px-6 pt-3 pb-1">
@@ -215,9 +217,7 @@ export default function ExplorePage() {
                   SubVantage
                 </CardTitle>
                 <CardDescription className="line-clamp-2 text-sm sm:text-base">
-                  An intelligent financial dashboard for tracking subscriptions,
-                  visualizing spending velocity, and managing monthly burn
-                  across multiple currencies.
+                  A secure financial dashboard for tracking subscriptions, fortified with Two-Factor Authentication (2FA) and powered by a high-performance serverless Neon PostgreSQL architecture.
                 </CardDescription>
               </CardHeader>
 
@@ -232,13 +232,13 @@ export default function ExplorePage() {
                   variant="secondary"
                   className="rounded-md group-hover:bg-background transition-colors"
                 >
-                  Supabase
+                  Neon Postgres
                 </Badge>
                 <Badge
                   variant="secondary"
                   className="rounded-md group-hover:bg-background transition-colors"
                 >
-                  Google Auth
+                  2FA Security
                 </Badge>
               </CardFooter>
             </Card>

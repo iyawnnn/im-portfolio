@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { Search, RotateCcw, TestTube } from "lucide-react";
+import React, { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { Search, RotateCcw, TestTube, ChevronLeft, ChevronRight } from "lucide-react";
 import {
   SiReact,
   SiVuedotjs,
@@ -26,13 +27,15 @@ import {
   SiNetlify,
   SiAmazon,
   SiWordpress,
-  SiSupabase,
   SiPrisma,
   SiPostgresql,
   SiVitest,
   SiGithubactions,
   SiPytest, 
-  SiFastapi, 
+  SiFastapi,
+  SiLaravel,
+  SiRender,
+  SiSqlite
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 
@@ -111,6 +114,12 @@ const toolsData: ToolCategory[] = [
         tags: ["Runtime", "Backend"],
       },
       {
+        name: "Laravel",
+        description: "The PHP Framework for Web Artisans.",
+        icon: SiLaravel,
+        tags: ["Framework", "PHP"],
+      },
+      {
         name: "Express.js",
         description: "Fast, minimalist web framework.",
         icon: SiExpress,
@@ -158,12 +167,6 @@ const toolsData: ToolCategory[] = [
         tags: ["Database", "SQL"],
       },
       {
-        name: "Supabase",
-        description: "Open Source Firebase alternative.",
-        icon: SiSupabase,
-        tags: ["BaaS", "Realtime"],
-      },
-      {
         name: "MongoDB",
         description: "Modern application data platform.",
         icon: SiMongodb,
@@ -173,6 +176,12 @@ const toolsData: ToolCategory[] = [
         name: "MySQL",
         description: "World's most popular open source DB.",
         icon: SiMysql,
+        tags: ["Database", "SQL"],
+      },
+      {
+        name: "SQLite",
+        description: "Small, fast, self-contained SQL database engine.",
+        icon: SiSqlite,
         tags: ["Database", "SQL"],
       },
     ],
@@ -216,8 +225,14 @@ const toolsData: ToolCategory[] = [
         tags: ["Deployment", "Hosting"],
       },
       {
+        name: "Render",
+        description: "Cloud hosting for apps and databases.",
+        icon: SiRender,
+        tags: ["Deployment", "Hosting"],
+      },
+      {
         name: "Amazon Web Services",
-        description: "Comprehensive, evolving cloud computing platform.",
+        description: "Comprehensive cloud computing platform.",
         icon: SiAmazon,
         tags: ["Cloud", "Infrastructure"],
       },
@@ -285,8 +300,17 @@ const toolsData: ToolCategory[] = [
 
 export default function StackPage() {
   const [query, setQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+  
+  // Carousel scroll state
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const categories = ["All", ...toolsData.map((data) => data.category)];
 
   const filteredTools = toolsData
+    .filter((category) => activeCategory === "All" || category.category === activeCategory)
     .map((category) => {
       const filteredItems = category.items.filter((item) => {
         const searchLower = query.toLowerCase();
@@ -304,11 +328,37 @@ export default function StackPage() {
     })
     .filter((category) => category.items.length > 0);
 
+  // Check scroll position to show/hide arrows smoothly
+  const checkScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setCanScrollLeft(scrollLeft > 10); 
+      setCanScrollRight(Math.ceil(scrollLeft + clientWidth) < scrollWidth - 10);
+    }
+  };
+
+  useEffect(() => {
+    checkScroll();
+    window.addEventListener("resize", checkScroll);
+    return () => window.removeEventListener("resize", checkScroll);
+  }, []);
+
+  const scroll = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 350; 
+      scrollContainerRef.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+      setTimeout(checkScroll, 350);
+    }
+  };
+
   return (
     <main className="min-h-screen flex flex-col bg-background text-foreground py-10 lg:py-20 px-4 md:px-8">
       <div className="max-w-5xl mx-auto w-full flex flex-col flex-grow">
         {/* Header Section */}
-        <div className="space-y-6 lg:space-y-8 w-full shrink-0 mb-10 lg:mb-16">
+        <div className="space-y-6 lg:space-y-8 w-full shrink-0 mb-10 lg:mb-12">
           <div className="space-y-4">
             <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-foreground">
               My Development Arsenal
@@ -320,15 +370,86 @@ export default function StackPage() {
             </p>
           </div>
 
-          <div className="relative w-full group">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors duration-300" />
-            <Input
-              type="text"
-              placeholder="Search tools..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="pl-12 h-10 lg:h-12 w-full bg-secondary/50 border-transparent hover:border-border/50 focus:bg-background focus:border-primary/30 focus:ring-4 focus:ring-primary/5 rounded-2xl text-sm lg:text-base transition-all duration-300 placeholder:text-muted-foreground/70"
-            />
+          <div className="space-y-5">
+            <div className="relative w-full group">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors duration-300" />
+              <Input
+                type="text"
+                placeholder="Search tools..."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                className="pl-12 h-12 lg:h-14 w-full bg-secondary/30 border-border hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-2xl text-base transition-all duration-300 placeholder:text-muted-foreground/70"
+              />
+            </div>
+            
+            {/* Premium Filter Carousel */}
+            <div className="relative w-full flex items-center h-12 rounded-full">
+              
+              {/* Desktop Left Arrow - Cleaned up blur and gradient */}
+              <div 
+                className={`absolute left-0 z-20 flex items-center justify-start h-full w-24 pl-1 bg-gradient-to-r from-background via-background/90 to-transparent transition-opacity duration-300 ${
+                  canScrollLeft ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                } hidden md:flex`}
+              >
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => scroll("left")}
+                  className="h-8 w-8 rounded-full shadow-sm bg-background border-border text-foreground hover:bg-secondary hover:text-primary transition-all shrink-0"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+              </div>
+
+              {/* Scrollable Container */}
+              <div 
+                ref={scrollContainerRef}
+                onScroll={checkScroll}
+                className="flex items-center w-full overflow-x-auto gap-2 scroll-smooth snap-x snap-mandatory px-1 h-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+              >
+                {categories.map((category) => {
+                  const isActive = activeCategory === category;
+                  return (
+                    <button
+                      key={category}
+                      onClick={() => setActiveCategory(category)}
+                      className={`relative px-5 h-9 text-sm font-medium rounded-full whitespace-nowrap transition-colors outline-none shrink-0 snap-start flex items-center justify-center ${
+                        isActive
+                          ? "text-primary-foreground"
+                          : "text-muted-foreground hover:text-foreground hover:bg-secondary/50 border border-transparent hover:border-border/50"
+                      }`}
+                    >
+                      {isActive && (
+                        <motion.div
+                          layoutId="active-filter-pill"
+                          className="absolute inset-0 bg-primary shadow-sm rounded-full"
+                          // bounce: 0 stops the animation from stretching or overshooting past the button
+                          transition={{ type: "spring", bounce: 0, duration: 0.3 }}
+                        />
+                      )}
+                      <span className="relative z-10">{category}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Desktop Right Arrow */}
+              <div 
+                className={`absolute right-0 z-20 flex items-center justify-end h-full w-24 pr-1 bg-gradient-to-l from-background via-background/90 to-transparent transition-opacity duration-300 ${
+                  canScrollRight ? 'opacity-100' : 'opacity-0 pointer-events-none'
+                } hidden md:flex`}
+              >
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => scroll("right")}
+                  className="h-8 w-8 rounded-full shadow-sm bg-background border-border text-foreground hover:bg-secondary hover:text-primary transition-all shrink-0"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+
+            </div>
           </div>
         </div>
 
@@ -408,7 +529,10 @@ export default function StackPage() {
                 </div>
 
                 <Button
-                  onClick={() => setQuery("")}
+                  onClick={() => {
+                    setQuery("");
+                    setActiveCategory("All");
+                  }}
                   variant="outline"
                   className="rounded-md px-8 h-11 border-border bg-background hover:bg-secondary transition-colors"
                 >

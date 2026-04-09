@@ -10,7 +10,7 @@ import {
   ArrowRight,
   Target,
   Lightbulb,
-  Sparkles,
+  RefreshCw,
   Clock,
   SearchCheck,
   Code2,
@@ -146,7 +146,7 @@ export default function AboutPage() {
               </span>
             </div>
             <div className="flex items-start gap-3">
-              <Sparkles className="mt-1 h-4 w-4 text-primary shrink-0" />
+              <RefreshCw className="mt-1 h-4 w-4 text-primary shrink-0" />
               <span>
                 <strong>Adaptability:</strong> I pick up new tools quickly and
                 can adjust easily when project requirements change.
@@ -199,8 +199,8 @@ export default function AboutPage() {
             <div className="flex items-start gap-3">
               <BookOpen className="mt-1 h-4 w-4 text-primary shrink-0" />
               <span>
-                <strong>Reading:</strong> I enjoy reading self-help books (like
-                Atomic Habits) to build better habits and improve my mindset.
+                <strong>Reading:</strong> I enjoy reading self-improvement books (like
+                Deep Work) to build better focus and improve my mindset.
               </span>
             </div>
             <div className="flex items-start gap-3">

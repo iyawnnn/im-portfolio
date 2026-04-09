@@ -17,8 +17,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 
-// --- CERTIFICATIONS DATA ---
 const CERTIFICATIONS = [
+  {
+    name: "AWS Academy Graduate - Cloud Foundations",
+    org: "Amazon Web Services",
+    icon: "/icons/aws.webp",
+    imageClass: "p-2",
+    date: "Apr 2026",
+    link: "https://www.credly.com/badges/96846437-3bb4-48cd-95f2-a9b4540fb83e/public_url",
+  },
   {
     name: "Back End Development and APIs",
     org: "freeCodeCamp",
@@ -57,21 +64,21 @@ export default function ResumePage() {
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       
-      {/* --- HEADER --- */}
+      {/* --- RESPONSIVE HEADER --- */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4 }}
-        className="flex flex-col md:flex-row justify-between gap-8 md:items-center border-b border-border/40 pb-8"
+        className="flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-8 border-b border-border/40 pb-8 text-center md:text-left w-full"
       >
-        <div className="space-y-4">
+        <div className="flex flex-col items-center md:items-start space-y-4 w-full md:w-auto">
           <div>
             <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground lg:text-6xl">
               Ian Macabulos
             </h1>
           </div>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground/80">
+          <div className="flex flex-wrap justify-center md:justify-start items-center gap-3 sm:gap-4 text-sm text-muted-foreground/80">
             <div className="flex items-center gap-1.5">
               <MapPin className="w-4 h-4 text-primary" />
               <span>CSFP, Pampanga</span>
@@ -84,8 +91,7 @@ export default function ResumePage() {
           </div>
         </div>
 
-        {/* VIEW RESUME BUTTON */}
-        <div className="flex shrink-0">
+        <div className="flex justify-center w-full md:w-auto shrink-0 mt-2 md:mt-0">
           <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
             <HoverBorderGradient
               containerClassName="rounded-full"
@@ -99,7 +105,6 @@ export default function ResumePage() {
         </div>
       </motion.div>
 
-      {/* --- CAREER OBJECTIVE --- */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -114,14 +119,10 @@ export default function ResumePage() {
         </div>
         
         <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
-          Ambitious Web Development student seeking an internship position to design and develop 
-          robust web applications using modern full stack technologies. I am dedicated to delivering 
-          efficient software solutions that drive business value while advancing my technical expertise 
-          within a professional development team by contributing to high-quality and user-centered digital solutions.
+          Motivated Web Development student actively seeking an internship, freelance engagements, or an entry-level position to design and develop robust web applications using modern full-stack technologies. I am dedicated to delivering efficient software solutions that provide real business value, while advancing my technical expertise within a professional development team to contribute to high-quality and user-centered digital products.
         </p>
       </motion.section>
 
-      {/* --- PROFESSIONAL EXPERIENCE --- */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -137,17 +138,20 @@ export default function ResumePage() {
 
         <div className="relative border-l-2 border-border/50 ml-3 md:ml-4 space-y-12 pl-8 md:pl-10 py-2">
           
-          {/* MAMA R'S ENTRY */}
           <div className="relative">
             <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-primary shadow-sm" />
 
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-2">
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1">
               <h3 className="text-lg md:text-xl font-bold text-foreground">
-                Mama R&apos;s — Inventory & Sales Management System
+                Mama R&apos;s (Inventory & Sales Management System)
               </h3>
               <span className="text-sm font-mono text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded w-fit">
-                Freelance Developer
+                Apr 2025
               </span>
+            </div>
+            
+            <div className="text-sm font-medium text-primary mb-3">
+              Freelance Developer
             </div>
 
             <div className="flex items-center gap-2 mb-4">
@@ -177,10 +181,54 @@ export default function ResumePage() {
               </li>
             </ul>
           </div>
+
+          <div className="relative">
+            <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-border shadow-sm" />
+
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1">
+              <h3 className="text-lg md:text-xl font-bold text-foreground">
+                Independent Freelancer (Commercial & Academic Clients)
+              </h3>
+              <span className="text-sm font-mono text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded w-fit">
+                2025 - Present
+              </span>
+            </div>
+            
+            <div className="text-sm font-medium text-primary mb-3">
+              Full Stack Developer
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+                <Badge variant="outline" className="text-[10px] py-0 h-5">Next.js</Badge>
+                <Badge variant="outline" className="text-[10px] py-0 h-5">TypeScript</Badge>
+                <Badge variant="outline" className="text-[10px] py-0 h-5">Tailwind CSS</Badge>
+                <Badge variant="outline" className="text-[10px] py-0 h-5">Vercel</Badge>
+            </div>
+
+            <ul className="space-y-3 text-muted-foreground text-sm md:text-base leading-relaxed">
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+                <span>
+                  Delivered production grade web solutions for academic and commercial clients, focusing on sub-second user experiences for low memory mobile devices.
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+                <span>
+                  Spearheaded technical strategy for small businesses, converting manual operations into digital architectures that achieve automated workflows.
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+                <span>
+                  Managed the full software lifecycle from high fidelity Figma prototyping to final cloud deployment on Vercel.
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
       </motion.section>
 
-      {/* --- EDUCATION SECTION --- */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -206,7 +254,7 @@ export default function ResumePage() {
                 </p>
               </div>
               <Badge variant="secondary" className="w-fit h-fit py-1">
-                2023 — Present
+                2023 - Present
               </Badge>
             </div>
 
@@ -217,7 +265,7 @@ export default function ResumePage() {
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Award className="w-4 h-4 text-primary" />
                 <span>
-                  Consistent Dean&apos;s and President&apos;s Lister, A.Y. 2023-2025
+                  Consistent Dean&apos;s and President&apos;s Lister, A.Y. 2023 to 2026
                 </span>
               </div>
             </div>
@@ -225,7 +273,6 @@ export default function ResumePage() {
         </div>
       </motion.section>
 
-      {/* --- CERTIFICATIONS SECTION --- */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

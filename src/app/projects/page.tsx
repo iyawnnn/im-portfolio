@@ -13,10 +13,26 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton"; 
+import { Skeleton } from "@/components/ui/skeleton";
 
 // --- PROJECT DATA ---
-const PROJECTS = [
+const PROJECTS = [ 
+{
+    title: "Grit",
+    description:
+      "An intelligent career management platform utilizing Groq AI to score resumes against job descriptions, featuring dynamic Kanban application boards and mock interviews.",
+    tags: ["Laravel 11", "Livewire 3", "Groq AI", "Neon Postgres"],
+    link: "/projects/grit",
+    image: "/projects/grit/grit-cover.webp",
+  },
+  {
+    title: "AC-CORE (Angeles City Center for Operational Reporting and Engineering)",
+    description:
+      "A proactive GovTech platform for Angeles City featuring Geospatial Signal Routing (GSR) to predict flooding risks and a Paved Paradox algorithm to prioritize infrastructure repairs.",
+    image: "/projects/ac-core/accore-cover.webp",
+    link: "/projects/ac-core",
+    tags: ["MEAN Stack", "Leaflet.js", "Zoneless", "GeoJSON"],
+  },
   {
     title: "KodaSync",
     description:
@@ -25,11 +41,11 @@ const PROJECTS = [
     link: "/projects/kodasync",
     image: "/projects/kodasync/kodasync-cover.webp",
   },
-  {
+{
     title: "SubVantage",
     description:
-      "An intelligent financial dashboard for tracking subscriptions, visualizing spending velocity, and managing monthly burn across multiple currencies.",
-    tags: ["Next.js 15", "Supabase", "Google Auth"],
+      "A secure financial dashboard for tracking subscriptions, fortified with Two-Factor Authentication (2FA) and powered by a high-performance serverless Neon PostgreSQL architecture.",
+    tags: ["Next.js 15", "Neon Postgres", "Prisma", "2FA Security"],
     link: "/projects/subvantage",
     image: "/projects/subvantage/subvantage-cover.webp",
   },

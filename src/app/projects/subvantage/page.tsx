@@ -13,8 +13,8 @@ import {
   Layout,
   Rocket,
   TrendingUp,
-  Wallet,
-  Bell,
+  Shield,
+  Database,
   TestTube,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -81,20 +81,15 @@ export default function SubVantagePage() {
         </div>
 
         <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          SubVantage is a comprehensive financial tool built to help users
-          regain control over their recurring expenses. It features a dynamic
-          dashboard that calculates monthly burn and annual forecasts in
-          real-time. The platform supports multi-currency conversion, visualizes
-          spending velocity, and sends intelligent alerts to prevent unwanted
-          renewals.
+          SubVantage is a comprehensive financial tool built to help users regain control over their recurring expenses. Recently hardened with enterprise-grade security features, the platform utilizes strict API rate-limiting, secure HTTP headers, and Two-Factor Authentication (2FA). The dynamic dashboard calculates monthly burn and annual forecasts in real-time, all powered by a lightning-fast serverless PostgreSQL database.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
           <Badge variant="secondary">Next.js 15</Badge>
           <Badge variant="secondary">TypeScript</Badge>
-          <Badge variant="secondary">Resend</Badge>
-          <Badge variant="secondary">Supabase</Badge>
-          <Badge variant="secondary">Vitest</Badge>
+          <Badge variant="secondary">Neon Postgres</Badge>
+          <Badge variant="secondary">Prisma</Badge>
+          <Badge variant="secondary">2FA Security</Badge>
         </div>
       </div>
 
@@ -149,35 +144,26 @@ export default function SubVantagePage() {
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-primary" /> Financial
-                  Pulse
+                  <TrendingUp className="w-4 h-4 text-primary" /> Financial Pulse
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  A real-time dashboard displaying Monthly Burn, Annual
-                  Forecasts, and Total Saved amounts. It helps users understand
-                  their immediate financial health at a glance.
+                  A real-time dashboard displaying Monthly Burn, Annual Forecasts, and Total Saved amounts. Interactive Recharts visualize spending velocity so users can identify heavy payment cycles effortlessly.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                  <Bell className="w-4 h-4 text-primary" /> Smart Alerts via
-                  Resend
+                  <Shield className="w-4 h-4 text-primary" /> Advanced Security Architecture
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Integrated <strong>Resend</strong> to automate email
-                  notifications. Users receive timely alerts 3 days before a
-                  subscription renews or a trial expires, helping prevent
-                  accidental charges.
+                  Protects sensitive financial data using Time-based One-Time Password (TOTP) Two-Factor Authentication. The application is secured against common vulnerabilities with strict API rate-limiting and enforced HTTP security headers.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                  <Wallet className="w-4 h-4 text-primary" /> Spending Velocity
+                  <Database className="w-4 h-4 text-primary" /> Serverless Data Management
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Interactive charts powered by Recharts that visualize spending
-                  trends over time, helping users identify months with heavy
-                  outgoing payments.
+                  Powered by a Neon Serverless PostgreSQL database and Prisma ORM. This architecture provides highly efficient connection pooling to ensure instant data retrieval when users modify their subscription portfolios.
                 </p>
               </div>
             </div>
@@ -192,11 +178,7 @@ export default function SubVantagePage() {
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
-                The primary challenge was managing state for currency
-                conversions across different subscription cards while ensuring
-                data reliability. Additionally, implementing a notification
-                system that reliably triggers based on server-side dates
-                required careful backend logic.
+                As the application scaled, the primary challenge evolved from building the frontend UI to overhauling the backend architecture. Migrating the primary database to Neon while simultaneously implementing rigorous security measures (like 2FA and edge-level rate-limiting) required careful orchestration to prevent data loss or service disruption for existing users.
               </p>
             </div>
 
@@ -204,19 +186,13 @@ export default function SubVantagePage() {
               <h3 className="text-xl font-semibold">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
-                  <strong>Global State:</strong> Utilized React Context to
-                  handle user preferences for currency and theme, ensuring
-                  settings persisted across pages.
+                  <strong>Database Migration:</strong> Seamlessly transitioned to Neon Postgres with Prisma, establishing a robust relational structure capable of handling high-volume currency conversions and state updates.
                 </li>
                 <li>
-                  <strong>Transactional Emails:</strong> Leveraged Resend's API
-                  to handle transactional emails with high deliverability,
-                  decoupled from the main application thread.
+                  <strong>Security Hardening:</strong> Engineered a secure authentication pipeline incorporating 2FA verification steps, reinforced by Content Security Policies (CSP) and HTTP Strict Transport Security (HSTS).
                 </li>
                 <li>
-                  <strong>Component Architecture:</strong> Created reusable
-                  "Subscription Card" components that accept props for renewal
-                  dates, costs, and logos, ensuring code reusability.
+                  <strong>Transactional Emails:</strong> Continued leveraging the Resend API to handle critical transactional emails (like trial expiry warnings and OTP codes) with high deliverability, fully decoupled from the main application thread.
                 </li>
               </ul>
             </div>
@@ -228,9 +204,7 @@ export default function SubVantagePage() {
               <TestTube className="w-6 h-6 text-primary" /> Quality Assurance
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              To ensure the application handles financial data accurately, I
-              moved beyond simple feature building and implemented a robust
-              testing strategy:
+              To guarantee that the newly secured endpoints and database connections functioned flawlessly, I expanded the application's testing suite:
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
@@ -238,10 +212,7 @@ export default function SubVantagePage() {
                   Unit & Integration Testing
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  Using <strong>Vitest</strong>, I wrote tests for critical
-                  utility functions, ensuring that currency conversion math and
-                  date calculations (like "days until renewal") are 100%
-                  accurate.
+                  Using <strong>Vitest</strong>, I wrote extensive tests covering critical utility functions, ensuring currency math, security validations, and date logic remained 100% accurate post-migration.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
@@ -249,10 +220,7 @@ export default function SubVantagePage() {
                   End-to-End (E2E) Testing
                 </h4>
                 <p className="text-sm text-muted-foreground">
-                  Implemented <strong>Playwright</strong> to simulate real user
-                  flows, such as signing up, adding a new subscription, and
-                  verifying that the dashboard updates correctly without manual
-                  intervention.
+                  Utilized <strong>Playwright</strong> to simulate complete user journeys, testing the full lifecycle from signing up and passing 2FA verification to adding subscriptions and viewing dynamic chart updates.
                 </p>
               </div>
             </div>
@@ -264,12 +232,7 @@ export default function SubVantagePage() {
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              Building SubVantage improved my skills in handling complex data
-              arrays and financial calculations on the frontend. More
-              importantly, integrating <strong>Resend</strong> and writing{" "}
-              <strong>E2E tests</strong> taught me how to build production-ready
-              applications that are not just functional, but reliable and
-              user-centric.
+              Upgrading SubVantage drastically improved my understanding of production-level security and database management. Executing a live migration to <strong>Neon Postgres</strong> and enforcing <strong>2FA protocols</strong> taught me how to architect applications that prioritize data integrity and user trust without sacrificing frontend performance.
             </p>
           </section>
         </div>
@@ -302,10 +265,10 @@ export default function SubVantagePage() {
                   Backend & Services
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Supabase</Badge>
-                  <Badge variant="outline">PostgreSQL</Badge>
+                  <Badge variant="outline">Neon Postgres</Badge>
+                  <Badge variant="outline">Prisma ORM</Badge>
                   <Badge variant="outline">Resend</Badge>
-                  <Badge variant="outline">Prisma</Badge>
+                  <Badge variant="outline">2FA Auth</Badge>
                 </div>
               </div>
 
@@ -364,11 +327,11 @@ export default function SubVantagePage() {
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Version</span>
-                <span className="font-medium text-foreground">v1.0.0</span>
+                <span className="font-medium text-foreground">v2.0.0</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Database</span>
-                <span className="font-medium text-foreground">Supabase</span>
+                <span className="font-medium text-foreground">Neon</span>
               </div>
             </div>
           </Card>
