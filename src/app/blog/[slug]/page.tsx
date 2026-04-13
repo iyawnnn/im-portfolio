@@ -8,7 +8,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const resolvedParams = await params;
   const { meta } = getPostBySlug(resolvedParams.slug);
   
-  // FIXED: Removed the "| Ian Macabulos" from the tab name
   return {
     title: meta.title,
     description: meta.description,
@@ -23,10 +22,14 @@ export default async function BlogPostPage({
   const resolvedParams = await params;
   const { meta, content } = getPostBySlug(resolvedParams.slug);
 
+  // Dynamically calculate the exact reading time
+  const wordCount = content.split(/\s+/g).length;
+  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col px-8 lg:px-12 pt-8 md:pt-20 pb-24">
+    <div className="flex w-full max-w-6xl mx-auto flex-col px-8 lg:px-12 pt-8 md:pt-20 pb-24 font-sans">
       
-      {/* 1. Navigation aligned perfectly to the left edge */}
+      {/* Navigation */}
       <div className="mb-10 md:mb-12">
         <Link 
           href="/blog" 
@@ -36,45 +39,62 @@ export default async function BlogPostPage({
         </Link>
       </div>
 
-      {/* 2. Reading Container - Full width, stripped of restrictive wrappers */}
       <article className="w-full flex flex-col">
         
-        {/* FIXED: Clean Post Metadata without icons or clunky borders */}
-        <div className="flex flex-col gap-4 mb-10">
-          <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-foreground font-sans leading-tight">
+        {/* Header Section: Reduced Title Size & Clean Metadata */}
+        <div className="flex flex-col mb-10 max-w-4xl">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground font-sans leading-tight">
             {meta.title}
           </h1>
           
-          <time dateTime={meta.date} className="text-sm font-medium text-muted-foreground">
-            {meta.date}
-          </time>
+          {/* Clean Author & Meta Ribbon (No Borders, Proper Grouping) */}
+          <div className="flex items-center gap-3 mt-8">
+            <div className="relative h-11 w-11 rounded-full overflow-hidden bg-muted border border-border/50 shadow-sm">
+              <Image 
+                src="/about/ian-macabulos-2026.webp" 
+                alt="Ian Macabulos" 
+                fill 
+                sizes="44px"
+                className="object-cover" 
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-semibold text-foreground text-base leading-none mb-1.5">
+                Ian Macabulos
+              </span>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground font-medium">
+                <time dateTime={meta.date}>{meta.date}</time>
+                <span className="text-[10px] opacity-50">●</span>
+                <span>{readingTime} min read</span>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* 3. Immersive Cover Image */}
+        {/* Immersive Cover Image */}
         {meta.coverImage && (
-          <div className="relative w-full aspect-[21/9] mb-12 overflow-hidden rounded-2xl border border-border/50 bg-muted/20">
+          <div className="relative w-full aspect-[21/9] mb-12 overflow-hidden rounded-2xl border border-border/50 bg-muted/20 shadow-sm">
             <Image
               src={meta.coverImage}
               alt={`Cover image for ${meta.title}`}
               fill
               sizes="(max-width: 1152px) 100vw, 1152px"
-              className="object-cover transition-transform duration-700 hover:scale-105"
+              className="object-cover"
               priority
             />
           </div>
         )}
         
-        {/* 4. Strict Geist Font Overrides spanning full width */}
+        {/* Markdown Rendering (Strict Formatting Maintained) */}
         <div className="prose prose-neutral dark:prose-invert max-w-none w-full
-          font-sans prose-headings:font-sans prose-p:font-sans prose-a:font-sans prose-strong:font-sans prose-li:font-sans
-          prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-foreground prose-headings:mt-12 prose-headings:mb-6
+          prose-headings:font-sans prose-p:font-sans prose-a:font-sans
+          prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-foreground
           prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:text-[1.05rem]
-          prose-a:text-foreground prose-a:underline prose-a:underline-offset-4 prose-a:decoration-border hover:prose-a:decoration-foreground transition-all
-          prose-img:rounded-2xl prose-img:border prose-img:border-border/50 prose-img:shadow-sm prose-img:w-full prose-img:my-12
-          prose-hr:border-border/50 prose-hr:my-12
-          prose-blockquote:border-l-[3px] prose-blockquote:border-foreground prose-blockquote:bg-muted/20 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-xl prose-blockquote:not-italic prose-blockquote:text-foreground prose-blockquote:font-medium prose-blockquote:my-10
-          prose-code:text-foreground prose-code:bg-muted/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-mono prose-code:text-sm prose-code:font-medium prose-code:before:content-none prose-code:after:content-none
-          prose-pre:bg-[#111111] dark:prose-pre:bg-muted/20 prose-pre:border prose-pre:border-border/50 prose-pre:text-sm prose-pre:rounded-xl prose-pre:my-10">
+          prose-a:text-foreground prose-a:underline prose-a:underline-offset-4
+          prose-img:rounded-2xl prose-img:border prose-img:border-border/50
+          prose-blockquote:border-l-[3px] prose-blockquote:border-foreground prose-blockquote:bg-muted/20 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-xl prose-blockquote:not-italic prose-blockquote:text-foreground
+          prose-code:text-foreground prose-code:bg-muted/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+          prose-pre:bg-[#111111] dark:prose-pre:bg-muted/20 prose-pre:border prose-pre:border-border/50 prose-pre:rounded-xl">
           <MDXRemote source={content} />
         </div>
 
