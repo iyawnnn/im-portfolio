@@ -12,6 +12,7 @@ const previewMap: Record<string, string> = {
   "/projects/movieloom": "/projects/movieloom/movieloom-cover.webp",
   "/projects/thryve": "/projects/thryve/thryve-cover.webp",
   "https://www.credly.com/badges/96846437-3bb4-48cd-95f2-a9b4540fb83e/public_url": "/blog/aws-badge-preview.webp",
+  "https://github.com/MMPA-Works": "/blog/mmpa-works.webp",
 };
 
 export const CustomLink = ({ href, children, ...props }: any) => {

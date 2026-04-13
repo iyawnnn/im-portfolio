@@ -1,0 +1,54 @@
+---
+title: "The Story Behind AC-CORE Building a Proactive City"
+date: "2026-03-23"
+description: "How a simple Facebook post inspired a full-stack civic platform to solve infrastructure reporting and disaster response in Angeles City."
+coverImage: "/blog/engineering-ac-core-cover.webp"
+---
+
+The idea for [AC-CORE](/projects/ac-core) did not start in a classroom or a brainstorming session. It started while I was mindlessly scrolling through social media. 
+
+I came across a post from the [Angeles City Disaster Risk Reduction and Management Office (ACDRRMO)](https://www.facebook.com/DisasterReadyAngelesCity). They had uploaded photos of their team actively mapping out hazard zones and flood risks across the city. The problem was that they were doing this manual routing on printed physical maps. They were literally using markers and pins to track dynamic, fast-moving environmental hazards. 
+
+Seeing that process click something into place for me. Angeles City is a rapidly growing urban center. We deal with severe monsoon rains, volcanic lahar deposits from Mount Pinatubo, and heavily concreted commercial zones that create massive surface flooding. Tracking these hazards on a paper map while a storm is actively flooding Barangay Balibago seemed completely unsustainable. 
+
+I thought to myself that there had to be a better way to digitize this process. We needed a system where citizens could report hazards in real-time, and the local government could see those reports populate dynamically on a digital grid. That was the exact moment AC-CORE was born. 
+
+### The One-Week Sprint
+
+Building a platform like this usually takes months of planning. We did not have that kind of time. 
+
+We built this entire platform under our engineering team, [MMPA Works](https://github.com/MMPA-Works). The core development group consisted of [Kian Angeles](https://www.linkedin.com/in/kian-angeles/), [Kris Dane Madlambayan](https://www.linkedin.com/in/kris-dane-madlambayan-450171270/), [Mikko Pangilinan](https://www.linkedin.com/in/mikko-pangilinan-2a6345336/), and myself. We completed the entire project, from initial database design to final deployment, in exactly one week. 
+
+It was an intense development sprint. We had to make rapid architectural decisions and solve complex logic problems on the fly. 
+
+### The Geofencing Trap
+
+One of our biggest early challenges was the geofencing logic. AC-CORE is specifically designed for Angeles City. We needed a way to automatically reject spam reports or legitimate reports coming from neighboring municipalities like Mabalacat or San Fernando. 
+
+Our initial solution was a strict digital boundary. We used MongoDB to draw a rigid geospatial polygon around the exact borders of Angeles City. If a user's GPS coordinates fell outside that invisible line, the server rejected the submission. 
+
+In a local development environment, this worked perfectly. In the real world, it was a disaster. 
+
+During our initial testing, we realized that budget smartphones have terrible GPS accuracy, especially during heavy rainstorms with thick cloud cover. A resident standing well inside Angeles City might have their GPS signal drift by a few hundred meters. The system would register them as being in a neighboring town and block their critical flood report.
+
+> We accidentally built a system that punished citizens for having cheap phones or bad weather. We had to rewrite the routing logic completely.
+
+Instead of a strict barrier, we implemented "Soft Geofencing" using MongoDB's `2dsphere` indexes. 
+
+* **The Core Zone:** Reports inside the exact city limits are automatically accepted and processed.
+* **The Buffer Zone:** We created a dynamic 500-meter buffer zone outside the city borders. If a report lands in this zone, the system accepts it but flags it with a "Location Warning" for manual review by an admin.
+* **The Rejection Zone:** Only reports originating completely outside the buffer zone are outright rejected.
+
+This single change preserved the integrity of our database while ensuring no legitimate citizen report was ever blocked by hardware limitations.
+
+### Performance Under Pressure
+
+Another major hurdle was mobile performance. When a typhoon hits, network towers become congested. If our mobile web application required massive data downloads to run, it would fail exactly when people needed it most. 
+
+We migrated our frontend to a modern Angular 18 Zoneless architecture. Older frameworks constantly scan the background to see if data has changed, which drains battery life and freezes older phones. By using Signals for state management, our application only updates the exact piece of the interface that needs changing. This targeted approach kept the app incredibly lightweight.
+
+### Bridging the Gap
+
+To make the backend just as resilient, we wrote everything in strict TypeScript using Node.js and Express. We also integrated the OpenWeather API. Now, when a citizen submits a blocked drainage report, the server automatically pulls the live meteorological data for those exact coordinates. The ACDRRMO does not just get a pin on a map. They get a full environmental context report.
+
+Building AC-CORE in exactly one week taught me that the best software does not just process data. It solves real problems for the people living in your own community.

@@ -1,5 +1,5 @@
 ---
-title: "Quality Over Quantity: Why I Rewrote My Best Projects"
+title: "Quality Over Quantity Why I Rewrote My Best Projects"
 date: "2026-04-15"
 description: "How I stopped rushing through school assignments and learned to build secure, polished software."
 coverImage: "/blog/quality-over-quantity.webp"
@@ -9,26 +9,54 @@ Ten repositories. Zero usable applications.
 
 I looked at my GitHub profile a few months ago and realized something terrible. I had spent a year building projects, but I would not want a real user to touch any of them.
 
-When I first started doing school assignments and side projects, the only goal was to finish. I just wanted the code to compile. If the login button worked, I closed my laptop and moved on. I was obsessed with quantity. I wanted to build as many things as possible to make my resume look packed.
+When I first started doing school assignments and side projects, my only goal was to finish. I just wanted the code to compile. If the login button worked and the database accepted a string of text, I closed my laptop and moved on. I was obsessed with quantity. I wanted to build as many things as possible to make my resume look packed with experience.
 
 I layered logic on top of logic. I tried to be clever instead of being clear.
 
 But then I actually tried to use one of my own applications a month later. 
 
-The UI was clunky. The security was basically nonexistent. The user experience was completely ignored. It hit me that a portfolio with ten broken apps is much worse than a portfolio with two highly polished products.
+The user interface was clunky. The security was basically nonexistent. The overall user experience was completely ignored. It hit me that a portfolio with ten broken applications is much worse than a portfolio with two highly polished products.
 
 So I stopped building new things. I went back to my old code.
 
-I opened up [Kodasync](/projects/kodasync) and [SubVantage](/projects/subvantage). Instead of adding more features, I started deleting code. I stripped out the chaotic designs and focused entirely on the core mechanics. 
+### The Database Migration Strategy
 
-I spent days just refining the minimalist UI to make it feel like a premium developer tool. I researched common vulnerabilities and patched the security holes. I stopped trying to outsmart the frameworks and just let the native caching and routing do the heavy lifting.
+Before I even touched the user interfaces, I had to fix my infrastructure. I was hosting my databases on Supabase. Supabase is fantastic, but their free tier only allows you to run two active projects at a time. Because I had so many unoptimized, half-finished projects, I was constantly hitting my limits. 
 
-It worked immediately. 
+I made the strategic decision to migrate the databases for my best projects directly to Neon. Neon offers a generous serverless PostgreSQL environment that easily handles multiple databases on a free tier. This migration forced me to rewrite my database schemas and Prisma queries, which immediately exposed how messy my original code was.
 
-Somewhere between deleting my old messy code and deploying the clean versions, something clicked:
+### The SubVantage Reality Check
+
+The first project I rebuilt was [SubVantage](/projects/subvantage), a subscription management platform. On paper, it was a great idea. In reality, it was falling apart.
+
+When I started digging into the codebase after the Neon migration, I found several critical failures that I had previously ignored.
+
+* **The Silent Failures:** The email notification service was completely broken. It was supposed to remind users of upcoming billing cycles, but it was failing silently in the background. Because I never wrote proper error handling, the system just swallowed the bugs and left the user in the dark.
+* **The Broken Archive:** The archive page was another disaster. When a user tried to view their past subscriptions, the database queries were so unoptimized that the page simply timed out and crashed. 
+* **Zero Security:** I realized that handling financial data required actual security, not just a simple password field.
+
+I fixed the serverless functions handling the email triggers so they would deliver reliable notifications. I rewrote the Prisma database queries to paginate the archive data, turning a page that used to crash into a page that loads instantly. Most importantly, I implemented Two-Factor Authentication (2FA) and proper session management.
+
+### Refining the Neural Engine in Kodasync
+
+After securing SubVantage, I turned my attention to [Kodasync](/projects/kodasync). Kodasync is a Neural Code and Knowledge Engine designed to centralize technical knowledge for software engineers using AI.
+
+The original frontend was chaotic. It was supposed to be a professional intelligence hub, but there were too many harsh borders, conflicting colors, and cluttered navigation menus. It felt like a cheap school project instead of a premium developer tool. 
+
+Furthermore, I was running a hybrid architecture with a Next.js frontend and a FastAPI Python backend handling heavy vector embeddings through pgvector. The heavy AI processing was making the interface freeze.
+
+I spent days just deleting code. I stripped out the chaotic designs and focused entirely on the core mechanics. 
+
+1. **The Monaco Upgrade:** I completely integrated the Monaco Editor to give the studio a true, high-performance Visual Studio Code feel.
+2. **Background Tasking:** I offloaded the heavy AI vector calculations to background threads in FastAPI. This kept the UI highly responsive even when the engine was ingesting large documentation URLs.
+3. **A Clean Palette:** I abandoned the colorful buttons and adopted a strict, professional Green and White color scheme. This approach eliminated visual noise and allowed the user to focus entirely on the code.
+
+### The Lesson Learned
+
+Somewhere between migrating my databases to Neon and deploying the newly secured versions of my applications, something finally clicked.
 
 > You will never build a perfect system. But you can always build a system that respects the user.
 
-Code is never truly finished. There will always be bugs. But taking the time to write clean, secure, and beautifully designed applications changes how you think as an engineer. 
+Code is never truly finished. There will always be bugs to fix and dependencies to update. But taking the time to write clean, secure, and beautifully designed applications completely changes how you think as an engineer. 
 
-The days of rushing to the finish line just to check a box are over. It is time to just build things that actually work well.
+The days of rushing to the finish line just to check a box are over. It is no longer about how many repositories I can create in a month. It is simply time to build things that actually work well.

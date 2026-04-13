@@ -1,30 +1,40 @@
 ---
-title: "From Badges to Architecture: Scaling Lazada on AWS"
+title: "Beyond the AWS Badge Architecting Lazada for 160 Million Users"
 date: "2026-03-15"
-description: "Earning the AWS Cloud Foundations badge was the easy part. Designing a cloud architecture for 160 million users was the real test."
+description: "Earning the AWS Cloud Foundations badge was the easy part. Designing a highly available cloud architecture for millions of users was the real test."
 coverImage: "/blog/aws-lazada-cover.webp"
 ---
 
 I recently completed the [AWS Academy Cloud Foundations Badge](https://www.credly.com/badges/96846437-3bb4-48cd-95f2-a9b4540fb83e/public_url). 
 
-It was a requirement for my degree, and for a few weeks, my life was nothing but acronyms. I memorized the differences between an EC2 instance, an S3 bucket, and a VPC. I learned about security groups and IAM roles. I passed the exam, got the digital badge, and felt pretty good about my cloud knowledge.
+It was a strict requirement for my degree. For a few weeks, my life consisted of nothing but memorizing technical acronyms. I learned the strict differences between an Elastic Compute Cloud (EC2) instance, a Simple Storage Service (S3) bucket, and a Virtual Private Cloud (VPC). I studied security groups and Identity and Access Management (IAM) roles. I passed the exam, acquired the digital badge, and felt highly confident about my cloud computing knowledge.
 
-But knowing what a tool does is very different from knowing how to build a house with it.
+But knowing what a tool does is very different from knowing how to build a scalable house with it.
 
-The real test came during our final project for my 6CLOUDCOM class under Dr. Jonilo Mababa. The assignment was to design a comprehensive AWS cloud architecture for a massive, real-world business. My team chose Lazada Singapore Pte. Ltd.
+### The Reality Check
 
-Lazada is not a small application. It is a third-party marketplace that handles 160 million active monthly users across Southeast Asia. You cannot just spin up a single server and hope for the best. 
+The real test arrived during our final project for the 6CLOUDCOM class under [Dr. Jonilo Mababa](https://www.linkedin.com/in/jmababa/). The assignment was not a simple multiple-choice exam. We were tasked to design a comprehensive, fault-tolerant AWS cloud architecture for a massive, real-world business enterprise. 
 
-Suddenly, the definitions I memorized for my AWS badge were not enough. 
+My team chose Lazada Singapore Pte. Ltd.
 
-We had to figure out how to map out Elastic Load Balancers to distribute traffic during massive sale events. We had to architect Auto Scaling Groups so the servers would not crash when millions of users logged in simultaneously. We had to ensure high availability across multiple Availability Zones to prevent single points of failure.
+Lazada is not a lightweight application. It is a dominant third-party ecommerce marketplace that routinely handles 160 million active monthly users across Southeast Asia. You cannot simply spin up a single server, attach a database, and hope the system survives a major sale event like 11.11 or a monthly payday rush.
 
-It took hours of diagramming and arguing over routing tables to get our five architecture blueprints right. 
+Suddenly, the basic textbook definitions I memorized for my certification were no longer enough to solve the problem.
 
-> Everything fails, all the time. — Werner Vogels, CTO of Amazon
+### Architecting for Massive Scale
 
-Dr. Jonilo Mababa emphasized this reality. A cloud service is just a single gear. The architecture is the engine. You have to design the system expecting those gears to break.
+We had to transition from theoretical knowledge to practical systems design. It took hours of diagramming infrastructure logic and debating routing tables to finalize our five architecture blueprints. We had to implement several advanced cloud patterns to ensure the system would not collapse under pressure.
 
-That project completely changed how I look at backend development. It is incredibly easy to say "just put it in the cloud." It is entirely different to wire those cloud services together securely and efficiently.
+* **Traffic Distribution:** We mapped out Elastic Load Balancers (ELB) across multiple subnets. This ensures that when millions of users simultaneously search for products, the incoming network traffic is evenly distributed so no single server becomes a bottleneck.
+* **Elastic Capacity:** We architected Auto Scaling Groups for our compute resources. During a massive midnight sale, the system must automatically provision new servers to handle the spike. Once the sale ends, it must instantly terminate those extra servers to minimize billing costs.
+* **Fault Tolerance:** We deployed our resources across multiple Availability Zones (AZ). If a physical data center in Singapore experiences a power failure, the Lazada application must seamlessly route users to a secondary data center without dropping their active shopping carts.
 
-The AWS badge got my foot in the door and gave me the vocabulary. But architecting a system that could theoretically support Alibaba-level traffic is what actually made me feel like an engineer.
+### Expecting Failure
+
+> Everything fails, all the time. (Werner Vogels, CTO of Amazon)
+
+Dr. Jonilo Mababa repeatedly emphasized this harsh reality during our course. A cloud service is just a single mechanical gear. The architecture itself is the entire engine. You cannot build an engine assuming all the parts will function perfectly forever. You must design the entire system expecting those gears to break at the worst possible moment.
+
+That single project completely changed how I look at backend development and system operations. It is incredibly easy for a developer to say that they will just put their application in the cloud. It is an entirely different engineering challenge to wire those cloud services together securely, efficiently, and at a massive scale.
+
+The initial AWS badge successfully got my foot in the door and gave me the correct technical vocabulary. However, architecting a complex system that could theoretically support Alibaba-level web traffic is what actually made me feel like a true software engineer.
