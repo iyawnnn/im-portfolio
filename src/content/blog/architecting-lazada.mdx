@@ -1,0 +1,30 @@
+---
+title: "From Badges to Architecture: Scaling Lazada on AWS"
+date: "2026-03-15"
+description: "Earning the AWS Cloud Foundations badge was the easy part. Designing a cloud architecture for 160 million users was the real test."
+coverImage: "/blog/aws-lazada-cover.webp"
+---
+
+I recently completed the [AWS Academy Cloud Foundations Badge](https://www.credly.com/badges/96846437-3bb4-48cd-95f2-a9b4540fb83e/public_url). 
+
+It was a requirement for my degree, and for a few weeks, my life was nothing but acronyms. I memorized the differences between an EC2 instance, an S3 bucket, and a VPC. I learned about security groups and IAM roles. I passed the exam, got the digital badge, and felt pretty good about my cloud knowledge.
+
+But knowing what a tool does is very different from knowing how to build a house with it.
+
+The real test came during our final project for my 6CLOUDCOM class under Dr. Jonilo Mababa. The assignment was to design a comprehensive AWS cloud architecture for a massive, real-world business. My team chose Lazada Singapore Pte. Ltd.
+
+Lazada is not a small application. It is a third-party marketplace that handles 160 million active monthly users across Southeast Asia. You cannot just spin up a single server and hope for the best. 
+
+Suddenly, the definitions I memorized for my AWS badge were not enough. 
+
+We had to figure out how to map out Elastic Load Balancers to distribute traffic during massive sale events. We had to architect Auto Scaling Groups so the servers would not crash when millions of users logged in simultaneously. We had to ensure high availability across multiple Availability Zones to prevent single points of failure.
+
+It took hours of diagramming and arguing over routing tables to get our five architecture blueprints right. 
+
+> Everything fails, all the time. — Werner Vogels, CTO of Amazon
+
+Dr. Jonilo Mababa emphasized this reality. A cloud service is just a single gear. The architecture is the engine. You have to design the system expecting those gears to break.
+
+That project completely changed how I look at backend development. It is incredibly easy to say "just put it in the cloud." It is entirely different to wire those cloud services together securely and efficiently.
+
+The AWS badge got my foot in the door and gave me the vocabulary. But architecting a system that could theoretically support Alibaba-level traffic is what actually made me feel like an engineer.
