@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
+import { CustomLink } from "@/components/mdx/preview-link";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -22,15 +23,14 @@ export default async function BlogPostPage({
   const resolvedParams = await params;
   const { meta, content } = getPostBySlug(resolvedParams.slug);
 
-  // Dynamically calculate the exact reading time
   const wordCount = content.split(/\s+/g).length;
   const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col px-8 lg:px-12 pt-8 md:pt-20 pb-24 font-sans">
+    <div className="flex w-full max-w-6xl mx-auto flex-col px-8 lg:px-12 pt-6 md:pt-12 pb-24 font-sans">
       
-      {/* Navigation */}
-      <div className="mb-10 md:mb-12">
+      {/* Tightened Navigation Margins */}
+      <div className="mb-8 md:mb-10">
         <Link 
           href="/blog" 
           className="group inline-flex items-center text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground"
@@ -41,13 +41,11 @@ export default async function BlogPostPage({
 
       <article className="w-full flex flex-col">
         
-        {/* Header Section: Reduced Title Size & Clean Metadata */}
-        <div className="flex flex-col mb-10 max-w-4xl">
+        <div className="flex flex-col mb-8 max-w-4xl">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-foreground font-sans leading-tight">
             {meta.title}
           </h1>
           
-          {/* Clean Author & Meta Ribbon (No Borders, Proper Grouping) */}
           <div className="flex items-center gap-3 mt-8">
             <div className="relative h-11 w-11 rounded-full overflow-hidden bg-muted border border-border/50 shadow-sm">
               <Image 
@@ -71,7 +69,6 @@ export default async function BlogPostPage({
           </div>
         </div>
 
-        {/* Immersive Cover Image */}
         {meta.coverImage && (
           <div className="relative w-full aspect-[21/9] mb-12 overflow-hidden rounded-2xl border border-border/50 bg-muted/20 shadow-sm">
             <Image
@@ -85,7 +82,6 @@ export default async function BlogPostPage({
           </div>
         )}
         
-        {/* Markdown Rendering (Strict Formatting Maintained) */}
         <div className="prose prose-neutral dark:prose-invert max-w-none w-full
           prose-headings:font-sans prose-p:font-sans prose-a:font-sans
           prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-foreground
@@ -95,7 +91,13 @@ export default async function BlogPostPage({
           prose-blockquote:border-l-[3px] prose-blockquote:border-foreground prose-blockquote:bg-muted/20 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-xl prose-blockquote:not-italic prose-blockquote:text-foreground
           prose-code:text-foreground prose-code:bg-muted/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
           prose-pre:bg-[#111111] dark:prose-pre:bg-muted/20 prose-pre:border prose-pre:border-border/50 prose-pre:rounded-xl">
-          <MDXRemote source={content} />
+          
+          <MDXRemote 
+            source={content} 
+            components={{
+              a: CustomLink,
+            }}
+          />
         </div>
 
       </article>
