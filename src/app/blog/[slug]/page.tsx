@@ -29,7 +29,6 @@ export default async function BlogPostPage({
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col px-8 lg:px-12 pt-6 md:pt-12 pb-24 font-sans">
       
-      {/* Tightened Navigation Margins */}
       <div className="mb-8 md:mb-10">
         <Link 
           href="/blog" 
@@ -88,8 +87,8 @@ export default async function BlogPostPage({
           prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:text-[1.05rem]
           prose-a:text-foreground prose-a:underline prose-a:underline-offset-4
           prose-img:rounded-2xl prose-img:border prose-img:border-border/50
-          prose-blockquote:border-l-[3px] prose-blockquote:border-foreground prose-blockquote:bg-muted/20 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-xl prose-blockquote:not-italic prose-blockquote:text-foreground
-          prose-code:text-foreground prose-code:bg-muted/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+          prose-blockquote:border-l-[3px] prose-blockquote:border-foreground prose-blockquote:bg-muted/80 dark:prose-blockquote:bg-muted/20 prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:rounded-r-xl prose-blockquote:not-italic prose-blockquote:text-foreground
+          prose-code:text-foreground prose-code:bg-muted/80 dark:prose-code:bg-muted/30 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
           prose-pre:bg-[#111111] dark:prose-pre:bg-muted/20 prose-pre:border prose-pre:border-border/50 prose-pre:rounded-xl">
           
           <MDXRemote 

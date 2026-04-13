@@ -1,25 +1,7 @@
 import Link from "next/link";
 import { getAllPostsMeta } from "@/lib/mdx";
-import { 
-  ArrowRight, 
-  Calendar, 
-  BookText, 
-  Code2, 
-  LayoutTemplate, 
-  Database, 
-  Server, 
-  Terminal, 
-  Sparkles
-} from "lucide-react";
+import { ArrowRight, Calendar, BookText, Code2, LayoutTemplate, Database, Server, Terminal, Sparkles } from "lucide-react";
 
-// 1. Reverted tab title to Blog
-export const metadata = {
-  title: "Blog | Ian Macabulos",
-  description: "Technical essays and architectural notes on full-stack web development, serverless scaling, and crafting borderless user interfaces.",
-  keywords: ["Full-Stack Development", "Web Architecture", "UI/UX Design", "Next.js", "Minimalist Design", "Tech Blog"],
-};
-
-// 2. Icon Dictionary
 const iconMap: Record<string, React.ElementType> = {
   code: Code2,
   ui: LayoutTemplate,
@@ -33,23 +15,24 @@ const iconMap: Record<string, React.ElementType> = {
 export default function BlogIndexPage() {
   const posts = getAllPostsMeta();
 
+  const sortedPosts = posts.sort((a: any, b: any) => {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 px-8 lg:px-12 pt-8 md:pt-20 pb-24">
       
-      {/* HEADER: Adjusted content width and sizing */}
       <section className="flex flex-col gap-3 md:gap-4">
         <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl lg:text-6xl text-foreground">
-          Engineering Logs
+          Blog
         </h1>
         <p className="text-base text-muted-foreground sm:text-lg md:text-xl max-w-[800px] leading-relaxed">
-          Technical deep-dives into full-stack web development, system architecture, and the pursuit of minimalist, high-performance UI design.
+          Thoughts on web development, minimalist design, and building scalable applications.
         </p>
       </section>
 
-      {/* ROW LIST */}
       <section className="flex flex-col">
-        {posts.map((post: any) => {
-          // 3. Resolve the icon dynamically
+        {sortedPosts.map((post: any) => {
           const postIconKey = post.icon?.toLowerCase() || "default";
           const PostIcon = iconMap[postIconKey] || iconMap.default;
 
@@ -81,7 +64,7 @@ export default function BlogIndexPage() {
           );
         })}
         
-        {posts.length === 0 && (
+        {sortedPosts.length === 0 && (
           <div className="py-12 text-center text-muted-foreground border-t border-border/50 mt-4">
             No system logs available yet. Check back later.
           </div>
