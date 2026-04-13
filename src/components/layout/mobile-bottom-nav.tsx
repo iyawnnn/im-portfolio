@@ -9,6 +9,7 @@ import {
   CodeXml,
   FileText,
   Mail,
+  BookOpen,
   Linkedin,
   Github,
 } from "lucide-react";
@@ -39,6 +40,7 @@ const MOBILE_LINKS = [
   { href: "/stack", label: "Stack", icon: CodeXml, isExternal: false },
   { href: "/resume", label: "Resume", icon: FileText, isExternal: false },
   { href: "/contact", label: "Contact", icon: Mail, isExternal: false },
+  { href: "/blog", label: "Blog", icon: BookOpen, isExternal: false},
   {
     href: "https://www.linkedin.com/in/ianmacabulos/",
     label: "LinkedIn",
