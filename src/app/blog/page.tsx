@@ -4,30 +4,13 @@ import { PageTransition } from "@/components/ui/page-transition";
 import { 
   ArrowRight, 
   Calendar, 
-  BookText, 
-  Code2, 
-  LayoutTemplate, 
-  Database, 
-  Server, 
-  Terminal, 
-  Sparkles,
   ChevronLeft,
   ChevronRight
 } from "lucide-react";
 
 export const metadata = {
-  title: "Blog | Ian Macabulos",
+  title: "Blog",
   description: "Thoughts on web development, minimalist design, and the occasional realization that I overcomplicated a simple function.",
-};
-
-const iconMap: Record<string, React.ElementType> = {
-  code: Code2,
-  ui: LayoutTemplate,
-  database: Database,
-  backend: Server,
-  terminal: Terminal,
-  design: Sparkles,
-  default: BookText,
 };
 
 const POSTS_PER_PAGE = 3;
@@ -51,7 +34,7 @@ export default async function BlogPage({
   const paginatedPosts = posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 px-8 lg:px-12 pt-8 md:pt-20 pb-16 font-sans">
+    <div className="flex w-full max-w-6xl mx-auto flex-col gap-8 md:gap-12 px-6 sm:px-8 lg:px-12 pt-8 md:pt-20 pb-16 font-sans">
       
       {/* Witty, Concise Header */}
       <section className="flex flex-col gap-3 md:gap-4">
@@ -66,37 +49,31 @@ export default async function BlogPage({
       {/* Animated Blog Posts List */}
       <PageTransition pageKey={currentPage}>
         <section className="flex flex-col">
-          {paginatedPosts.map((post: PostMeta) => {
-            const postIconKey = post.icon?.toLowerCase() || "default";
-            const PostIcon = iconMap[postIconKey] || iconMap.default;
-
-            return (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
-                <article className="flex flex-col gap-3 py-8 border-b border-border/50 transition-colors hover:bg-muted/30 px-4 -mx-4 rounded-xl">
-                  
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground transition-colors group-hover:opacity-80 flex items-center gap-3">
-                      <PostIcon className="h-5 w-5 text-muted-foreground" />
-                      {post.title}
-                    </h2>
-                    <div className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground">
-                      <Calendar className="h-3.5 w-3.5 opacity-70" />
-                      <time dateTime={post.date}>{post.date}</time>
-                    </div>
+          {paginatedPosts.map((post: PostMeta) => (
+            <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
+              <article className="flex flex-col gap-3 py-6 md:py-8 border-b border-border/50 transition-colors hover:bg-muted/30 px-3 sm:px-4 -mx-3 sm:-mx-4 rounded-xl">
+                
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-4">
+                  <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground transition-colors group-hover:opacity-80">
+                    {post.title}
+                  </h2>
+                  <div className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground shrink-0">
+                    <Calendar className="h-3.5 w-3.5 opacity-70" />
+                    <time dateTime={post.date}>{post.date}</time>
                   </div>
-                  
-                  <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-3xl sm:pl-8">
-                    {post.description}
-                  </p>
-                  
-                  <div className="flex items-center text-sm font-semibold text-muted-foreground mt-2 sm:pl-8 transition-colors group-hover:text-foreground">
-                    Read Article <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </div>
+                </div>
+                
+                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-3xl">
+                  {post.description}
+                </p>
+                
+                <div className="flex items-center text-sm font-semibold text-muted-foreground mt-1 transition-colors group-hover:text-foreground">
+                  Read Article <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </div>
 
-                </article>
-              </Link>
-            );
-          })}
+              </article>
+            </Link>
+          ))}
           
           {posts.length === 0 && (
             <div className="py-12 text-center text-muted-foreground border-t border-border/50 mt-4">
@@ -110,7 +87,7 @@ export default async function BlogPage({
       {totalPages > 1 && (
         <div className="flex items-center justify-between w-full pt-4">
           
-          <div className="flex w-32">
+          <div className="flex w-24 sm:w-32">
             {currentPage > 1 && (
               <Link 
                 href={`/blog?page=${currentPage - 1}`}
@@ -123,11 +100,11 @@ export default async function BlogPage({
             )}
           </div>
 
-          <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground bg-muted/30 px-4 py-1.5 rounded-full border border-border/50">
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground bg-muted/30 px-3 sm:px-4 py-1.5 rounded-full border border-border/50">
             Page {currentPage} of {totalPages}
           </div>
 
-          <div className="flex w-32 justify-end">
+          <div className="flex w-24 sm:w-32 justify-end">
             {currentPage < totalPages && (
               <Link 
                 href={`/blog?page=${currentPage + 1}`}

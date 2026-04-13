@@ -1,0 +1,50 @@
+---
+title: "Turning Bacolod's raw data into something you can actually look at"
+date: "2026-02-02"
+description: "How I turned static city data into interactive React dashboards and became a core maintainer for a civic technology platform."
+coverImage: "/blog/better-bacolod-cover.webp"
+---
+
+I have always wanted to use my skills in web development to build something that directly benefits the public. While looking for local civic technology projects, I started exploring initiatives under [BetterGov PH](https://bettergov.ph/). I wanted to find a local government unit project where I could make a meaningful impact. 
+
+During my search, I found the repository for BetterBacolod. The platform is dedicated to making city data transparent and accessible to the public. However, I noticed that the project had a very small team of contributors. There were fewer than five developers actively working on the repository. I saw an opportunity to step in, help resolve some existing issues, and build new features to prevent future bugs.
+
+The primary goal of BetterBacolod is to make the city's transparency data actually visual. Before my contributions, a lot of the public information was static. It consisted of raw numbers and flat tables. This format made it incredibly difficult for the average citizen to read the data or understand how public funds were being utilized. Transparency is only effective if the information is easily digestible.
+
+I decided to fork the repository and start building solutions.
+
+### Engineering Interactive Dashboards
+
+My first major task was to transform the raw data into interactive user interfaces. I utilized React and Recharts to build dynamic visual components. 
+
+I developed customized bar and pie charts to specifically illustrate the flood control budget. These charts clearly show how infrastructure projects are distributed across different areas. Furthermore, I engineered a dynamic contractor count. As users apply different filters to the data table, the contractor count updates in real time to reflect the specific search parameters. This provides a much smoother and more informative user experience.
+
+### Preventing Layout Failures
+
+While reviewing the existing codebase, I found a significant architectural flaw in the budget visualization component. The main budget chart was hardcoded with a maximum limit of 200 Billion. 
+
+Hardcoding data limits is a dangerous practice in front-end development. If the city's budget ever exceeded that specific number in the future, the chart would fail to render properly. It would break the entire page layout and display inaccurate proportions to the user. I completely rewrote the mathematical logic for the chart component. I updated the axis configurations to scale automatically based on the ingested dataset. The chart is now completely dynamic and safe, regardless of how large the financial numbers grow in future fiscal years. 
+
+### Building for Everyone
+
+A platform designed for public transparency must be accessible to every citizen, including those who rely on assistive technologies. The user interface had several areas that lacked proper accessibility standards.
+
+I went through the core UI components and added the necessary accessibility labels. I specifically focused on the mobile navigation menu, ensuring that screen readers could accurately interpret the site structure. Clean, accessible HTML is a fundamental requirement for modern web applications. These updates ensure that visually impaired users can navigate the platform and access the public data without frustration.
+
+### Ensuring Data Integrity
+
+Code quality is important, but the underlying data must also be accurate. During my testing, I noticed that some historical financial data from the year 2021 was missing or improperly formatted. I took the time to clean up the data structures and restore the missing records. This ensures that the historical comparisons presented on the dashboards remain highly accurate.
+
+### Becoming a Maintainer
+
+What started as a simple desire to solve a few bugs turned into a massive learning experience. After reviewing my pull requests, the owner of the project, [Matt Enarle](https://mattenarle.com/), invited me to become an official maintainer for the repository. 
+
+This was an incredible milestone for me. Collaborating with Matt and the rest of the team taught me how to enforce professional coding standards, manage version control effectively, and conduct proper code reviews. It is entirely different from building solo projects. You have to write code that other developers can read, understand, and build upon.
+
+I want to extend a huge thank you to Matt Enarle and the entire BetterBacolod.org team for the opportunity and the shoutout. 
+
+You can view the video they made about the recent dashboard updates on [Facebook](https://www.facebook.com/reel/1496372124793253). 
+
+If you are a developer looking to contribute to a great cause, you can check out the source code on the [BetterBacolod GitHub Repository](https://github.com/betterbacolod/betterbacolod) or visit the organization page at [BetterBacolod GitHub](https://github.com/betterbacolod). You can also follow their professional updates on [LinkedIn](https://www.linkedin.com/company/betterbacolodorg/).
+
+Most importantly, you can explore the live public dashboards and see the visualizations in action by visiting [BetterBacolod](https://betterbacolod.org/).
