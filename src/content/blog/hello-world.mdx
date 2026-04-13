@@ -5,8 +5,26 @@ description: "A comprehensive guide to minimalist component design and layout st
 coverImage: "/projects/kodasync/kodasync-cover.webp"
 ---
 
-This is the main content of the post. The typography plugin will automatically format paragraphs, lists, and code blocks using Instrument Sans.
+Minimalist user interfaces require a deep understanding of negative space. When you remove harsh borders, you must rely entirely on spacing, typography, and subtle background shifts to define your visual hierarchy.
 
-You can also use inline code like `npm install` and it will be highlighted in orange.
+## The Problem with Borders
 
-> This is a blockquote. It now has a custom orange border on the left side to match your brand.
+Traditional UI design relies heavily on dividing lines. While borders make it easy to separate content, they often create visual noise that distracts the user from the core functionality of the application.
+
+![Kodasync Interface Example](/projects/kodasync/kodasync-cover.webp)
+
+By removing these lines, we force ourselves to group related elements using proximity and alignment. This approach is heavily inspired by high-performance developer tools.
+
+### Implementing the Hover Reveal
+
+Instead of static borders, use a background reveal on hover. This keeps the interface clean while providing immediate tactile feedback when the user interacts with an element.
+
+```tsx
+// A simple borderless card component
+export function BorderlessCard({ children }) {
+  return (
+    <div className="p-4 rounded-xl transition-colors hover:bg-muted/30">
+      {children}
+    </div>
+  );
+}
