@@ -1,11 +1,14 @@
+// src/app/robots.ts
 import type { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://iansebastian.dev";
+
   return {
     rules: {
-      userAgent: "*", // Allow all bots (Google, Bing, etc.)
-      allow: "/", // Allow them to visit every page
+      userAgent: "*",
+      allow: "/",
     },
-    sitemap: "https://iansebastian.dev/sitemap.xml",
+    sitemap: `${baseUrl}/sitemap.xml`,
   };
 }
