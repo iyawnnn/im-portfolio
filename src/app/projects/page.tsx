@@ -24,15 +24,7 @@ const PROJECTS = [
     image: "/projects/ua-attendance/ua-attendance-cover.webp",
     tags: ["Next.js 15", "Aiven MySQL", "ECDSA", "Geolib"],
   },
-  {
-    title: "Grit",
-    description:
-      "An intelligent career management platform utilizing Groq AI to score resumes against job descriptions, featuring dynamic Kanban application boards and mock interviews.",
-    tags: ["Laravel 11", "Livewire 3", "Groq AI", "Neon Postgres"],
-    link: "/projects/grit",
-    image: "/projects/grit/grit-cover.webp",
-  },
-  {
+    {
     title:
       "AC-CORE (Angeles City Center for Operational Reporting and Engineering)",
     description:
@@ -40,6 +32,14 @@ const PROJECTS = [
     image: "/projects/ac-core/accore-cover.webp",
     link: "/projects/ac-core",
     tags: ["MEAN Stack", "Leaflet.js", "Zoneless", "GeoJSON"],
+  },
+  {
+    title: "Grit",
+    description:
+      "An intelligent career management platform utilizing Groq AI to score resumes against job descriptions, featuring dynamic Kanban application boards and mock interviews.",
+    tags: ["Laravel 11", "Livewire 3", "Groq AI", "Neon Postgres"],
+    link: "/projects/grit",
+    image: "/projects/grit/grit-cover.webp",
   },
   {
     title: "KodaSync",
