@@ -25,7 +25,6 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/hooks/use-sidebar";
 
-// --- CUSTOM ICONS ---
 const PeerlistIcon = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 24 24"
@@ -48,7 +47,7 @@ const MAIN_LINKS = [
   { title: "Projects", href: "/projects", icon: Briefcase, shortcut: "3" },
   { title: "Stack", href: "/stack", icon: CodeXml, shortcut: "4" },
   { title: "Resume", href: "/resume", icon: FileText, shortcut: "5" },
-  { title: "Blog", href: "/blog", icon: BookOpen, shortcut: "6", },
+  { title: "Blog", href: "/blog", icon: BookOpen, shortcut: "6" },
 ] as const;
 
 const CONNECT_LINKS = [
@@ -87,9 +86,7 @@ function NavSection({
   return (
     <section className="w-full">
       {!isCollapsed && (
-        // FIX: Changed 'text-muted-foreground' to 'text-sidebar-foreground/70'
-        // This increases contrast while keeping visual hierarchy.
-        <h2 className="mb-3 px-3 text-[10px] font-bold uppercase text-sidebar-foreground/70 transition-opacity duration-300 tracking-widest">
+        <h2 className="mb-3 px-3 text-[10px] font-bold uppercase text-sidebar-foreground/50 transition-opacity duration-300 tracking-widest">
           {title}
         </h2>
       )}
@@ -104,11 +101,11 @@ function NavSection({
                 href={link.href}
                 target={isExternal ? "_blank" : undefined}
                 className={cn(
-                  "group flex items-center rounded-xl py-2.5 text-sm font-semibold transition-all",
+                  "group flex items-center rounded-xl py-2.5 text-sm font-medium transition-all duration-200 border",
                   isCollapsed ? "justify-center px-2" : "justify-between px-3",
                   isActive
-                    ? "bg-sidebar-accent text-sidebar-accent-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                    ? "bg-sidebar-accent border-sidebar-border/50 text-sidebar-foreground shadow-sm"
+                    : "border-transparent text-muted-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-foreground",
                 )}
               >
                 <div
@@ -119,8 +116,10 @@ function NavSection({
                 >
                   <link.icon
                     className={cn(
-                      "h-5 w-5 transition-all",
-                      isActive ? "stroke-[2.5px] text-foreground" : "stroke-2",
+                      "h-4 w-4 stroke-2 transition-colors duration-200",
+                      isActive
+                        ? "text-sidebar-foreground"
+                        : "text-muted-foreground group-hover:text-sidebar-foreground",
                     )}
                   />
                   <span
@@ -145,10 +144,10 @@ function NavSection({
                 >
                   <span
                     className={cn(
-                      "flex h-5 w-5 items-center justify-center rounded border text-[10px] font-bold transition-all shadow-sm",
+                      "flex h-5 w-5 items-center justify-center rounded border text-[10px] transition-all duration-200",
                       isActive
-                        ? "border-foreground/10 bg-background text-foreground"
-                        : "border-sidebar-border bg-sidebar text-muted-foreground group-hover:border-foreground/10 group-hover:bg-background group-hover:text-foreground",
+                        ? "border-sidebar-border bg-background shadow-sm text-foreground font-semibold"
+                        : "border-sidebar-border/60 bg-sidebar-accent/30 text-muted-foreground group-hover:border-sidebar-border/80 group-hover:bg-background group-hover:text-foreground group-hover:shadow-sm font-medium",
                     )}
                   >
                     {"shortcut" in link ? (
@@ -203,7 +202,7 @@ export function AppSidebar() {
   return (
     <aside
       className={cn(
-        "relative flex h-full w-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300",
+        "relative z-50 flex h-full w-full flex-col border-r border-sidebar-border bg-sidebar text-sidebar-foreground transition-all duration-300",
         isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-5",
       )}
     >
@@ -308,7 +307,7 @@ export function AppSidebar() {
             ))}
           <span
             className={cn(
-              "text-xs font-semibold transition-all duration-300 overflow-hidden whitespace-nowrap",
+              "text-xs font-medium transition-all duration-300 overflow-hidden whitespace-nowrap",
               isCollapsed
                 ? "w-0 opacity-0 hidden"
                 : "w-auto opacity-100 visible",
