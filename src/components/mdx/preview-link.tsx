@@ -14,7 +14,10 @@ const previewMap: Record<string, string> = {
   "https://www.credly.com/badges/96846437-3bb4-48cd-95f2-a9b4540fb83e/public_url": "/blog/aws-badge-preview.webp",
   "https://github.com/MMPA-Works": "/blog/mmpa-works.webp",
   "https://bettergov.ph/": "/blog/better-gov.webp",
-  "https://betterbacolod.org/": "/blog/better-bacolod.webp"
+  "https://betterbacolod.org/": "/blog/better-bacolod.webp",
+  "https://gsap.com/": "/blog/gsap-preview.webp",
+  "https://www.reactbits.dev/": "/blog/react-bits-preview.webp",
+  "https://www.hau.edu.ph/": "/blog/hau-preview.webp"
 };
 
 export const CustomLink = ({ href, children, ...props }: any) => {
