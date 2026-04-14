@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import {
   Card,
@@ -14,6 +15,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import { PageTransition } from "@/components/ui/page-transition";
 
 const PROJECTS = [
   {
@@ -24,7 +26,7 @@ const PROJECTS = [
     image: "/projects/ua-attendance/ua-attendance-cover.webp",
     tags: ["Next.js 15", "Aiven MySQL", "ECDSA", "Geolib"],
   },
-    {
+  {
     title:
       "AC-CORE (Angeles City Center for Operational Reporting and Engineering)",
     description:
@@ -99,7 +101,22 @@ const PROJECTS = [
   },
 ];
 
-export default function ProjectsPage() {
+const ITEMS_PER_PAGE = 6;
+
+export default function ProjectsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  // Unwrap the searchParams Promise using React.use() as required by Next.js 15 Client Components
+  const resolvedParams = use(searchParams);
+  const currentPage = Number(resolvedParams.page) || 1;
+
+  // Pagination bounds calculation
+  const totalPages = Math.ceil(PROJECTS.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedProjects = PROJECTS.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-10 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       <motion.div
@@ -118,16 +135,53 @@ export default function ProjectsPage() {
         </p>
       </motion.div>
 
-      <motion.ul
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start"
-      >
-        {PROJECTS.map((project, idx) => (
-          <ProjectCard key={idx} project={project} />
-        ))}
-      </motion.ul>
+      <PageTransition pageKey={currentPage}>
+        <motion.ul
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start"
+        >
+          {paginatedProjects.map((project) => (
+            // Switched key from index to project.title to prevent improper state recycling of the image loader skeleton during pagination
+            <ProjectCard key={project.title} project={project} />
+          ))}
+        </motion.ul>
+      </PageTransition>
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between w-full pt-4 mt-4">
+          <div className="flex w-24 sm:w-32">
+            {currentPage > 1 && (
+              <Link
+                href={`/projects?page=${currentPage - 1}`}
+                className="flex items-center text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors group"
+                scroll={false}
+              >
+                <ChevronLeft className="mr-1.5 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                Previous
+              </Link>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground bg-muted/30 px-3 sm:px-4 py-1.5 rounded-full border border-border/50">
+            Page {currentPage} of {totalPages}
+          </div>
+
+          <div className="flex w-24 sm:w-32 justify-end">
+            {currentPage < totalPages && (
+              <Link
+                href={`/projects?page=${currentPage + 1}`}
+                className="flex items-center text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors group"
+                scroll={false}
+              >
+                Next
+                <ChevronRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -145,7 +199,7 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
 
           <Image
             src={project.image}
-            alt={project.title}
+            alt={`Cover image for ${project.title}`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className={`object-cover transition-all duration-500 group-hover:scale-105 ${
