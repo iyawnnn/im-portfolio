@@ -100,14 +100,7 @@ export default function GritPage() {
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/grit/grit-demo.mp4"
-          poster="/projects/grit/grit-cover.webp"{
-    title: "University of Assumption Laboratory Attendance",
-    description:
-      "A zero-trust educational platform that eliminates proxy attendance fraud by utilizing strict browser geolocation APIs and Elliptic Curve Digital Signature Algorithm (ECDSA) cryptographic verification.",
-    link: "/projects/ua-attendance",
-    image: "/projects/ua-attendance/ua-attendance-cover.webp",
-    tags: ["Next.js 15", "Aiven MySQL", "ECDSA", "Geolib"],
-  },
+          poster="/projects/grit/grit-cover.webp"
           autoPlay
           muted
           loop
