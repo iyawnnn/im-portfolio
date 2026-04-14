@@ -64,7 +64,6 @@ export default function ResumePage() {
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       
-      {/* --- RESPONSIVE HEADER --- */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -143,51 +142,7 @@ export default function ResumePage() {
 
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1">
               <h3 className="text-lg md:text-xl font-bold text-foreground">
-                Mama R&apos;s (Inventory & Sales Management System)
-              </h3>
-              <span className="text-sm font-mono text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded w-fit">
-                Apr 2025
-              </span>
-            </div>
-            
-            <div className="text-sm font-medium text-primary mb-3">
-              Freelance Developer
-            </div>
-
-            <div className="flex items-center gap-2 mb-4">
-                <Badge variant="outline" className="text-[10px] py-0 h-5">React</Badge>
-                <Badge variant="outline" className="text-[10px] py-0 h-5">Node.js</Badge>
-                <Badge variant="outline" className="text-[10px] py-0 h-5">MongoDB</Badge>
-            </div>
-
-            <ul className="space-y-3 text-muted-foreground text-sm md:text-base leading-relaxed">
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                <span>
-                  Digitalized a local business&apos;s manual workflows by engineering a custom MERN-stack solution to replace paper logs (which significantly improved the speed of historical data retrieval).
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                <span>
-                  Automated daily revenue and stock reporting through a dynamic dashboard. This eliminated manual calculation errors and provided the owner with instant, real-time performance insights.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                <span>
-                  Secured sensitive business transactions by implementing an administrative panel with JWT-based authentication and Bcrypt hashing to ensure strictly authorized access to records.
-                </span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="relative">
-            <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-border shadow-sm" />
-
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1">
-              <h3 className="text-lg md:text-xl font-bold text-foreground">
-                Independent Freelancer (Commercial & Academic Clients)
+                Freelance Full-Stack Developer
               </h3>
               <span className="text-sm font-mono text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded w-fit">
                 2025 - Present
@@ -195,33 +150,41 @@ export default function ResumePage() {
             </div>
             
             <div className="text-sm font-medium text-primary mb-3">
-              Full Stack Developer
+              Independent Consultant
             </div>
 
             <div className="flex flex-wrap items-center gap-2 mb-4">
                 <Badge variant="outline" className="text-[10px] py-0 h-5">Next.js</Badge>
+                <Badge variant="outline" className="text-[10px] py-0 h-5">React</Badge>
                 <Badge variant="outline" className="text-[10px] py-0 h-5">TypeScript</Badge>
+                <Badge variant="outline" className="text-[10px] py-0 h-5">Node.js</Badge>
+                <Badge variant="outline" className="text-[10px] py-0 h-5">MongoDB</Badge>
                 <Badge variant="outline" className="text-[10px] py-0 h-5">Tailwind CSS</Badge>
-                <Badge variant="outline" className="text-[10px] py-0 h-5">Vercel</Badge>
             </div>
 
             <ul className="space-y-3 text-muted-foreground text-sm md:text-base leading-relaxed">
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  Delivered production grade web solutions for academic and commercial clients, focusing on sub-second user experiences for low memory mobile devices.
+                  Engineered custom MERN-stack architectures for commercial clients, converting manual paper-based workflows into digital systems to significantly improve data retrieval speeds.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  Spearheaded technical strategy for small businesses, converting manual operations into digital architectures that achieve automated workflows.
+                  Automated daily revenue and stock reporting through dynamic dashboards, eliminating manual calculation errors and providing business owners with real-time performance insights.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  Managed the full software lifecycle from high fidelity Figma prototyping to final cloud deployment on Vercel.
+                  Secured sensitive business transactions by implementing administrative panels with JWT-based authentication and Bcrypt hashing to ensure strictly authorized access.
+                </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
+                <span>
+                  Managed the full software lifecycle from high-fidelity Figma prototyping to final cloud deployment on Vercel, focusing on sub-second user experiences for mobile devices.
                 </span>
               </li>
             </ul>

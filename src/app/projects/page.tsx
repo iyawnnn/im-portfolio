@@ -15,9 +15,16 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// --- PROJECT DATA ---
-const PROJECTS = [ 
-{
+const PROJECTS = [
+  {
+    title: "University of Assumption Laboratory Attendance",
+    description:
+      "A zero-trust educational platform that eliminates proxy attendance fraud by utilizing strict browser geolocation APIs and Elliptic Curve Digital Signature Algorithm (ECDSA) cryptographic verification.",
+    link: "/projects/ua-attendance",
+    image: "/projects/ua-attendance/ua-attendance-cover.webp",
+    tags: ["Next.js 15", "Aiven MySQL", "ECDSA", "Geolib"],
+  },
+  {
     title: "Grit",
     description:
       "An intelligent career management platform utilizing Groq AI to score resumes against job descriptions, featuring dynamic Kanban application boards and mock interviews.",
@@ -26,7 +33,8 @@ const PROJECTS = [
     image: "/projects/grit/grit-cover.webp",
   },
   {
-    title: "AC-CORE (Angeles City Center for Operational Reporting and Engineering)",
+    title:
+      "AC-CORE (Angeles City Center for Operational Reporting and Engineering)",
     description:
       "A proactive GovTech platform for Angeles City featuring Geospatial Signal Routing (GSR) to predict flooding risks and a Paved Paradox algorithm to prioritize infrastructure repairs.",
     image: "/projects/ac-core/accore-cover.webp",
@@ -41,7 +49,7 @@ const PROJECTS = [
     link: "/projects/kodasync",
     image: "/projects/kodasync/kodasync-cover.webp",
   },
-{
+  {
     title: "SubVantage",
     description:
       "A secure financial dashboard for tracking subscriptions, fortified with Two-Factor Authentication (2FA) and powered by a high-performance serverless Neon PostgreSQL architecture.",
@@ -94,7 +102,6 @@ const PROJECTS = [
 export default function ProjectsPage() {
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-10 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      {/* --- HEADER --- */}
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -104,14 +111,13 @@ export default function ProjectsPage() {
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight lg:text-6xl text-foreground leading-[1.15]">
           Crafted Projects
         </h1>
-        <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
-          A collection of applications, experiments, and tools I've built. From
-          frontend interfaces to full-stack systems, these projects represent my
-          journey in code.
+        <p className="text-lg md:text-xl leading-relaxed text-muted-foreground w-full">
+          A collection of side projects, freelance hustle, and school
+          requirements that definitely didn't cause a mid-degree identity
+          crisis.
         </p>
       </motion.div>
 
-      {/* --- GRID --- */}
       <motion.ul
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -126,17 +132,13 @@ export default function ProjectsPage() {
   );
 }
 
-// --- SUB-COMPONENT FOR INDIVIDUAL LOADING STATE ---
 function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
     <Link href={project.link} className="group block h-full">
       <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
-        {/* IMAGE THUMBNAIL AREA */}
-        {/* 'aspect-video' forces 16:9 ratio (1920x1080) to prevent layout shift */}
         <div className="relative w-full aspect-video overflow-hidden border-b border-border/50 bg-muted/20">
-          {/* SKELETON: Visible only while loading */}
           {isLoading && (
             <Skeleton className="absolute inset-0 h-full w-full z-10" />
           )}
@@ -144,7 +146,7 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
           <Image
             src={project.image}
             alt={project.title}
-            fill // Use fill for responsive aspect-video
+            fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className={`object-cover transition-all duration-500 group-hover:scale-105 ${
               isLoading ? "opacity-0" : "opacity-100"
@@ -152,11 +154,9 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
             onLoad={() => setIsLoading(false)}
           />
 
-          {/* Dark Overlay on Hover */}
           <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-20" />
         </div>
 
-        {/* CARD CONTENT */}
         <CardHeader className="px-6 pt-3 pb-1">
           <CardTitle className="text-xl group-hover:text-primary transition-colors">
             {project.title}
@@ -166,7 +166,6 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
           </CardDescription>
         </CardHeader>
 
-        {/* FOOTER */}
         <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
           {project.tags.map((tag) => (
             <Badge

@@ -34,17 +34,17 @@ export default async function BlogPage({
   const paginatedPosts = posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-8 md:gap-12 px-6 sm:px-8 lg:px-12 pt-8 md:pt-20 pb-16 font-sans">
+    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24 font-sans">
       
       {/* Witty, Concise Header */}
-      <section className="flex flex-col gap-3 md:gap-4">
-        <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl lg:text-6xl text-foreground">
+      <div className="flex flex-col gap-4 w-full max-w-4xl">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.15]">
           Localhost Tales
         </h1>
-        <p className="text-base text-muted-foreground sm:text-lg md:text-xl max-w-[800px] leading-relaxed">
+        <p className="text-lg md:text-xl leading-relaxed text-muted-foreground w-full">
           Thoughts on code, design, and why I spent three hours fixing a single semicolon.
         </p>
-      </section>
+      </div>
 
       {/* Animated Blog Posts List */}
       <PageTransition pageKey={currentPage}>
