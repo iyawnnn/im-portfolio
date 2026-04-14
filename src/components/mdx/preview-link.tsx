@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 const previewMap: Record<string, string> = {
+  // Project Previews
   "/projects/kodasync": "/projects/kodasync/kodasync-cover.webp",
   "/projects/subvantage": "/projects/subvantage/subvantage-cover.webp",
   "/projects/grit": "/projects/grit/grit-cover.webp",
@@ -11,13 +12,21 @@ const previewMap: Record<string, string> = {
   "/projects/mamars": "/projects/mamars/mamars-cover.webp",
   "/projects/movieloom": "/projects/movieloom/movieloom-cover.webp",
   "/projects/thryve": "/projects/thryve/thryve-cover.webp",
-  "https://www.credly.com/badges/96846437-3bb4-48cd-95f2-a9b4540fb83e/public_url": "/blog/aws-badge-preview.webp",
-  "https://github.com/MMPA-Works": "/blog/mmpa-works.webp",
-  "https://bettergov.ph/": "/blog/better-gov.webp",
-  "https://betterbacolod.org/": "/blog/better-bacolod.webp",
-  "https://gsap.com/": "/blog/gsap-preview.webp",
-  "https://www.reactbits.dev/": "/blog/react-bits-preview.webp",
-  "https://www.hau.edu.ph/": "/blog/hau-preview.webp"
+
+  // Blog Previews: Architecting Lazada
+  "https://www.credly.com/badges/96846437-3bb4-48cd-95f2-a9b4540fb83e/public_url": "/blog/architecting-lazada/aws-badge-preview.webp",
+  
+  // Blog Previews: AC-Core Insights
+  "https://github.com/MMPA-Works": "/blog/ac-core-insights/mmpa-works-preview.webp",
+  
+  // Blog Previews: Better Bacolod
+  "https://bettergov.ph/": "/blog/better-bacolod/better-gov-preview.webp",
+  "https://betterbacolod.org/": "/blog/better-bacolod/better-bacolod-preview.webp",
+  
+  // Blog Previews: Academic Reality Check
+  "https://gsap.com/": "/blog/academic-reality-check/gsap-preview.webp",
+  "https://www.reactbits.dev/": "/blog/academic-reality-check/react-bits-preview.webp",
+  "https://www.hau.edu.ph/": "/blog/academic-reality-check/hau-preview.webp"
 };
 
 export const CustomLink = ({ href, children, ...props }: any) => {
