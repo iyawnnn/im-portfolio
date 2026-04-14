@@ -353,21 +353,21 @@ export default function StackPage() {
   };
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
+    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24 min-w-0">
       
-      <div className="flex flex-col gap-6 w-full shrink-0">
+      <div className="flex flex-col gap-6 w-full min-w-0">
         <div className="space-y-4">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground">
             My Development Arsenal
           </h1>
-          <p className="text-lg md:text-xl leading-relaxed text-muted-foreground w-full">
+          <p className="text-lg md:text-xl leading-relaxed text-muted-foreground w-full break-words">
             The languages, frameworks, databases, and tools that keep me
             coding, caffeinated, and occasionally questioning my life choices.
             These are the technologies I trust to make sure projects ship.
           </p>
         </div>
 
-        <div className="space-y-5 pt-4">
+        <div className="space-y-5 pt-4 min-w-0">
           <div className="relative w-full group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors duration-300" />
             <Input
@@ -379,7 +379,7 @@ export default function StackPage() {
             />
           </div>
           
-          <div className="relative w-full flex items-center h-12 rounded-full">
+          <div className="relative w-full flex items-center h-12 rounded-full min-w-0">
             
             <div 
               className={`absolute left-0 z-20 flex items-center justify-start h-full w-24 pl-1 bg-gradient-to-r from-background via-background/90 to-transparent transition-opacity duration-300 ${
@@ -445,11 +445,11 @@ export default function StackPage() {
         </div>
       </div>
 
-      <div className="flex-grow flex flex-col relative w-full">
+      <div className="flex-grow flex flex-col relative w-full min-w-0">
         {filteredTools.length > 0 ? (
           <div className="space-y-10 lg:space-y-16">
             {filteredTools.map((category, idx) => (
-              <section key={idx} className="space-y-4 lg:space-y-6">
+              <section key={idx} className="space-y-4 lg:space-y-6 min-w-0">
                 <h2 className="text-xs lg:text-sm font-semibold text-muted-foreground uppercase tracking-wider pl-1">
                   {category.category}
                 </h2>
@@ -458,25 +458,25 @@ export default function StackPage() {
                   {category.items.map((tool, toolIdx) => (
                     <Card
                       key={toolIdx}
-                      className="group border-border bg-card py-1 lg:py-2 hover:border-primary/50 hover:shadow-sm transition-all duration-200"
+                      className="group border-border bg-card py-1 lg:py-2 hover:border-primary/50 hover:shadow-sm transition-all duration-200 min-w-0"
                     >
-                      <CardContent className="p-4 lg:p-5 flex items-start gap-4">
+                      <CardContent className="p-4 lg:p-5 flex items-start gap-4 min-w-0">
                         <div className="p-2 bg-secondary rounded-lg border border-border group-hover:border-primary/20 transition-colors shrink-0">
                           <tool.icon
                             className="w-6 h-6 text-foreground group-hover:text-primary transition-colors"
                             aria-label={`${tool.name} logo`}
                           />
                         </div>
-                        <div className="space-y-2 w-full">
-                          <div className="space-y-1">
-                            <h3 className="font-semibold text-foreground text-lg">
+                        <div className="space-y-2 w-full min-w-0">
+                          <div className="space-y-1 min-w-0">
+                            <h3 className="font-semibold text-foreground text-lg truncate">
                               {tool.name}
                             </h3>
-                            <p className="text-sm lg:text-base text-muted-foreground leading-relaxed">
+                            <p className="text-sm lg:text-base text-muted-foreground leading-relaxed line-clamp-2 break-words">
                               {tool.description}
                             </p>
                           </div>
-                          <div className="flex flex-wrap gap-2 pt-1">
+                          <div className="flex flex-wrap gap-2 pt-1 min-w-0">
                             {tool.tags.map((tag, tagIdx) => (
                               <Badge
                                 key={tagIdx}

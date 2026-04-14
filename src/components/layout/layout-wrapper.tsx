@@ -12,14 +12,14 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const { isCollapsed } = useSidebar();
 
   return (
-    <div className="flex min-h-screen flex-col lg:flex-row overflow-x-hidden">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       {/* DESKTOP: Sidebar 
           Added transform-gpu and will-change-transform to offload animation to the GPU.
           This prevents the browser from recalculating layout every frame.
       */}
       <aside
         className={cn(
-          "hidden fixed h-full bg-background z-50 transition-all duration-300 ease-in-out lg:flex shrink-0 transform-gpu will-change-transform",
+          "hidden fixed top-0 bottom-0 left-0 h-full bg-background z-50 transition-all duration-300 ease-in-out lg:flex shrink-0 transform-gpu will-change-transform",
           isCollapsed ? "w-[70px]" : "w-64",
         )}
       >
@@ -32,17 +32,19 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
       </div>
 
       {/* MAIN CONTENT AREA 
-          The transition of 'ml' (margin-left) is traditionally slow. 
-          GPU acceleration helps maintain a high FPS during the shift.
+          Switched from margin (ml) to padding (pl) to prevent viewport blowout.
+          Added min-w-0 to strictly enforce content wrapping boundaries.
       */}
       <main
         className={cn(
-          "flex-1 flex flex-col min-h-screen pt-16 lg:pt-0 pb-24 lg:pb-0 transition-all duration-300 ease-in-out transform-gpu will-change-transform",
-          isCollapsed ? "lg:ml-[70px]" : "lg:ml-64",
+          "flex flex-col min-h-screen w-full pt-16 lg:pt-0 pb-24 lg:pb-0 transition-all duration-300 ease-in-out transform-gpu will-change-transform min-w-0",
+          isCollapsed ? "lg:pl-[70px]" : "lg:pl-64",
         )}
       >
         {/* Page Content */}
-        <div className="flex-1 w-full">{children}</div>
+        <div className="flex flex-col flex-1 w-full min-w-0">
+          {children}
+        </div>
 
         {/* FOOTER */}
         <SiteFooter />
