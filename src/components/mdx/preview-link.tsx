@@ -26,7 +26,10 @@ const previewMap: Record<string, string> = {
   // Blog Previews: Academic Reality Check
   "https://gsap.com/": "/blog/academic-reality-check/gsap-preview.webp",
   "https://www.reactbits.dev/": "/blog/academic-reality-check/react-bits-preview.webp",
-  "https://www.hau.edu.ph/": "/blog/academic-reality-check/hau-preview.webp"
+  "https://www.hau.edu.ph/": "/blog/academic-reality-check/hau-preview.webp",
+
+  // Resume Preview
+  "/resume": "preview-links/resume-preview-image.webp",
 };
 
 export const CustomLink = ({ href, children, ...props }: any) => {

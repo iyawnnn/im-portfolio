@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import { SidebarProvider } from "@/hooks/use-sidebar";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { Analytics } from "@vercel/analytics/react";
+import { ChatWidget } from "@/components/layout/chat-widget";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -113,6 +114,7 @@ export default function RootLayout({
           </SidebarProvider>
         </ThemeProvider>
 
+        <ChatWidget />
         <Analytics />
       </body>
     </html>
