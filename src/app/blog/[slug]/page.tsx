@@ -1,10 +1,20 @@
-import { getPostBySlug } from "@/lib/mdx";
+// src/app/blog/[slug]/page.tsx
+
+import { getPostBySlug, getAllPostsMeta } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { CustomLink } from "@/components/mdx/preview-link";
 import { PageTransition } from "@/components/ui/page-transition";
+
+export async function generateStaticParams() {
+  const posts = getAllPostsMeta();
+  
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -51,7 +61,7 @@ export default async function BlogPostPage({
               <div className="relative h-10 w-10 sm:h-11 sm:w-11 rounded-full overflow-hidden bg-muted border border-border/50 shadow-sm shrink-0">
                 <Image 
                   src="/about/ian-macabulos-2026.webp" 
-                  alt="Ian Macabulos" 
+                  alt="Portrait of Ian Macabulos" 
                   fill 
                   sizes="44px"
                   className="object-cover" 
@@ -74,7 +84,7 @@ export default async function BlogPostPage({
             <div className="relative w-full aspect-video md:aspect-[21/9] mb-8 md:mb-12 overflow-hidden rounded-xl md:rounded-2xl border border-border/50 bg-muted/20 shadow-sm">
               <Image
                 src={meta.coverImage}
-                alt={`Cover image for ${meta.title}`}
+                alt={`Cover visual for the article: ${meta.title}`}
                 fill
                 sizes="(max-width: 1152px) 100vw, 1152px"
                 className="object-cover"

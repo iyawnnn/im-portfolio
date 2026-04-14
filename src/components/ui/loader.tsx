@@ -72,46 +72,8 @@ export const LoaderTwo = () => {
 
 export const LoaderThree = () => {
   return (
-    <div className="relative flex h-24 w-24 items-center justify-center">
-      {/* 1. OUTER SPINNER RING */}
-      <motion.span
-        className="absolute h-full w-full rounded-full border-4 border-neutral-200 border-t-neutral-800 dark:border-neutral-700 dark:border-t-white"
-        animate={{ rotate: 360 }}
-        transition={{
-          duration: 1,
-          ease: "linear" as const,
-          repeat: Infinity,
-        }}
-      />
-
-      {/* 2. INNER LIGHTNING BOLT */}
-      <motion.svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="relative h-10 w-10 text-neutral-800 dark:text-white"
-      >
-        <motion.path
-          d="M13 3l0 7l6 0l-8 11l0 -7l-6 0l8 -11"
-          animate={{
-            fill: [
-              "rgba(253, 224, 71, 0)",
-              "rgba(253, 224, 71, 1)",
-              "rgba(253, 224, 71, 0)",
-            ],
-            scale: [1, 1.15, 1],
-          }}
-          transition={{
-            duration: 1.5,
-            ease: "easeInOut" as const,
-            repeat: Infinity,
-          }}
-        />
-      </motion.svg>
+    <div className="relative flex h-10 w-10 items-center justify-center">
+      <div className="absolute h-full w-full rounded-full border-2 border-neutral-200 border-t-neutral-800 animate-spin dark:border-neutral-800 dark:border-t-neutral-200" />
     </div>
   );
 };
