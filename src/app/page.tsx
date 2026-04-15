@@ -16,7 +16,12 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Counter } from "@/components/ui/counter";
 import { MovingDots, Radar } from "@/components/ui/animated-backgrounds";
-import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import dynamic from "next/dynamic";
+
+const TypewriterEffectSmooth = dynamic(
+  () => import("@/components/ui/typewriter-effect").then((mod) => mod.TypewriterEffectSmooth),
+  { ssr: false }
+);
 
 export default function ExplorePage() {
   // --- SCROLL FIX ---
@@ -154,6 +159,7 @@ export default function ExplorePage() {
                   src="/projects/ac-core/accore-cover.webp"
                   alt="AC-CORE Platform Preview"
                   fill
+                  priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -162,10 +168,14 @@ export default function ExplorePage() {
 
               <CardHeader className="px-6 pt-3 pb-1">
                 <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                  AC-CORE (Angeles City Center for Operational Reporting and Engineering)
+                  AC-CORE (Angeles City Center for Operational Reporting and
+                  Engineering)
                 </CardTitle>
                 <CardDescription className="line-clamp-2 text-sm sm:text-base">
-                  A proactive GovTech platform for Angeles City featuring Geospatial Signal Routing (GSR) to predict flooding risks and a Paved Paradox algorithm to prioritize infrastructure repairs.
+                  A proactive GovTech platform for Angeles City featuring
+                  Geospatial Signal Routing (GSR) to predict flooding risks and
+                  a Paved Paradox algorithm to prioritize infrastructure
+                  repairs.
                 </CardDescription>
               </CardHeader>
 
@@ -188,7 +198,7 @@ export default function ExplorePage() {
                 >
                   Zoneless
                 </Badge>
-                                <Badge
+                <Badge
                   variant="secondary"
                   className="rounded-md group-hover:bg-background transition-colors"
                 >
@@ -206,6 +216,7 @@ export default function ExplorePage() {
                   src="/projects/subvantage/subvantage-cover.webp"
                   alt="SubVantage Subscription Management Dashboard"
                   fill
+                  priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -217,7 +228,9 @@ export default function ExplorePage() {
                   SubVantage
                 </CardTitle>
                 <CardDescription className="line-clamp-2 text-sm sm:text-base">
-                  A secure financial dashboard for tracking subscriptions, fortified with Two-Factor Authentication (2FA) and powered by a high-performance serverless Neon PostgreSQL architecture.
+                  A secure financial dashboard for tracking subscriptions,
+                  fortified with Two-Factor Authentication (2FA) and powered by
+                  a high-performance serverless Neon PostgreSQL architecture.
                 </CardDescription>
               </CardHeader>
 
