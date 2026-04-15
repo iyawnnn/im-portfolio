@@ -125,11 +125,30 @@ export function ChatWidget() {
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
 
-      if (!response.ok) {
+      // 1. HANDLE RATE LIMITS & SERVER CRASHES (Triggers Red Banner)
+      if (response.status === 429 || response.status === 503) {
         const errorText = await response.text();
-        throw new Error(errorText || "Connection failed");
+        setChatError(errorText || "Server overloaded");
+        setIsLoading(false);
+        return;
       }
 
+      // 2. HANDLE BLOCKED KEYWORDS & OFF-TOPIC (Triggers normal AI chat bubble)
+      if (response.status === 400) {
+        const warningText = await response.text();
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: (Date.now() + 1).toString(),
+            role: "assistant",
+            content: warningText,
+          },
+        ]);
+        setIsLoading(false);
+        return; // Exit early since there is no stream to read
+      }
+
+      // 3. NORMAL AI STREAM
       if (!response.body) {
         throw new Error("No response stream received from the server.");
       }
@@ -151,7 +170,7 @@ export function ChatWidget() {
         if (value) {
           const chunk = decoder.decode(value, { stream: true });
 
-          // ARTIFICIAL TYPING EFFECT:
+          // ARTIFICIAL TYPING EFFECT
           for (let i = 0; i < chunk.length; i++) {
             setMessages((prev) =>
               prev.map((msg) =>
@@ -167,8 +186,6 @@ export function ChatWidget() {
     } catch (error: any) {
       console.error("Chat Error:", error);
 
-      // We only set the error state if the server actively refused the connection or if fetch failed.
-      // We DO NOT push this as an assistant message; we show it as a system notification.
       setChatError(
         error.message === "Failed to fetch" ||
           error.message === "Connection failed"

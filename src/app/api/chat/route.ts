@@ -20,7 +20,7 @@ const redis = new Redis({
 const ratelimit = new Ratelimit({
   redis: redis,
   limiter: Ratelimit.slidingWindow(5, "1 m"),
-  analytics: true, 
+  analytics: true,
 });
 
 export async function POST(req: Request) {
@@ -28,54 +28,62 @@ export async function POST(req: Request) {
 
   const { success } = await ratelimit.limit(ip);
   if (!success) {
-    return new Response("I am currently experiencing an unusually high volume of messages. If you need an immediate response, please feel free to reach out directly through my contact page.", {
-      status: 429,
-    });
+    return new Response(
+      "I am currently experiencing an unusually high volume of messages. If you need an immediate response, please feel free to reach out directly through my contact page.",
+      {
+        status: 429,
+      },
+    );
   }
 
   const { messages } = await req.json();
   const latestMessage = messages[messages.length - 1]?.content || "";
 
   if (latestMessage.length > 500) {
-    return new Response("Message exceeds maximum allowed length.", { status: 400 });
+    return new Response("Message exceeds maximum allowed length.", {
+      status: 400,
+    });
   }
 
+  // STRICT SECURITY ONLY: Block jailbreaks at the server level to save API tokens
   const blockedKeywords = ["ignore previous instructions", "system prompt", "bypass", "python script", "write code"];
+  
   if (blockedKeywords.some((word) => latestMessage.toLowerCase().includes(word))) {
     return new Response(
-      "I am programmed to strictly discuss web development and my portfolio. I cannot process that request.", 
+      "Nice try! But I am programmed to strictly discuss my web development portfolio.", 
       { status: 400 }
     );
   }
 
   const dynamicSystemPrompt = buildDynamicPrompt(latestMessage);
 
-try {
+  try {
     // CHANGE THIS TO 8B FOR STABLE TESTING
     // It has a much higher token limit and is less likely to fail
     const result = await streamText({
-      model: groq("llama-3.1-8b-instant"), 
+      model: groq("llama-3.1-8b-instant"),
       system: dynamicSystemPrompt,
       messages,
     });
-    
+
     return result.toTextStreamResponse();
-    
   } catch (primaryError: any) {
     console.warn("Primary model failed, falling back to 70B (if available)...");
-    
+
     try {
       const fallbackResult = await streamText({
         model: groq("llama-3.3-70b-versatile"),
         system: dynamicSystemPrompt,
         messages,
       });
-      
+
       return fallbackResult.toTextStreamResponse();
-      
     } catch (fallbackError: any) {
       // THIS IS WHERE YOUR NEW UI MESSAGE TRIGGERS
-      return new Response("I am currently experiencing an unusually high volume of messages. If you need an immediate response, please feel free to reach out directly through my contact page.", { status: 503 });
+      return new Response(
+        "I am currently experiencing an unusually high volume of messages. If you need an immediate response, please feel free to reach out directly through my contact page.",
+        { status: 503 },
+      );
     }
   }
 }

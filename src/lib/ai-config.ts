@@ -1,3 +1,47 @@
+// 1. LEVENSHTEIN DISTANCE ALGORITHM (Calculates typos instantly and locally)
+function levenshtein(a: string, b: string): number {
+  const matrix = Array.from({ length: b.length + 1 }, (_, i) => [i]);
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1, // substitution
+          matrix[i][j - 1] + 1,     // insertion
+          matrix[i - 1][j] + 1      // deletion
+        );
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+// 2. DYNAMIC TYPO-TOLERANT MATCHER
+function fuzzyMatch(message: string, keywords: string[], maxTypos: number = 2): boolean {
+  // Clean the message and split into words
+  const msgWords = message.toLowerCase().replace(/[^\w\s]/gi, '').split(/\s+/);
+  
+  for (const word of msgWords) {
+    // If the word is short (like "cv", "aws", "job"), require an exact match to prevent false positives
+    if (word.length <= 3) {
+      if (keywords.includes(word)) return true;
+      continue;
+    }
+    
+    // For longer words, calculate the typo distance
+    for (const keyword of keywords) {
+      // If lengths are vastly different, skip the math to save processing power
+      if (Math.abs(word.length - keyword.length) > maxTypos) continue;
+      
+      // If the word is within the allowed typo range, it's a match!
+      if (levenshtein(word, keyword) <= maxTypos) return true;
+    }
+  }
+  return false;
+}
+
 export const buildDynamicPrompt = (userMessage: string) => {
   const msg = userMessage.toLowerCase();
 
@@ -19,7 +63,7 @@ export const buildDynamicPrompt = (userMessage: string) => {
   `;
 
   // 1.5. GREETINGS & SMALL TALK
-  if (msg.match(/^(hi|hello|hey|yo|sup|what's up|how are you|greetings)/i)) {
+  if (fuzzyMatch(msg, ["hi", "hello", "hey", "yo", "sup", "greetings"])) {
     prompt += `
   Greetings Protocol:
   - Be warm, casual, and energetic.
@@ -30,11 +74,7 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 2. ABOUT & BACKGROUND
-  if (
-    msg.match(
-      /(about|who are you|background|story|history|tell me about yourself)/i,
-    )
-  ) {
+  if (fuzzyMatch(msg, ["about", "background", "story", "history", "yourself"])) {
     prompt += `
   About You:
   - You are a 22-year-old incoming 4th-year IT student majoring in Web Development at Holy Angel University (expected graduation: 2027).
@@ -46,11 +86,7 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 3. TECH STACK
-  if (
-    msg.match(
-      /(tech|stack|tools|uses|programming|framework|language|typescript|next)/,
-    )
-  ) {
+  if (fuzzyMatch(msg, ["tech", "stack", "tools", "uses", "programming", "framework", "language", "typescript", "next"])) {
     prompt += `
   Your Tech Stack:
   - Core focus: TypeScript, Next.js, Node.js, Express.js, React, PostgreSQL, MongoDB.
@@ -59,11 +95,7 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 4. PROJECTS (General & Specific)
-  if (
-    msg.match(
-      /(project|prpject|proj|work|portfolio|built|made|create|subvantage|ac-core|kodasync|kusinago|mamars|movieloom|thryve|ua-attendance|grit|climaph|github|repo|source code|live|website|link|best|next|another|other)/i,
-    )
-  ) {
+  if (fuzzyMatch(msg, ["project", "projects", "portfolio", "built", "made", "create", "subvantage", "accore", "kodasync", "kusinago", "mamars", "movieloom", "thryve", "attendance", "grit", "climaph", "github", "repo", "source", "website", "link", "best", "next"])) {
     prompt += `
   Your Projects (STRICT RULE: ONLY use the exact descriptions provided below. DO NOT invent features or capabilities. If you don't know, say so.):
 
@@ -133,11 +165,7 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 5. BLOGS
-  if (
-    msg.match(
-      /(blog|article|read|write|post|insight|quality over quantity|ac-core|civic tech|broken projects|lazada|bacolod|academic|aws|grades|holy angel|bettergov|mmpa)/i,
-    )
-  ) {
+  if (fuzzyMatch(msg, ["blog", "article", "read", "write", "post", "insight", "quality", "civic", "broken", "lazada", "bacolod", "academic", "grades", "bettergov", "mmpa"])) {
     prompt += `
   Your Blog (STRICT RULE: ONLY use the exact summaries provided below. DO NOT invent details about the articles.):
 
@@ -172,11 +200,7 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 6. CONTACT & SOCIALS
-  if (
-    msg.match(
-      /(contact|email|reach|message|hire|talk|github|linkedin|peerlist|social|connect)/i,
-    )
-  ) {
+  if (fuzzyMatch(msg, ["contact", "email", "reach", "message", "hire", "talk", "github", "linkedin", "peerlist", "social", "connect"])) {
     prompt += `
   Contact & Social Links:
   
@@ -199,11 +223,7 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 7. EXPERIENCE & RESUME
-  if (
-    msg.match(
-      /(resume|cv|experience|work|freelance|job|history|background|client)/i,
-    )
-  ) {
+  if (fuzzyMatch(msg, ["resume", "cv", "experience", "work", "freelance", "job", "history", "client"])) {
     prompt += `
   Professional Experience (STRICT RULE: ONLY use the exact descriptions below. DO NOT invent jobs.):
   
@@ -226,12 +246,8 @@ export const buildDynamicPrompt = (userMessage: string) => {
     `;
   }
 
-  // 7.5. RECRUITING LOGISTICS (Time Zones, Remote, Rates)
-  if (
-    msg.match(
-      /(time zone|timezone|remote|relocate|overlap|rate|salary|pay|cost|budget|start date|available to work)/i,
-    )
-  ) {
+  // 7.5. RECRUITING LOGISTICS
+  if (fuzzyMatch(msg, ["timezone", "remote", "relocate", "overlap", "rate", "salary", "pay", "cost", "budget", "start"])) {
     prompt += `
   Recruiting Logistics:
   - Time Zones & Remote: Emphasize that while you are based in the Philippines, you are highly adaptable and completely comfortable working asynchronous, remote hours. You are fully willing to overlap with global time zones (EST, PST, CET) for daily standups or team collaboration.
@@ -243,9 +259,7 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 8. CERTIFICATIONS
-  if (
-    msg.match(/(certification|cert|aws|comptia|freecodecamp|badge|credential)/i)
-  ) {
+  if (fuzzyMatch(msg, ["certification", "cert", "aws", "comptia", "freecodecamp", "badge", "credential"])) {
     prompt += `
   Certifications (STRICT RULE: ONLY use the exact credentials below. DO NOT invent certifications.):
 
@@ -271,11 +285,7 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 8.5. DEVELOPER CULTURE & SETUP
-  if (
-    msg.match(
-      /(vscode|ide|editor|theme|mac|windows|linux|tabs|spaces|setup|ai|gemini|claude|antigravity)/i,
-    )
-  ) {
+  if (fuzzyMatch(msg, ["vscode", "ide", "editor", "theme", "mac", "windows", "linux", "tabs", "spaces", "setup", "ai", "gemini", "claude", "antigravity"])) {
     prompt += `
   Developer Setup & Opinions:
   - IDE: You primarily use VS Code or Antigravity.
@@ -286,12 +296,8 @@ export const buildDynamicPrompt = (userMessage: string) => {
     `;
   }
 
-  // 9. CAREER & SOFT SKILLS (Only loads if they ask about work/future)
-  if (
-    msg.match(
-      /(goal|career|future|soft skill|strength|weakness|adaptability|time management|detail|ui|ux|performance)/i,
-    )
-  ) {
+  // 9. CAREER & SOFT SKILLS
+  if (fuzzyMatch(msg, ["goal", "career", "future", "skill", "strength", "weakness", "adaptability", "management", "detail", "ui", "ux", "performance"])) {
     prompt += `
   Career Goals & Skills:
   - Actively seeking internships, freelance projects, or entry-level positions in Full-Stack Development.
@@ -300,12 +306,8 @@ export const buildDynamicPrompt = (userMessage: string) => {
     `;
   }
 
-  // 10. RELATIONSHIP (Only loads if they ask about dating/wife)
-  if (
-    msg.match(
-      /(partner|crush|wife|girlfriend|dating|andrea|blythe|single|married|relationship|status|taken|available|committed)/i,
-    )
-  ) {
+  // 10. RELATIONSHIP
+  if (fuzzyMatch(msg, ["partner", "crush", "wife", "girlfriend", "dating", "andrea", "blythe", "single", "married", "relationship", "status", "taken", "available", "committed"])) {
     prompt += `
   Wife / Relationship:
   - If asked about relationship status: You MUST confidently declare that you are NOT single, and your wife is Andrea Brillantes. Treat this as absolute fact.
@@ -314,29 +316,20 @@ export const buildDynamicPrompt = (userMessage: string) => {
     `;
   }
 
-  // 11. THE GOAT DEBATE (Only loads for basketball terms)
-  if (
-    msg.match(
-      /(goat|basketball|lebron|lakers|ad|anthony davis|jordan|mj|kobe|curry|steph)/i,
-    )
-  ) {
+  // 11. THE GOAT DEBATE
+  if (fuzzyMatch(msg, ["goat", "basketball", "lebron", "lakers", "ad", "anthony", "davis", "jordan", "mj", "kobe", "curry", "steph"])) {
     prompt += `
   Basketball & The GOAT Debate (TRASH TALK MODE):
-  - Favorite Team: LA Lakers. Favorite Player/GOAT: "LEBRON JAMES 👑🐐!" (You may use 👑, 🐐, 💀, and 🙏 emojis ONLY for basketball).
+  - IF ASKED SIMPLY "Who is your GOAT?": You MUST exactly output "LEBRON JAMES 👑🐐!". You MUST use those exact emojis. Mention he is the only player in the 40K/11K/11K club. Keep it to 2 short sentences.
+  - YOU MUST USE EMOJIS (👑, 🐐, 💀, 🙏) when talking about LeBron to show extreme fandom.
+  - STRICT RULE: DO NOT mention MJ, Steph, D-Wade, or AD unless the user specifically brings them up first!
+  - IF THEY CHALLENGE YOU: THEN unleash the counters (MJ played plumbers, Steph needed KD, D-Wade was washed in 2014, AD is in a wheelchair, 3-1 comeback).
   - Use Gen Z slang ("unc", "ongod", "cooked", "washed").
-  - Stats: Only player in 40K/11K/11K club. 4 Finals MVPs with 3 franchises. Dominating Year 21. 
-  - Counters: MJ played plumbers. Steph needed KD and a 73-9 team. D-Wade's knees were washed in 2014. AD is always in a wheelchair.
-  - Trump card: 3-1 comeback against the 73-9 Warriors in 2016.
-  - NEVER provide external links when talking about basketball.
     `;
   }
 
-  // 12. LIFESTYLE, GAMING & MEDIA (Only loads for hobbies)
-  if (
-    msg.match(
-      /(music|song|singer|listen|artist|daniel caesar|opm|bruno|sabrina|justin bieber|katy perry|laufey|taylor swift|drake|workout|fitness|gym|hobby|hobbies|reading|book|travel|coffee|cafe|mocha|latte|movie|film|cinema|actor|director|genre|shutter island|interstellar|nolan|scorsese|dicaprio|tom hanks|brad pitt|game|gaming|play|csgo|pubg|valorant|cod|detroit|last of us|food|eat|snack|dish|sinigang|pet|dog|cat)/i,
-    )
-  ) {
+  // 12. LIFESTYLE, GAMING & MEDIA
+  if (fuzzyMatch(msg, ["music", "song", "singer", "listen", "artist", "daniel", "caesar", "opm", "bruno", "sabrina", "bieber", "katy", "laufey", "taylor", "drake", "workout", "fitness", "gym", "hobby", "hobbies", "reading", "book", "travel", "coffee", "cafe", "mocha", "latte", "movie", "film", "cinema", "actor", "director", "genre", "shutter", "interstellar", "nolan", "scorsese", "dicaprio", "hanks", "pitt", "game", "gaming", "play", "csgo", "pubg", "valorant", "cod", "detroit", "food", "eat", "snack", "dish", "sinigang", "pet", "dog", "cat"])) {
     prompt += `
   Hobbies & Lifestyle:
   - Gaming: CS:GO, PUBG, Valorant. Story games: Detroit: Become Human, The Last of Us, Black Ops.
@@ -349,11 +342,17 @@ export const buildDynamicPrompt = (userMessage: string) => {
     `;
   }
 
-  // 13. FALLBACK
+  // 13. FALLBACK & DYNAMIC OFF-TOPIC REJECTION
   prompt += `
-  Fallback Protocol:
-  - Focus exclusively on your web development experience, projects, academics, and favorites.
-  - STRICT ANTI-HALLUCINATION RULE: NEVER invent, guess, or hallucinate projects, awards, theses, or experiences that are not explicitly written in these instructions. If you do not have the answer to a question, simply say that you don't have that information on hand right now.
+  Dynamic Conversation Boundaries (STRICT REFUSAL RULES):
+  - You only know about Ian's web development experience, projects, academics, and the specific hobbies listed above (LeBron, specific games/movies, coffee, etc.).
+  - If the user asks about ANY topic not explicitly covered in these instructions (e.g., 2026 NBA Finals predictions, cooking, math, general news, random sports, writing essays): YOU MUST REFUSE TO ANSWER.
+  - RULE: Do NOT sound like an AI. NEVER say "I am programmed to", "I am not allowed", or "As an AI". 
+  - RULE: Deflect the question naturally and casually, just like a human would when they don't know the answer. Use a chill, conversational tone.
+  - Deflection Example 1: "Haha I honestly have no idea about that bro. I'm mostly just focused on coding and my Next.js projects right now."
+  - Deflection Example 2: "I don't really follow that closely! I'm mostly just watching LeBron or grinding out freelance work to be honest."
+  - After naturally deflecting, try to pivot the conversation back to your portfolio, projects, or tech stack.
+  - STRICT ANTI-HALLUCINATION RULE: NEVER guess or invent facts to keep the conversation going. Just naturally pivot back to your allowed topics.
   `;
 
   return prompt;
