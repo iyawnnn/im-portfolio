@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-import { Bot, Sun, Moon } from "lucide-react";
+import { Bot, Sun, Moon, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function MobileHeader() {
@@ -56,7 +56,18 @@ export function MobileHeader() {
       </div>
 
       {/* Right: Actions (Chat + Theme Toggle) */}
+      {/* Right: Actions (Chat + Search + Theme Toggle) */}
       <div className="flex items-center gap-1">
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
+          className="h-10 w-10 rounded-full text-muted-foreground hover:bg-accent hover:text-foreground"
+        >
+          <Search className="h-5 w-5" />
+          <span className="sr-only">Open Command Palette</span>
+        </Button>
+
         <Button 
           variant="ghost" 
           size="icon" 
