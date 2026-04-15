@@ -29,6 +29,7 @@ export function ChatWidget() {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [isLoading, setIsLoading] = useState(false);
+  const [chatError, setChatError] = useState<string | null>(null);
 
   // NEW: Track if the component has mounted in the browser to prevent Next.js hydration errors
   const [isMounted, setIsMounted] = useState(false);
@@ -105,6 +106,8 @@ export function ChatWidget() {
     e.preventDefault();
     if (!inputValue.trim() || isLoading) return;
 
+    setChatError(null); // Clear previous errors
+
     const userMessage: Message = {
       id: Date.now().toString(),
       role: "user",
@@ -122,7 +125,6 @@ export function ChatWidget() {
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
 
-      // RESTORED: Read the actual backend error message (for 400 and 429 status codes)
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(errorText || "Connection failed");
@@ -165,20 +167,14 @@ export function ChatWidget() {
     } catch (error: any) {
       console.error("Chat Error:", error);
 
-      const displayMessage =
+      // We only set the error state if the server actively refused the connection or if fetch failed.
+      // We DO NOT push this as an assistant message; we show it as a system notification.
+      setChatError(
         error.message === "Failed to fetch" ||
-        error.message === "Connection failed"
-          ? "Looks like my server connection just dropped. Even AI needs a break sometimes. Give it a moment and try asking again."
-          : error.message;
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now().toString(),
-          role: "assistant",
-          content: displayMessage,
-        },
-      ]);
+          error.message === "Connection failed"
+          ? "Looks like my server connection just dropped. Give it a moment and try asking again."
+          : error.message,
+      );
     } finally {
       setIsLoading(false);
     }
@@ -309,6 +305,29 @@ export function ChatWidget() {
         )}
         <div ref={messagesEndRef} />
       </div>
+
+      {chatError && (
+        <div className="px-4 pb-2 animate-in fade-in slide-in-from-bottom-2 duration-300">
+          <div className="bg-destructive/10 text-destructive border border-destructive/20 p-3 rounded-xl text-sm leading-relaxed">
+            {chatError.includes("contact page") ? (
+              <span>
+                I am currently experiencing an unusually high volume of
+                messages. If you need an immediate response, please feel free to
+                reach out directly through my{" "}
+                <a
+                  href="/contact"
+                  className="underline font-semibold hover:opacity-80 transition-opacity"
+                >
+                  contact page
+                </a>
+                .
+              </span>
+            ) : (
+              <span>{chatError}</span>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Input Area */}
       <form

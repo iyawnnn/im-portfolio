@@ -1,4 +1,3 @@
-import { google } from "@ai-sdk/google";
 import { createGroq } from "@ai-sdk/groq";
 import { streamText } from "ai";
 import { buildDynamicPrompt } from "@/lib/ai-config";
@@ -29,7 +28,7 @@ export async function POST(req: Request) {
 
   const { success } = await ratelimit.limit(ip);
   if (!success) {
-    return new Response("Rate limit exceeded. Please try again in a minute.", {
+    return new Response("I am currently experiencing an unusually high volume of messages. If you need an immediate response, please feel free to reach out directly through my contact page.", {
       status: 429,
     });
   }
@@ -51,32 +50,32 @@ export async function POST(req: Request) {
 
   const dynamicSystemPrompt = buildDynamicPrompt(latestMessage);
 
-  try {
-    // PRIMARY ROUTE: Groq Llama 3.3 70B (Lightning Fast, Massive Free Tier)
+try {
+    // CHANGE THIS TO 8B FOR STABLE TESTING
+    // It has a much higher token limit and is less likely to fail
     const result = await streamText({
-      model: groq("llama-3.3-70b-versatile"),
+      model: groq("llama-3.1-8b-instant"), 
       system: dynamicSystemPrompt,
       messages,
     });
     
     return result.toTextStreamResponse();
     
-  } catch (groqError: any) {
-    console.warn("Groq failed, falling back to Google:", groqError.message);
+  } catch (primaryError: any) {
+    console.warn("Primary model failed, falling back to 70B (if available)...");
     
     try {
-      // FALLBACK ROUTE: Google Gemini 2.5 Flash Lite
       const fallbackResult = await streamText({
-        model: google("gemini-2.5-flash-lite"),
+        model: groq("llama-3.3-70b-versatile"),
         system: dynamicSystemPrompt,
         messages,
       });
       
       return fallbackResult.toTextStreamResponse();
       
-    } catch (googleError: any) {
-      console.error("All AI providers exhausted.");
-      return new Response("Servers are currently taking a coffee break. Try again later.", { status: 503 });
+    } catch (fallbackError: any) {
+      // THIS IS WHERE YOUR NEW UI MESSAGE TRIGGERS
+      return new Response("I am currently experiencing an unusually high volume of messages. If you need an immediate response, please feel free to reach out directly through my contact page.", { status: 503 });
     }
   }
 }
