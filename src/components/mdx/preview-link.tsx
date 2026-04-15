@@ -48,6 +48,8 @@ const previewMap: Record<string, string> = {
   "/about": "/preview-links/about-preview-image.webp",
   "/projects": "/preview-links/projects-preview-image.webp",
   "/blog": "/preview-links/blog-preview-image.webp",
+
+  "https://www.instagram.com/blythe/": "/preview-links/andrea-preview-image.webp",
 };
 
 export const CustomLink = ({ href, children, ...props }: any) => {
