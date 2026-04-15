@@ -150,7 +150,6 @@ export function ChatWidget() {
           const chunk = decoder.decode(value, { stream: true });
 
           // ARTIFICIAL TYPING EFFECT:
-          // We loop through the chunk character-by-character to simulate human typing.
           for (let i = 0; i < chunk.length; i++) {
             setMessages((prev) =>
               prev.map((msg) =>
@@ -159,8 +158,7 @@ export function ChatWidget() {
                   : msg,
               ),
             );
-            // 5ms delay per character creates a smooth, readable typing speed
-            await new Promise((resolve) => setTimeout(resolve, 5));
+            await new Promise((resolve) => setTimeout(resolve, 1));
           }
         }
       }

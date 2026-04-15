@@ -19,6 +19,13 @@ const previewMap: Record<string, string> = {
   "/projects/movieloom": "/projects/movieloom/movieloom-cover.webp",
   "/projects/thryve": "/projects/thryve/thryve-cover.webp",
 
+  // Blog Previews
+  "/blog/ac-core-insights": "/blog/ac-core-insights/cover.webp",
+  "/blog/academic-reality-check": "/blog/academic-reality-check/cover.webp",
+  "/blog/architecting-lazada": "/blog/architecting-lazada/cover.webp",
+  "/blog/better-bacolod": "/blog/better-bacolod/cover.webp",
+  "/blog/quality-over-quantity": "/blog/quality-over-quantity/cover.webp",
+
   // Blog Previews: Architecting Lazada
   "https://www.credly.com/badges/96846437-3bb4-48cd-95f2-a9b4540fb83e/public_url": "/blog/architecting-lazada/aws-badge-preview.webp",
   
@@ -34,8 +41,13 @@ const previewMap: Record<string, string> = {
   "https://www.reactbits.dev/": "/blog/academic-reality-check/react-bits-preview.webp",
   "https://www.hau.edu.ph/": "/blog/academic-reality-check/hau-preview.webp",
 
-  // Resume Preview (Fixed missing forward slash!)
+  // Global Page Previews
   "/resume": "/preview-links/resume-preview-image.webp",
+  "/contact": "/preview-links/contact-preview-image.webp",
+  "/stack": "/preview-links/stack-preview-image.webp",
+  "/about": "/preview-links/about-preview-image.webp",
+  "/projects": "/preview-links/projects-preview-image.webp",
+  "/blog": "/preview-links/blog-preview-image.webp",
 };
 
 export const CustomLink = ({ href, children, ...props }: any) => {
