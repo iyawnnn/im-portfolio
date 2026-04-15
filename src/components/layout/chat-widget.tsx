@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Bot, X, Send } from "lucide-react";
+import { Bot, X, Send, Trash2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -30,7 +30,30 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>([INITIAL_MESSAGE]);
   const [isLoading, setIsLoading] = useState(false);
 
+  // NEW: Track if the component has mounted in the browser to prevent Next.js hydration errors
+  const [isMounted, setIsMounted] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // NEW: Load chat history from localStorage on initial mount
+  useEffect(() => {
+    setIsMounted(true);
+    const savedChat = localStorage.getItem("portfolio-chat-history");
+    if (savedChat) {
+      try {
+        setMessages(JSON.parse(savedChat));
+      } catch (error) {
+        console.error("Failed to parse chat history:", error);
+      }
+    }
+  }, []);
+
+  // NEW: Save messages to localStorage whenever they change
+  useEffect(() => {
+    if (isMounted) {
+      localStorage.setItem("portfolio-chat-history", JSON.stringify(messages));
+    }
+  }, [messages, isMounted]);
 
   useEffect(() => {
     const handleOpenChat = () => setIsOpen(true);
@@ -73,6 +96,11 @@ export function ChatWidget() {
     }
   }, [messages, isOpen]);
 
+  const clearChat = () => {
+    setMessages([INITIAL_MESSAGE]);
+    localStorage.removeItem("portfolio-chat-history");
+  };
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!inputValue.trim() || isLoading) return;
@@ -94,8 +122,14 @@ export function ChatWidget() {
         body: JSON.stringify({ messages: [...messages, userMessage] }),
       });
 
-      if (!response.ok || !response.body) {
-        throw new Error("Failed to fetch AI response");
+      // RESTORED: Read the actual backend error message (for 400 and 429 status codes)
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(errorText || "Connection failed");
+      }
+
+      if (!response.body) {
+        throw new Error("No response stream received from the server.");
       }
 
       const assistantMessageId = (Date.now() + 1).toString();
@@ -122,15 +156,21 @@ export function ChatWidget() {
           );
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Chat Error:", error);
+
+      const displayMessage =
+        error.message === "Failed to fetch" ||
+        error.message === "Connection failed"
+          ? "Looks like my server connection just dropped. Even AI needs a break sometimes. Give it a moment and try asking again."
+          : error.message;
+
       setMessages((prev) => [
         ...prev,
         {
           id: Date.now().toString(),
           role: "assistant",
-          content:
-            "Looks like my server connection just dropped. Even AI needs a break sometimes. Give it a moment and try asking again.",
+          content: displayMessage,
         },
       ]);
     } finally {
@@ -142,11 +182,8 @@ export function ChatWidget() {
     return (
       <Button
         onClick={() => setIsOpen(true)}
-        className="hidden lg:flex fixed bottom-6 right-6 h-12 px-5 rounded-full z-50 transition-all hover:-translate-y-1 items-center gap-2.5 bg-foreground text-background font-medium hover:bg-foreground/90 border border-border group overflow-hidden shadow-[0_0_20px_rgba(0,0,0,0.15)] dark:shadow-[0_0_20px_rgba(255,255,255,0.15)]"
+        className="hidden lg:flex fixed bottom-6 right-6 h-12 px-5 rounded-full z-50 transition-all hover:-translate-y-1 items-center gap-2.5 bg-foreground text-background font-medium hover:bg-foreground/90 border border-border shadow-2xl"
       >
-        <div className="absolute inset-0 flex h-full w-full justify-center [transform:skew(-12deg)_translateX(-150%)] group-hover:duration-1000 group-hover:[transform:skew(-12deg)_translateX(150%)]">
-          <div className="relative h-full w-8 bg-background/20" />
-        </div>
         <Bot className="h-5 w-5 text-background" />
         <span>Chat with AI</span>
       </Button>
@@ -154,9 +191,9 @@ export function ChatWidget() {
   }
 
   return (
-    <div className="fixed inset-0 lg:inset-auto lg:bottom-6 lg:right-6 lg:w-[400px] lg:rounded-2xl lg:border bg-background lg:bg-background/90 lg:backdrop-blur-sm lg:supports-[backdrop-filter]:bg-background/80 p-4 lg:p-0 shadow-2xl transition-all z-50 flex flex-col h-[100dvh] lg:h-[600px] overscroll-none overflow-hidden">
+    <div className="fixed inset-0 lg:inset-auto lg:bottom-6 lg:right-6 lg:w-[400px] lg:rounded-2xl lg:border bg-background p-4 lg:p-0 shadow-2xl transition-all z-50 flex flex-col h-[100dvh] lg:h-[600px] overscroll-none overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-border/50 pb-4 pt-4 px-4 mt-2 lg:mt-0 shrink-0">
+      <div className="flex items-center justify-between border-b border-border/50 pb-4 pt-4 px-4 lg:mt-0 shrink-0 bg-background">
         <div className="flex items-center gap-3">
           <Avatar className="h-10 w-10 border border-border">
             <AvatarImage
@@ -183,51 +220,65 @@ export function ChatWidget() {
             </div>
           </div>
         </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setIsOpen(false)}
-          className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-lg transition-colors"
-        >
-          <X className="h-5 w-5 lg:h-4 lg:w-4" />
-        </Button>
+
+        {/* ACTION BUTTONS (Trash & Close) */}
+        <div className="flex items-center gap-1">
+          {messages.length > 1 && (
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={clearChat}
+              className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
+              title="Clear chat history"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          )}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsOpen(false)}
+            className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-lg transition-colors"
+          >
+            <X className="h-5 w-5 lg:h-4 lg:w-4" />
+          </Button>
+        </div>
       </div>
 
       {/* Message Area */}
-      <div className="flex-1 overflow-y-auto py-4 px-4 flex flex-col gap-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div className="flex-1 overflow-y-auto py-4 px-4 flex flex-col gap-4 bg-background [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {messages.map((m) => (
           <div
             key={m.id}
             className={`flex ${m.role === "user" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-2 duration-300`}
           >
-            <div
-              className={`inline-block rounded-2xl px-4 py-2.5 max-w-[85%] text-sm leading-relaxed ${
-                m.role === "user"
-                  ? "bg-foreground text-background rounded-br-sm"
-                  : "bg-muted text-foreground rounded-bl-sm border border-border/50"
-              }`}
-            >
-              <div
-                className="prose prose-sm dark:prose-invert max-w-none break-words
-                  prose-p:leading-relaxed prose-p:my-1 
-                  prose-a:text-foreground hover:prose-a:text-foreground/80 prose-a:underline prose-a:underline-offset-4 prose-a:font-semibold transition-colors
-                  prose-code:bg-background/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
-                  prose-pre:bg-background/50 prose-pre:p-3 prose-pre:rounded-lg prose-pre:border prose-pre:border-border/50"
-              >
-                <ReactMarkdown
-                  remarkPlugins={[remarkGfm]}
-                  components={{
-                    a: ({ node, href, children, ...props }) => {
-                      if (!href) return <a {...props}>{children}</a>;
-                      // Use CustomLink instead of PreviewLink
-                      return <CustomLink href={href}>{children}</CustomLink>;
-                    },
-                  }}
-                >
-                  {m.content}
-                </ReactMarkdown>
+            {m.role === "user" ? (
+              <div className="bg-foreground text-background rounded-2xl rounded-br-sm px-4 py-2.5 max-w-[85%] text-sm leading-relaxed whitespace-pre-wrap">
+                {m.content}
               </div>
-            </div>
+            ) : (
+              <div className="bg-muted text-foreground rounded-2xl rounded-bl-sm border border-border/50 px-4 py-2.5 max-w-[85%] text-sm leading-relaxed">
+                <div
+                  className="prose prose-sm dark:prose-invert max-w-none break-words
+                    prose-p:leading-relaxed prose-p:my-1 
+                    prose-a:text-foreground hover:prose-a:text-foreground/80 prose-a:underline prose-a:underline-offset-4 prose-a:font-semibold transition-colors
+                    prose-code:bg-background/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
+                    prose-pre:bg-background/50 prose-pre:p-3 prose-pre:rounded-lg prose-pre:border prose-pre:border-border/50"
+                >
+                  <ReactMarkdown
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                      a: ({ node, href, children, ...props }) => {
+                        if (!href) return <a {...props}>{children}</a>;
+                        return <CustomLink href={href}>{children}</CustomLink>;
+                      },
+                    }}
+                  >
+                    {m.content}
+                  </ReactMarkdown>
+                </div>
+              </div>
+            )}
           </div>
         ))}
 
@@ -256,7 +307,7 @@ export function ChatWidget() {
       {/* Input Area */}
       <form
         onSubmit={onSubmit}
-        className="flex flex-col gap-1 shrink-0 pt-3 pb-4 px-4 border-t border-border/50 pb-safe bg-background/50"
+        className="flex flex-col gap-1 shrink-0 pt-3 pb-4 px-4 border-t border-border/50 pb-safe bg-background"
       >
         <div className="relative">
           <Input
@@ -264,14 +315,16 @@ export function ChatWidget() {
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Type a message..."
             disabled={isLoading}
-            className="pr-12 py-6 rounded-xl bg-muted/30 border-border focus-visible:border-foreground focus-visible:ring-0 transition-all text-base lg:text-sm"
+            className="pr-12 py-6 rounded-xl bg-muted/50 border-border focus-visible:border-foreground focus-visible:ring-0 transition-all text-base lg:text-sm"
             maxLength={MAX_CHARS}
           />
           <Button
             type="submit"
             size="icon"
-            disabled={isLoading || !inputValue.trim()}
-            className="absolute right-1.5 top-1.5 h-9 w-9 rounded-lg transition-all bg-foreground text-background hover:bg-foreground/90"
+            disabled={
+              isLoading || !inputValue.trim() || inputValue.length >= MAX_CHARS
+            }
+            className="absolute right-1.5 top-1.5 h-9 w-9 rounded-lg transition-all bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50"
           >
             <Send className="h-4 w-4" />
           </Button>
@@ -283,7 +336,7 @@ export function ChatWidget() {
             AI-generated. May contain inaccuracies.
           </span>
           <span
-            className={`text-[10px] font-medium transition-colors ${inputValue.length >= MAX_CHARS ? "text-destructive" : "text-muted-foreground/70"}`}
+            className={`text-[10px] font-medium transition-colors ${inputValue.length >= MAX_CHARS ? "text-destructive font-bold" : "text-muted-foreground/70"}`}
           >
             {inputValue.length} / {MAX_CHARS}
           </span>
