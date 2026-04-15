@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image"; // --- ADDED THIS IMPORT
+import Image from "next/image";
 import { useTheme } from "next-themes";
-import { Sun, Moon } from "lucide-react";
-// Removed Avatar imports as we are using Image directly now
+import { Bot, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function MobileHeader() {
@@ -15,12 +14,15 @@ export function MobileHeader() {
     setMounted(true);
   }, []);
 
+  const openAiChat = () => {
+    window.dispatchEvent(new CustomEvent("open-chat"));
+  };
+
   return (
     <header className="flex h-auto w-full items-center justify-between border-b border-sidebar-border/60 bg-sidebar/80 px-6 py-3 backdrop-blur-md">
       {/* Left: Profile (Logo + Name) */}
       <div className="flex items-center gap-4">
         {/* --- CHANGED: LOGO SWITCHING LOGIC --- */}
-        {/* Replaced Avatar with this Image container */}
         <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full border border-primary/10 bg-background shadow-sm">
           {/* 1. Light Mode Logo: Visible by default, HIDDEN in dark mode */}
           <Image
@@ -53,21 +55,33 @@ export function MobileHeader() {
         </div>
       </div>
 
-      {/* Right: Theme Toggle */}
-      <Button
-        variant="ghost"
-        size="icon"
-        className="h-10 w-10 rounded-full text-muted-foreground hover:bg-accent hover:text-foreground"
-        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      >
-        {mounted &&
-          (theme === "dark" ? (
-            <Sun className="h-5 w-5" />
-          ) : (
-            <Moon className="h-5 w-5" />
-          ))}
-        <span className="sr-only">Toggle theme</span>
-      </Button>
+      {/* Right: Actions (Chat + Theme Toggle) */}
+      <div className="flex items-center gap-1">
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          onClick={openAiChat}
+          className="h-10 w-10 rounded-full text-muted-foreground hover:bg-accent hover:text-foreground"
+        >
+          <Bot className="h-5 w-5" />
+          <span className="sr-only">Open AI Chat</span>
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-10 w-10 rounded-full text-muted-foreground hover:bg-accent hover:text-foreground"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        >
+          {mounted &&
+            (theme === "dark" ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            ))}
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </div>
     </header>
   );
 }
