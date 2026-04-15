@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Bot, X, Send, Trash2 } from "lucide-react";
+import { Bot, X, Send, RefreshCcw } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -145,15 +145,23 @@ export function ChatWidget() {
       while (!done) {
         const { value, done: readerDone } = await reader.read();
         done = readerDone;
+
         if (value) {
           const chunk = decoder.decode(value, { stream: true });
-          setMessages((prev) =>
-            prev.map((msg) =>
-              msg.id === assistantMessageId
-                ? { ...msg, content: msg.content + chunk }
-                : msg,
-            ),
-          );
+
+          // ARTIFICIAL TYPING EFFECT:
+          // We loop through the chunk character-by-character to simulate human typing.
+          for (let i = 0; i < chunk.length; i++) {
+            setMessages((prev) =>
+              prev.map((msg) =>
+                msg.id === assistantMessageId
+                  ? { ...msg, content: msg.content + chunk[i] }
+                  : msg,
+              ),
+            );
+            // 5ms delay per character creates a smooth, readable typing speed
+            await new Promise((resolve) => setTimeout(resolve, 5));
+          }
         }
       }
     } catch (error: any) {
@@ -228,10 +236,10 @@ export function ChatWidget() {
               variant="ghost"
               size="icon"
               onClick={clearChat}
-              className="h-8 w-8 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
-              title="Clear chat history"
+              className="h-8 w-8 text-muted-foreground hover:text-foreground rounded-lg transition-colors"
+              title="Start a new chat"
             >
-              <Trash2 className="h-4 w-4" />
+              <RefreshCcw className="h-4 w-4" />
             </Button>
           )}
           <Button

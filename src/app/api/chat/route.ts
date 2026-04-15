@@ -51,43 +51,32 @@ export async function POST(req: Request) {
 
   const dynamicSystemPrompt = buildDynamicPrompt(latestMessage);
 
-  // DECLARE AT THE ROOT LEVEL: Prevents Edge from closing the connection early
-  let streamResult;
-
   try {
-    console.log("Attempting Primary (Google)...");
-    streamResult = await streamText({
-      model: google("gemini-broken-1"), // Keep broken for one last test
+    // PRIMARY ROUTE: Groq Llama 3.3 70B (Lightning Fast, Massive Free Tier)
+    const result = await streamText({
+      model: groq("llama-3.3-70b-versatile"),
       system: dynamicSystemPrompt,
       messages,
     });
-  } catch (error1: any) {
-    console.warn("Primary failed:", error1.message);
-
+    
+    return result.toTextStreamResponse();
+    
+  } catch (groqError: any) {
+    console.warn("Groq failed, falling back to Google:", groqError.message);
+    
     try {
-      console.log("Attempting Secondary (Google)...");
-      streamResult = await streamText({
-        model: google("gemini-broken-2"), // Keep broken for one last test
+      // FALLBACK ROUTE: Google Gemini 2.5 Flash Lite
+      const fallbackResult = await streamText({
+        model: google("gemini-2.5-flash-lite"),
         system: dynamicSystemPrompt,
         messages,
       });
-    } catch (error2: any) {
-      console.warn("Secondary failed:", error2.message);
-
-      try {
-        console.log("Attempting Tertiary (Groq)...");
-        streamResult = await streamText({
-          model: groq("llama-3.3-70b-versatile"),
-          system: dynamicSystemPrompt,
-          messages,
-        });
-      } catch (error3: any) {
-        console.error("All AI providers exhausted:", error3.message);
-        return new Response("Servers are currently taking a coffee break. Try again later.", { status: 503 });
-      }
+      
+      return fallbackResult.toTextStreamResponse();
+      
+    } catch (googleError: any) {
+      console.error("All AI providers exhausted.");
+      return new Response("Servers are currently taking a coffee break. Try again later.", { status: 503 });
     }
   }
-
-  // RETURN AT THE ROOT LEVEL: Forces Next.js to stream the data properly!
-  return streamResult.toTextStreamResponse();
 }
