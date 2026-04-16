@@ -25,7 +25,7 @@ export function GiscusComments() {
         category={process.env.NEXT_PUBLIC_GISCUS_CATEGORY!}
         categoryId={process.env.NEXT_PUBLIC_GISCUS_CATEGORY_ID!}
         mapping="pathname"
-        reactionsEnabled="0" 
+        reactionsEnabled="0"
         emitMetadata="0"
         inputPosition="bottom"
         theme={resolvedTheme === "dark" ? "transparent_dark" : "light"}
