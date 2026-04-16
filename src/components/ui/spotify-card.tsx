@@ -1,183 +1,117 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Music, ArrowUpRight, Disc3 } from "lucide-react";
-import { motion, type Variants } from "framer-motion";
-
 import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-
-interface NowPlayingData {
-  album: string;
-  albumImageUrl: string;
-  artist: string;
-  isPlaying: boolean;
-  songUrl: string;
-  title: string;
-}
+import { getNowPlaying } from "@/lib/spotify";
 
 const SpotifyIcon = ({ className }: { className?: string }) => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="currentColor"
-    className={className}
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className} xmlns="http://www.w3.org/2000/svg">
     <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.24 1.02h.061zm1.44-3.3c-.301.42-.84.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.24 1.2h.001zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.6.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3h-.001z" />
   </svg>
 );
 
-export function SpotifyCard() {
-  const [data, setData] = useState<NowPlayingData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+// Server-side parsing logic
+async function fetchSpotifyData() {
+  try {
+    const res = await getNowPlaying();
+    if (res.status === 204 || res.status > 400) return { isPlaying: false };
+    const song = await res.json();
+    if (!song.item) return { isPlaying: false };
 
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-
-    const fetchNowPlaying = async () => {
-      if (document.visibilityState === "hidden") return;
-
-      try {
-        const response = await fetch("/api/now-playing", {
-          headers: { "Cache-Control": "no-cache" }
-        });
-        const json = await response.json();
-        setData(json);
-      } catch (error) {
-        console.error("Error fetching Spotify data:", error);
-      } finally {
-        setIsLoading(false);
-      }
+    return {
+      isPlaying: song.is_playing,
+      title: song.item.name,
+      artist: song.item.artists.map((_artist: any) => _artist.name).join(", "),
+      album: song.item.album.name,
+      albumImageUrl: song.item.album.images[0].url,
+      songUrl: song.item.external_urls.spotify,
     };
-
-    fetchNowPlaying();
-    interval = setInterval(fetchNowPlaying, 30000);
-    
-    return () => clearInterval(interval);
-  }, []);
-
-  if (isLoading) {
-    return <Skeleton className="h-[160px] w-full rounded-xl" />;
+  } catch (error) {
+    return { isPlaying: false };
   }
+}
 
-  // --- OFFLINE / IDLE STATE ---
+export async function SpotifyCard() {
+  const data = await fetchSpotifyData();
+
   if (!data?.isPlaying) {
     return (
       <Card className="relative flex flex-col h-[160px] w-full p-6 bg-card border-dashed border-border/60 transition-colors overflow-hidden">
         <div className="flex justify-between items-start z-10">
           <div className="flex items-center gap-2">
             <SpotifyIcon className="w-5 h-5 text-muted-foreground opacity-50" />
-            <span className="text-[10px] font-mono text-muted-foreground tracking-widest uppercase">
-              System Idle
-            </span>
+            <span className="text-[10px] font-mono text-muted-foreground tracking-widest uppercase">System Idle</span>
           </div>
         </div>
-        
         <div className="flex items-center gap-4 mt-auto w-full z-10">
           <div className="h-16 w-16 shrink-0 rounded-md border border-dashed border-border/50 flex items-center justify-center bg-muted/20">
             <Music className="w-6 h-6 text-muted-foreground/50" />
           </div>
           <div className="flex flex-col min-w-0 flex-1">
-            <h3 className="text-base font-bold text-muted-foreground truncate">
-              Spotify Offline
-            </h3>
-            <p className="text-xs text-muted-foreground/50 truncate mt-1">
-              No active network playback
-            </p>
+            <h3 className="text-base font-bold text-muted-foreground truncate">Spotify Offline</h3>
+            <p className="text-xs text-muted-foreground/50 truncate mt-1">No active network playback</p>
           </div>
         </div>
-
         <div className="absolute bottom-0 left-0 w-full h-[2px] bg-border/30" />
       </Card>
     );
   }
 
-  // --- LIVE PLAYING STATE ---
-  
-  // GPU-Accelerated Transform variants
-  const visualizerVariants: Variants = {
-    animate: (i: number) => ({
-      scaleY: [0.2, 1, 0.3, 0.8, 0.2], // Replaced 'height' with 'scaleY'
-      transition: {
-        repeat: Infinity,
-        duration: 1.2,
-        ease: "easeInOut",
-        delay: i * 0.15,
-      },
-    }),
-  };
-
   return (
-    <Link
-      href={data.songUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block group outline-none"
-    >
+    <Link href={data.songUrl!} target="_blank" rel="noopener noreferrer" className="block group outline-none">
       <Card className="relative flex flex-col h-[160px] w-full p-6 bg-[#0a0a0a] dark:bg-[#0a0a0a] border border-[#262626] hover:border-[#404040] transition-colors overflow-hidden shadow-sm">
         
-        {/* Background glow wrapped in will-change to prevent repaint loops */}
+        {/* Pure CSS Hardware Accelerated Animations */}
+        <style>{`
+          @keyframes equalize {
+            0%, 100% { transform: scaleY(0.2); }
+            25% { transform: scaleY(1); }
+            50% { transform: scaleY(0.3); }
+            75% { transform: scaleY(0.8); }
+          }
+          @keyframes linearProgress {
+            0% { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+          }
+        `}</style>
+
         <div className="absolute -right-12 -top-12 opacity-[0.04] group-hover:opacity-[0.12] transition-opacity duration-700 blur-2xl pointer-events-none will-change-[opacity]">
-          <Image
-            src={data.albumImageUrl}
-            height={200}
-            width={200}
-            quality={10} 
-            alt=""
-          />
+          <Image src={data.albumImageUrl!} height={200} width={200} quality={10} alt="" />
         </div>
 
-        {/* Top Header: Icon + Visualizer */}
         <div className="flex justify-between items-start z-10">
           <div className="flex items-center gap-2">
             <SpotifyIcon className="w-4 h-4 text-[#ededed]" />
-            <span className="text-[10px] font-mono text-[#a3a3a3] tracking-widest uppercase">
-              Now Playing
-            </span>
+            <span className="text-[10px] font-mono text-[#a3a3a3] tracking-widest uppercase">Now Playing</span>
           </div>
-          
-          {/* Hardware Accelerated Equalizer */}
           <div className="flex items-end gap-[3px] h-4 overflow-hidden">
             {[0, 1, 2, 3, 4].map((i) => (
-              <motion.span
+              <span
                 key={i}
-                custom={i}
-                variants={visualizerVariants}
-                animate="animate"
                 className="w-[3px] h-full bg-[#ededed] rounded-t-sm will-change-transform"
-                style={{ originY: 1 }} // Sets transform-origin to bottom for scaleY
+                style={{ 
+                  transformOrigin: "bottom", 
+                  animation: `equalize 1.2s ease-in-out infinite`,
+                  animationDelay: `${i * 0.15}s`
+                }}
               />
             ))}
           </div>
         </div>
 
-        {/* Bottom: Track Data & Action Button */}
         <div className="flex items-center gap-4 z-10 mt-auto w-full">
           <div className="relative h-16 w-16 shrink-0 rounded-md overflow-hidden border border-[#262626] shadow-md will-change-transform">
-            <Image
-              src={data.albumImageUrl}
-              fill
-              sizes="64px"
-              className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105"
-              alt={`Album art for ${data.album}`}
-            />
+            <Image src={data.albumImageUrl!} fill sizes="64px" className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105" alt={`Album art for ${data.album}`} />
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                <Disc3 className="h-6 w-6 text-white animate-spin" />
             </div>
           </div>
           
           <div className="flex flex-col min-w-0 flex-1">
-            <h3 className="text-base font-bold text-[#ededed] truncate leading-tight">
-              {data.title}
-            </h3>
-            <p className="text-sm font-medium text-[#a3a3a3] truncate mt-0.5">
-              {data.artist}
-            </p>
-            <p className="text-[10px] text-[#737373] truncate mt-1">
-              {data.album}
-            </p>
+            <h3 className="text-base font-bold text-[#ededed] truncate leading-tight">{data.title}</h3>
+            <p className="text-sm font-medium text-[#a3a3a3] truncate mt-0.5">{data.artist}</p>
+            <p className="text-[10px] text-[#737373] truncate mt-1">{data.album}</p>
           </div>
 
           <div className="shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-[#262626] bg-[#171717] group-hover:bg-[#ededed] group-hover:text-[#0a0a0a] text-[#ededed] transition-colors">
@@ -185,17 +119,12 @@ export function SpotifyCard() {
           </div>
         </div>
 
-        {/* GPU-Accelerated Progress Bar */}
         <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#171717]">
-          <motion.div
+          <div 
             className="h-full w-full bg-[#ededed]/80 will-change-transform"
-            style={{ originX: 0 }} // Sets transform-origin to left for scaleX
-            initial={{ scaleX: 0 }} // Replaced 'width' with 'scaleX'
-            animate={{ scaleX: 1 }}
-            transition={{ 
-              duration: 180, 
-              ease: "linear",
-              repeat: Infinity 
+            style={{ 
+              transformOrigin: "left",
+              animation: "linearProgress 180s linear infinite"
             }}
           />
         </div>
