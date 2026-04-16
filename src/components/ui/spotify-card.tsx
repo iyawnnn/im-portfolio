@@ -60,7 +60,7 @@ export async function SpotifyCard() {
 
   return (
     <Link href={data.songUrl!} target="_blank" rel="noopener noreferrer" className="block group outline-none">
-      <Card className="relative flex flex-col h-[160px] w-full p-6 bg-[#0a0a0a] dark:bg-[#0a0a0a] border border-[#262626] hover:border-[#404040] transition-colors overflow-hidden shadow-sm">
+      <Card className="relative flex flex-col h-[160px] w-full p-6 bg-card border border-border/50 hover:border-border transition-colors overflow-hidden shadow-sm">
         
         {/* Pure CSS Hardware Accelerated Animations */}
         <style>{`
@@ -82,14 +82,14 @@ export async function SpotifyCard() {
 
         <div className="flex justify-between items-start z-10">
           <div className="flex items-center gap-2">
-            <SpotifyIcon className="w-4 h-4 text-[#ededed]" />
-            <span className="text-[10px] font-mono text-[#a3a3a3] tracking-widest uppercase">Now Playing</span>
+            <SpotifyIcon className="w-4 h-4 text-foreground" />
+            <span className="text-[10px] font-mono text-muted-foreground tracking-widest uppercase">Now Playing</span>
           </div>
           <div className="flex items-end gap-[3px] h-4 overflow-hidden">
             {[0, 1, 2, 3, 4].map((i) => (
               <span
                 key={i}
-                className="w-[3px] h-full bg-[#ededed] rounded-t-sm will-change-transform"
+                className="w-[3px] h-full bg-foreground rounded-t-sm will-change-transform"
                 style={{ 
                   transformOrigin: "bottom", 
                   animation: `equalize 1.2s ease-in-out infinite`,
@@ -101,7 +101,7 @@ export async function SpotifyCard() {
         </div>
 
         <div className="flex items-center gap-4 z-10 mt-auto w-full">
-          <div className="relative h-16 w-16 shrink-0 rounded-md overflow-hidden border border-[#262626] shadow-md will-change-transform">
+          <div className="relative h-16 w-16 shrink-0 rounded-md overflow-hidden border border-border/50 shadow-md will-change-transform">
             <Image src={data.albumImageUrl!} fill sizes="64px" className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-100 group-hover:scale-105" alt={`Album art for ${data.album}`} />
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                <Disc3 className="h-6 w-6 text-white animate-spin" />
@@ -109,19 +109,19 @@ export async function SpotifyCard() {
           </div>
           
           <div className="flex flex-col min-w-0 flex-1">
-            <h3 className="text-base font-bold text-[#ededed] truncate leading-tight">{data.title}</h3>
-            <p className="text-sm font-medium text-[#a3a3a3] truncate mt-0.5">{data.artist}</p>
-            <p className="text-[10px] text-[#737373] truncate mt-1">{data.album}</p>
+            <h3 className="text-base font-bold text-foreground truncate leading-tight">{data.title}</h3>
+            <p className="text-sm font-medium text-muted-foreground truncate mt-0.5">{data.artist}</p>
+            <p className="text-[10px] text-muted-foreground/70 truncate mt-1">{data.album}</p>
           </div>
 
-          <div className="shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-[#262626] bg-[#171717] group-hover:bg-[#ededed] group-hover:text-[#0a0a0a] text-[#ededed] transition-colors">
+          <div className="shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-border/50 bg-secondary group-hover:bg-foreground group-hover:text-background text-foreground transition-colors">
              <ArrowUpRight className="w-4 h-4" />
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#171717]">
+        <div className="absolute bottom-0 left-0 w-full h-[2px] bg-secondary">
           <div 
-            className="h-full w-full bg-[#ededed]/80 will-change-transform"
+            className="h-full w-full bg-foreground/80 will-change-transform"
             style={{ 
               transformOrigin: "left",
               animation: "linearProgress 180s linear infinite"

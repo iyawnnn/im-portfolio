@@ -42,7 +42,9 @@ const HOME_PROJECTS = [
   },
 ];
 
+
 export default function ExplorePage() {
+
   const wordsLine1 = [
     { text: "Hey," },
     { text: "I’m" },
