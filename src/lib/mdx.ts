@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { cache } from "react";
 
 export interface PostMeta {
   title: string;
@@ -13,7 +14,8 @@ export interface PostMeta {
 
 const rootDirectory = path.join(process.cwd(), "src", "content", "blog");
 
-export const getPostBySlug = (slug: string): { meta: PostMeta; content: string } => {
+// Wrap in cache() to memoize the result
+export const getPostBySlug = cache((slug: string): { meta: PostMeta; content: string } => {
   if (!slug) {
     throw new Error("A valid slug must be provided.");
   }
@@ -34,9 +36,10 @@ export const getPostBySlug = (slug: string): { meta: PostMeta; content: string }
   };
 
   return { meta, content };
-};
+});
 
-export const getAllPostsMeta = (): PostMeta[] => {
+// Wrap in cache() to memoize the result
+export const getAllPostsMeta = cache((): PostMeta[] => {
   const files = fs.readdirSync(rootDirectory);
   
   return files.map((fileName) => {
@@ -53,4 +56,4 @@ export const getAllPostsMeta = (): PostMeta[] => {
       slug: fileName.replace(/\.mdx$/, ""),
     };
   });
-};
+});

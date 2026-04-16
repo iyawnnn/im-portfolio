@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PageTransition } from "@/components/ui/page-transition";
 
 const PROJECTS = [
   {
@@ -143,7 +142,6 @@ export default function ProjectsPage({
         </p>
       </motion.div>
 
-      <PageTransition pageKey={currentPage}>
         <motion.ul
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -154,7 +152,6 @@ export default function ProjectsPage({
             <ProjectCard key={project.title} project={project} />
           ))}
         </motion.ul>
-      </PageTransition>
 
       {totalPages > 1 && (
         <div className="flex items-center justify-between w-full pt-4 mt-4">

@@ -40,7 +40,7 @@ const MOBILE_LINKS = [
   { href: "/stack", label: "Stack", icon: CodeXml, isExternal: false },
   { href: "/resume", label: "Resume", icon: FileText, isExternal: false },
   { href: "/contact", label: "Contact", icon: Mail, isExternal: false },
-  { href: "/blog", label: "Blog", icon: BookOpen, isExternal: false},
+  { href: "/blog", label: "Blog", icon: BookOpen, isExternal: false },
   {
     href: "https://www.linkedin.com/in/ianmacabulos/",
     label: "LinkedIn",
@@ -80,6 +80,7 @@ export function MobileBottomNav() {
                 key={link.label}
                 href={link.href}
                 target={link.isExternal ? "_blank" : undefined}
+                prefetch={!link.isExternal ? true : undefined}
                 className={cn(
                   "snap-center group flex min-w-[5rem] flex-col items-center justify-center gap-1 rounded-lg py-2 px-2 transition-all duration-300",
                   isActive
