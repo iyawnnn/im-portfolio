@@ -1,5 +1,3 @@
-// src/app/blog/[slug]/page.tsx
-
 import { getPostBySlug, getAllPostsMeta } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
@@ -7,6 +5,10 @@ import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import { CustomLink } from "@/components/mdx/preview-link";
 import { PageTransition } from "@/components/ui/page-transition";
+import { ViewCounter } from "@/components/ui/view-counter";
+// 1. Import the new components
+import { ShareButtons } from "@/components/ui/share-buttons";
+import { GiscusComments } from "@/components/ui/giscus-comments";
 
 export async function generateStaticParams() {
   const posts = getAllPostsMeta();
@@ -67,15 +69,23 @@ export default async function BlogPostPage({
                   className="object-cover" 
                 />
               </div>
+              
               <div className="flex flex-col">
                 <span className="font-semibold text-foreground text-sm sm:text-base leading-none mb-1 sm:mb-1.5">
                   Ian Macabulos
                 </span>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground font-medium">
+                
+                {/* INLINE METADATA INCLUDING ACTIVE VIEW TRACKER */}
+                <div className="flex flex-row flex-wrap items-center gap-2 text-xs sm:text-sm text-muted-foreground font-medium">
                   <time dateTime={meta.date}>{meta.date}</time>
                   <span className="text-[8px] sm:text-[10px] opacity-50">●</span>
                   <span>{readingTime} min read</span>
+                  <span className="text-[8px] sm:text-[10px] opacity-50">●</span>
+                  
+                  {/* Track the view when someone actually opens this specific page */}
+                  <ViewCounter slug={resolvedParams.slug} trackView={true} />
                 </div>
+                
               </div>
             </div>
           </div>
@@ -110,6 +120,14 @@ export default async function BlogPostPage({
               }}
             />
           </div>
+
+          {/* 2. Inject Share Buttons below the content */}
+          <div className="mt-12 flex justify-between items-center border-t border-border/50 pt-8">
+            <ShareButtons slug={resolvedParams.slug} title={meta.title} />
+          </div>
+
+          {/* 3. Inject Giscus Comments at the very bottom */}
+          <GiscusComments />
 
         </article>
       </div>
