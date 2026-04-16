@@ -1,37 +1,28 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import { redis } from "@/lib/redis";
 import { Eye } from "lucide-react";
+import { unstable_cache } from "next/cache";
 
-export function ViewCounter({ slug, trackView = false }: { slug: string, trackView?: boolean }) {
-  const [views, setViews] = useState<number | null>(null);
-
-  useEffect(() => {
-    const fetchViews = async () => {
+export async function ViewCounter({ slug }: { slug: string }) {
+  
+  // 1. Wrap the live database call in Next.js's native cache
+  const getCachedViews = unstable_cache(
+    async () => {
       try {
-        const method = trackView ? "POST" : "GET";
-        const res = await fetch(`/api/views/${slug}`, {
-          method,
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        
-        if (res.ok) {
-          const data = await res.json();
-          setViews(data.views);
+        return (await redis.get<number>(`pageviews:blog:${slug}`)) ?? 0;
+      } catch (error: any) {
+        // 2. CRITICAL FIX: Never swallow Next.js internal build errors
+        if (error.digest === 'DYNAMIC_SERVER_USAGE') {
+          throw error;
         }
-      } catch (error) {
-        console.error("Failed to fetch views:", error);
+        console.error("Redis Error:", error);
+        return 0;
       }
-    };
+    },
+    [`views-cache-${slug}`], // Unique cache key per article
+    { revalidate: 60 }       // Keep it synced with the 60-second ISR
+  );
 
-    fetchViews();
-  }, [slug, trackView]);
-
-  if (views === null) {
-    return <div className="h-4 w-12 animate-pulse bg-muted/50 rounded" />;
-  }
+  const views = await getCachedViews();
 
   return (
     <div className="flex items-center gap-1.5 text-xs sm:text-sm text-muted-foreground font-medium">
