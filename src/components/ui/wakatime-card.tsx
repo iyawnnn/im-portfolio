@@ -52,10 +52,10 @@ export function WakaTimeCard() {
       rel="noopener noreferrer"
       className="block group outline-none"
     >
-      <Card className="relative flex flex-col h-[160px] w-full p-6 bg-[#0a0a0a] dark:bg-[#0a0a0a] border border-[#262626] hover:border-[#404040] transition-colors overflow-hidden shadow-sm">
+      <Card className="relative flex flex-col h-[160px] w-full p-6 bg-[#0a0a0a] dark:bg-[#0a0a0a] border border-[#262626] hover:border-[#404040] transition-colors overflow-hidden shadow-sm transform-gpu">
         
-        {/* Subtle Background Glow */}
-        <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none transform-gpu" />
+        {/* Optimized GPU-Accelerated Background Glow */}
+        <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[#ededed]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-3xl pointer-events-none will-change-[opacity] transform-gpu" />
 
         {/* Top Header: Icon + Status */}
         <div className="flex justify-between items-start z-10">
@@ -66,13 +66,13 @@ export function WakaTimeCard() {
             </span>
           </div>
           
-          {/* Tracking Indicator */}
+          {/* Hardware-Accelerated Tracking Indicator */}
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-mono text-[#a3a3a3] uppercase">
               Last 7 Days
             </span>
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ededed] opacity-75"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#ededed] opacity-75 will-change-transform transform-gpu"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#ededed]"></span>
             </span>
           </div>
@@ -81,7 +81,7 @@ export function WakaTimeCard() {
         {/* Bottom: Track Data & Action Button */}
         <div className="flex items-center gap-4 z-10 mt-auto w-full">
           {/* Terminal Icon Box */}
-          <div className="relative flex items-center justify-center h-16 w-16 shrink-0 rounded-md overflow-hidden border border-[#262626] shadow-md bg-[#121212] group-hover:bg-[#1a1a1a] transition-colors">
+          <div className="relative flex items-center justify-center h-16 w-16 shrink-0 rounded-md overflow-hidden border border-[#262626] shadow-md bg-[#121212] group-hover:bg-[#1a1a1a] transition-colors transform-gpu">
             <Terminal className="h-6 w-6 text-[#ededed]" />
           </div>
           
@@ -99,7 +99,7 @@ export function WakaTimeCard() {
           </div>
 
           {/* Right Action Indicator */}
-          <div className="shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-[#262626] bg-[#171717] group-hover:bg-[#ededed] group-hover:text-[#0a0a0a] text-[#ededed] transition-colors">
+          <div className="shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-[#262626] bg-[#171717] group-hover:bg-[#ededed] group-hover:text-[#0a0a0a] text-[#ededed] transition-colors transform-gpu">
              <ArrowUpRight className="w-4 h-4" />
           </div>
         </div>

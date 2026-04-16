@@ -33,7 +33,6 @@ export function SpotifyCard() {
   const [data, setData] = useState<NowPlayingData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // OPTIMIZATION 1: Network Polling bound to Visibility State
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
@@ -96,9 +95,11 @@ export function SpotifyCard() {
   }
 
   // --- LIVE PLAYING STATE ---
+  
+  // GPU-Accelerated Transform variants
   const visualizerVariants: Variants = {
     animate: (i: number) => ({
-      height: ["20%", "100%", "30%", "80%", "20%"],
+      scaleY: [0.2, 1, 0.3, 0.8, 0.2], // Replaced 'height' with 'scaleY'
       transition: {
         repeat: Infinity,
         duration: 1.2,
@@ -117,8 +118,8 @@ export function SpotifyCard() {
     >
       <Card className="relative flex flex-col h-[160px] w-full p-6 bg-[#0a0a0a] dark:bg-[#0a0a0a] border border-[#262626] hover:border-[#404040] transition-colors overflow-hidden shadow-sm">
         
-        {/* OPTIMIZATION 2: Heavy compression on the blurred background image */}
-        <div className="absolute -right-12 -top-12 opacity-[0.04] group-hover:opacity-[0.12] transition-opacity duration-700 blur-2xl pointer-events-none transform-gpu">
+        {/* Background glow wrapped in will-change to prevent repaint loops */}
+        <div className="absolute -right-12 -top-12 opacity-[0.04] group-hover:opacity-[0.12] transition-opacity duration-700 blur-2xl pointer-events-none will-change-[opacity]">
           <Image
             src={data.albumImageUrl}
             height={200}
@@ -137,7 +138,7 @@ export function SpotifyCard() {
             </span>
           </div>
           
-          {/* Framer Motion Equalizer Restored */}
+          {/* Hardware Accelerated Equalizer */}
           <div className="flex items-end gap-[3px] h-4 overflow-hidden">
             {[0, 1, 2, 3, 4].map((i) => (
               <motion.span
@@ -145,8 +146,8 @@ export function SpotifyCard() {
                 custom={i}
                 variants={visualizerVariants}
                 animate="animate"
-                className="w-[3px] bg-[#ededed] rounded-t-sm"
-                style={{ height: "20%", transformOrigin: "bottom" }} 
+                className="w-[3px] h-full bg-[#ededed] rounded-t-sm will-change-transform"
+                style={{ originY: 1 }} // Sets transform-origin to bottom for scaleY
               />
             ))}
           </div>
@@ -154,8 +155,7 @@ export function SpotifyCard() {
 
         {/* Bottom: Track Data & Action Button */}
         <div className="flex items-center gap-4 z-10 mt-auto w-full">
-          {/* Album Art with Spinning Disc Restored */}
-          <div className="relative h-16 w-16 shrink-0 rounded-md overflow-hidden border border-[#262626] shadow-md">
+          <div className="relative h-16 w-16 shrink-0 rounded-md overflow-hidden border border-[#262626] shadow-md will-change-transform">
             <Image
               src={data.albumImageUrl}
               fill
@@ -168,7 +168,6 @@ export function SpotifyCard() {
             </div>
           </div>
           
-          {/* Text Container */}
           <div className="flex flex-col min-w-0 flex-1">
             <h3 className="text-base font-bold text-[#ededed] truncate leading-tight">
               {data.title}
@@ -181,18 +180,18 @@ export function SpotifyCard() {
             </p>
           </div>
 
-          {/* Right Action Indicator */}
           <div className="shrink-0 flex items-center justify-center h-8 w-8 rounded-full border border-[#262626] bg-[#171717] group-hover:bg-[#ededed] group-hover:text-[#0a0a0a] text-[#ededed] transition-colors">
              <ArrowUpRight className="w-4 h-4" />
           </div>
         </div>
 
-        {/* Faux Progress Bar */}
+        {/* GPU-Accelerated Progress Bar */}
         <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#171717]">
           <motion.div
-            className="h-full bg-[#ededed]/80"
-            initial={{ width: "0%" }}
-            animate={{ width: "100%" }}
+            className="h-full w-full bg-[#ededed]/80 will-change-transform"
+            style={{ originX: 0 }} // Sets transform-origin to left for scaleX
+            initial={{ scaleX: 0 }} // Replaced 'width' with 'scaleX'
+            animate={{ scaleX: 1 }}
             transition={{ 
               duration: 180, 
               ease: "linear",
