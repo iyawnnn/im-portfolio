@@ -1,8 +1,5 @@
-"use client";
-
-import { useEffect, useState, useRef } from "react";
+import { Suspense } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { CodeXml, ArrowRight, FileText, Mail, User } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -13,18 +10,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Counter } from "@/components/ui/counter";
 import { MovingDots, Radar } from "@/components/ui/animated-backgrounds";
-import dynamic from "next/dynamic";
 import { SpotifyCard } from "@/components/ui/spotify-card";
 import { WakaTimeCard } from "@/components/ui/wakatime-card";
+import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const TypewriterEffectSmooth = dynamic(
-  () => import("@/components/ui/typewriter-effect").then((mod) => mod.TypewriterEffectSmooth),
-  { ssr: false }
-);
+// Import the isolated Client Components
+import { ScrollRestoration } from "@/components/ui/scroll-restoration";
+import { HomeProjectCard } from "@/components/ui/home-project-card";
 
 const HOME_PROJECTS = [
   {
@@ -48,16 +43,6 @@ const HOME_PROJECTS = [
 ];
 
 export default function ExplorePage() {
-  useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      "scrollRestoration" in window.history
-    ) {
-      window.history.scrollRestoration = "manual";
-    }
-    window.scrollTo(0, 0);
-  }, []);
-
   const wordsLine1 = [
     { text: "Hey," },
     { text: "I’m" },
@@ -81,6 +66,9 @@ export default function ExplorePage() {
 
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-8 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
+      {/* Isolated Client Component for Scroll Logic */}
+      <ScrollRestoration />
+
       <section className="flex max-w-2xl flex-col gap-2 md:gap-4">
         <h1 className="sr-only">
           Ian Macabulos - Full-Stack Developer Philippines
@@ -204,10 +192,17 @@ export default function ExplorePage() {
         </div>
       </section>
 
+      {/* --- REACT SUSPENSE STREAMING BOUNDARY --- */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        <SpotifyCard />
-        <WakaTimeCard />
+        <Suspense fallback={<Skeleton className="h-[160px] w-full rounded-xl bg-card border border-border/50 shadow-sm" />}>
+          <SpotifyCard />
+        </Suspense>
+        
+        <Suspense fallback={<Skeleton className="h-[160px] w-full rounded-xl bg-card border border-border/50 shadow-sm" />}>
+          <WakaTimeCard />
+        </Suspense>
       </section>
+      {/* ----------------------------------------- */}
 
       <section className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
         <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
@@ -253,111 +248,5 @@ export default function ExplorePage() {
         </Card>
       </section>
     </div>
-  );
-}
-
-function HomeProjectCard({ project }: { project: (typeof HOME_PROJECTS)[0] }) {
-  const [isImageLoading, setIsImageLoading] = useState(true);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const handleMouseEnter = () => {
-    hoverTimeoutRef.current = setTimeout(() => {
-      if (videoRef.current) {
-        if (videoRef.current.readyState === 0) {
-          videoRef.current.load();
-        }
-
-        const playPromise = videoRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => setIsVideoPlaying(true))
-            .catch((error) => {
-              if (error.name !== "AbortError") {
-                console.error("Video playback failed:", error);
-              }
-            });
-        }
-      }
-    }, 200);
-  };
-
-  const handleMouseLeave = () => {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-
-    setIsVideoPlaying(false);
-
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  };
-
-  return (
-    <Link
-      href={project.link}
-      className="group block h-full"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
-        <div className="relative w-full aspect-video overflow-hidden border-b border-border/50 bg-muted/20">
-          {isImageLoading && (
-            <Skeleton className="absolute inset-0 h-full w-full z-10" />
-          )}
-
-          <Image
-            src={project.image}
-            alt={`Cover preview of ${project.title}`}
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className={`object-cover transition-transform duration-500 group-hover:scale-105 z-10 ${
-              isImageLoading ? "opacity-0" : "opacity-100"
-            }`}
-            onLoad={() => setIsImageLoading(false)}
-          />
-
-          <video
-            ref={videoRef}
-            src={project.video}
-            preload="none"
-            muted
-            playsInline
-            loop
-            className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${
-              isVideoPlaying ? "opacity-100" : "opacity-0"
-            }`}
-          />
-
-          <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-30" />
-        </div>
-
-        <CardHeader className="px-6 pt-3 pb-1">
-          <CardTitle className="text-xl group-hover:text-primary transition-colors">
-            {project.title}
-          </CardTitle>
-          <CardDescription className="line-clamp-2 text-sm sm:text-base">
-            {project.description}
-          </CardDescription>
-        </CardHeader>
-
-        <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
-          {project.tags.map((tag) => (
-            <Badge
-              key={tag}
-              variant="secondary"
-              className="rounded-md group-hover:bg-background transition-colors"
-            >
-              {tag}
-            </Badge>
-          ))}
-        </CardFooter>
-      </Card>
-    </Link>
   );
 }

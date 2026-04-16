@@ -169,3 +169,34 @@ export const LoaderFive = ({ text }: { text: string }) => {
     </div>
   );
 };
+
+export const LoaderHexagon = () => {
+  return (
+    <div className="flex h-12 w-12 items-center justify-center text-neutral-900 dark:text-neutral-100">
+      <svg
+        viewBox="0 0 100 100"
+        className="h-full w-full overflow-visible"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <motion.path
+          d="M50 5 L90 25 L90 75 L50 95 L10 75 L10 25 Z"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinejoin="round"
+          strokeLinecap="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{
+            pathLength: [0, 1, 0],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 2.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      </svg>
+    </div>
+  );
+};
