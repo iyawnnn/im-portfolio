@@ -6,6 +6,7 @@ import { SidebarProvider } from "@/hooks/use-sidebar";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { Analytics } from "@vercel/analytics/react";
 import { ChatWidget } from "@/components/layout/chat-widget";
+import { CommandMenu } from "@/components/layout/command-menu"; // 1. Import the Command Menu
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -114,6 +115,7 @@ export default function RootLayout({
           </SidebarProvider>
         </ThemeProvider>
 
+        <CommandMenu /> {/* 2. Inject the Command Menu globally */}
         <ChatWidget />
         <Analytics />
       </body>

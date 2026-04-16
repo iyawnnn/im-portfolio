@@ -19,6 +19,7 @@ import {
   Moon,
   ArrowUpRight,
   ChevronLeft,
+  Search
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -282,44 +283,56 @@ export function AppSidebar() {
         />
       </nav>
 
-      <footer
+<footer
         className={cn(
-          "mt-auto border-t border-sidebar-border pt-6 w-full transition-all",
-          isCollapsed ? "flex justify-center" : "",
+          "mt-auto border-t border-sidebar-border pt-4 pb-1 w-full transition-all",
+          isCollapsed ? "flex flex-col items-center gap-2" : "px-3"
         )}
       >
-        <Button
-          variant="outline"
-          size="lg"
-          className={cn(
-            "rounded-xl border-sidebar-border bg-background text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all h-10",
-            isCollapsed
-              ? "w-auto justify-center px-2.5"
-              : "w-full justify-start gap-3 px-3",
-          )}
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          {mounted &&
-            (theme === "dark" ? (
-              <Sun className="h-4 w-4 stroke-2" />
-            ) : (
-              <Moon className="h-4 w-4 stroke-2" />
-            ))}
-          <span
+        <div className={cn("flex w-full gap-2 transition-all duration-300", isCollapsed ? "flex-col items-center" : "flex-row items-center")}>
+          
+          <Button
+            variant="outline"
+            onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
             className={cn(
-              "text-xs font-medium transition-all duration-300 overflow-hidden whitespace-nowrap",
-              isCollapsed
-                ? "w-0 opacity-0 hidden"
-                : "w-auto opacity-100 visible",
+              "bg-background/50 text-muted-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-foreground transition-all border-sidebar-border/60 rounded-xl h-10",
+              isCollapsed ? "w-10 p-0 justify-center shrink-0" : "flex-1 justify-between px-3"
             )}
           >
-            {mounted
-              ? theme === "dark"
-                ? "Light Mode"
-                : "Dark Mode"
-              : "Theme"}
-          </span>
-        </Button>
+            {isCollapsed ? (
+              <Search className="h-4 w-4" />
+            ) : (
+              <>
+                <span className="flex items-center gap-2 font-normal text-sm">
+                  <Search className="h-4 w-4 shrink-0" />
+                  Search...
+                </span>
+                <kbd className="pointer-events-none inline-flex h-5 items-center gap-1 rounded border border-sidebar-border/50 bg-muted/50 px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                  <span className="text-[10px]">⌘</span>K
+                </kbd>
+              </>
+            )}
+          </Button>
+
+          <Button
+            variant="outline"
+            size="icon"
+            className={cn(
+              "shrink-0 rounded-xl border-sidebar-border/60 bg-background/50 text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all h-10 w-10",
+              isCollapsed ? "" : ""
+            )}
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            {mounted &&
+              (theme === "dark" ? (
+                <Sun className="h-4 w-4 stroke-2" />
+              ) : (
+                <Moon className="h-4 w-4 stroke-2" />
+              ))}
+            <span className="sr-only">Toggle Theme</span>
+          </Button>
+
+        </div>
       </footer>
     </aside>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, use } from "react";
+import React, { useState, useRef, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -24,6 +24,7 @@ const PROJECTS = [
       "A zero-trust educational platform that eliminates proxy attendance fraud by utilizing strict browser geolocation APIs and Elliptic Curve Digital Signature Algorithm (ECDSA) cryptographic verification.",
     link: "/projects/ua-attendance",
     image: "/projects/ua-attendance/ua-attendance-cover.webp",
+    video: "/projects/ua-attendance/ua-attendance-demo.mp4",
     tags: ["Next.js 15", "Aiven MySQL", "ECDSA", "Geolib"],
   },
   {
@@ -32,6 +33,7 @@ const PROJECTS = [
     description:
       "A proactive GovTech platform for Angeles City featuring Geospatial Signal Routing (GSR) to predict flooding risks and a Paved Paradox algorithm to prioritize infrastructure repairs.",
     image: "/projects/ac-core/accore-cover.webp",
+    video: "/projects/ac-core/accore-demo.mp4",
     link: "/projects/ac-core",
     tags: ["MEAN Stack", "Leaflet.js", "Zoneless", "GeoJSON"],
   },
@@ -42,6 +44,7 @@ const PROJECTS = [
     tags: ["Laravel 11", "Livewire 3", "Groq AI", "Neon Postgres"],
     link: "/projects/grit",
     image: "/projects/grit/grit-cover.webp",
+    video: "/projects/grit/grit-demo.mp4",
   },
   {
     title: "KodaSync",
@@ -50,6 +53,7 @@ const PROJECTS = [
     tags: ["Next.js 15", "FastAPI", "Groq SDK", "pgvector"],
     link: "/projects/kodasync",
     image: "/projects/kodasync/kodasync-cover.webp",
+    video: "/projects/kodasync/kodasync-demo.mp4",
   },
   {
     title: "SubVantage",
@@ -58,6 +62,7 @@ const PROJECTS = [
     tags: ["Next.js 15", "Neon Postgres", "Prisma", "2FA Security"],
     link: "/projects/subvantage",
     image: "/projects/subvantage/subvantage-cover.webp",
+    video: "/projects/subvantage/subvantage-demo.mp4",
   },
   {
     title: "Mama R's",
@@ -66,6 +71,7 @@ const PROJECTS = [
     tags: ["MERN Stack", "Tailwind", "Recharts"],
     link: "/projects/mamars",
     image: "/projects/mamars/mamars-cover.webp",
+    video: "/projects/mamars/mamars-demo.mp4",
   },
   {
     title: "ClimaPH",
@@ -74,6 +80,7 @@ const PROJECTS = [
     tags: ["Next.js 15", "TypeScript", "API"],
     link: "/projects/climaph",
     image: "/projects/climaph/climaph-cover.webp",
+    video: "/projects/climaph/climaph-demo.mp4",
   },
   {
     title: "Thryve",
@@ -82,6 +89,7 @@ const PROJECTS = [
     tags: ["MEVN Stack", "PrimeVue", "Pinia"],
     link: "/projects/thryve",
     image: "/projects/thryve/thryve-cover.webp",
+    video: "/projects/thryve/thryve-demo.mp4",
   },
   {
     title: "MovieLoom",
@@ -90,6 +98,7 @@ const PROJECTS = [
     tags: ["React", "Vite", "API", "CSS3"],
     link: "/projects/movieloom",
     image: "/projects/movieloom/movieloom-cover.webp",
+    video: "/projects/movieloom/movieloom-demo.mp4",
   },
   {
     title: "KusinaGo",
@@ -98,6 +107,7 @@ const PROJECTS = [
     tags: ["PHP", "MongoDB", "E-commerce"],
     link: "/projects/kusinago",
     image: "/projects/kusinago/kusinago-cover.webp",
+    video: "/projects/kusinago/kusinago-demo.mp4",
   },
 ];
 
@@ -108,11 +118,9 @@ export default function ProjectsPage({
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
-  // Unwrap the searchParams Promise using React.use() as required by Next.js 15 Client Components
   const resolvedParams = use(searchParams);
   const currentPage = Number(resolvedParams.page) || 1;
 
-  // Pagination bounds calculation
   const totalPages = Math.ceil(PROJECTS.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const paginatedProjects = PROJECTS.slice(startIndex, startIndex + ITEMS_PER_PAGE);
@@ -143,7 +151,6 @@ export default function ProjectsPage({
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start"
         >
           {paginatedProjects.map((project) => (
-            // Switched key from index to project.title to prevent improper state recycling of the image loader skeleton during pagination
             <ProjectCard key={project.title} project={project} />
           ))}
         </motion.ul>
@@ -187,28 +194,83 @@ export default function ProjectsPage({
 }
 
 function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      if (videoRef.current) {
+        if (videoRef.current.readyState === 0) {
+          videoRef.current.load();
+        }
+        
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => setIsVideoPlaying(true))
+            .catch((error) => {
+              if (error.name !== "AbortError") {
+                console.error("Video playback failed:", error);
+              }
+            });
+        }
+      }
+    }, 200); 
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    
+    setIsVideoPlaying(false);
+    
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0; 
+    }
+  };
 
   return (
-    <Link href={project.link} className="group block h-full">
+    <Link 
+      href={project.link} 
+      className="group block h-full"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
         <div className="relative w-full aspect-video overflow-hidden border-b border-border/50 bg-muted/20">
-          {isLoading && (
+          {isImageLoading && (
             <Skeleton className="absolute inset-0 h-full w-full z-10" />
           )}
 
           <Image
             src={project.image}
-            alt={`Cover image for ${project.title}`}
+            alt={`Static cover preview of ${project.title}`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className={`object-cover transition-all duration-500 group-hover:scale-105 ${
-              isLoading ? "opacity-0" : "opacity-100"
+            className={`object-cover transition-transform duration-500 group-hover:scale-105 z-10 ${
+              isImageLoading ? "opacity-0" : "opacity-100"
             }`}
-            onLoad={() => setIsLoading(false)}
+            onLoad={() => setIsImageLoading(false)}
           />
 
-          <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-20" />
+          <video
+            ref={videoRef}
+            src={project.video}
+            preload="none"
+            muted
+            playsInline
+            loop
+            className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${
+              isVideoPlaying ? "opacity-100" : "opacity-0"
+            }`}
+          />
+
+          <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-30" />
         </div>
 
         <CardHeader className="px-6 pt-3 pb-1">
