@@ -6,6 +6,9 @@ import { ArrowLeft } from "lucide-react";
 import { CustomLink } from "@/components/mdx/preview-link";
 import { PageTransition } from "@/components/ui/page-transition";
 import { ViewCounter } from "@/components/ui/view-counter";
+// 1. Import the new components
+import { ShareButtons } from "@/components/ui/share-buttons";
+import { GiscusComments } from "@/components/ui/giscus-comments";
 
 export async function generateStaticParams() {
   const posts = getAllPostsMeta();
@@ -117,6 +120,15 @@ export default async function BlogPostPage({
               }}
             />
           </div>
+
+          {/* 2. Inject Share Buttons below the content */}
+          <div className="mt-12 flex justify-between items-center border-t border-border/50 pt-8">
+            <ShareButtons slug={resolvedParams.slug} title={meta.title} />
+          </div>
+
+          {/* 3. Inject Giscus Comments at the very bottom */}
+          <GiscusComments />
+
         </article>
       </div>
     </PageTransition>
