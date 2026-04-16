@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import { getPostBySlug, getAllPostsMeta } from "@/lib/mdx";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
@@ -7,13 +9,15 @@ import { CustomLink } from "@/components/mdx/preview-link";
 import { ViewCounter } from "@/components/ui/view-counter";
 import { ShareButtons } from "@/components/ui/share-buttons";
 import { GiscusComments } from "@/components/ui/giscus-comments";
+import { ReportView } from "@/components/ui/report-view";
+import { Suspense } from "react"; // 1. IMPORT SUSPENSE
 
 export async function generateStaticParams() {
   const posts = getAllPostsMeta();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-// UPGRADED: Dynamic OpenGraph Generation
+// Dynamic OpenGraph Generation
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const { meta } = getPostBySlug(resolvedParams.slug);
@@ -57,6 +61,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col px-6 sm:px-8 lg:px-12 pt-8 md:pt-12 pb-16 font-sans">
       
+      <ReportView slug={resolvedParams.slug} />
+
       <div className="mb-6 md:mb-10">
         <Link href="/blog" className="group inline-flex items-center text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground py-2">
           <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" /> Back to Articles
@@ -84,7 +90,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <span className="text-[8px] sm:text-[10px] opacity-50">●</span>
                 <span>{readingTime} min read</span>
                 <span className="text-[8px] sm:text-[10px] opacity-50">●</span>
-                <ViewCounter slug={resolvedParams.slug} trackView={true} />
+                
+                {/* 2. WRAP IN SUSPENSE WITH A SKELETON FALLBACK */}
+                <Suspense fallback={<div className="h-4 w-12 bg-muted animate-pulse rounded" />}>
+                  <ViewCounter slug={resolvedParams.slug} />
+                </Suspense>
               </div>
             </div>
           </div>

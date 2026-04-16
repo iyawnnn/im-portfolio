@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import Link from "next/link";
 import { getAllPostsMeta, PostMeta } from "@/lib/mdx";
 import { 
@@ -7,6 +9,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { ViewCounter } from "@/components/ui/view-counter";
+import { Suspense } from "react"; // 1. IMPORT SUSPENSE
 
 export const metadata = {
   title: "Blog",
@@ -59,7 +62,11 @@ export default async function BlogPage({
                     <time dateTime={post.date}>{post.date}</time>
                   </div>
                   <span className="sm:hidden text-[10px] opacity-50">●</span>
-                  <ViewCounter slug={post.slug} trackView={false} />
+                  
+                  {/* 2. WRAP IN SUSPENSE WITH A SKELETON FALLBACK */}
+                  <Suspense fallback={<div className="h-4 w-12 bg-muted animate-pulse rounded" />}>
+                    <ViewCounter slug={post.slug} />
+                  </Suspense>
                 </div>
               </div>
               
