@@ -122,7 +122,10 @@ export default function ProjectsPage({
 
   const totalPages = Math.ceil(PROJECTS.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const paginatedProjects = PROJECTS.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const paginatedProjects = PROJECTS.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE,
+  );
 
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-10 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
@@ -142,44 +145,44 @@ export default function ProjectsPage({
         </p>
       </motion.div>
 
-        <motion.ul
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start"
-        >
-          {paginatedProjects.map((project) => (
-            <ProjectCard key={project.title} project={project} />
-          ))}
-        </motion.ul>
+      <motion.ul
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start"
+      >
+        {paginatedProjects.map((project) => (
+          <ProjectCard key={project.title} project={project} />
+        ))}
+      </motion.ul>
 
       {totalPages > 1 && (
-        <div className="flex items-center justify-between w-full pt-4 mt-4">
+        <div className="flex items-center justify-between w-full pt-4">
           <div className="flex w-24 sm:w-32">
             {currentPage > 1 && (
               <Link
                 href={`/projects?page=${currentPage - 1}`}
                 className="flex items-center text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors group"
                 scroll={false}
+                prefetch={true} // Add aggressive prefetching
               >
-                <ChevronLeft className="mr-1.5 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                <ChevronLeft className="mr-1.5 h-4 w-4 transition-transform group-hover:-translate-x-1" />{" "}
                 Previous
               </Link>
             )}
           </div>
-
           <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground bg-muted/30 px-3 sm:px-4 py-1.5 rounded-full border border-border/50">
             Page {currentPage} of {totalPages}
           </div>
-
           <div className="flex w-24 sm:w-32 justify-end">
             {currentPage < totalPages && (
               <Link
                 href={`/projects?page=${currentPage + 1}`}
                 className="flex items-center text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors group"
                 scroll={false}
+                prefetch={true} // Add aggressive prefetching
               >
-                Next
+                Next{" "}
                 <ChevronRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             )}
@@ -193,7 +196,7 @@ export default function ProjectsPage({
 function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
-  
+
   const videoRef = useRef<HTMLVideoElement>(null);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -203,7 +206,7 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
         if (videoRef.current.readyState === 0) {
           videoRef.current.load();
         }
-        
+
         const playPromise = videoRef.current.play();
         if (playPromise !== undefined) {
           playPromise
@@ -215,25 +218,25 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
             });
         }
       }
-    }, 200); 
+    }, 200);
   };
 
   const handleMouseLeave = () => {
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
-    
+
     setIsVideoPlaying(false);
-    
+
     if (videoRef.current) {
       videoRef.current.pause();
-      videoRef.current.currentTime = 0; 
+      videoRef.current.currentTime = 0;
     }
   };
 
   return (
-    <Link 
-      href={project.link} 
+    <Link
+      href={project.link}
       className="group block h-full"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
