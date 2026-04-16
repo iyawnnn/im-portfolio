@@ -17,6 +17,8 @@ import { Badge } from "@/components/ui/badge";
 import { Counter } from "@/components/ui/counter";
 import { MovingDots, Radar } from "@/components/ui/animated-backgrounds";
 import dynamic from "next/dynamic";
+import { SpotifyCard } from "@/components/ui/spotify-card";
+import { WakaTimeCard } from "@/components/ui/wakatime-card";
 
 const TypewriterEffectSmooth = dynamic(
   () => import("@/components/ui/typewriter-effect").then((mod) => mod.TypewriterEffectSmooth),
@@ -287,6 +289,16 @@ export default function ExplorePage() {
             Languages <br className="sm:hidden" /> Mastered
           </span>
         </div>
+      </section>
+
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+        
+        {/* Left: Spotify Integration */}
+        <SpotifyCard />
+
+        {/* Right: WakaTime Integration */}
+        <WakaTimeCard />
+
       </section>
 
       {/* --- NAVIGATION CARDS --- */}
