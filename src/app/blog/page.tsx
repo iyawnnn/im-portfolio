@@ -7,6 +7,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from "lucide-react";
+import { ViewCounter } from "@/components/ui/view-counter";
 
 export const metadata = {
   title: "Blog",
@@ -28,7 +29,6 @@ export default async function BlogPage({
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
-  // Pagination Logic
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const paginatedPosts = posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
@@ -36,7 +36,6 @@ export default async function BlogPage({
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24 font-sans">
       
-      {/* Witty, Concise Header */}
       <div className="flex flex-col gap-4 w-full max-w-4xl">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground leading-[1.15]">
           Localhost Tales
@@ -46,20 +45,26 @@ export default async function BlogPage({
         </p>
       </div>
 
-      {/* Animated Blog Posts List */}
       <PageTransition pageKey={currentPage}>
         <section className="flex flex-col">
           {paginatedPosts.map((post: PostMeta) => (
             <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
               <article className="flex flex-col gap-3 py-6 md:py-8 border-b border-border/50 transition-colors hover:bg-muted/30 px-3 sm:px-4 -mx-3 sm:-mx-4 rounded-xl">
                 
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 sm:gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">
                   <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground transition-colors group-hover:opacity-80">
                     {post.title}
                   </h2>
-                  <div className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground shrink-0">
-                    <Calendar className="h-3.5 w-3.5 opacity-70" />
-                    <time dateTime={post.date}>{post.date}</time>
+                  
+                  {/* DYNAMIC METADATA LAYOUT: Row on Mobile, Stacked Right on Desktop */}
+                  <div className="flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-1.5 text-sm font-medium text-muted-foreground shrink-0 mt-1 sm:mt-0">
+                    <div className="flex items-center gap-1.5">
+                      <Calendar className="h-3.5 w-3.5 opacity-70" />
+                      <time dateTime={post.date}>{post.date}</time>
+                    </div>
+                    {/* Mobile-only dot separator */}
+                    <span className="sm:hidden text-[10px] opacity-50">●</span>
+                    <ViewCounter slug={post.slug} trackView={false} />
                   </div>
                 </div>
                 
@@ -83,10 +88,8 @@ export default async function BlogPage({
         </section>
       </PageTransition>
 
-      {/* High-End Pagination Controls */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between w-full pt-4">
-          
           <div className="flex w-24 sm:w-32">
             {currentPage > 1 && (
               <Link 
@@ -94,16 +97,13 @@ export default async function BlogPage({
                 className="flex items-center text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors group"
                 scroll={false}
               >
-                <ChevronLeft className="mr-1.5 h-4 w-4 transition-transform group-hover:-translate-x-1" /> 
-                Previous
+                <ChevronLeft className="mr-1.5 h-4 w-4 transition-transform group-hover:-translate-x-1" /> Previous
               </Link>
             )}
           </div>
-
           <div className="flex items-center gap-2 text-xs sm:text-sm font-medium text-muted-foreground bg-muted/30 px-3 sm:px-4 py-1.5 rounded-full border border-border/50">
             Page {currentPage} of {totalPages}
           </div>
-
           <div className="flex w-24 sm:w-32 justify-end">
             {currentPage < totalPages && (
               <Link 
@@ -111,12 +111,10 @@ export default async function BlogPage({
                 className="flex items-center text-sm font-semibold text-muted-foreground hover:text-foreground transition-colors group"
                 scroll={false}
               >
-                Next 
-                <ChevronRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                Next <ChevronRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             )}
           </div>
-
         </div>
       )}
 

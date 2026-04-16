@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { CodeXml, ArrowRight, FileText, Mail, User } from "lucide-react";
@@ -19,14 +19,35 @@ import { MovingDots, Radar } from "@/components/ui/animated-backgrounds";
 import dynamic from "next/dynamic";
 import { SpotifyCard } from "@/components/ui/spotify-card";
 import { WakaTimeCard } from "@/components/ui/wakatime-card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const TypewriterEffectSmooth = dynamic(
   () => import("@/components/ui/typewriter-effect").then((mod) => mod.TypewriterEffectSmooth),
   { ssr: false }
 );
 
+const HOME_PROJECTS = [
+  {
+    title: "AC-CORE (Angeles City Center for Operational Reporting and Engineering)",
+    description:
+      "A proactive GovTech platform for Angeles City featuring Geospatial Signal Routing (GSR) to predict flooding risks and a Paved Paradox algorithm to prioritize infrastructure repairs.",
+    link: "/projects/ac-core",
+    image: "/projects/ac-core/accore-cover.webp",
+    video: "/projects/ac-core/accore-demo.mp4",
+    tags: ["MEAN Stack", "Leaflet.js", "Zoneless", "GeoJSON"],
+  },
+  {
+    title: "University of Assumption Laboratory Attendance",
+    description:
+      "A zero-trust educational platform that eliminates proxy attendance fraud by utilizing strict browser geolocation APIs and Elliptic Curve Digital Signature Algorithm (ECDSA) cryptographic verification.",
+    link: "/projects/ua-attendance",
+    image: "/projects/ua-attendance/ua-attendance-cover.webp",
+    video: "/projects/ua-attendance/ua-attendance-demo.mp4",
+    tags: ["Next.js 15", "Aiven MySQL", "ECDSA", "Geolib"],
+  },
+];
+
 export default function ExplorePage() {
-  // --- SCROLL FIX ---
   useEffect(() => {
     if (
       typeof window !== "undefined" &&
@@ -36,8 +57,6 @@ export default function ExplorePage() {
     }
     window.scrollTo(0, 0);
   }, []);
-
-  // --- DATA DEFINITIONS ---
 
   const wordsLine1 = [
     { text: "Hey," },
@@ -62,13 +81,11 @@ export default function ExplorePage() {
 
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-8 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      {/* --- HERO SECTION --- */}
       <section className="flex max-w-2xl flex-col gap-2 md:gap-4">
         <h1 className="sr-only">
           Ian Macabulos - Full-Stack Developer Philippines
         </h1>
 
-        {/* HEADER CONTAINER */}
         <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.15]">
           <TypewriterEffectSmooth
             words={wordsLine1}
@@ -136,7 +153,6 @@ export default function ExplorePage() {
         </div>
       </section>
 
-      {/* --- PROJECTS OVERVIEW --- */}
       <section className="flex flex-col gap-4 md:gap-6 mt-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-bold tracking-tight sm:text-2xl">
@@ -153,115 +169,12 @@ export default function ExplorePage() {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start">
-          {/* CARD 1: AC-CORE */}
-          <Link href="/projects/ac-core" className="group block h-full">
-            <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
-              <div className="relative w-full aspect-video overflow-hidden border-b border-border/50 bg-muted/20">
-                <Image
-                  src="/projects/ac-core/accore-cover.webp"
-                  alt="AC-CORE Platform Preview"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-20" />
-              </div>
-
-              <CardHeader className="px-6 pt-3 pb-1">
-                <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                  AC-CORE (Angeles City Center for Operational Reporting and
-                  Engineering)
-                </CardTitle>
-                <CardDescription className="line-clamp-2 text-sm sm:text-base">
-                  A proactive GovTech platform for Angeles City featuring
-                  Geospatial Signal Routing (GSR) to predict flooding risks and
-                  a Paved Paradox algorithm to prioritize infrastructure
-                  repairs.
-                </CardDescription>
-              </CardHeader>
-
-              <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
-                <Badge
-                  variant="secondary"
-                  className="rounded-md group-hover:bg-background transition-colors"
-                >
-                  MEAN Stack
-                </Badge>
-                <Badge
-                  variant="secondary"
-                  className="rounded-md group-hover:bg-background transition-colors"
-                >
-                  Leaflet.js
-                </Badge>
-                <Badge
-                  variant="secondary"
-                  className="rounded-md group-hover:bg-background transition-colors"
-                >
-                  Zoneless
-                </Badge>
-                <Badge
-                  variant="secondary"
-                  className="rounded-md group-hover:bg-background transition-colors"
-                >
-                  GeoJSON
-                </Badge>
-              </CardFooter>
-            </Card>
-          </Link>
-
-          {/* CARD 2: SUBVANTAGE */}
-          <Link href="/projects/subvantage" className="group block h-full">
-            <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
-              <div className="relative w-full aspect-video overflow-hidden border-b border-border/50 bg-muted/20">
-                <Image
-                  src="/projects/subvantage/subvantage-cover.webp"
-                  alt="SubVantage Subscription Management Dashboard"
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-20" />
-              </div>
-
-              <CardHeader className="px-6 pt-3 pb-1">
-                <CardTitle className="text-xl group-hover:text-primary transition-colors">
-                  SubVantage
-                </CardTitle>
-                <CardDescription className="line-clamp-2 text-sm sm:text-base">
-                  A secure financial dashboard for tracking subscriptions,
-                  fortified with Two-Factor Authentication (2FA) and powered by
-                  a high-performance serverless Neon PostgreSQL architecture.
-                </CardDescription>
-              </CardHeader>
-
-              <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
-                <Badge
-                  variant="secondary"
-                  className="rounded-md group-hover:bg-background transition-colors"
-                >
-                  Next.js 15
-                </Badge>
-                <Badge
-                  variant="secondary"
-                  className="rounded-md group-hover:bg-background transition-colors"
-                >
-                  Neon Postgres
-                </Badge>
-                <Badge
-                  variant="secondary"
-                  className="rounded-md group-hover:bg-background transition-colors"
-                >
-                  2FA Security
-                </Badge>
-              </CardFooter>
-            </Card>
-          </Link>
+          {HOME_PROJECTS.map((project) => (
+            <HomeProjectCard key={project.title} project={project} />
+          ))}
         </div>
       </section>
 
-      {/* --- STATS SECTION --- */}
       <section className="grid grid-cols-3 divide-x divide-border/50 rounded-xl bg-card shadow-sm border border-border/50 overflow-hidden">
         <div className="flex flex-col items-center justify-center p-4 text-center sm:p-8">
           <span className="text-3xl font-extrabold tracking-tighter text-foreground sm:text-4xl lg:text-6xl">
@@ -292,18 +205,11 @@ export default function ExplorePage() {
       </section>
 
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-        
-        {/* Left: Spotify Integration */}
         <SpotifyCard />
-
-        {/* Right: WakaTime Integration */}
         <WakaTimeCard />
-
       </section>
 
-      {/* --- NAVIGATION CARDS --- */}
       <section className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
-        {/* CARD 1: STACK */}
         <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
           <MovingDots />
           <CardHeader className="relative z-10">
@@ -325,7 +231,6 @@ export default function ExplorePage() {
           </CardFooter>
         </Card>
 
-        {/* CARD 2: RESUME */}
         <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
           <Radar />
           <CardHeader className="relative z-10">
@@ -348,5 +253,111 @@ export default function ExplorePage() {
         </Card>
       </section>
     </div>
+  );
+}
+
+function HomeProjectCard({ project }: { project: (typeof HOME_PROJECTS)[0] }) {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = () => {
+    hoverTimeoutRef.current = setTimeout(() => {
+      if (videoRef.current) {
+        if (videoRef.current.readyState === 0) {
+          videoRef.current.load();
+        }
+
+        const playPromise = videoRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise
+            .then(() => setIsVideoPlaying(true))
+            .catch((error) => {
+              if (error.name !== "AbortError") {
+                console.error("Video playback failed:", error);
+              }
+            });
+        }
+      }
+    }, 200);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+
+    setIsVideoPlaying(false);
+
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
+  return (
+    <Link
+      href={project.link}
+      className="group block h-full"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <Card className="h-full p-0 gap-2 overflow-hidden rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 border border-border/50 bg-card flex flex-col">
+        <div className="relative w-full aspect-video overflow-hidden border-b border-border/50 bg-muted/20">
+          {isImageLoading && (
+            <Skeleton className="absolute inset-0 h-full w-full z-10" />
+          )}
+
+          <Image
+            src={project.image}
+            alt={`Cover preview of ${project.title}`}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className={`object-cover transition-transform duration-500 group-hover:scale-105 z-10 ${
+              isImageLoading ? "opacity-0" : "opacity-100"
+            }`}
+            onLoad={() => setIsImageLoading(false)}
+          />
+
+          <video
+            ref={videoRef}
+            src={project.video}
+            preload="none"
+            muted
+            playsInline
+            loop
+            className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${
+              isVideoPlaying ? "opacity-100" : "opacity-0"
+            }`}
+          />
+
+          <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-30" />
+        </div>
+
+        <CardHeader className="px-6 pt-3 pb-1">
+          <CardTitle className="text-xl group-hover:text-primary transition-colors">
+            {project.title}
+          </CardTitle>
+          <CardDescription className="line-clamp-2 text-sm sm:text-base">
+            {project.description}
+          </CardDescription>
+        </CardHeader>
+
+        <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
+          {project.tags.map((tag) => (
+            <Badge
+              key={tag}
+              variant="secondary"
+              className="rounded-md group-hover:bg-background transition-colors"
+            >
+              {tag}
+            </Badge>
+          ))}
+        </CardFooter>
+      </Card>
+    </Link>
   );
 }
