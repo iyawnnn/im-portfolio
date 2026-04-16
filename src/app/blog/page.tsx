@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { getAllPostsMeta, PostMeta } from "@/lib/mdx";
-import { PageTransition } from "@/components/ui/page-transition";
 import { 
   ArrowRight, 
   Calendar, 
@@ -24,7 +23,6 @@ export default async function BlogPage({
   const resolvedParams = await searchParams;
   const currentPage = Number(resolvedParams.page) || 1;
   
-  // Fetch and sort posts by date (newest first)
   const posts = getAllPostsMeta().sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
@@ -45,48 +43,44 @@ export default async function BlogPage({
         </p>
       </div>
 
-      <PageTransition pageKey={currentPage}>
-        <section className="flex flex-col">
-          {paginatedPosts.map((post: PostMeta) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
-              <article className="flex flex-col gap-3 py-6 md:py-8 border-b border-border/50 transition-colors hover:bg-muted/30 px-3 sm:px-4 -mx-3 sm:-mx-4 rounded-xl">
+      <section className="flex flex-col">
+        {paginatedPosts.map((post: PostMeta) => (
+          <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
+            <article className="flex flex-col gap-3 py-6 md:py-8 border-b border-border/50 transition-colors hover:bg-muted/30 px-3 sm:px-4 -mx-3 sm:-mx-4 rounded-xl">
+              
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">
+                <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground transition-colors group-hover:opacity-80">
+                  {post.title}
+                </h2>
                 
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">
-                  <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground transition-colors group-hover:opacity-80">
-                    {post.title}
-                  </h2>
-                  
-                  {/* DYNAMIC METADATA LAYOUT: Row on Mobile, Stacked Right on Desktop */}
-                  <div className="flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-1.5 text-sm font-medium text-muted-foreground shrink-0 mt-1 sm:mt-0">
-                    <div className="flex items-center gap-1.5">
-                      <Calendar className="h-3.5 w-3.5 opacity-70" />
-                      <time dateTime={post.date}>{post.date}</time>
-                    </div>
-                    {/* Mobile-only dot separator */}
-                    <span className="sm:hidden text-[10px] opacity-50">●</span>
-                    <ViewCounter slug={post.slug} trackView={false} />
+                <div className="flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:gap-1.5 text-sm font-medium text-muted-foreground shrink-0 mt-1 sm:mt-0">
+                  <div className="flex items-center gap-1.5">
+                    <Calendar className="h-3.5 w-3.5 opacity-70" />
+                    <time dateTime={post.date}>{post.date}</time>
                   </div>
+                  <span className="sm:hidden text-[10px] opacity-50">●</span>
+                  <ViewCounter slug={post.slug} trackView={false} />
                 </div>
-                
-                <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-3xl">
-                  {post.description}
-                </p>
-                
-                <div className="flex items-center text-sm font-semibold text-muted-foreground mt-1 transition-colors group-hover:text-foreground">
-                  Read Article <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </div>
+              </div>
+              
+              <p className="text-muted-foreground text-sm sm:text-base leading-relaxed max-w-3xl">
+                {post.description}
+              </p>
+              
+              <div className="flex items-center text-sm font-semibold text-muted-foreground mt-1 transition-colors group-hover:text-foreground">
+                Read Article <ArrowRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </div>
 
-              </article>
-            </Link>
-          ))}
-          
-          {posts.length === 0 && (
-            <div className="py-12 text-center text-muted-foreground border-t border-border/50 mt-4">
-              No system logs available yet. Check back later.
-            </div>
-          )}
-        </section>
-      </PageTransition>
+            </article>
+          </Link>
+        ))}
+        
+        {posts.length === 0 && (
+          <div className="py-12 text-center text-muted-foreground border-t border-border/50 mt-4">
+            No system logs available yet. Check back later.
+          </div>
+        )}
+      </section>
 
       {totalPages > 1 && (
         <div className="flex items-center justify-between w-full pt-4">

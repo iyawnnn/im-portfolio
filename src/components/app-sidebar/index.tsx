@@ -19,7 +19,7 @@ import {
   Moon,
   ArrowUpRight,
   ChevronLeft,
-  Search
+  Search,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -101,6 +101,7 @@ function NavSection({
               <Link
                 href={link.href}
                 target={isExternal ? "_blank" : undefined}
+                prefetch={!isExternal ? true : undefined}
                 className={cn(
                   "group flex items-center rounded-xl py-2.5 text-sm font-medium transition-all duration-200 border",
                   isCollapsed ? "justify-center px-2" : "justify-between px-3",
@@ -283,20 +284,28 @@ export function AppSidebar() {
         />
       </nav>
 
-<footer
+      <footer
         className={cn(
           "mt-auto border-t border-sidebar-border pt-4 pb-1 w-full transition-all",
-          isCollapsed ? "flex flex-col items-center gap-2" : "px-3"
+          isCollapsed ? "flex flex-col items-center gap-2" : "px-3",
         )}
       >
-        <div className={cn("flex w-full gap-2 transition-all duration-300", isCollapsed ? "flex-col items-center" : "flex-row items-center")}>
-          
+        <div
+          className={cn(
+            "flex w-full gap-2 transition-all duration-300",
+            isCollapsed ? "flex-col items-center" : "flex-row items-center",
+          )}
+        >
           <Button
             variant="outline"
-            onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
+            onClick={() =>
+              window.dispatchEvent(new CustomEvent("open-command-palette"))
+            }
             className={cn(
               "bg-background/50 text-muted-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-foreground transition-all border-sidebar-border/60 rounded-xl h-10",
-              isCollapsed ? "w-10 p-0 justify-center shrink-0" : "flex-1 justify-between px-3"
+              isCollapsed
+                ? "w-10 p-0 justify-center shrink-0"
+                : "flex-1 justify-between px-3",
             )}
           >
             {isCollapsed ? (
@@ -319,7 +328,7 @@ export function AppSidebar() {
             size="icon"
             className={cn(
               "shrink-0 rounded-xl border-sidebar-border/60 bg-background/50 text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all h-10 w-10",
-              isCollapsed ? "" : ""
+              isCollapsed ? "" : "",
             )}
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
           >
@@ -331,7 +340,6 @@ export function AppSidebar() {
               ))}
             <span className="sr-only">Toggle Theme</span>
           </Button>
-
         </div>
       </footer>
     </aside>
