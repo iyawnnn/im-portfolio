@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import {
   ArrowLeft,
-  ExternalLink,
   Github,
   Layers,
   Briefcase,
@@ -19,7 +18,6 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export default function MamaRsPage() {
-  // Scroll to top on load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -51,7 +49,6 @@ export default function MamaRsPage() {
 
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      {/* --- BACK NAVIGATION --- */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -66,26 +63,22 @@ export default function MamaRsPage() {
         </Link>
       </div>
 
-      {/* --- HEADER --- */}
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
             Mama R's
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Inventory & Sales Management System
+            Inventory & Sales Operations Dashboard
           </h2>
         </div>
 
         <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          Mama R's is a custom business tool built on the MERN stack (MongoDB,
-          Express, React, Node.js). It was a freelance project created to help a
-          local business move away from paper logs. The system helps the owner
-          track inventory, record customer orders, and see daily sales totals in
-          a secure digital environment.
+          Mama R's is a custom business administration tool engineered with the MERN stack. It was designed to help a local bakery transition from manual paper logs to a secure digital environment. The system allows the business owner to log orders, print physical receipts, monitor real-time stock levels, record operational expenses, and execute end-of-day cash reconciliation from a web browser.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
+          <Badge variant="secondary">TypeScript</Badge>
           <Badge variant="secondary">React</Badge>
           <Badge variant="secondary">Node.js</Badge>
           <Badge variant="secondary">MongoDB</Badge>
@@ -93,7 +86,6 @@ export default function MamaRsPage() {
         </div>
       </div>
 
-      {/* --- HERO MEDIA (Video Autoplay) --- */}
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/mamars/mamars-demo.mp4"
@@ -106,17 +98,14 @@ export default function MamaRsPage() {
         />
       </div>
 
-      {/* --- DEMO & CODE CARD --- */}
       <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
         <div className="space-y-1">
           <h3 className="text-lg font-bold">Project Links</h3>
           <p className="text-sm text-muted-foreground max-w-md">
-            The live application is secured for internal business use only. You
-            can review the source code on GitHub.
+            The live application operates strictly as a secured client portal for internal business use only. You can review the complete source code on GitHub.
           </p>
         </div>
         <div className="flex gap-3 w-full md:w-auto">
-          {/* Internal App Button (Disabled) */}
           <Button
             disabled
             variant="secondary"
@@ -137,11 +126,8 @@ export default function MamaRsPage() {
         </div>
       </div>
 
-      {/* --- DETAILED CONTENT --- */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        {/* LEFT COLUMN (Main Content) */}
         <div className="xl:col-span-2 space-y-12">
-          {/* Core Features */}
           <section className="space-y-4">
             <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
               <Layout className="w-6 h-6 text-primary" /> Core Features
@@ -149,38 +135,31 @@ export default function MamaRsPage() {
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1">
-                  Sales Dashboard
+                  Order Processing & Receipts
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  A clear view of daily performance. It shows total sales and
-                  revenue numbers instantly so the owner knows how the business
-                  is doing without calculating it manually.
+                  Features a streamlined order entry sheet for rapid logging during business hours. The system automatically calculates totals and can generate formatted, printable receipts for customers.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1">
-                  Inventory Management
+                  Granular Stock Management
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Allows the user to add products and update stock levels. It
-                  keeps a history of changes to ensure items are not lost and
-                  stock counts remain accurate.
+                  Maintains a digital product catalog with real-time stock tracking. It actively warns the user with low-stock alerts, provides a restock modal for easy updates, and keeps an immutable stock history log to track all inventory movements over time.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1">
-                  Sales-Only Reporting
+                  Financial Dashboard & Reconciliation
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Generates simple reports focused strictly on income. It
-                  calculates total revenue from orders without complicating the
-                  view with expense tracking.
+                  Visualizes sales data through category pie charts and monthly metrics. It includes a dedicated expense manager and an end-of-day reconciliation tool to ensure the digital database matches the physical cash register.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Development Process */}
           <section className="space-y-6">
             <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
               <Cpu className="w-6 h-6 text-primary" /> Development Process
@@ -189,10 +168,7 @@ export default function MamaRsPage() {
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
-                The client needed to transition from manual pen-and-paper
-                tracking to a digital system. The main challenge was creating an
-                interface that was powerful enough to handle sales data but
-                simple enough for non-technical staff to use easily.
+                The initial application was built to simply log sales. However, the business requirements expanded rapidly to include expense tracking, printable receipts, and strict inventory logs. Managing complex financial states and preventing runtime errors required a more robust architecture.
               </p>
             </div>
 
@@ -200,41 +176,29 @@ export default function MamaRsPage() {
               <h3 className="text-xl font-semibold">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
-                  <strong>RESTful API Architecture:</strong> Designed a robust
-                  backend with Express.js to handle separate routes for products
-                  and orders. This keeps the data organized and secure.
+                  <strong>TypeScript Integration:</strong> Migrated the entire codebase to TypeScript. This introduced strict type definitions for orders, expenses, and stock logs, ensuring data integrity across the application.
                 </li>
                 <li>
-                  <strong>Order Tracking:</strong> Built a system to record
-                  every customer order. This data is saved instantly to the
-                  database so revenue totals are always up to date.
+                  <strong>Frontend Optimization:</strong> Rebuilt the user interface utilizing Vite and React. This update provided the high performance necessary for rapid order entry, while Tailwind CSS and Shadcn UI delivered a clean, professional aesthetic.
                 </li>
                 <li>
-                  <strong>Secure Authentication:</strong> Implemented JWT-based
-                  authentication. This protects sensitive business data and
-                  ensures only authorized staff can access the admin panel.
+                  <strong>Modular API Architecture:</strong> Engineered a scalable Node and Express backend. The application features distinct API routes for authentication, dashboard metrics, expenses, and stock logs to keep data flow organized and secure.
                 </li>
               </ul>
             </div>
           </section>
 
-          {/* Key Takeaways */}
           <section className="space-y-4">
             <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              This project honed my skills in translating specific business
-              requirements into code. It taught me how to build intuitive forms
-              for non-technical users and the importance of aggregating sales
-              data on the backend to keep the frontend fast.
+              This project provided extensive experience in translating evolving business needs into technical features. Implementing reconciliation tools and stock history logs taught me how to handle sensitive financial data and maintain accurate state across a full-stack application.
             </p>
           </section>
         </div>
 
-        {/* RIGHT COLUMN (Tech Stack & Meta) */}
         <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          {/* Tech Stack Widget */}
           <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -248,9 +212,10 @@ export default function MamaRsPage() {
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline">React</Badge>
+                  <Badge variant="outline">TypeScript</Badge>
                   <Badge variant="outline">Vite</Badge>
                   <Badge variant="outline">Tailwind CSS</Badge>
-                  <Badge variant="outline">Axios</Badge>
+                  <Badge variant="outline">Shadcn UI</Badge>
                 </div>
               </div>
 
@@ -261,8 +226,8 @@ export default function MamaRsPage() {
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline">Node.js</Badge>
                   <Badge variant="outline">Express.js</Badge>
+                  <Badge variant="outline">TypeScript</Badge>
                   <Badge variant="outline">MongoDB</Badge>
-                  <Badge variant="outline">Mongoose</Badge>
                 </div>
               </div>
 
@@ -271,15 +236,13 @@ export default function MamaRsPage() {
                   Services
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">JWT</Badge>
-                  <Badge variant="outline">Bcrypt</Badge>
+                  <Badge variant="outline">Secure Authentication</Badge>
                   <Badge variant="outline">REST API</Badge>
                 </div>
               </div>
             </div>
           </Card>
 
-          {/* Context Widget */}
           <Card className="border-border/50 shadow-sm bg-card/50">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -289,7 +252,6 @@ export default function MamaRsPage() {
             <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Type</span>
-                {/* UPDATED: Changed from 'Commission Work' to 'Freelance Project' */}
                 <span className="font-medium text-foreground">
                   Freelance Project
                 </span>
@@ -307,7 +269,6 @@ export default function MamaRsPage() {
             </div>
           </Card>
 
-          {/* Deployment Widget */}
           <Card className="border-border/50 shadow-sm bg-card/50">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
