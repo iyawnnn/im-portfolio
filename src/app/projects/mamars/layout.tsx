@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Mama R's - Inventory & Sales Management System | Ian Macabulos",
+  title: "Mama R's | Inventory and Sales Operations Dashboard | Ian Macabulos",
   description:
-    "A custom MERN stack application built for business digitization. Features secure inventory tracking, real-time sales dashboards, and role-based authentication.",
+    "A custom TypeScript MERN stack application built for a local business. It features streamlined order processing, granular stock management, and financial reconciliation.",
   openGraph: {
-    title: "Mama R's - Inventory & Sales Management System | Ian Macabulos",
+    title: "Mama R's | Inventory and Sales Operations Dashboard | Ian Macabulos",
     description:
-      "A custom MERN stack application built for business digitization. Features secure inventory tracking, real-time sales dashboards, and role-based authentication.",
+      "A custom TypeScript MERN stack application built for a local business. It features streamlined order processing, granular stock management, and financial reconciliation.",
     siteName: "Ian Macabulos Portfolio",
     type: "website",
   },

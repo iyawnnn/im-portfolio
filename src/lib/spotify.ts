@@ -31,6 +31,6 @@ export const getNowPlaying = async () => {
       Authorization: `Bearer ${access_token}`,
     },
     // ISR: Cache the result and revalidate silently every 30 seconds
-    next: { revalidate: 30 },
+    next: { revalidate: 30 }, 
   });
 };

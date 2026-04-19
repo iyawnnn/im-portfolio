@@ -66,8 +66,8 @@ const PROJECTS = [
   {
     title: "Mama R's",
     description:
-      "A bespoke Inventory and Sales Management System featuring real-time analytics, stock tracking, and automated reporting for a local business.",
-    tags: ["MERN Stack", "Tailwind", "Recharts"],
+      "A secure Inventory and Sales Operations Dashboard featuring real-time stock tracking, printable receipts, and end-of-day financial reconciliation.",
+    tags: ["TypeScript", "MERN Stack", "Tailwind CSS"],
     link: "/projects/mamars",
     image: "/projects/mamars/mamars-cover.webp",
     video: "/projects/mamars/mamars-demo.mp4",
@@ -98,15 +98,6 @@ const PROJECTS = [
     link: "/projects/movieloom",
     image: "/projects/movieloom/movieloom-cover.webp",
     video: "/projects/movieloom/movieloom-demo.mp4",
-  },
-  {
-    title: "KusinaGo",
-    description:
-      "A dedicated food ordering system enabling seamless customer ordering and robust admin management for sales and inventory.",
-    tags: ["PHP", "MongoDB", "E-commerce"],
-    link: "/projects/kusinago",
-    image: "/projects/kusinago/kusinago-cover.webp",
-    video: "/projects/kusinago/kusinago-demo.mp4",
   },
 ];
 

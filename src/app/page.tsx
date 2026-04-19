@@ -22,6 +22,15 @@ import { ScrollRestoration } from "@/components/ui/scroll-restoration";
 import { HomeProjectCard } from "@/components/ui/home-project-card";
 
 const HOME_PROJECTS = [
+    {
+    title: "University of Assumption Laboratory Attendance",
+    description:
+      "A zero-trust educational platform that eliminates proxy attendance fraud by utilizing strict browser geolocation APIs and Elliptic Curve Digital Signature Algorithm (ECDSA) cryptographic verification.",
+    link: "/projects/ua-attendance",
+    image: "/projects/ua-attendance/ua-attendance-cover.webp",
+    video: "/projects/ua-attendance/ua-attendance-demo.mp4",
+    tags: ["Next.js 15", "Aiven MySQL", "ECDSA", "Geolib"],
+  },
   {
     title: "AC-CORE (Angeles City Center for Operational Reporting and Engineering)",
     description:
@@ -30,15 +39,6 @@ const HOME_PROJECTS = [
     image: "/projects/ac-core/accore-cover.webp",
     video: "/projects/ac-core/accore-demo.mp4",
     tags: ["MEAN Stack", "Leaflet.js", "Zoneless", "GeoJSON"],
-  },
-  {
-    title: "University of Assumption Laboratory Attendance",
-    description:
-      "A zero-trust educational platform that eliminates proxy attendance fraud by utilizing strict browser geolocation APIs and Elliptic Curve Digital Signature Algorithm (ECDSA) cryptographic verification.",
-    link: "/projects/ua-attendance",
-    image: "/projects/ua-attendance/ua-attendance-cover.webp",
-    video: "/projects/ua-attendance/ua-attendance-demo.mp4",
-    tags: ["Next.js 15", "Aiven MySQL", "ECDSA", "Geolib"],
   },
 ];
 
