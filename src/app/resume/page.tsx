@@ -142,7 +142,7 @@ export default function ResumePage() {
 
             <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1">
               <h3 className="text-lg md:text-xl font-bold text-foreground">
-                Freelance Full-Stack Developer
+                Freelance Full Stack Developer
               </h3>
               <span className="text-sm font-mono text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded w-fit">
                 2025 - Present
@@ -166,25 +166,25 @@ export default function ResumePage() {
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  Engineered custom MERN-stack architectures for commercial clients, converting manual paper-based workflows into digital systems to significantly improve data retrieval speeds.
+                  Architected full-stack operational dashboards for local commercial enterprises, modernizing legacy workflows into responsive digital ecosystems that drastically reduced data retrieval latency.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  Automated daily revenue and stock reporting through dynamic dashboards, eliminating manual calculation errors and providing business owners with real-time performance insights.
+                  Engineered complex, production-grade web applications for academic clients, successfully delivering projects and technical solutions that resolved specific architectural bottlenecks.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  Secured sensitive business transactions by implementing administrative panels with JWT-based authentication and Bcrypt hashing to ensure strictly authorized access.
+                  Designed secure backend infrastructures with strict role-based access controls and custom validation schemas to protect sensitive financial records and operational data from unauthorized access.
                 </span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
                 <span>
-                  Managed the full software lifecycle from high-fidelity Figma prototyping to final cloud deployment on Vercel, focusing on sub-second user experiences for mobile devices.
+                  Managed the complete software development lifecycle from initial UI prototyping to cloud deployment, providing technical guidance and logic mentorship to help IT students translate complex requirements into scalable code.
                 </span>
               </li>
             </ul>
