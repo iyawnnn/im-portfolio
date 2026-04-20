@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
-import { CodeXml, ArrowRight, FileText, Mail, User } from "lucide-react";
+import { CodeXml, ArrowRight, FileText, Mail, User, BookOpen } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,12 +17,13 @@ import { WakaTimeCard } from "@/components/ui/wakatime-card";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Import the isolated Client Components
 import { ScrollRestoration } from "@/components/ui/scroll-restoration";
 import { HomeProjectCard } from "@/components/ui/home-project-card";
 
+import { getAllPostsMeta } from "@/lib/mdx";
+
 const HOME_PROJECTS = [
-    {
+  {
     title: "University of Assumption Laboratory Attendance",
     description:
       "A zero-trust educational platform that eliminates proxy attendance fraud by utilizing strict browser geolocation APIs and Elliptic Curve Digital Signature Algorithm (ECDSA) cryptographic verification.",
@@ -42,9 +43,7 @@ const HOME_PROJECTS = [
   },
 ];
 
-
 export default function ExplorePage() {
-
   const wordsLine1 = [
     { text: "Hey," },
     { text: "I’m" },
@@ -66,9 +65,20 @@ export default function ExplorePage() {
     { text: "Developer.", className: "text-muted-foreground" },
   ];
 
+  const latestPosts = getAllPostsMeta()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-8 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      {/* Isolated Client Component for Scroll Logic */}
       <ScrollRestoration />
 
       <section className="flex max-w-2xl flex-col gap-2 md:gap-4">
@@ -76,7 +86,7 @@ export default function ExplorePage() {
           Ian Macabulos - Full-Stack Developer Philippines
         </h1>
 
-        <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.15]">
+        <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.15]">
           <TypewriterEffectSmooth
             words={wordsLine1}
             className="p-0 m-0"
@@ -167,34 +177,33 @@ export default function ExplorePage() {
 
       <section className="grid grid-cols-3 divide-x divide-border/50 rounded-xl bg-card shadow-sm border border-border/50 overflow-hidden">
         <div className="flex flex-col items-center justify-center p-4 text-center sm:p-8">
-          <span className="text-3xl font-extrabold tracking-tighter text-foreground sm:text-4xl lg:text-6xl">
-            <Counter value={10} />+
+          <span className="text-2xl font-extrabold tracking-tighter text-foreground sm:text-4xl lg:text-6xl">
+            <Counter value={3100} />+
           </span>
-          <span className="text-[10px] font-medium text-muted-foreground mt-1 leading-tight sm:text-sm lg:text-base">
-            Projects <br className="sm:hidden" /> Completed
-          </span>
-        </div>
-
-        <div className="flex flex-col items-center justify-center p-4 text-center sm:p-8">
-          <span className="text-3xl font-extrabold tracking-tighter text-foreground sm:text-4xl lg:text-6xl">
-            <Counter value={8} />+
-          </span>
-          <span className="text-[10px] font-medium text-muted-foreground mt-1 leading-tight sm:text-sm lg:text-base">
-            Projects Live <br className="sm:hidden" /> & Deployed
+          <span className="text-[10px] font-medium text-muted-foreground mt-1 leading-tight sm:text-sm lg:text-base uppercase tracking-wide">
+            Engineering <br className="sm:hidden" /> Hours
           </span>
         </div>
 
         <div className="flex flex-col items-center justify-center p-4 text-center sm:p-8">
-          <span className="text-3xl font-extrabold tracking-tighter text-foreground sm:text-4xl lg:text-6xl">
-            <Counter value={8} />+
+          <span className="text-2xl font-extrabold tracking-tighter text-foreground sm:text-4xl lg:text-6xl">
+            <Counter value={2000} />+
           </span>
-          <span className="text-[10px] font-medium text-muted-foreground mt-1 leading-tight sm:text-sm lg:text-base">
-            Languages <br className="sm:hidden" /> Mastered
+          <span className="text-[10px] font-medium text-muted-foreground mt-1 leading-tight sm:text-sm lg:text-base uppercase tracking-wide">
+            GitHub <br className="sm:hidden" /> Commits
+          </span>
+        </div>
+
+        <div className="flex flex-col items-center justify-center p-4 text-center sm:p-8">
+          <span className="text-2xl font-extrabold tracking-tighter text-foreground sm:text-4xl lg:text-6xl">
+            <Counter value={200} />+
+          </span>
+          <span className="text-[10px] font-medium text-muted-foreground mt-1 leading-tight sm:text-sm lg:text-base uppercase tracking-wide">
+            Merged <br className="sm:hidden" /> Pull Requests
           </span>
         </div>
       </section>
 
-      {/* --- REACT SUSPENSE STREAMING BOUNDARY --- */}
       <section className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         <Suspense fallback={<Skeleton className="h-[160px] w-full rounded-xl bg-card border border-border/50 shadow-sm" />}>
           <SpotifyCard />
@@ -204,11 +213,61 @@ export default function ExplorePage() {
           <WakaTimeCard />
         </Suspense>
       </section>
-      {/* ----------------------------------------- */}
+
+      <section className="w-full">
+        <div className="flex flex-col lg:flex-row overflow-hidden rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md min-h-[300px]">
+          
+          <div className="relative flex flex-col justify-center p-8 lg:p-10 lg:w-2/5 overflow-hidden">
+            <div className="relative z-10 flex flex-col max-w-sm">
+              <div className="p-3 bg-primary/10 rounded-xl w-fit mb-6">
+                <BookOpen className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-foreground mb-3">
+                Localhost Tales
+              </h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                Deep dives into modern full-stack architecture, system optimization, and the realities of production-grade software.
+              </p>
+              <Button
+                asChild
+                variant="default"
+                className="w-fit rounded-md shadow-sm transition-all hover:opacity-90 active:scale-95"
+              >
+                <Link href="/blog">View All Articles</Link>
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex flex-col lg:w-3/5 border-t lg:border-t-0 lg:border-l border-border/50 divide-y divide-border/50 bg-secondary/10">
+            {latestPosts.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group flex flex-1 items-center justify-between p-6 lg:px-8 lg:py-0 transition-colors hover:bg-muted/40 active:bg-muted/60 min-h-[80px]"
+              >
+                <div className="flex flex-col gap-1.5 pr-4 py-4 lg:py-6">
+                  <span className="text-xs font-mono text-muted-foreground tracking-wider uppercase">
+                    {formatDate(post.date)}
+                  </span>
+                  <h4 className="text-base sm:text-lg font-bold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                    {post.title}
+                  </h4>
+                </div>
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border/50 bg-background transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground group-hover:-rotate-45">
+                  <ArrowRight className="h-4 w-4" />
+                </div>
+              </Link>
+            ))}
+          </div>
+
+        </div>
+      </section>
 
       <section className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
         <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
-          <MovingDots />
+          <div className="absolute inset-0 z-0 hidden md:block">
+            <MovingDots />
+          </div>
           <CardHeader className="relative z-10">
             <CodeXml className="h-8 w-8 text-primary mb-2 sm:h-10 sm:w-10" />
             <CardTitle className="text-lg sm:text-xl">Stack</CardTitle>
@@ -216,7 +275,7 @@ export default function ExplorePage() {
               The tech behind my projects.
             </CardDescription>
           </CardHeader>
-          <CardFooter className="relative z-10">
+          <CardFooter className="relative z-10 mt-8 md:mt-0">
             <Button
               asChild
               variant="outline"
@@ -229,7 +288,9 @@ export default function ExplorePage() {
         </Card>
 
         <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
-          <Radar />
+          <div className="absolute inset-0 z-0 hidden md:block">
+            <Radar />
+          </div>
           <CardHeader className="relative z-10">
             <FileText className="h-8 w-8 text-primary mb-2 sm:h-10 sm:w-10" />
             <CardTitle className="text-lg sm:text-xl">Resume</CardTitle>
@@ -237,7 +298,7 @@ export default function ExplorePage() {
               My professional journey and qualifications.
             </CardDescription>
           </CardHeader>
-          <CardFooter className="relative z-10">
+          <CardFooter className="relative z-10 mt-8 md:mt-0">
             <Button
               asChild
               variant="default"
