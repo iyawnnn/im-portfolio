@@ -75,8 +75,8 @@ const PROJECTS = [
   {
     title: "ClimaPH",
     description:
-      "A high-performance weather platform tailored for the Philippines, integrating real-time forecasts with lifestyle metrics like laundry and umbrella guides.",
-    tags: ["Next.js 15", "TypeScript", "API"],
+      "A specialized weather  platform tailored for the Philippines, integrating real-time forecasts with lifestyle metrics.",
+    tags: ["Next.js 16", "TypeScript", "API", "MapLibreGL"],
     link: "/projects/climaph",
     image: "/projects/climaph/climaph-cover.webp",
     video: "/projects/climaph/climaph-demo.mp4",

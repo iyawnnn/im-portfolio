@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ClimaPH - Advanced Weather Forecasting Platform | Ian Macabulos",
+  title: "ClimaPH | Comprehensive Weather Forecasting System for the Philippines",
   description:
-    "A high-performance weather application for the Philippines built with Next.js 15. Features real-time forecasts, lifestyle metrics, and smart caching.",
+    "A specialized weather system built with Next.js 16 and MapLibre. View 3-day forecasts with precise temperature data for morning, afternoon, evening, and night across the Philippines.",
   openGraph: {
-    title: "ClimaPH - Advanced Weather Forecasting Platform | Ian Macabulos",
+    title: "ClimaPH | Comprehensive Weather Forecasting System for the Philippines",
     description:
-      "A high-performance weather application for the Philippines built with Next.js 15. Features real-time forecasts, lifestyle metrics, and smart caching.",
+      "A specialized weather system built with Next.js 16 and MapLibre. View 3-day forecasts with precise temperature data for morning, afternoon, evening, and night across the Philippines.",
     siteName: "Ian Macabulos Portfolio",
     type: "website",
+    url: "https://iansebastian.dev/projects/climaph",
   },
 };
 

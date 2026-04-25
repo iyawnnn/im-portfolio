@@ -12,13 +12,13 @@ import {
   Globe,
   Layout,
   Rocket,
+  ShieldCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 export default function ClimaPHPage() {
-  // Scroll to top on load
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -50,7 +50,6 @@ export default function ClimaPHPage() {
 
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      {/* --- BACK NAVIGATION --- */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -64,34 +63,29 @@ export default function ClimaPHPage() {
           All Projects
         </Link>
       </div>
-      {/* --- HEADER --- */}
+      
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
             ClimaPH
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Advanced Weather Forecasting Platform
+            Comprehensive Weather Forecasting System for the Philippines
           </h2>
         </div>
 
         <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          ClimaPH is a high-performance weather forecasting application built
-          using the Next.js ecosystem. It provides a unified platform for users
-          to monitor real-time weather, 12-hour temperature trends, and 5-day
-          extended outlooks for any location in the Philippines and beyond. The
-          platform integrates practical "Lifestyle" metrics like laundry and
-          umbrella guides into a single system.
+          ClimaPH is a high-performance meteorological application built on the modern Next.js App Router ecosystem. Designed specifically for the Philippines, it delivers real-time weather monitoring, interactive MapLibre visualization layers, and highly accurate local forecasts. The platform is engineered with a strict focus on API security, type safety, and robust state management to ensure reliable data delivery.
         </p>
 
         <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">Next.js 15</Badge>
-          <Badge variant="secondary">React 19</Badge>
-          <Badge variant="secondary">API</Badge>
-          <Badge variant="secondary">Tailwind CSS</Badge>
+          <Badge variant="secondary">Next.js 16</Badge>
+          <Badge variant="secondary">Tailwind CSS v4</Badge>
+          <Badge variant="secondary">Zustand</Badge>
+          <Badge variant="secondary">MapLibre GL</Badge>
         </div>
       </div>
-      {/* --- HERO MEDIA (Video) --- */}
+      
       <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
         <video
           src="/projects/climaph/climaph-demo.mp4"
@@ -103,7 +97,7 @@ export default function ClimaPHPage() {
           className="h-full w-full object-cover"
         />
       </div>
-      {/* --- DEMO & CODE CARD --- */}
+      
       <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
         <div className="space-y-1">
           <h3 className="text-lg font-bold">Project Links</h3>
@@ -128,11 +122,10 @@ export default function ClimaPHPage() {
           </Button>
         </div>
       </div>
-      {/* --- DETAILED CONTENT --- */}
+      
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        {/* LEFT COLUMN (Main Content) */}
         <div className="xl:col-span-2 space-y-12">
-          {/* Core Features */}
+          
           <section className="space-y-4">
             <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
               <Layout className="w-6 h-6 text-primary" /> Core Features
@@ -140,50 +133,41 @@ export default function ClimaPHPage() {
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1">
-                  Weather Modules
+                  Interactive Mapping
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Real Feel temperature status with color-coded alerts,
-                  interactive 12-hour temperature trend charts, and 5-day
-                  extended forecasts.
+                  Integrated MapLibre GL and React Map GL to visualize dynamic meteorological layers, including temperature, cloud coverage, and wind patterns across the country.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1">
-                  Lifestyle Insights
+                  Localized Forecasting
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Smart "Sampay Meter" laundry guide based on cloud cover and an
-                  Umbrella Check for rain protection or UV shielding.
+                  Provides accurate 3-day weather predictions and detailed daily temperature tracking, breaking down conditions across morning, afternoon, evening, and night segments.
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
                 <h3 className="font-semibold text-foreground mb-1">
-                  Location Intelligence
+                  Location Management
                 </h3>
                 <p className="text-muted-foreground text-sm">
-                  Automatic geolocation detection, real-time city search with
-                  instant results via caching, and persistent favorite
-                  locations.
+                  Features automatic geolocation, real-time city search, recent search history tracking, and a persistent favorite locations list.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Development Process */}
+          
           <section className="space-y-6">
             <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-              <Cpu className="w-6 h-6 text-primary" /> Development Process
+              <Cpu className="w-6 h-6 text-primary" /> Architecture & Implementation
             </h2>
 
             <div className="space-y-4">
               <h3 className="text-xl font-semibold">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
-                The main challenge was handling complex data transformations.
-                Raw API data comes in 3-hour intervals, but the UI required
-                daily summaries and specific trend charts. Additionally,
-                ensuring type safety across strict TypeScript interfaces for all
-                API responses was critical for stability.
+                The application required managing complex client state for mapping and user preferences while ensuring strict security protocols. Exposing external API credentials to the client browser was a critical vulnerability that needed to be addressed without compromising performance.
               </p>
             </div>
 
@@ -191,42 +175,32 @@ export default function ClimaPHPage() {
               <h3 className="text-xl font-semibold">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
-                  <strong>Smart Caching:</strong> Implemented caching strategies
-                  for location searches and API calls. This drastically reduced
-                  redundant network requests and provided instant load times for
-                  revisited cities.
+                  <strong>State & Fetching:</strong> Implemented Zustand for streamlined global state management and SWR for reactive data synchronization across components.
                 </li>
                 <li>
-                  <strong>Data Transformation:</strong> Built logic to group
-                  3-hour interval API data into daily summaries for the 5-day
-                  forecast.
+                  <strong>Strict Environment Validation:</strong> Utilized @t3-oss/env-nextjs combined with Zod to enforce type-safe runtime validation of environment variables, ensuring server credentials never leak to the client.
                 </li>
                 <li>
-                  <strong>Secure API:</strong> Built RESTful Route Handlers to
-                  securely manage API calls and hide keys using environment
-                  variables.
+                  <strong>API Obfuscation:</strong> Constructed secure Next.js Route Handlers to proxy all requests to OpenWeatherMap and OpenCage Data. These endpoints include sanitized error handling to prevent detailed stack traces from reaching the browser.
                 </li>
               </ul>
             </div>
           </section>
 
-          {/* Key Takeaways */}
+          
           <section className="space-y-4">
             <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-              <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
+              <ShieldCheck className="w-6 h-6 text-primary" /> Security & Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
-              This project solidified my understanding of the Next.js App Router
-              and server-side API communication. I successfully managed
-              professional branch merging workflows and applied strict
-              TypeScript practices to ensure a stable production build.
+              This project demonstrates a rigorous approach to full-stack security and dynamic configuration. By isolating external dependencies behind proxy routes and validating configurations at runtime, the application is highly portable and resilient. It can be safely deployed in any environment while protecting service quotas.
             </p>
           </section>
         </div>
 
-        {/* RIGHT COLUMN (Tech Stack & Meta) */}
+        
         <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          {/* Tech Stack Widget */}
+          
           <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -239,40 +213,39 @@ export default function ClimaPHPage() {
                   Frontend
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Next.js 15</Badge>
+                  <Badge variant="outline">Next.js 16</Badge>
                   <Badge variant="outline">React 19</Badge>
-                  <Badge variant="outline">Tailwind CSS</Badge>
-                  <Badge variant="outline">Shadcn UI</Badge>
-                  <Badge variant="outline">Framer Motion</Badge>
-                  <Badge variant="outline">Recharts</Badge>
+                  <Badge variant="outline">Tailwind v4</Badge>
+                  <Badge variant="outline">Zustand</Badge>
+                  <Badge variant="outline">SWR</Badge>
+                  <Badge variant="outline">MapLibre GL</Badge>
                 </div>
               </div>
 
               <div>
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Backend & API
+                  Backend & Security
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   <Badge variant="outline">Route Handlers</Badge>
-                  <Badge variant="outline">OpenWeatherMap</Badge>
-                  <Badge variant="outline">OpenCage Data</Badge>
+                  <Badge variant="outline">Zod Validation</Badge>
+                  <Badge variant="outline">env-nextjs</Badge>
                 </div>
               </div>
 
               <div>
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                  Tools
+                  APIs
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">Turbopack</Badge>
-                  <Badge variant="outline">Vercel</Badge>
+                  <Badge variant="outline">OpenWeatherMap</Badge>
+                  <Badge variant="outline">OpenCage Data</Badge>
                 </div>
               </div>
             </div>
           </Card>
 
-          {/* Context Widget */}
+          
           <Card className="border-border/50 shadow-sm bg-card/50">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -293,13 +266,13 @@ export default function ClimaPHPage() {
               <div className="flex justify-between border-b border-border/50 pb-2">
                 <span>Role</span>
                 <span className="font-medium text-foreground">
-                  Frontend Developer
+                  Full Stack Developer
                 </span>
               </div>
             </div>
           </Card>
 
-          {/* Deployment Widget */}
+          
           <Card className="border-border/50 shadow-sm bg-card/50">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
@@ -312,14 +285,8 @@ export default function ClimaPHPage() {
                 <span className="font-medium text-foreground">Vercel</span>
               </div>
               <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Version</span>
-                <span className="font-medium text-foreground">v1.0.0</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>API</span>
-                <span className="font-medium text-foreground">
-                  OpenWeather, OpenCage
-                </span>
+                <span>Architecture</span>
+                <span className="font-medium text-foreground">App Router</span>
               </div>
             </div>
           </Card>
