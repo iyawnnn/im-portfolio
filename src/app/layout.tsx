@@ -21,20 +21,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  // 1. Base URL
-  metadataBase: new URL("https://iansebastian.dev"),
-
-  // 2. Title Template
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://iansebastian.dev",
+  ),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "Ian Macabulos",
     template: "%s | Ian Macabulos",
   },
-
-  // 3. Description
   description:
     "A Full-Stack Developer based in the Philippines, crafting accessible and high-performance web applications with Next.js, TypeScript, and Node.js.",
-
-  // 4. Keywords
   keywords: [
     "Ian Macabulos",
     "Ian Sebastian Macabulos",
@@ -44,21 +42,17 @@ export const metadata: Metadata = {
     "React",
     "TypeScript",
   ],
-
-  // 6. Open Graph
   openGraph: {
     title: "Ian Macabulos",
     description:
       "Building scalable, high-performance web applications with the modern tech stack.",
-    url: "https://iansebastian.dev",
+    url: process.env.NEXT_PUBLIC_BASE_URL || "https://iansebastian.dev",
     siteName: "Ian Macabulos",
     locale: "en_US",
     type: "website",
   },
-
-  // 7. Twitter Card
   twitter: {
-    card: "summary_large_image", 
+    card: "summary_large_image",
     title: "Ian Macabulos",
     description: "Full-Stack Developer based in the Philippines.",
   },
@@ -114,7 +108,6 @@ export default function RootLayout({
             <LayoutWrapper>{children}</LayoutWrapper>
           </SidebarProvider>
         </ThemeProvider>
-
         <CommandMenu /> {/* 2. Inject the Command Menu globally */}
         <ChatWidget />
         <Analytics />

@@ -1,4 +1,3 @@
-// src/app/sitemap.ts
 import type { MetadataRoute } from "next";
 import { getAllPostsMeta } from "@/lib/mdx";
 
@@ -80,6 +79,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/projects/movieloom`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/projects/ac-core`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/projects/grit`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/projects/ua-attendance`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,
