@@ -1,0 +1,44 @@
+---
+title: "How a single typo crashed my backend and forced a TypeScript rewrite"
+date: "2026-05-02"
+description: "The reality check I got after building a fast inventory dashboard in JavaScript and watching it silently fail."
+coverImage: "/blog/migrating-mamar-typescript/cover.webp"
+---
+
+Move fast and break things. That was my mindset when I first started building the new digital system for a local bakery. 
+
+The goal for [Mama R's](/projects/mamars) was simple. I needed to help the business transition from manual paper logs to a secure digital environment. The owner needed a way to log orders, monitor real-time stock levels, and print physical receipts from a web browser. 
+
+I built the initial version using the MERN stack with pure JavaScript. The appeal was obvious. JavaScript allows for incredible development speed. You do not have to configure a compiler, and you do not have to define strict types for every single variable. You just write the logic, save the file, and run it. 
+
+For a while, this worked perfectly. But as the business requirements expanded rapidly to include an expense manager and an end-of-day cash reconciliation tool, that rapid prototyping environment became a massive liability.
+
+### The Silent Failure
+
+The breaking point was a frustrating `ECONNABORTED` timeout error. It was a silent failure that brought the entire React frontend to a halt. 
+
+In a pure JavaScript environment, errors often hide until you run the code and a specific edge case breaks the application. After hours of staring at the terminal and debugging the Express backend, I finally found the culprit. 
+
+Somewhere in the code, a financial expense object was being routed to the database. Instead of using the correct property name `expense.amount`, the code was trying to pass `expense.cost`. 
+
+Because JavaScript does not care about data shapes until runtime, it happily sent the malformed request to the server. The MongoDB database did not know how to process the missing data, the connection hung, and the system eventually threw a timeout error. 
+
+> I realized I was trying to manage complex financial states and secure stock history logs using a language that allowed me to easily pass broken data. It was completely unsustainable.
+
+### Enforcing the Rules
+
+Migrating an active project is always a challenge, but I needed a more robust architecture. I decided to transition the entire codebase to TypeScript.
+
+With TypeScript, I was able to define exactly what an Expense, a Product, and a Sales Order looked like. I created strict interface contracts for every piece of data moving through the system. If I tried to type `expense.cost` again, the code editor immediately threw a red underline and stopped me from saving the file. 
+
+This proactive error catching changed everything. Instead of waiting for a runtime disaster to freeze the dashboard, the compiler acted as a strict boundary. It ensured that only perfectly formatted data could move between the frontend and the database, which is absolutely critical when handling sensitive cash reconciliation data.
+
+### Breaking the Guesswork
+
+The migration did more than just prevent bugs. It completely supercharged my development environment. 
+
+To ensure the system was fast enough for rapid order entry during busy bakery hours, I rebuilt the frontend using Vite. I also rely heavily on Tailwind CSS and Shadcn UI for a clean, professional aesthetic. Integrating these complex UI components in JavaScript usually involves a lot of guesswork and constantly checking external documentation. 
+
+With TypeScript, the autocomplete features inside my code editor became incredibly powerful. When I added a new UI component, the editor showed me exactly what properties and data types were required to make it work. It bridged the gap between the component library and my custom backend logic flawlessly.
+
+Building fast is great, but handling evolving business needs requires stability. Trading raw development speed for strict data contracts was the best decision I made for this codebase.
