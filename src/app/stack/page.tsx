@@ -35,7 +35,9 @@ import {
   SiFastapi,
   SiLaravel,
   SiRender,
-  SiSqlite
+  SiSqlite,
+  SiExpo,
+  SiRust
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 
@@ -154,6 +156,12 @@ const toolsData: ToolCategory[] = [
         description: "Popular server-side scripting language.",
         icon: SiPhp,
         tags: ["Language", "Server-side"],
+      },
+      {
+        name: "Rust",
+        description: "Systems language focused on speed and safety.",
+        icon: SiRust,
+        tags: ["Language", "Systems"],
       },
     ],
   },
@@ -293,6 +301,18 @@ const toolsData: ToolCategory[] = [
         description: "Client-optimized language for fast apps.",
         icon: SiDart,
         tags: ["Language", "Mobile"],
+      },
+      {
+        name: "React Native",
+        description: "Build native apps using React.",
+        icon: SiReact,
+        tags: ["Mobile", "Cross-platform"],
+      },
+      {
+        name: "Expo",
+        description: "Framework and platform for universal React apps.",
+        icon: SiExpo,
+        tags: ["Mobile", "Tooling"],
       },
     ],
   },
