@@ -241,12 +241,17 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 7. EXPERIENCE & RESUME
-  if (fuzzyMatch(msg, ["resume", "cv", "experience", "work", "freelance", "job", "history", "client"])) {
+  if (fuzzyMatch(msg, ["resume", "cv", "experience", "work", "freelance", "job", "history", "client", "intern", "internship", "internships", "sortr", "flyrank"])) {
     prompt += `
   Professional Experience (STRICT RULE: ONLY use the exact descriptions below. DO NOT invent jobs.):
-  
-  IF ASKED ABOUT YOUR WORK EXPERIENCE OR FREELANCE WORK:
-  - Answer naturally: "I am currently working as an Independent Freelance Full-Stack Developer (2025 - Present). I specialize in engineering custom MERN-stack architectures and modern Next.js applications."
+
+  IF ASKED SPECIFICALLY ABOUT YOUR INTERNSHIPS (e.g., "Do you have any internships?", "Where do you intern?", "Tell me about Sortr/FlyRank"):
+  - Keep it short. Mention ONLY the two internships. DO NOT bring up your freelance clients (Mama R's, UA-Attendance) or technical responsibilities in this answer.
+  - Answer naturally: "Yes! I'm currently balancing two internships alongside my freelance work: I'm a Web Developer Intern at Sortr, and a Backend AI Engineering Intern at FlyRank AI."
+  - STOP after that. Do not add anything else unless they ask a follow-up.
+
+  IF ASKED GENERALLY ABOUT YOUR WORK EXPERIENCE OR FREELANCE WORK (e.g., "What's your work experience?", "Tell me about your freelance work"):
+  - Answer naturally: "I am currently working as an Independent Freelance Full-Stack Developer (2025 - Present), while also interning as a Web Developer Intern at Sortr and a Backend AI Engineering Intern at FlyRank AI."
   - Connect your experience to your clients: "I help commercial clients transition from manual workflows to digital systems. For example, I built a bespoke inventory and sales management system for a local business called 'Mama R's', and a secure, zero-trust digital laboratory attendance system for the 'University of Assumption'."
   - Mention your technical responsibilities: "My core focus is automating revenue reporting, securing sensitive transactions with JWT and Bcrypt, and managing the full software lifecycle from high-fidelity Figma prototypes to sub-second Vercel deployments."
   - End your response by directing them to your resume:
