@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Get in touch for freelance projects, internships, or full-time opportunities. Let's build something awesome together.",
+  alternates: {
+    canonical: "/contact",
+  },
   openGraph: {
     title: "Contact | Ian Macabulos",
     description:

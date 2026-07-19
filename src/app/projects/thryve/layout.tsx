@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Thryve - Unified Health & Fitness Ecosystem | Ian Macabulos",
   description:
     "A full-stack health application built on the MEVN stack (MongoDB, Vue.js, Node.js). Features workout logging, nutrition tracking, and gamified achievements.",
+  alternates: {
+    canonical: "/projects/thryve",
+  },
   openGraph: {
     title: "Thryve - Unified Health & Fitness Ecosystem | Ian Macabulos",
     description:

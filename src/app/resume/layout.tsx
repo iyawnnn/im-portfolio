@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Resume",
   description:
     "View my professional experience, education history from Holy Angel University, and certifications in Web Development.",
+  alternates: {
+    canonical: "/resume",
+  },
   openGraph: {
     title: "Resume | Ian Macabulos",
     description:

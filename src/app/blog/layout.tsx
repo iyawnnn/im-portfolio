@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Blog",
   description:
     "Thoughts on web development, minimalist design, and building scalable applications.",
+  alternates: {
+    canonical: "/blog",
+  },
   openGraph: {
     title: "Blog | Ian Macabulos",
     description:

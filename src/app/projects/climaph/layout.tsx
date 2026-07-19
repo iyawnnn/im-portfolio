@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "ClimaPH | Comprehensive Weather Forecasting System for the Philippines",
   description:
     "A specialized weather system built with Next.js 16 and MapLibre. View 3-day forecasts with precise temperature data for morning, afternoon, evening, and night across the Philippines.",
+  alternates: {
+    canonical: "/projects/climaph",
+  },
   openGraph: {
     title: "ClimaPH | Comprehensive Weather Forecasting System for the Philippines",
     description:

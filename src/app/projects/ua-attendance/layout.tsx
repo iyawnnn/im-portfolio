@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "University of Assumption Laboratory Attendance - Cryptographic Tracking Platform | Ian Macabulos",
   description:
     "A zero-trust educational platform for the University of Assumption featuring browser geolocation APIs and Elliptic Curve Digital Signature Algorithm (ECDSA) to eliminate proxy attendance fraud.",
+  alternates: {
+    canonical: "/projects/ua-attendance",
+  },
   openGraph: {
     title: "UA Laboratory Attendance - Cryptographic Tracking Platform | Ian Macabulos",
     description:

@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Grit - AI-Powered Job Tracker | Ian Macabulos",
   description:
     "A comprehensive career management platform built with the TALL stack and Groq AI. Features include secure resume parsing, automated cover letter generation, and interactive mock interviews.",
+  alternates: {
+    canonical: "/projects/grit",
+  },
   openGraph: {
     title: "Grit - AI-Powered Job Tracker | Ian Macabulos",
     description:

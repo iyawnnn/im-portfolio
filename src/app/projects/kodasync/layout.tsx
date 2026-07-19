@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "KodaSync - Neural Code & Knowledge Engine | Ian Macabulos",
   description:
     "A professional intelligence hub for developers. Features a neural chat interface, Monaco Editor, and semantic search powered by Next.js, FastAPI, and Groq SDK.",
+  alternates: {
+    canonical: "/projects/kodasync",
+  },
   openGraph: {
     title: "KodaSync - Neural Code & Knowledge Engine | Ian Macabulos",
     description:

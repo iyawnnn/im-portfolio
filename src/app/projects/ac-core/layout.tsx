@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "AC-CORE - Municipal Reporting System | Ian Macabulos",
   description:
     "A proactive GovTech platform for Angeles City featuring Geospatial Signal Routing (GSR) to predict flooding risks and a Paved Paradox algorithm to prioritize infrastructure repairs.",
+  alternates: {
+    canonical: "/projects/ac-core",
+  },
   openGraph: {
     title: "AC-CORE - Municipal Reporting System | Ian Macabulos",
     description:

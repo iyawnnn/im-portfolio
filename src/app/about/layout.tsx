@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "About Me",
   description:
     "I am a 3rd-year IT student and Web Developer based in the Philippines. Learn more about my career goals, skills, and background.",
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
     title: "About Me | Ian Macabulos",
     description:
