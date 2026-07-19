@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const resolvedParams = await params;
   const { meta } = getPostBySlug(resolvedParams.slug);
   
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://iansebastian.dev";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.iansebastian.dev";
   const ogImageUrl = meta.coverImage ? `${baseUrl}${meta.coverImage}` : `${baseUrl}/opengraph-image.png`;
   
   return {

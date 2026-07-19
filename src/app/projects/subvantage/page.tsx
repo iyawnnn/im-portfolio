@@ -35,19 +35,19 @@ export default function SubVantagePage() {
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://iansebastian.dev",
+        item: "https://www.iansebastian.dev",
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Projects",
-        item: "https://iansebastian.dev/projects",
+        item: "https://www.iansebastian.dev/projects",
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "SubVantage",
-        item: "https://iansebastian.dev/projects/subvantage",
+        item: "https://www.iansebastian.dev/projects/subvantage",
       },
     ],
   };

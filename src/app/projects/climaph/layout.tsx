@@ -13,7 +13,7 @@ export const metadata: Metadata = {
       "A specialized weather system built with Next.js 16 and MapLibre. View 3-day forecasts with precise temperature data for morning, afternoon, evening, and night across the Philippines.",
     siteName: "Ian Macabulos Portfolio",
     type: "website",
-    url: "https://iansebastian.dev/projects/climaph",
+    url: "https://www.iansebastian.dev/projects/climaph",
   },
 };
 

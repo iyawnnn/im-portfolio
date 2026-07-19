@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || "https://iansebastian.dev",
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.iansebastian.dev",
   ),
   alternates: {
     canonical: "/",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "Ian Macabulos",
     description:
       "Building scalable, high-performance web applications with the modern tech stack.",
-    url: process.env.NEXT_PUBLIC_BASE_URL || "https://iansebastian.dev",
+    url: process.env.NEXT_PUBLIC_BASE_URL || "https://www.iansebastian.dev",
     siteName: "Ian Macabulos",
     locale: "en_US",
     type: "website",
@@ -69,15 +69,15 @@ export default function RootLayout({
       {
         "@type": "WebSite",
         name: "Ian Macabulos",
-        url: "https://iansebastian.dev",
+        url: "https://www.iansebastian.dev",
         alternateName: ["Ian Sebastian Macabulos", "Ian Macabulos Portfolio"],
       },
       {
         "@type": "Person",
         name: "Ian Macabulos",
-        url: "https://iansebastian.dev",
+        url: "https://www.iansebastian.dev",
         jobTitle: "Full-Stack Developer",
-        image: "https://iansebastian.dev/about/ian-macabulos-2026.webp",
+        image: "https://www.iansebastian.dev/about/ian-macabulos-2026.webp",
         sameAs: [
           "https://www.linkedin.com/in/ianmacabulos/",
           "https://github.com/iyawnnn",

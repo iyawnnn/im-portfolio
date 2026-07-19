@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllPostsMeta } from "@/lib/mdx";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://iansebastian.dev";
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.iansebastian.dev";
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
