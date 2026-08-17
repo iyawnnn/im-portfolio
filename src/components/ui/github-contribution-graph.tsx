@@ -1,12 +1,13 @@
 "use client";
 
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
-import useSWR from "swr";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
+import useSWR from "swr";
 
 type Day = { date: string; contributionCount: number };
 type ContributionWeek = { contributionDays: Day[] };
@@ -45,17 +46,22 @@ function intensity(count: number) {
   return "border-zinc-900 bg-zinc-900 dark:border-white/5 dark:bg-white";
 }
 
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+const dateLabelCache = new Map<string, string>();
+
 function dateLabel(date: string) {
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  }).format(new Date(`${date}T00:00:00`));
+  const cachedLabel = dateLabelCache.get(date);
+  if (cachedLabel) return cachedLabel;
+
+  const label = dateFormatter.format(new Date(`${date}T00:00:00`));
+  dateLabelCache.set(date, label);
+  return label;
 }
 
-function contributionLabel(day: Day) {
-  return `${dateLabel(day.date)}: ${day.contributionCount} contribution${day.contributionCount === 1 ? "" : "s"}`;
-}
 
 function graphMetrics(width: number) {
   if (width >= 720) return { cellSize: 12, gap: 4 };
@@ -109,12 +115,75 @@ function ContributionGrid({
   label,
   cellSize,
   gap,
+  totalContributions,
 }: {
   weeks: ContributionWeek[];
   label?: string;
   cellSize: number;
   gap: number;
+  totalContributions: number;
 }) {
+  const firstDay = weeks[0]?.contributionDays[0];
+  const lastWeek = weeks.at(-1);
+  const lastDay = lastWeek?.contributionDays.at(-1);
+  const visibleRange =
+    firstDay && lastDay
+      ? dateLabel(firstDay.date) + " through " + dateLabel(lastDay.date)
+      : "the available date range";
+  const gridRef = useRef<HTMLDivElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const tooltipDateRef = useRef<HTMLParagraphElement>(null);
+  const tooltipCountRef = useRef<HTMLParagraphElement>(null);
+
+  const hideTooltip = () => {
+    if (tooltipRef.current) tooltipRef.current.hidden = true;
+  };
+
+  const showTooltip = (event: ReactPointerEvent<HTMLDivElement>) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+
+    const cell = target.closest<HTMLElement>("[data-contribution-cell]");
+    const grid = gridRef.current;
+    const tooltip = tooltipRef.current;
+    if (!cell || !grid || !tooltip || !grid.contains(cell)) return;
+
+    const cellRect = cell.getBoundingClientRect();
+    const gridRect = grid.getBoundingClientRect();
+    const count = Number(cell.dataset.count ?? 0);
+    const horizontalInset = Math.min(88, gridRect.width / 2);
+    const cellCenter = cellRect.left - gridRect.left + cellRect.width / 2;
+    const tooltipX = Math.min(
+      Math.max(cellCenter, horizontalInset),
+      gridRect.width - horizontalInset,
+    );
+    const placeBelow = cellRect.top < 72;
+
+    if (tooltipDateRef.current) {
+      tooltipDateRef.current.textContent = cell.dataset.dateLabel ?? "";
+    }
+    if (tooltipCountRef.current) {
+      tooltipCountRef.current.textContent = `${count} contribution${
+        count === 1 ? "" : "s"
+      }`;
+    }
+
+    tooltip.style.left = `${tooltipX}px`;
+    tooltip.style.top = `${
+      cellRect.top - gridRect.top + (placeBelow ? cellRect.height : 0)
+    }px`;
+    tooltip.style.transform = placeBelow
+      ? "translate(-50%, 8px)"
+      : "translate(-50%, calc(-100% - 8px))";
+    tooltip.hidden = false;
+  };
+  const accessibleSummary =
+    "GitHub contribution activity: " +
+    totalContributions.toLocaleString() +
+    " contributions in the last year. Showing " +
+    visibleRange +
+    ". Darker squares indicate more contributions.";
+
   return (
     <div>
       {label && (
@@ -123,14 +192,13 @@ function ContributionGrid({
         </p>
       )}
       <div
-        className="grid w-full grid-flow-col items-start justify-between"
+        ref={gridRef}
+        className="relative grid w-full grid-flow-col items-start justify-between"
         style={{ columnGap: gap }}
-        role="grid"
-        aria-label={
-          label
-            ? `GitHub contribution calendar, ${label.toLowerCase()}`
-            : "GitHub contribution calendar"
-        }
+        role="img"
+        aria-label={accessibleSummary}
+        onPointerOver={showTooltip}
+        onPointerLeave={hideTooltip}
       >
         {weeks.map((week, weekIndex) => (
           <div
@@ -139,31 +207,30 @@ function ContributionGrid({
             style={{ rowGap: gap }}
           >
             {week.contributionDays.map((day) => (
-              <Tooltip key={day.date}>
-                <TooltipTrigger asChild>
-                  <button
-                    type="button"
-                    role="gridcell"
-                    aria-label={contributionLabel(day)}
-                    className={`rounded-[2px] border transition-transform focus-visible:z-10 focus-visible:scale-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${intensity(day.contributionCount)}`}
-                    style={{ width: cellSize, height: cellSize }}
-                  />
-                </TooltipTrigger>
-                <TooltipContent
-                  side="top"
-                  sideOffset={8}
-                  className="rounded-md border border-border bg-card px-2.5 py-2 text-left text-xs text-card-foreground shadow-lg"
-                >
-                  <p className="font-medium">{dateLabel(day.date)}</p>
-                  <p className="mt-0.5 text-muted-foreground">
-                    {day.contributionCount} contribution
-                    {day.contributionCount === 1 ? "" : "s"}
-                  </p>
-                </TooltipContent>
-              </Tooltip>
+              <span
+                key={day.date}
+                aria-hidden="true"
+                data-contribution-cell=""
+                data-date-label={dateLabel(day.date)}
+                data-count={day.contributionCount}
+                className={
+                  "block rounded-[2px] border transition-transform " +
+                  intensity(day.contributionCount)
+                }
+                style={{ width: cellSize, height: cellSize }}
+              />
             ))}
           </div>
         ))}
+        <div
+          ref={tooltipRef}
+          hidden
+          aria-hidden="true"
+          className="pointer-events-none absolute z-50 whitespace-nowrap rounded-md border border-border bg-card px-2.5 py-2 text-left text-xs text-card-foreground shadow-lg"
+        >
+          <p ref={tooltipDateRef} className="font-medium" />
+          <p ref={tooltipCountRef} className="mt-0.5 text-muted-foreground" />
+        </div>
       </div>
     </div>
   );
@@ -241,7 +308,7 @@ export function GitHubContributionGraph() {
 
       <div ref={containerRef} className="min-w-0 w-full">
         {isLoading && visibleWeekCount > 0 && (
-          <div aria-label="Loading GitHub contributions">
+          <div role="status" aria-label="Loading GitHub contributions">
             {isTruncated && (
               <div className="mb-2 h-3 w-24 animate-pulse rounded bg-muted" />
             )}
@@ -265,11 +332,12 @@ export function GitHubContributionGraph() {
             label={isTruncated ? "Recent activity" : undefined}
             cellSize={cellSize}
             gap={gap}
+            totalContributions={data.totalContributions}
           />
         )}
       </div>
 
-      <div className="mt-4 flex min-w-0 items-center justify-end gap-1 text-[9px] font-mono uppercase tracking-wider text-muted-foreground sm:gap-1.5 sm:text-[10px]">
+      <div aria-hidden="true" className="mt-4 flex min-w-0 items-center justify-end gap-1 text-[9px] font-mono uppercase tracking-wider text-muted-foreground sm:gap-1.5 sm:text-[10px]">
         <span>Less</span>
         {[0, 1, 4, 7, 10].map((count) => (
           <span
