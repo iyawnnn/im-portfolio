@@ -461,7 +461,7 @@ export default function StackPage() {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
             My Development Arsenal
           </h1>
-          <p className="text-base font-normal tracking-normal leading-6 text-muted-foreground w-full break-words">
+          <p className="text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground w-full break-words">
             The languages, frameworks, databases, and tools that keep me
             coding, caffeinated, and occasionally questioning my life choices.
             These are the technologies I trust to make sure projects ship.

@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ProjectStackBadge, type ProjectTechnology } from "@/components/ui/project-stack-badge";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export interface ProjectData {
@@ -13,7 +13,7 @@ export interface ProjectData {
   link: string;
   image: string;
   video: string;
-  tags: string[];
+  tags: ProjectTechnology[];
 }
 
 export function HomeProjectCard({
@@ -105,15 +105,13 @@ export function HomeProjectCard({
           <CardTitle className="text-lg group-hover:text-primary transition-colors">
             {project.title}
           </CardTitle>
-          <CardDescription className="line-clamp-2">
+          <CardDescription className="line-clamp-2 text-sm sm:text-base sm:leading-6">
             {project.description}
           </CardDescription>
         </CardHeader>
         <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
           {project.tags.map((tag) => (
-            <Badge key={tag} variant="secondary" className="rounded-md group-hover:bg-background transition-colors">
-              {tag}
-            </Badge>
+            <ProjectStackBadge key={tag} technology={tag} />
           ))}
         </CardFooter>
       </Card>

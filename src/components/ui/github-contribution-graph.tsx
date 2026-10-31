@@ -344,7 +344,7 @@ export function GitHubContributionGraph() {
   return (
     <section
       aria-label="GitHub contributions"
-      className="min-w-0 rounded-xl border border-border/50 bg-card p-4 sm:p-6"
+      className="min-w-0 rounded-xl border border-border/50 bg-card p-4 shadow-sm sm:p-6"
     >
       <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
         <div>

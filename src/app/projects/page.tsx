@@ -13,10 +13,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ProjectStackBadge } from "@/components/ui/project-stack-badge";
+import type { ProjectData } from "@/components/ui/home-project-card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const PROJECTS = [
+const PROJECTS: ProjectData[] = [
   {
     title: "UA LabSign — Laboratory Attendance System",
     description:
@@ -34,13 +35,13 @@ const PROJECTS = [
     image: "/projects/ac-core/accore-cover.webp",
     video: "/projects/ac-core/accore-demo.mp4",
     link: "/projects/ac-core",
-    tags: ["MEAN Stack", "Leaflet.js", "Zoneless", "GeoJSON"],
+    tags: ["Angular", "Node.js", "Express", "MongoDB"],
   },
   {
     title: "Grit",
     description:
       "An intelligent career management platform utilizing Groq AI to score resumes against job descriptions, featuring dynamic Kanban application boards and mock interviews.",
-    tags: ["Laravel 11", "Livewire 3", "Groq AI", "Neon Postgres"],
+    tags: ["Laravel", "Livewire", "PHP", "PostgreSQL"],
     link: "/projects/grit",
     image: "/projects/grit/grit-cover.webp",
     video: "/projects/grit/grit-demo.mp4",
@@ -49,7 +50,7 @@ const PROJECTS = [
     title: "KodaSync",
     description:
       "A professional intelligence hub combining a Monaco Editor with RAG-powered AI agents for a searchable, neural knowledge base.",
-    tags: ["Next.js 15", "FastAPI", "Groq SDK", "pgvector"],
+    tags: ["Next.js", "FastAPI", "Python", "PostgreSQL"],
     link: "/projects/kodasync",
     image: "/projects/kodasync/kodasync-cover.webp",
     video: "/projects/kodasync/kodasync-demo.mp4",
@@ -58,7 +59,7 @@ const PROJECTS = [
     title: "SubVantage",
     description:
       "A secure financial dashboard for tracking subscriptions, fortified with Two-Factor Authentication (2FA) and powered by a high-performance serverless Neon PostgreSQL architecture.",
-    tags: ["Next.js 15", "Neon Postgres", "Prisma", "2FA Security"],
+    tags: ["Next.js", "TypeScript", "PostgreSQL"],
     link: "/projects/subvantage",
     image: "/projects/subvantage/subvantage-cover.webp",
     video: "/projects/subvantage/subvantage-demo.mp4",
@@ -67,7 +68,7 @@ const PROJECTS = [
     title: "Mama R's",
     description:
       "A secure Inventory and Sales Operations Dashboard featuring real-time stock tracking, printable receipts, and end-of-day financial reconciliation.",
-    tags: ["TypeScript", "MERN Stack", "Tailwind CSS"],
+    tags: ["TypeScript", "React", "Node.js", "MongoDB"],
     link: "/projects/mamars",
     image: "/projects/mamars/mamars-cover.webp",
     video: "/projects/mamars/mamars-demo.mp4",
@@ -76,7 +77,7 @@ const PROJECTS = [
     title: "ClimaPH",
     description:
       "A specialized weather  platform tailored for the Philippines, integrating real-time forecasts with lifestyle metrics.",
-    tags: ["Next.js 16", "TypeScript", "API", "MapLibreGL"],
+    tags: ["Next.js", "TypeScript", "React"],
     link: "/projects/climaph",
     image: "/projects/climaph/climaph-cover.webp",
     video: "/projects/climaph/climaph-demo.mp4",
@@ -85,7 +86,7 @@ const PROJECTS = [
     title: "Thryve",
     description:
       "A unified health and fitness application tracking workouts, meals, and sleep with personalized analytics and achievement goals.",
-    tags: ["MEVN Stack", "PrimeVue", "Pinia"],
+    tags: ["Vue", "Node.js", "Express", "MongoDB"],
     link: "/projects/thryve",
     image: "/projects/thryve/thryve-cover.webp",
     video: "/projects/thryve/thryve-demo.mp4",
@@ -94,7 +95,7 @@ const PROJECTS = [
     title: "MovieLoom",
     description:
       "A cinematic discovery interface allowing users to explore detailed movie metadata, cast profiles, and filmographies via the TMDb API.",
-    tags: ["React", "Vite", "API", "CSS3"],
+    tags: ["React", "CSS3"],
     link: "/projects/movieloom",
     image: "/projects/movieloom/movieloom-cover.webp",
     video: "/projects/movieloom/movieloom-demo.mp4",
@@ -129,9 +130,9 @@ export default function ProjectsPage({
         <h1 className="text-4xl md:text-5xl font-medium tracking-tight lg:text-6xl text-foreground leading-[1.05]">
           Crafted Projects
         </h1>
-        <p className="text-base font-normal tracking-normal leading-6 text-muted-foreground w-full">
+        <p className="text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground w-full">
           A collection of side projects, freelance hustle, and school
-          requirements that definitely didn't cause a mid-degree identity
+          requirements that definitely didn&apos;t cause a mid-degree identity
           crisis.
         </p>
       </motion.div>
@@ -270,20 +271,14 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
           <CardTitle className="text-lg group-hover:text-primary transition-colors">
             {project.title}
           </CardTitle>
-          <CardDescription className="line-clamp-2">
+          <CardDescription className="line-clamp-2 text-sm sm:text-base sm:leading-6">
             {project.description}
           </CardDescription>
         </CardHeader>
 
         <CardFooter className="gap-2 mt-auto flex-wrap px-6 pb-4 pt-0">
           {project.tags.map((tag) => (
-            <Badge
-              key={tag}
-              variant="secondary"
-              className="rounded-md group-hover:bg-background transition-colors"
-            >
-              {tag}
-            </Badge>
+            <ProjectStackBadge key={tag} technology={tag} />
           ))}
         </CardFooter>
       </Card>

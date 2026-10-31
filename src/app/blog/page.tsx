@@ -53,7 +53,7 @@ export default async function BlogPage({
         <h1 className="text-4xl font-medium leading-[1.05] tracking-tight text-foreground md:text-5xl lg:text-6xl">
           Localhost Tales
         </h1>
-        <p className="w-full text-base font-normal tracking-normal leading-6 text-muted-foreground">
+        <p className="w-full text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground">
           Thoughts on code, design, and why I spent three hours fixing a single
           semicolon.
         </p>
@@ -82,7 +82,7 @@ export default async function BlogPage({
                   <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </h2>
 
-                <p className="mt-3 max-w-3xl text-sm font-normal tracking-normal leading-6 text-muted-foreground">
+                <p className="mt-3 max-w-3xl text-sm sm:text-base font-normal tracking-normal leading-6 text-muted-foreground">
                   {post.description}
                 </p>
 

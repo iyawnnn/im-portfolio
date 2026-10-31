@@ -91,7 +91,7 @@ export default function ContactPage() {
         <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground mb-4">
           Let’s work together.
         </h1>
-        <p className="text-base font-normal tracking-normal text-muted-foreground leading-6">
+        <p className="text-lg font-normal tracking-normal text-muted-foreground leading-7">
           I’m currently looking for freelance opportunities or a full-time role.
           If you have a project that needs a clean, performant interface, I'd
           love to hear about it.

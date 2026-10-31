@@ -99,7 +99,7 @@ export function WorkExperience() {
                     <span className="flex w-full flex-col gap-1 text-sm font-normal text-muted-foreground sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
                       <span>{experience.employmentType}</span>
                       <span aria-hidden="true" className="hidden sm:inline">
-                        ·
+                        |
                       </span>
                       <span className="tabular-nums">{experience.period}</span>
                     </span>

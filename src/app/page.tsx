@@ -25,11 +25,11 @@ import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { ScrollRestoration } from "@/components/ui/scroll-restoration";
-import { HomeProjectCard } from "@/components/ui/home-project-card";
+import { HomeProjectCard, type ProjectData } from "@/components/ui/home-project-card";
 
 import { getAllPostsMeta } from "@/lib/mdx";
 
-const HOME_PROJECTS = [
+const HOME_PROJECTS: ProjectData[] = [
   {
     title: "UA LabSign — Laboratory Attendance System",
     description:
@@ -46,7 +46,7 @@ const HOME_PROJECTS = [
     link: "/projects/ac-core",
     image: "/projects/ac-core/accore-cover.webp",
     video: "/projects/ac-core/accore-demo.mp4",
-    tags: ["MEAN Stack", "Leaflet.js", "Zoneless", "GeoJSON"],
+    tags: ["Angular", "Node.js", "Express", "MongoDB"],
   },
 ];
 
@@ -131,7 +131,7 @@ export default function ExplorePage() {
           </div>
         </div>
 
-        <p className="text-base font-normal tracking-normal leading-6 text-muted-foreground">
+        <p className="text-base sm:text-lg font-normal tracking-normal leading-6 sm:leading-7 text-muted-foreground">
           I am a Full-Stack Developer based in the Philippines who builds web
           apps, learns new tech, and occasionally argues with my laptop
           (basically, I spend most of my time debugging my own decisions).

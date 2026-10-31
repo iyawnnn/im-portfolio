@@ -118,7 +118,7 @@ export default function ResumePage() {
           <h2 className="text-xl font-medium tracking-tight">Professional Summary</h2>
         </div>
         
-        <p className="text-muted-foreground leading-6 text-base font-normal tracking-normal">
+        <p className="text-muted-foreground leading-6 md:leading-7 text-base md:text-lg font-normal tracking-normal">
           Full-Stack Developer and Information Technology student with hands-on experience building web applications, backend services, and production-ready systems using modern technologies. Experienced across frontend and backend development, database design, API development, testing, deployment, and AI-assisted workflows. Open to entry-level software development roles and freelance opportunities where I can contribute to practical, reliable, and user-focused digital products.
         </p>
       </motion.section>
@@ -159,7 +159,7 @@ export default function ResumePage() {
                 <h3 className="text-lg md:text-xl font-medium tracking-tight text-foreground">
                   Holy Angel University
                 </h3>
-                <p className="text-muted-foreground text-sm font-normal tracking-normal leading-5">
+                <p className="text-muted-foreground text-sm md:text-base font-normal tracking-normal leading-5 md:leading-6">
                   Bachelor of Science in Information Technology, Major in Web Development
                 </p>
               </div>
