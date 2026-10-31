@@ -45,7 +45,7 @@ export default function AboutPage() {
             <span className="text-sm font-medium">Based in Philippines</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-[650] tracking-[-0.025em] lg:text-6xl text-foreground leading-[1.05]">
+          <h1 className="text-4xl md:text-5xl font-medium tracking-tight lg:text-6xl text-foreground leading-[1.05]">
             About Me
           </h1>
 
@@ -265,7 +265,7 @@ export default function AboutPage() {
             <Rocket className="h-6 w-6" />
           </div>
 
-          <h2 className="text-2xl font-semibold tracking-[-0.015em] text-foreground sm:text-3xl">
+          <h2 className="text-2xl font-medium tracking-tight text-foreground sm:text-3xl">
             Let&rsquo;s build something awesome
           </h2>
 
@@ -277,14 +277,14 @@ export default function AboutPage() {
           </p>
 
           <div className="mt-10 flex justify-center">
-            <Link href="/contact">
+            <Link href="/contact" className="group/forward">
               <HoverBorderGradient
-                containerClassName="rounded-full"
+                containerClassName="group/forward rounded-full"
                 as="button"
-                className="flex cursor-pointer items-center space-x-2 bg-black px-8 py-4 font-semibold text-white transition-all hover:scale-105 active:scale-95"
+                className="flex cursor-pointer items-center space-x-2 bg-black px-8 py-4 font-medium text-white transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-105 active:scale-95 motion-reduce:transition-none"
               >
                 <span>Work with me</span>
-                <ArrowRight className="h-5 w-5" />
+                <ArrowRight className="h-5 w-5 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover/forward:-rotate-45 motion-safe:group-focus-visible/forward:-rotate-45 motion-safe:group-hover/forward:translate-x-px motion-safe:group-hover/forward:-translate-y-px motion-safe:group-focus-visible/forward:translate-x-px motion-safe:group-focus-visible/forward:-translate-y-px motion-reduce:transition-none" />
               </HoverBorderGradient>
             </Link>
           </div>

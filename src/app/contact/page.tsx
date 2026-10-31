@@ -88,7 +88,7 @@ export default function ContactPage() {
             Available for new projects
           </Badge>
         </div>
-        <h1 className="text-4xl md:text-6xl font-[650] tracking-[-0.025em] text-foreground mb-4">
+        <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground mb-4">
           Let’s work together.
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
@@ -108,7 +108,7 @@ export default function ContactPage() {
         >
           {/* 1. Direct Contact */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
               Direct Contact
             </h3>
             <div className="relative group">
@@ -158,20 +158,20 @@ export default function ContactPage() {
 
           {/* 2. Timeline Steps */}
           <div className="space-y-6">
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <h3 className="text-sm font-medium uppercase tracking-wider text-muted-foreground">
               What happens next?
             </h3>
             <div className="space-y-6">
               {/* STEP 1 */}
               <div className="flex gap-4">
                 <div className="flex flex-col items-center flex-none">
-                  <div className="flex-none h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold z-10 border border-primary/20 shadow-sm">
+                  <div className="flex-none h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium z-10 border border-primary/20 shadow-sm">
                     1
                   </div>
                   <div className="w-px h-full bg-border/50 my-2" />
                 </div>
                 <div className="pb-2 pt-2">
-                  <h4 className="font-semibold text-foreground">Send a Message</h4>
+                  <h4 className="font-medium tracking-tight text-foreground">Send a Message</h4>
                   <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                     Fill out the form on the right. I'll receive an instant
                     notification via my personal API integration.
@@ -182,13 +182,13 @@ export default function ContactPage() {
               {/* STEP 2 */}
               <div className="flex gap-4">
                 <div className="flex flex-col items-center flex-none">
-                  <div className="flex-none h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold z-10 border border-primary/20 shadow-sm">
+                  <div className="flex-none h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium z-10 border border-primary/20 shadow-sm">
                     2
                   </div>
                   <div className="w-px h-full bg-border/50 my-2" />
                 </div>
                 <div className="pb-2 pt-2">
-                  <h4 className="font-semibold text-foreground">I'll Respond</h4>
+                  <h4 className="font-medium tracking-tight text-foreground">I'll Respond</h4>
                   <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                     As a student, I balance this with my studies, but I
                     typically respond within the day.
@@ -199,12 +199,12 @@ export default function ContactPage() {
               {/* STEP 3 */}
               <div className="flex gap-4">
                 <div className="flex flex-col items-center flex-none">
-                  <div className="flex-none h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold z-10 border border-primary/20 shadow-sm">
+                  <div className="flex-none h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium z-10 border border-primary/20 shadow-sm">
                     3
                   </div>
                 </div>
                 <div className="pt-2">
-                  <h4 className="font-semibold text-foreground">We Connect</h4>
+                  <h4 className="font-medium tracking-tight text-foreground">We Connect</h4>
                   <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
                     If we're a good fit, we'll discuss your idea and how I can
                     help bring it to life.
@@ -234,7 +234,7 @@ export default function ContactPage() {
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
                   <div className="space-y-1">
-                    <h3 className="text-xl font-semibold text-foreground">
+                    <h3 className="text-xl font-medium tracking-tight text-foreground">
                       Message received!
                     </h3>
                     <p className="text-muted-foreground max-w-[280px] mx-auto text-sm">
@@ -256,7 +256,7 @@ export default function ContactPage() {
                     <div className="space-y-1.5">
                       <label
                         htmlFor="name"
-                        className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide"
+                        className="text-xs font-medium ml-1 text-muted-foreground uppercase tracking-wide"
                       >
                         Name
                       </label>
@@ -271,7 +271,7 @@ export default function ContactPage() {
                     <div className="space-y-1.5">
                       <label
                         htmlFor="email"
-                        className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide"
+                        className="text-xs font-medium ml-1 text-muted-foreground uppercase tracking-wide"
                       >
                         Email
                       </label>
@@ -289,7 +289,7 @@ export default function ContactPage() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="subject"
-                      className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide"
+                      className="text-xs font-medium ml-1 text-muted-foreground uppercase tracking-wide"
                     >
                       Subject
                     </label>
@@ -305,7 +305,7 @@ export default function ContactPage() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="message"
-                      className="text-xs font-semibold ml-1 text-muted-foreground uppercase tracking-wide"
+                      className="text-xs font-medium ml-1 text-muted-foreground uppercase tracking-wide"
                     >
                       Message
                     </label>
@@ -329,7 +329,7 @@ export default function ContactPage() {
                     <Button
                       type="submit"
                       disabled={isSubmitting}
-                      className="group relative w-full font-semibold shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 hover:-translate-y-0.5 active:translate-y-0.5 h-10 overflow-hidden"
+                      className="group relative w-full font-medium shadow-sm transition-all duration-300 hover:shadow-md hover:border-primary/50 hover:-translate-y-0.5 active:translate-y-0.5 h-10 overflow-hidden"
                     >
                       {isSubmitting ? (
                         <span className="flex items-center">

@@ -50,7 +50,7 @@ export default async function BlogPage({
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 p-4 pt-8 font-sans md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       <header className="flex w-full max-w-4xl flex-col gap-4">
-        <h1 className="text-4xl font-[650] leading-[1.05] tracking-[-0.025em] text-foreground md:text-5xl lg:text-6xl">
+        <h1 className="text-4xl font-medium leading-[1.05] tracking-tight text-foreground md:text-5xl lg:text-6xl">
           Localhost Tales
         </h1>
         <p className="w-full text-lg leading-relaxed text-muted-foreground md:text-xl">
@@ -66,19 +66,19 @@ export default async function BlogPage({
             className="group border-b border-border/50 transition-colors duration-300 hover:border-border hover:bg-muted/20"
           >
             <div className="grid min-w-0 gap-4 px-1 py-7 sm:grid-cols-[2.5rem_minmax(0,1fr)] sm:gap-4 sm:px-3 sm:py-9 md:grid-cols-[3rem_minmax(0,1fr)_10rem] md:gap-6 lg:px-4">
-              <span className="hidden pt-1 font-mono text-xs font-medium tracking-[0.14em] text-muted-foreground/60 sm:block">
+              <span className="hidden pt-1 text-xs font-medium tracking-[0.06em] text-muted-foreground/60 sm:block">
                 {String(startIndex + index + 1).padStart(2, "0")}
               </span>
 
               <div className="min-w-0">
                 <div className="mb-2 flex items-center gap-3 sm:hidden">
-                  <span className="font-mono text-[11px] font-medium tracking-[0.14em] text-muted-foreground/60">
+                  <span className="text-[11px] font-medium tracking-[0.06em] text-muted-foreground/60">
                     {String(startIndex + index + 1).padStart(2, "0")}
                   </span>
                   <span className="h-px w-8 bg-border" />
                 </div>
 
-                <h2 className="text-xl font-semibold leading-snug tracking-[-0.015em] text-foreground/90 transition-[color,transform] duration-300 group-hover:translate-x-1 group-hover:text-foreground sm:text-2xl">
+                <h2 className="text-xl font-medium leading-snug tracking-tight text-foreground/90 transition-[color,transform] duration-300 group-hover:translate-x-1 group-hover:text-foreground sm:text-2xl">
                   <Link href={`/blog/${post.slug}`}>{post.title}</Link>
                 </h2>
 
@@ -97,10 +97,10 @@ export default async function BlogPage({
 
                 <Link
                   href={`/blog/${post.slug}`}
-                  className="mt-5 inline-flex items-center text-sm font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground"
+                  className="group/forward mt-5 inline-flex items-center text-sm font-medium text-muted-foreground transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-foreground"
                 >
                   Read Article
-                  <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover/forward:-rotate-45 motion-safe:group-focus-visible/forward:-rotate-45 motion-safe:group-hover/forward:translate-x-px motion-safe:group-hover/forward:-translate-y-px motion-safe:group-focus-visible/forward:translate-x-px motion-safe:group-focus-visible/forward:-translate-y-px motion-reduce:transition-none" />
                 </Link>
               </div>
 

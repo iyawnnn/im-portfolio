@@ -72,7 +72,7 @@ export default function SubVantagePage() {
       {/* --- HEADER --- */}
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-[650] tracking-[-0.025em] text-foreground">
+          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
             SubVantage
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
@@ -111,7 +111,7 @@ export default function SubVantagePage() {
       {/* --- DEMO & CODE CARD --- */}
       <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
         <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Project Links</h3>
+          <h3 className="text-lg font-medium">Project Links</h3>
           <p className="text-sm text-muted-foreground max-w-md">
             Explore the live application or review the codebase on GitHub.
           </p>
@@ -140,12 +140,12 @@ export default function SubVantagePage() {
         <div className="xl:col-span-2 space-y-12">
           {/* Core Features */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Layout className="w-6 h-6 text-primary" /> Core Features
             </h2>
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
                   <TrendingUp className="w-4 h-4 text-primary" /> Financial Pulse
                 </h3>
                 <p className="text-muted-foreground text-sm">
@@ -153,7 +153,7 @@ export default function SubVantagePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
                   <Shield className="w-4 h-4 text-primary" /> Advanced Security Architecture
                 </h3>
                 <p className="text-muted-foreground text-sm">
@@ -161,7 +161,7 @@ export default function SubVantagePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
                   <Database className="w-4 h-4 text-primary" /> Serverless Data Management
                 </h3>
                 <p className="text-muted-foreground text-sm">
@@ -173,19 +173,19 @@ export default function SubVantagePage() {
 
           {/* Development Process */}
           <section className="space-y-6">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Cpu className="w-6 h-6 text-primary" /> Development Process
             </h2>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">The Challenge</h3>
+              <h3 className="text-xl font-medium">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
                 As the application scaled, the primary challenge evolved from building the frontend UI to overhauling the backend architecture. Migrating the primary database to Neon while simultaneously implementing rigorous security measures (like 2FA and edge-level rate-limiting) required careful orchestration to prevent data loss or service disruption for existing users.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">The Solution</h3>
+              <h3 className="text-xl font-medium">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
                   <strong>Database Migration:</strong> Seamlessly transitioned to Neon Postgres with Prisma, establishing a robust relational structure capable of handling high-volume currency conversions and state updates.
@@ -202,7 +202,7 @@ export default function SubVantagePage() {
 
           {/* Testing & QA */}
           <section className="space-y-6">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <TestTube className="w-6 h-6 text-primary" /> Quality Assurance
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -210,7 +210,7 @@ export default function SubVantagePage() {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-semibold text-foreground mb-2">
+                <h4 className="font-medium text-foreground mb-2">
                   Unit & Integration Testing
                 </h4>
                 <p className="text-sm text-muted-foreground">
@@ -218,7 +218,7 @@ export default function SubVantagePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-semibold text-foreground mb-2">
+                <h4 className="font-medium text-foreground mb-2">
                   End-to-End (E2E) Testing
                 </h4>
                 <p className="text-sm text-muted-foreground">
@@ -230,7 +230,7 @@ export default function SubVantagePage() {
 
           {/* Key Takeaways */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -250,7 +250,7 @@ export default function SubVantagePage() {
             </CardHeader>
             <div className="px-6 pb-6 space-y-6">
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Frontend
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -263,7 +263,7 @@ export default function SubVantagePage() {
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Backend & Services
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -275,7 +275,7 @@ export default function SubVantagePage() {
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Testing & Tools
                 </h4>
                 <div className="flex flex-wrap gap-2">

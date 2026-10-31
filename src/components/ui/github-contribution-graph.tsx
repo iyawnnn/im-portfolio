@@ -187,7 +187,7 @@ function ContributionGrid({
   return (
     <div>
       {label && (
-        <p className="mb-2 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+        <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
           {label}
         </p>
       )}
@@ -288,12 +288,12 @@ export function GitHubContributionGraph() {
     >
       <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
         <div>
-          <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
+          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             GitHub activity
           </p>
           <h2
             id="github-contributions-title"
-            className="mt-1 text-lg font-bold tracking-tight sm:text-xl"
+            className="mt-1 text-lg font-medium tracking-tight sm:text-xl"
           >
             Contribution graph
           </h2>

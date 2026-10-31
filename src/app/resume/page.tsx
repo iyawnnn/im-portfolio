@@ -13,11 +13,10 @@ import {
   User,
   Eye,
   ArrowUpRight,
-  Code,
-  Stack,
 } from "@phosphor-icons/react/ssr";
 import { Badge } from "@/components/ui/badge";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import { WorkExperience } from "@/components/work-experience";
 
 const CERTIFICATIONS = [
   {
@@ -74,7 +73,7 @@ export default function ResumePage() {
       >
         <div className="flex flex-col items-center md:items-start space-y-4 w-full md:w-auto">
           <div>
-            <h1 className="text-4xl md:text-5xl font-[650] tracking-[-0.025em] text-foreground lg:text-6xl">
+            <h1 className="text-4xl md:text-5xl font-medium tracking-tight leading-[1.08] text-foreground lg:text-6xl">
               Ian Macabulos
             </h1>
           </div>
@@ -97,7 +96,7 @@ export default function ResumePage() {
             <HoverBorderGradient
               containerClassName="rounded-full"
               as="button"
-              className="bg-background text-foreground flex items-center space-x-2 px-6 py-3 font-semibold transition-all hover:scale-105 active:scale-95"
+              className="bg-background text-foreground flex items-center space-x-2 px-6 py-3 font-medium transition-all hover:scale-105 active:scale-95"
             >
               <Eye className="h-4 w-4" />
               <span>View Resume</span>
@@ -116,7 +115,7 @@ export default function ResumePage() {
           <div className="p-2 bg-primary/10 rounded-md text-primary">
             <User className="w-5 h-5" />
           </div>
-          <h2 className="text-xl font-semibold tracking-[-0.015em]">Professional Summary</h2>
+          <h2 className="text-xl font-medium tracking-tight">Professional Summary</h2>
         </div>
         
         <p className="text-muted-foreground leading-relaxed text-base md:text-lg">
@@ -134,96 +133,10 @@ export default function ResumePage() {
           <div className="p-2 bg-primary/10 rounded-md text-primary">
             <Briefcase className="w-5 h-5" />
           </div>
-          <h2 className="text-xl font-semibold tracking-[-0.015em]">Work Experience</h2>
+          <h2 className="text-xl font-medium tracking-tight">Work Experience</h2>
         </div>
 
-        <div className="relative border-l-2 border-border/50 ml-3 md:ml-4 space-y-9 md:space-y-10 pl-8 md:pl-10 py-2">
-          
-          <div className="relative">
-            <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-primary shadow-sm" />
-
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1">
-              <h3 className="text-lg md:text-xl font-semibold text-foreground">
-                Backend AI Engineer Intern
-              </h3>
-            </div>
-
-            <div className="text-sm font-medium text-primary mb-3">
-              FlyRank AI
-            </div>
-
-
-            <ul className="space-y-3 text-muted-foreground text-sm md:text-base leading-relaxed">
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                <span>
-                  Engineered a TypeScript/Fastify usage metering and billing service for LLM applications, implementing tenant quotas, token tracking, idempotent requests, and micro-cent usage pricing with PostgreSQL.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                <span>
-                  Integrated Stripe test-mode billing and webhook processing, with automated tests covering quota enforcement, usage accounting, checkout flows, and billing events.
-                </span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="relative">
-            <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-primary shadow-sm" />
-
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1">
-              <h3 className="text-lg md:text-xl font-semibold text-foreground">
-                Full-Stack Web Developer Intern
-              </h3>
-            </div>
-
-            <div className="text-sm font-medium text-primary mb-3">
-              Sortr
-            </div>
-
-
-            <ul className="space-y-3 text-muted-foreground text-sm md:text-base leading-relaxed">
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                <span>
-                  Built an internal IT service desk ticketing system for 50+ employees within the company domain, centralizing hardware and software issue reporting, automating ticket routing and status tracking, and providing the IT team with a structured support workflow from submission to resolution.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                <span>
-                  Redesigned and optimized WordPress production pages, improving responsive layouts, content structure, technical SEO, image delivery, and overall frontend performance.
-                </span>
-              </li>
-            </ul>
-          </div>
-          <div className="relative">
-            <span className="absolute -left-[41px] md:-left-[49px] top-1.5 h-5 w-5 rounded-full border-4 border-background bg-primary shadow-sm" />
-
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1">
-              <h3 className="text-lg md:text-xl font-semibold text-foreground">
-                Freelance Full-Stack Developer
-              </h3>
-            </div>
-
-
-            <ul className="space-y-3 text-muted-foreground text-sm md:text-base leading-relaxed">
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                <span>
-                  Built and deployed custom full-stack systems for local businesses and academic clients, replacing manual workflows with web applications for attendance, operations, reporting, and data management.
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-primary/40 shrink-0" />
-                <span>
-                  Managed projects end to end—from requirements gathering and system architecture to database design, authentication, testing, deployment, and client handoff—delivering solutions used by dozens to hundreds of users across different academic and business workflows.
-                </span>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <WorkExperience />
       </motion.section>
 
       <motion.section
@@ -236,14 +149,14 @@ export default function ResumePage() {
           <div className="p-2 bg-primary/10 rounded-md text-primary">
             <GraduationCap className="w-5 h-5" />
           </div>
-          <h2 className="text-xl font-semibold tracking-[-0.015em]">Education</h2>
+          <h2 className="text-xl font-medium tracking-tight">Education</h2>
         </div>
 
         <div className="space-y-6">
           <div className="group rounded-xl border border-border/50 bg-card p-6 transition-all hover:border-primary/30 hover:shadow-sm">
             <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
               <div>
-                <h3 className="text-lg md:text-xl font-semibold text-foreground">
+                <h3 className="text-lg md:text-xl font-medium tracking-tight text-foreground">
                   Holy Angel University
                 </h3>
                 <p className="text-muted-foreground text-sm md:text-base font-medium">
@@ -277,7 +190,7 @@ export default function ResumePage() {
           <div className="p-2 bg-primary/10 rounded-md text-primary">
             <Award className="w-5 h-5" />
           </div>
-          <h2 className="text-xl font-semibold tracking-[-0.015em]">Certifications &amp; Training</h2>
+          <h2 className="text-xl font-medium tracking-tight">Certifications &amp; Training</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -299,7 +212,7 @@ export default function ResumePage() {
               </div>
 
               <div className="flex-1 min-w-0">
-                <h4 className="font-semibold text-sm md:text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                <h4 className="font-medium tracking-tight text-sm md:text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">
                   {cert.name}
                 </h4>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1.5">

@@ -60,7 +60,7 @@ export const TextGenerateEffect = ({
 
       {/* 2. ANIMATION LAYER: Visual only, hidden from Google to avoid duplicates */}
       <div className="mt-4" aria-hidden="true">
-        <div className="leading-relaxed tracking-wide">{renderWords()}</div>
+        <div className="leading-relaxed tracking-normal">{renderWords()}</div>
       </div>
     </div>
   );

@@ -58,18 +58,18 @@ export default function ExplorePage() {
   ];
 
   const wordsLine2Desktop = [
-    { text: "A", className: "text-muted-foreground" },
-    { text: "Full-Stack", className: "text-muted-foreground" },
-    { text: "Developer.", className: "text-muted-foreground" },
+    { text: "A", className: "text-foreground" },
+    { text: "Full-Stack", className: "text-foreground" },
+    { text: "Developer.", className: "text-foreground" },
   ];
 
   const wordsLine2Mobile = [
-    { text: "A", className: "text-muted-foreground" },
-    { text: "Full-Stack", className: "text-muted-foreground" },
+    { text: "A", className: "text-foreground" },
+    { text: "Full-Stack", className: "text-foreground" },
   ];
 
   const wordsLine3Mobile = [
-    { text: "Developer.", className: "text-muted-foreground" },
+    { text: "Developer.", className: "text-foreground" },
   ];
 
   const latestPosts = getAllPostsMeta()
@@ -93,7 +93,7 @@ export default function ExplorePage() {
           Ian Macabulos - Full-Stack Developer Philippines
         </h1>
 
-        <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-4xl sm:text-5xl lg:text-6xl font-[650] tracking-[-0.025em] leading-none">
+        <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-4xl sm:text-[2.75rem] lg:text-[3.25rem] font-medium tracking-tight leading-none">
           <TypewriterEffectSmooth
             words={wordsLine1}
             className="p-0 m-0"
@@ -162,17 +162,17 @@ export default function ExplorePage() {
 
       <section className="flex flex-col gap-4 md:gap-6 mt-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold tracking-[-0.015em] sm:text-2xl">
+          <h2 className="text-xl font-medium tracking-tight sm:text-2xl">
             Projects Overview
           </h2>
           <Link
             href="/projects"
             prefetch={false}
-            className="flex items-center text-xs font-medium text-muted-foreground transition-colors hover:text-primary sm:text-sm"
+            className="group/forward flex items-center text-xs font-medium text-muted-foreground transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:text-primary sm:text-sm"
           >
             <span className="hidden sm:inline">View all projects</span>
             <span className="sm:hidden">View all</span>
-            <ArrowRight className="ml-1 h-3 w-3 sm:h-4 sm:w-4" />
+            <ArrowRight className="ml-1 h-3 w-3 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover/forward:-rotate-45 motion-safe:group-focus-visible/forward:-rotate-45 motion-safe:group-hover/forward:translate-x-px motion-safe:group-hover/forward:-translate-y-px motion-safe:group-focus-visible/forward:translate-x-px motion-safe:group-focus-visible/forward:-translate-y-px motion-reduce:transition-none sm:h-4 sm:w-4" />
           </Link>
         </div>
 
@@ -207,7 +207,7 @@ export default function ExplorePage() {
               <div className="p-3 bg-primary/10 rounded-xl w-fit mb-6">
                 <BookOpen className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-2xl sm:text-3xl font-semibold tracking-[-0.02em] text-foreground mb-3">
+              <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-3">
                 Localhost Tales
               </h3>
               <p className="text-sm text-muted-foreground leading-relaxed mb-8">
@@ -229,18 +229,18 @@ export default function ExplorePage() {
                 key={post.slug}
                 href={`/blog/${post.slug}`}
                 prefetch={false}
-                className="group flex flex-1 items-center justify-between p-6 lg:px-8 lg:py-0 transition-colors hover:bg-muted/40 active:bg-muted/60 min-h-[80px]"
+                className="group group/forward flex flex-1 items-center justify-between p-6 lg:px-8 lg:py-0 transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-muted/40 active:bg-muted/60 min-h-[80px]"
               >
                 <div className="flex flex-col gap-1.5 pr-4 py-4 lg:py-6">
-                  <span className="text-xs font-mono text-muted-foreground tracking-wider uppercase">
+                  <span className="text-xs font-medium text-muted-foreground tracking-wider uppercase">
                     {formatDate(post.date)}
                   </span>
-                  <h4 className="text-base sm:text-lg font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                  <h4 className="text-base sm:text-lg font-medium tracking-tight text-foreground group-hover:text-primary transition-colors duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] line-clamp-1">
                     {post.title}
                   </h4>
                 </div>
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border/50 bg-background transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground group-hover:-rotate-45">
-                  <ArrowRight className="h-4 w-4" />
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border/50 bg-background transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:bg-primary group-hover:border-primary group-hover:text-primary-foreground">
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover/forward:-rotate-45 motion-safe:group-focus-visible/forward:-rotate-45 motion-safe:group-hover/forward:translate-x-px motion-safe:group-hover/forward:-translate-y-px motion-safe:group-focus-visible/forward:translate-x-px motion-safe:group-focus-visible/forward:-translate-y-px motion-reduce:transition-none" />
                 </div>
               </Link>
             ))}
