@@ -12,7 +12,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const { isCollapsed } = useSidebar();
 
   return (
-    <div className="min-h-screen bg-background overflow-x-hidden">
+    <div data-brand-intro-page className="min-h-screen bg-background overflow-x-hidden">
       {/* DESKTOP: Sidebar 
           Added transform-gpu and will-change-transform to offload animation to the GPU.
           This prevents the browser from recalculating layout every frame.
@@ -42,12 +42,14 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         )}
       >
         {/* Page Content */}
-        <div className="flex flex-col flex-1 w-full min-w-0">
+        <div data-brand-intro-content className="flex flex-col flex-1 w-full min-w-0">
           {children}
         </div>
 
         {/* FOOTER */}
-        <SiteFooter />
+        <div className="hidden lg:block">
+          <SiteFooter />
+        </div>
       </main>
 
       {/* MOBILE: Bottom Nav */}

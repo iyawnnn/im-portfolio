@@ -177,7 +177,7 @@ function NavSection({
 export function AppSidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const { isCollapsed, toggleSidebar } = useSidebar();
 
@@ -336,10 +336,10 @@ export function AppSidebar() {
               "shrink-0 rounded-xl border-sidebar-border/60 bg-background/50 text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all h-10 w-10",
               isCollapsed ? "" : "",
             )}
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
           >
             {mounted &&
-              (theme === "dark" ? (
+              (resolvedTheme === "dark" ? (
                 <Sun className="h-4 w-4 stroke-2" />
               ) : (
                 <Moon className="h-4 w-4 stroke-2" />

@@ -7,6 +7,27 @@ import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { Analytics } from "@vercel/analytics/react";
 import { ChatWidget } from "@/components/layout/chat-widget";
 import { CommandMenuLoader } from "@/components/layout/command-menu-loader";
+import { BrandIntro } from "@/components/layout/brand-intro";
+
+// Decide before paint; the timeout releases the page even if hydration fails.
+const brandIntroScript = `(() => {
+  try {
+    const key = 'ian-brand-intro-seen';
+    const replay = ${process.env.NODE_ENV === "development"} && new URLSearchParams(location.search).get('intro') === '1';
+    if (sessionStorage.getItem(key) && !replay) return;
+    if (location.pathname === '/' && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.setAttribute('data-brand-intro', '');
+      const timeout = setTimeout(() => {
+        document.documentElement.removeAttribute('data-brand-intro');
+        try { sessionStorage.setItem(key, '1'); } catch {}
+        document.dispatchEvent(new Event('brand-intro-complete'));
+      }, 2300);
+      document.addEventListener('brand-intro-complete', () => clearTimeout(timeout), { once: true });
+    } else {
+      sessionStorage.setItem(key, '1');
+    }
+  } catch {}
+})();`;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -90,6 +111,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <script dangerouslySetInnerHTML={{ __html: brandIntroScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -100,10 +122,11 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
+          defaultTheme="system"
+          enableSystem
           disableTransitionOnChange
         >
+          <BrandIntro />
           <SidebarProvider>
             <LayoutWrapper>{children}</LayoutWrapper>
           </SidebarProvider>

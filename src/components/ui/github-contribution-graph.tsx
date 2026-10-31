@@ -11,10 +11,7 @@ import useSWR from "swr";
 
 type Day = { date: string; contributionCount: number };
 type ContributionWeek = { contributionDays: Day[] };
-type Data = {
-  totalContributions: number;
-  weeks: ContributionWeek[];
-};
+type Data = { totalContributions: number; weeks: ContributionWeek[] };
 type ApiResponse = Data | { error: string };
 
 const FULL_YEAR_WEEK_COUNT = 53;
@@ -51,6 +48,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
   year: "numeric",
 });
+const monthFormatter = new Intl.DateTimeFormat("en-US", { month: "short" });
 const dateLabelCache = new Map<string, string>();
 
 function dateLabel(date: string) {
@@ -62,11 +60,10 @@ function dateLabel(date: string) {
   return label;
 }
 
-
 function graphMetrics(width: number) {
-  if (width >= 720) return { cellSize: 12, gap: 4 };
-  if (width >= 360) return { cellSize: 10, gap: 4 };
-  return { cellSize: 9, gap: 3 };
+  if (width >= 768) return { cellSize: 11, gap: 3 };
+  if (width >= 480) return { cellSize: 10, gap: 3 };
+  return { cellSize: 9, gap: 2 };
 }
 
 function useGraphLayout(totalWeeks: number) {
@@ -85,10 +82,9 @@ function useGraphLayout(totalWeeks: number) {
     };
 
     updateWidth(element.getBoundingClientRect().width);
-
-    const observer = new ResizeObserver(([entry]) => {
-      updateWidth(entry.contentRect.width);
-    });
+    const observer = new ResizeObserver(([entry]) =>
+      updateWidth(entry.contentRect.width),
+    );
     observer.observe(element);
 
     return () => observer.disconnect();
@@ -98,7 +94,7 @@ function useGraphLayout(totalWeeks: number) {
     const { cellSize, gap } = graphMetrics(containerWidth);
     const visibleWeekCount = containerWidth
       ? Math.max(
-          1,
+          0,
           Math.min(
             totalWeeks,
             Math.floor((containerWidth + gap) / (cellSize + gap)),
@@ -110,30 +106,57 @@ function useGraphLayout(totalWeeks: number) {
   }, [containerWidth, totalWeeks]);
 }
 
+function monthLabels(weeks: ContributionWeek[]) {
+  const candidates = weeks.flatMap((week, weekIndex) => {
+    const firstDay = week.contributionDays[0];
+    const monthStart = week.contributionDays.find(
+      (day) => day.date.slice(8) === "01",
+    );
+    const day = monthStart ?? (weekIndex === 0 ? firstDay : undefined);
+    return day
+      ? [{
+          weekIndex,
+          key: day.date.slice(0, 7),
+          label: monthFormatter.format(new Date(`${day.date}T00:00:00`)),
+        }]
+      : [];
+  });
+
+  if (candidates[1]?.weekIndex < 3) candidates.shift();
+
+  return candidates.reduce<typeof candidates>((labels, candidate) => {
+    const previous = labels.at(-1);
+    if (
+      (!previous || candidate.weekIndex - previous.weekIndex >= 3) &&
+      (candidate.weekIndex === 0 || candidate.weekIndex + 3 <= weeks.length)
+    ) {
+      labels.push(candidate);
+    }
+    return labels;
+  }, []);
+}
+
 function ContributionGrid({
   weeks,
-  label,
   cellSize,
   gap,
   totalContributions,
 }: {
   weeks: ContributionWeek[];
-  label?: string;
   cellSize: number;
   gap: number;
   totalContributions: number;
 }) {
   const firstDay = weeks[0]?.contributionDays[0];
-  const lastWeek = weeks.at(-1);
-  const lastDay = lastWeek?.contributionDays.at(-1);
+  const lastDay = weeks.at(-1)?.contributionDays.at(-1);
   const visibleRange =
     firstDay && lastDay
-      ? dateLabel(firstDay.date) + " through " + dateLabel(lastDay.date)
+      ? `${dateLabel(firstDay.date)} through ${dateLabel(lastDay.date)}`
       : "the available date range";
+  const labels = monthLabels(weeks);
   const gridRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
-  const tooltipDateRef = useRef<HTMLParagraphElement>(null);
-  const tooltipCountRef = useRef<HTMLParagraphElement>(null);
+  const tooltipTextRef = useRef<HTMLParagraphElement>(null);
 
   const hideTooltip = () => {
     if (tooltipRef.current) tooltipRef.current.hidden = true;
@@ -148,25 +171,28 @@ function ContributionGrid({
     const tooltip = tooltipRef.current;
     if (!cell || !grid || !tooltip || !grid.contains(cell)) return;
 
+    const count = Number(cell.dataset.count ?? 0);
+    if (tooltipTextRef.current) {
+      tooltipTextRef.current.textContent = `${count} contribution${
+        count === 1 ? "" : "s"
+      } on ${cell.dataset.dateLabel ?? ""}`;
+    }
+
+    tooltip.hidden = false;
+    tooltip.style.visibility = "hidden";
     const cellRect = cell.getBoundingClientRect();
     const gridRect = grid.getBoundingClientRect();
-    const count = Number(cell.dataset.count ?? 0);
-    const horizontalInset = Math.min(88, gridRect.width / 2);
-    const cellCenter = cellRect.left - gridRect.left + cellRect.width / 2;
+    const tooltipWidth = tooltip.getBoundingClientRect().width;
+    const inset = 4;
+    const minimum = tooltipWidth / 2 + inset - gridRect.left;
+    const maximum =
+      window.innerWidth - gridRect.left - tooltipWidth / 2 - inset;
+    const center = cellRect.left - gridRect.left + cellRect.width / 2;
     const tooltipX = Math.min(
-      Math.max(cellCenter, horizontalInset),
-      gridRect.width - horizontalInset,
+      Math.max(center, minimum),
+      maximum,
     );
-    const placeBelow = cellRect.top < 72;
-
-    if (tooltipDateRef.current) {
-      tooltipDateRef.current.textContent = cell.dataset.dateLabel ?? "";
-    }
-    if (tooltipCountRef.current) {
-      tooltipCountRef.current.textContent = `${count} contribution${
-        count === 1 ? "" : "s"
-      }`;
-    }
+    const placeBelow = cellRect.top < gridRect.top + 72;
 
     tooltip.style.left = `${tooltipX}px`;
     tooltip.style.top = `${
@@ -175,61 +201,80 @@ function ContributionGrid({
     tooltip.style.transform = placeBelow
       ? "translate(-50%, 8px)"
       : "translate(-50%, calc(-100% - 8px))";
-    tooltip.hidden = false;
+    tooltip.style.visibility = "";
   };
-  const accessibleSummary =
-    "GitHub contribution activity: " +
-    totalContributions.toLocaleString() +
-    " contributions in the last year. Showing " +
-    visibleRange +
-    ". Darker squares indicate more contributions.";
 
   return (
     <div>
-      {label && (
-        <p className="mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground">
-          {label}
-        </p>
-      )}
+      <div
+        className="mb-2 grid h-4 justify-between"
+        style={{
+          gridTemplateColumns: `repeat(${weeks.length}, ${cellSize}px)`,
+          columnGap: gap,
+        }}
+        aria-hidden="true"
+      >
+        {labels.map(({ weekIndex, key, label }) => (
+          <span
+            key={key}
+            style={{ gridColumnStart: weekIndex + 1 }}
+            className="text-xs text-muted-foreground"
+          >
+            {label}
+          </span>
+        ))}
+      </div>
       <div
         ref={gridRef}
-        className="relative grid w-full grid-flow-col items-start justify-between"
-        style={{ columnGap: gap }}
+        className="relative grid w-full justify-between"
+        style={{
+          gridTemplateColumns: `repeat(${weeks.length}, ${cellSize}px)`,
+          columnGap: gap,
+        }}
         role="img"
-        aria-label={accessibleSummary}
+        aria-label={`GitHub contribution activity: ${totalContributions.toLocaleString()} contributions. Showing ${visibleRange}. Square intensity indicates contribution count.`}
         onPointerOver={showTooltip}
         onPointerLeave={hideTooltip}
       >
         {weeks.map((week, weekIndex) => (
           <div
             key={`${week.contributionDays[0]?.date ?? "week"}-${weekIndex}`}
-            className="grid grid-rows-7"
-            style={{ rowGap: gap }}
+            className="grid"
+            style={{
+              gridTemplateRows: `repeat(7, ${cellSize}px)`,
+              rowGap: gap,
+            }}
           >
-            {week.contributionDays.map((day) => (
-              <span
-                key={day.date}
-                aria-hidden="true"
-                data-contribution-cell=""
-                data-date-label={dateLabel(day.date)}
-                data-count={day.contributionCount}
-                className={
-                  "block rounded-[2px] border transition-transform " +
-                  intensity(day.contributionCount)
-                }
-                style={{ width: cellSize, height: cellSize }}
-              />
-            ))}
+            {week.contributionDays.map((day) => {
+              const countLabel = `${day.contributionCount} contribution${
+                day.contributionCount === 1 ? "" : "s"
+              } on ${dateLabel(day.date)}`;
+              return (
+                <span
+                  key={day.date}
+                  aria-hidden="true"
+                  title={countLabel}
+                  data-contribution-cell=""
+                  data-date-label={dateLabel(day.date)}
+                  data-count={day.contributionCount}
+                  className={`block rounded-[2px] border ${intensity(day.contributionCount)}`}
+                  style={{
+                    width: cellSize,
+                    height: cellSize,
+                    gridRow: new Date(`${day.date}T00:00:00`).getDay() + 1,
+                  }}
+                />
+              );
+            })}
           </div>
         ))}
         <div
           ref={tooltipRef}
           hidden
           aria-hidden="true"
-          className="pointer-events-none absolute z-50 whitespace-nowrap rounded-md border border-border bg-card px-2.5 py-2 text-left text-xs text-card-foreground shadow-lg"
+          className="pointer-events-none absolute z-50 max-w-[calc(100vw-0.5rem)] whitespace-nowrap rounded-md border border-border bg-popover px-2 py-1 text-left text-xs text-popover-foreground shadow-sm"
         >
-          <p ref={tooltipDateRef} className="font-medium" />
-          <p ref={tooltipCountRef} className="mt-0.5 text-muted-foreground" />
+          <p ref={tooltipTextRef} />
         </div>
       </div>
     </div>
@@ -246,25 +291,42 @@ function LoadingGrid({
   gap: number;
 }) {
   return (
-    <div
-      className="grid w-full grid-flow-col items-start justify-between animate-pulse"
-      style={{ columnGap: gap }}
-    >
-      {Array.from({ length: weeks }, (_, weekIndex) => (
-        <div
-          key={weekIndex}
-          className="grid grid-rows-7"
-          style={{ rowGap: gap }}
-        >
-          {Array.from({ length: 7 }, (_, dayIndex) => (
-            <span
-              key={dayIndex}
-              className="rounded-[2px] bg-muted"
-              style={{ width: cellSize, height: cellSize }}
-            />
-          ))}
-        </div>
-      ))}
+    <div className="animate-pulse">
+      <div
+        className="mb-2 grid h-4 justify-between"
+        style={{
+          gridTemplateColumns: `repeat(${weeks}, ${cellSize}px)`,
+          columnGap: gap,
+        }}
+      >
+        <span className="h-3 w-8 rounded bg-muted" />
+      </div>
+      <div
+        className="grid w-full justify-between"
+        style={{
+          gridTemplateColumns: `repeat(${weeks}, ${cellSize}px)`,
+          columnGap: gap,
+        }}
+      >
+        {Array.from({ length: weeks }, (_, weekIndex) => (
+          <div
+            key={weekIndex}
+            className="grid"
+            style={{
+              gridTemplateRows: `repeat(7, ${cellSize}px)`,
+              rowGap: gap,
+            }}
+          >
+            {Array.from({ length: 7 }, (_, dayIndex) => (
+              <span
+                key={dayIndex}
+                className="rounded-[2px] bg-muted"
+                style={{ width: cellSize, height: cellSize }}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -278,75 +340,68 @@ export function GitHubContributionGraph() {
   const totalWeeks = data?.weeks.length ?? FULL_YEAR_WEEK_COUNT;
   const { containerRef, cellSize, gap, visibleWeekCount } =
     useGraphLayout(totalWeeks);
-  const isTruncated = visibleWeekCount > 0 && visibleWeekCount < totalWeeks;
   const visibleWeeks = data?.weeks.slice(-visibleWeekCount) ?? [];
-
   return (
     <section
-      aria-labelledby="github-contributions-title"
-      className="min-w-0 rounded-xl border border-border/50 bg-card p-4 shadow-sm sm:p-6"
+      aria-label="GitHub contributions"
+      className="min-w-0 rounded-xl border border-border/50 bg-card p-4 sm:p-6"
     >
-      <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <div className="mb-5 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
         <div>
-          <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-            GitHub activity
-          </p>
-          <h2
-            id="github-contributions-title"
-            className="mt-1 text-lg font-medium tracking-tight sm:text-xl"
+          <a
+            href="https://github.com/iyawnnn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs font-medium uppercase text-muted-foreground hover:text-foreground"
           >
-            Contribution graph
-          </h2>
+            GitHub activity
+          </a>
+          <h2 className="mt-1 text-lg font-medium">Contribution graph</h2>
         </div>
-        {data && (
-          <p className="text-sm font-medium text-muted-foreground">
-            {data.totalContributions.toLocaleString()} contributions in the last
-            year
+        {!error && data && (
+          <p className="text-sm text-muted-foreground">
+            {data.totalContributions.toLocaleString()} contributions in the last year
           </p>
+        )}
+        {!error && isLoading && (
+          <span aria-hidden="true" className="h-5 w-64 max-w-full animate-pulse rounded bg-muted" />
         )}
       </div>
-
       <div ref={containerRef} className="min-w-0 w-full">
-        {isLoading && visibleWeekCount > 0 && (
+        {!error && isLoading && visibleWeekCount > 0 && (
           <div role="status" aria-label="Loading GitHub contributions">
-            {isTruncated && (
-              <div className="mb-2 h-3 w-24 animate-pulse rounded bg-muted" />
-            )}
-            <LoadingGrid
-              weeks={visibleWeekCount}
-              cellSize={cellSize}
-              gap={gap}
-            />
+            <LoadingGrid weeks={visibleWeekCount} cellSize={cellSize} gap={gap} />
           </div>
         )}
-
         {error && (
-          <div className="flex min-h-24 items-center justify-center rounded-lg border border-dashed border-border/60 bg-muted/20 px-4 text-center text-sm text-muted-foreground">
-            GitHub contributions are temporarily unavailable.
+          <div
+            role="status"
+            className="flex min-h-32 items-center justify-center px-4 text-center text-sm text-muted-foreground"
+          >
+            GitHub activity is temporarily unavailable.
           </div>
         )}
-
-        {data && visibleWeekCount > 0 && (
+        {!error && data && visibleWeekCount > 0 && (
           <ContributionGrid
             weeks={visibleWeeks}
-            label={isTruncated ? "Recent activity" : undefined}
             cellSize={cellSize}
             gap={gap}
             totalContributions={data.totalContributions}
           />
         )}
       </div>
-
-      <div aria-hidden="true" className="mt-4 flex min-w-0 items-center justify-end gap-1 text-[9px] font-mono uppercase tracking-wider text-muted-foreground sm:gap-1.5 sm:text-[10px]">
-        <span>Less</span>
-        {[0, 1, 4, 7, 10].map((count) => (
-          <span
-            key={count}
-            className={`size-2.5 rounded-[2px] border sm:size-3 ${intensity(count)}`}
-          />
-        ))}
-        <span>More</span>
-      </div>
+      {!error && (
+        <div aria-hidden="true" className="mt-4 flex items-center justify-end gap-1 text-xs text-muted-foreground">
+          <span>Less</span>
+          {[0, 1, 4, 7, 10].map((count) => (
+            <span
+              key={count}
+              className={`size-[11px] rounded-[2px] border ${intensity(count)}`}
+            />
+          ))}
+          <span>More</span>
+        </div>
+      )}
     </section>
   );
 }

@@ -7,7 +7,7 @@ import { Robot as Bot, Sun, Moon, MagnifyingGlass as Search } from "@phosphor-ic
 import { Button } from "@/components/ui/button";
 
 export function MobileHeader() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -83,10 +83,10 @@ export function MobileHeader() {
           variant="ghost"
           size="icon"
           className="h-10 w-10 rounded-full text-muted-foreground hover:bg-accent hover:text-foreground"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
         >
           {mounted &&
-            (theme === "dark" ? (
+            (resolvedTheme === "dark" ? (
               <Sun className="h-5 w-5" />
             ) : (
               <Moon className="h-5 w-5" />
