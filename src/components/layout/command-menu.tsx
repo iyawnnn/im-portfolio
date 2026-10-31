@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, CornerDownLeft } from "lucide-react";
 import {
   User,
   House as Home,
@@ -22,7 +22,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
+  CommandShortcut,
 } from "@/components/ui/command";
 
 const ALL_PROJECTS = [
@@ -89,85 +89,97 @@ export function CommandMenu({ initialOpen = false }: { initialOpen?: boolean }) 
         value={searchQuery}
         onValueChange={setSearchQuery}
       />
-      <CommandList className="no-scrollbar">
-        <CommandEmpty>No results found.</CommandEmpty>
-        
-        <CommandGroup heading="Quick Actions">
-          <CommandItem onSelect={() => runCommand(() => router.push("/resume"))}>
-            <FileText className="mr-2 h-4 w-4" />
-            <span>View Resume</span>
-          </CommandItem>
-        </CommandGroup>
+      <div className="mx-1 mb-1 overflow-hidden rounded-xl bg-background ring-1 ring-border">
+        <CommandList className="no-scrollbar">
+          <CommandEmpty>No results found.</CommandEmpty>
 
-        <CommandSeparator />
-
-        <CommandGroup heading="Navigation">
-          <CommandItem onSelect={() => runCommand(() => router.push("/"))}>
-            <Home className="mr-2 h-4 w-4" />
-            <span>Explore</span>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => router.push("/about"))}>
-            <User className="mr-2 h-4 w-4" />
-            <span>About</span>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => router.push("/stack"))}>
-            <CodeXml className="mr-2 h-4 w-4" />
-            <span>Stack</span>
-          </CommandItem>
-        </CommandGroup>
-
-        <CommandSeparator />
-
-        <CommandGroup heading="Projects">
-          {visibleProjects.map((project) => (
-            <CommandItem key={project.href} onSelect={() => runCommand(() => router.push(project.href))}>
-              <FolderDot className="mr-2 h-4 w-4 text-muted-foreground" />
-              <span>{project.title}</span>
+          <CommandGroup heading="Quick Actions">
+            <CommandItem onSelect={() => runCommand(() => router.push("/resume"))}>
+              <FileText />
+              <span>View Resume</span>
             </CommandItem>
-          ))}
-          {!isSearching && (
-            <CommandItem onSelect={() => runCommand(() => router.push("/projects"))}>
-              <Briefcase className="mr-2 h-4 w-4" />
-              <span>View All Projects...</span>
+          </CommandGroup>
+
+          <CommandGroup heading="Navigation">
+            <CommandItem value="explore" onSelect={() => runCommand(() => router.push("/"))}>
+              <Home />
+              <span>Explore</span>
+              <CommandShortcut>G H</CommandShortcut>
             </CommandItem>
-          )}
-        </CommandGroup>
-
-        <CommandSeparator />
-
-        <CommandGroup heading="Writing">
-          {visibleBlogs.map((blog) => (
-            <CommandItem key={blog.href} onSelect={() => runCommand(() => router.push(blog.href))}>
-              <PenTool className="mr-2 h-4 w-4 text-muted-foreground" />
-              <span>{blog.title}</span>
+            <CommandItem value="about" onSelect={() => runCommand(() => router.push("/about"))}>
+              <User />
+              <span>About</span>
+              <CommandShortcut>G A</CommandShortcut>
             </CommandItem>
-          ))}
-          {!isSearching && (
-            <CommandItem onSelect={() => runCommand(() => router.push("/blog"))}>
-              <BookOpen className="mr-2 h-4 w-4" />
-              <span>View All Articles...</span>
+            <CommandItem value="stack" onSelect={() => runCommand(() => router.push("/stack"))}>
+              <CodeXml />
+              <span>Stack</span>
+              <CommandShortcut>G S</CommandShortcut>
             </CommandItem>
-          )}
-        </CommandGroup>
+          </CommandGroup>
 
-        <CommandSeparator />
+          <CommandGroup heading="Projects">
+            {visibleProjects.map((project) => (
+              <CommandItem key={project.href} onSelect={() => runCommand(() => router.push(project.href))}>
+                <FolderDot className="text-muted-foreground" />
+                <span>{project.title}</span>
+              </CommandItem>
+            ))}
+            {!isSearching && (
+              <CommandItem value="view all projects" onSelect={() => runCommand(() => router.push("/projects"))}>
+                <Briefcase />
+                <span>View All Projects...</span>
+                <CommandShortcut>G P</CommandShortcut>
+              </CommandItem>
+            )}
+          </CommandGroup>
 
-        <CommandGroup heading="Connect">
-          <CommandItem onSelect={() => runCommand(() => router.push("/contact"))}>
-            <Mail className="mr-2 h-4 w-4" />
-            <span>Contact Form</span>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => window.open("https://github.com/iyawnnn", "_blank"))}>
-            <Github className="mr-2 h-4 w-4" />
-            <span>GitHub</span>
-          </CommandItem>
-          <CommandItem onSelect={() => runCommand(() => window.open("https://www.linkedin.com/in/ianmacabulos/", "_blank"))}>
-            <Linkedin className="mr-2 h-4 w-4" />
-            <span>LinkedIn</span>
-          </CommandItem>
-        </CommandGroup>
+          <CommandGroup heading="Writing">
+            {visibleBlogs.map((blog) => (
+              <CommandItem key={blog.href} onSelect={() => runCommand(() => router.push(blog.href))}>
+                <PenTool className="text-muted-foreground" />
+                <span>{blog.title}</span>
+              </CommandItem>
+            ))}
+            {!isSearching && (
+              <CommandItem value="view all articles" onSelect={() => runCommand(() => router.push("/blog"))}>
+                <BookOpen />
+                <span>View All Articles...</span>
+                <CommandShortcut>G B</CommandShortcut>
+              </CommandItem>
+            )}
+          </CommandGroup>
 
-      </CommandList>
+          <CommandGroup heading="Connect">
+            <CommandItem onSelect={() => runCommand(() => router.push("/contact"))}>
+              <Mail />
+              <span>Contact Form</span>
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => window.open("https://github.com/iyawnnn", "_blank"))}>
+              <Github />
+              <span>GitHub</span>
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => window.open("https://www.linkedin.com/in/ianmacabulos/", "_blank"))}>
+              <Linkedin />
+              <span>LinkedIn</span>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </div>
+      <div className="flex h-10 items-center justify-between px-3 text-xs font-medium text-muted-foreground">
+        <span
+          role="img"
+          aria-label="Ian mark"
+          className="size-6 bg-current [mask-image:url('/logo/personal-logo-black.png')] [mask-mode:luminance] [mask-repeat:no-repeat] [mask-size:contain]"
+        />
+        <span className="flex items-center gap-1.5">
+          Open
+          <kbd className="flex size-5 items-center justify-center rounded border border-border text-foreground">
+            <CornerDownLeft aria-hidden="true" className="size-3" />
+            <span className="sr-only">Enter</span>
+          </kbd>
+        </span>
+      </div>
     </CommandDialog>
   );
 }

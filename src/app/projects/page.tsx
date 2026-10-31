@@ -126,7 +126,7 @@ export default function ProjectsPage({
         transition={{ duration: 0.4 }}
         className="flex flex-col gap-4 w-full max-w-4xl"
       >
-        <h1 className="text-4xl md:text-5xl font-[650] tracking-[-0.025em] lg:text-6xl text-foreground leading-[1.05]">
+        <h1 className="text-4xl md:text-5xl font-medium tracking-tight lg:text-6xl text-foreground leading-[1.05]">
           Crafted Projects
         </h1>
         <p className="text-lg md:text-xl leading-relaxed text-muted-foreground w-full">

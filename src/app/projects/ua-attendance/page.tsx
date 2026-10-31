@@ -75,7 +75,7 @@ export default function UAAttendancePage() {
 
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-[650] tracking-[-0.025em] text-foreground">
+          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
             UA LabSign — Laboratory Attendance System
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
@@ -121,7 +121,7 @@ export default function UAAttendancePage() {
 
       <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
         <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Project Links</h3>
+          <h3 className="text-lg font-medium">Project Links</h3>
           <p className="text-sm text-muted-foreground max-w-md">
             Open the live platform or inspect the coordinated web/backend and
             mobile applications.
@@ -172,13 +172,13 @@ export default function UAAttendancePage() {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
         <div className="xl:col-span-2 space-y-12">
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Layout aria-hidden="true" className="w-6 h-6 text-primary" />
               Coordinated Architecture
             </h2>
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
                   <Globe aria-hidden="true" className="w-4 h-4 text-primary" />
                   Web Portal & Backend
                 </h3>
@@ -191,7 +191,7 @@ export default function UAAttendancePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
                   <DeviceMobile
                     aria-hidden="true"
                     className="w-4 h-4 text-primary"
@@ -210,7 +210,7 @@ export default function UAAttendancePage() {
           </section>
 
           <section className="space-y-6">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <ShieldCheck
                 aria-hidden="true"
                 className="w-6 h-6 text-primary"
@@ -250,11 +250,11 @@ export default function UAAttendancePage() {
                 ],
               ].map(([step, title, description]) => (
                 <li key={step} className="flex gap-4 py-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-medium text-primary">
                     {step}
                   </span>
                   <div className="min-w-0">
-                    <h3 className="font-semibold text-foreground">{title}</h3>
+                    <h3 className="font-medium text-foreground">{title}</h3>
                     <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                       {description}
                     </p>
@@ -265,13 +265,13 @@ export default function UAAttendancePage() {
           </section>
 
           <section className="space-y-6">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Cpu aria-hidden="true" className="w-6 h-6 text-primary" />
               Security & Operations
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-semibold text-foreground mb-2">
+                <h4 className="font-medium text-foreground mb-2">
                   Device-Bound Signing
                 </h4>
                 <p className="text-sm text-muted-foreground">
@@ -281,7 +281,7 @@ export default function UAAttendancePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-semibold text-foreground mb-2">
+                <h4 className="font-medium text-foreground mb-2">
                   Privacy-Preserving Location Check
                 </h4>
                 <p className="text-sm text-muted-foreground">
@@ -291,7 +291,7 @@ export default function UAAttendancePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-semibold text-foreground mb-2">
+                <h4 className="font-medium text-foreground mb-2">
                   Recovery & Revocation
                 </h4>
                 <p className="text-sm text-muted-foreground">
@@ -301,7 +301,7 @@ export default function UAAttendancePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-semibold text-foreground mb-2">
+                <h4 className="font-medium text-foreground mb-2">
                   Reports & Auditability
                 </h4>
                 <p className="text-sm text-muted-foreground">
@@ -314,7 +314,7 @@ export default function UAAttendancePage() {
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Briefcase aria-hidden="true" className="w-6 h-6 text-primary" />
               Project Scope
             </h2>
@@ -337,7 +337,7 @@ export default function UAAttendancePage() {
             </CardHeader>
             <div className="px-6 pb-6 space-y-6">
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Web Portal & Backend
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -349,7 +349,7 @@ export default function UAAttendancePage() {
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Mobile Application
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -361,7 +361,7 @@ export default function UAAttendancePage() {
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Data & Security
                 </h4>
                 <div className="flex flex-wrap gap-2">

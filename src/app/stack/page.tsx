@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, RotateCcw, TestTube, ChevronLeft, ChevronRight } from "lucide-react";
+import { Search, RotateCcw, TestTube, ChevronLeft, ChevronRight, Bot, Workflow } from "lucide-react";
 import {
   SiReact,
   SiVuedotjs,
@@ -25,7 +25,7 @@ import {
   SiDart,
   SiFlutter,
   SiNetlify,
-  SiAmazon,
+  SiAmazonwebservices,
   SiWordpress,
   SiNestjs,
   SiPostgresql,
@@ -34,17 +34,21 @@ import {
   SiGithubactions,
   SiPytest, 
   SiFastapi,
-  SiFastify,
   SiLaravel,
   SiRender,
-  SiSqlite,
   SiExpo,
-  SiRust
+  SiShadcnui,
+  SiSupabase,
+  SiPrisma,
+  SiUpstash,
+  SiCloudflare,
+  SiClaude,
+  SiOpenai,
+  SiN8N,
 } from "react-icons/si";
 import { FaJava } from "react-icons/fa";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -70,8 +74,8 @@ function ToolLogo({ tool }: { tool: Tool }) {
 
   return (
     <Icon
-      className="w-6 h-6 text-foreground group-hover:text-primary transition-colors"
-      aria-label={tool.name + " logo"}
+      className="size-5 text-foreground transition-colors duration-200 ease-[cubic-bezier(.22,1,.36,1)] group-hover:text-primary motion-reduce:transition-none"
+      aria-label={tool.name + " icon"}
     />
   );
 }
@@ -81,46 +85,52 @@ const toolsData: ToolCategory[] = [
     category: "Frontend Development",
     items: [
       {
-        name: "Next.js 15",
-        description: "The React Framework for the Web.",
+        name: "Next.js",
+        description: "React framework for server-rendered web applications.",
         icon: SiNextdotjs,
         tags: ["React", "SSR", "RSC"],
       },
       {
         name: "React",
-        description: "Library for building user interfaces.",
+        description: "Library for building component-based user interfaces.",
         icon: SiReact,
         tags: ["UI", "Components"],
       },
       {
         name: "TypeScript",
-        description: "Strongly typed superset of JavaScript.",
+        description: "Typed JavaScript for safer application development.",
         icon: SiTypescript,
         tags: ["Language", "Type Safety"],
       },
       {
         name: "Tailwind CSS",
-        description: "Utility-first CSS framework for rapid UI.",
+        description: "Utility classes for building responsive interfaces quickly.",
         icon: SiTailwindcss,
         tags: ["CSS", "Styling"],
       },
       {
         name: "Vue.js",
-        description: "The Progressive JavaScript Framework.",
+        description: "JavaScript framework for building reactive web interfaces.",
         icon: SiVuedotjs,
         tags: ["Framework", "UI"],
       },
       {
         name: "Angular",
-        description: "Platform for building scalable web apps.",
+        description: "Framework for structured, scalable web applications.",
         icon: SiAngular,
         tags: ["Framework", "Google"],
       },
       {
         name: "Bootstrap",
-        description: "Feature-packed frontend toolkit.",
+        description: "Component toolkit for responsive frontend interfaces.",
         icon: SiBootstrap,
         tags: ["CSS", "Framework"],
+      },
+      {
+        name: "shadcn/ui",
+        description: "Accessible UI components for Tailwind CSS projects.",
+        icon: SiShadcnui,
+        tags: ["UI", "Components", "Tailwind"],
       },
     ],
   },
@@ -129,92 +139,127 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Node.js",
-        description: "JavaScript runtime on Chrome's V8 engine.",
+        description: "JavaScript runtime for server-side application development.",
         icon: SiNodedotjs,
         tags: ["Runtime", "Backend"],
       },
       {
         name: "Laravel",
-        description: "The PHP Framework for Web Artisans.",
+        description: "PHP framework for structured web application development.",
         icon: SiLaravel,
         tags: ["Framework", "PHP"],
       },
       {
         name: "Express.js",
-        description: "Fast, minimalist web framework.",
+        description: "Minimal framework for Node.js APIs and services.",
         icon: SiExpress,
         tags: ["Framework", "API"],
       },
       {
-        name: "Fastify",
-        description: "Fast and low-overhead web framework for Node.js.",
-        icon: SiFastify,
-        tags: ["Backend", "Node.js"],
-      },
-      {
         name: "FastAPI",
-        description: "High-performance Python API framework.",
+        description: "Python framework for building typed API services.",
         icon: SiFastapi,
         tags: ["Python", "API"],
       },
       {
         name: "NestJS",
-        description: "Scalable Node.js backend framework.",
+        description: "Node.js framework for modular backend applications.",
         icon: SiNestjs,
         tags: ["Framework", "Node.js"],
       },
       {
         name: "Python",
-        description: "Versatile language for rapid development.",
+        description: "General-purpose language for applications and automation.",
         icon: SiPython,
         tags: ["Language", "Data"],
       },
       {
         name: "Java",
-        description: "Robust, object-oriented language.",
+        description: "Object-oriented language for enterprise application development.",
         icon: FaJava,
         tags: ["Language", "OOP"],
       },
       {
         name: "PHP",
-        description: "Popular server-side scripting language.",
+        description: "Server-side language for dynamic web applications.",
         icon: SiPhp,
         tags: ["Language", "Server-side"],
-      },
-      {
-        name: "Rust",
-        description: "Systems language focused on speed and safety.",
-        icon: SiRust,
-        tags: ["Language", "Systems"],
       },
     ],
   },
   {
-    category: "Databases",
+    category: "Databases & Data",
     items: [
       {
         name: "PostgreSQL",
-        description: "Advanced open source relational database.",
+        description: "Relational database for structured application data.",
         icon: SiPostgresql,
         tags: ["Database", "SQL"],
       },
       {
         name: "MongoDB",
-        description: "Modern application data platform.",
+        description: "Document database for flexible application data models.",
         icon: SiMongodb,
         tags: ["Database", "NoSQL"],
       },
       {
         name: "MySQL",
-        description: "World's most popular open source DB.",
+        description: "Relational database for web application data.",
         icon: SiMysql,
         tags: ["Database", "SQL"],
       },
       {
-        name: "SQLite",
-        description: "Small, fast, self-contained SQL database engine.",
-        icon: SiSqlite,
-        tags: ["Database", "SQL"],
+        name: "Supabase",
+        description: "Backend platform for data, authentication, and storage.",
+        icon: SiSupabase,
+        tags: ["PostgreSQL", "BaaS", "Backend"],
+      },
+      {
+        name: "Prisma",
+        description: "Type-safe ORM for application database access.",
+        icon: SiPrisma,
+        tags: ["ORM", "Database", "TypeScript"],
+      },
+      {
+        name: "Upstash Redis",
+        description: "Serverless Redis for rate limiting and view counts.",
+        icon: SiUpstash,
+        tags: ["Redis", "Rate Limiting", "Serverless"],
+      },
+    ],
+  },
+  {
+    category: "AI & Automation",
+    items: [
+      {
+        name: "Claude Code",
+        description: "Agentic coding tool for implementation, debugging, and repository-level development.",
+        icon: SiClaude,
+        tags: ["AI", "Coding", "Agents"],
+      },
+      {
+        name: "Codex",
+        description: "Coding agent for repository analysis, implementation, and focused development tasks.",
+        icon: SiOpenai,
+        tags: ["AI", "Coding", "Agents"],
+      },
+      {
+        name: "Antigravity",
+        description: "Agentic development environment for coding and multi-step software workflows.",
+        icon: Bot,
+        tags: ["AI", "Coding", "Agent", "Google"],
+      },
+      {
+        name: "n8n",
+        description: "Workflow automation for connecting APIs, services, and repeatable processes.",
+        icon: SiN8N,
+        tags: ["Automation", "Workflows", "Integrations"],
+      },
+      {
+        name: "Power Automate",
+        description: "Microsoft workflow automation for business processes and service integrations.",
+        icon: Workflow,
+        tags: ["Automation", "Microsoft", "Workflows"],
       },
     ],
   },
@@ -223,31 +268,31 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Vitest",
-        description: "Blazing fast Vite-native unit testing.",
+        description: "Fast unit testing for modern JavaScript projects.",
         icon: SiVitest,
         tags: ["Testing", "Unit"],
       },
       {
         name: "Jest",
-        description: "Fast JavaScript testing framework.",
+        description: "JavaScript testing framework for reliable application tests.",
         icon: SiJest,
         tags: ["Testing", "JavaScript"],
       },
       {
         name: "Pytest",
-        description: "Mature full-featured Python testing tool.",
+        description: "Python testing framework for concise automated tests.",
         icon: SiPytest,
         tags: ["Testing", "Python"],
       },
       {
         name: "Playwright",
-        description: "Reliable E2E testing for modern apps.",
+        description: "End-to-end testing for modern web applications.",
         icon: TestTube,
         tags: ["Testing", "E2E"],
       },
       {
         name: "Postman",
-        description: "Platform for building and using APIs.",
+        description: "API client for building and testing requests.",
         icon: SiPostman,
         tags: ["API", "Testing"],
       },
@@ -258,33 +303,39 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Vercel",
-        description: "Develop, Preview, Ship frontends fast.",
+        description: "Platform for deploying frontend web applications.",
         icon: SiVercel,
         tags: ["Deployment", "Hosting"],
       },
       {
         name: "Render",
-        description: "Cloud hosting for apps and databases.",
+        description: "Cloud platform for hosting applications and databases.",
         icon: SiRender,
         tags: ["Deployment", "Hosting"],
       },
       {
         name: "Amazon Web Services",
-        description: "Comprehensive cloud computing platform.",
-        icon: SiAmazon,
+        description: "Cloud services for infrastructure and application hosting.",
+        icon: SiAmazonwebservices,
         tags: ["Cloud", "Infrastructure"],
       },
       {
         name: "Netlify",
-        description: "The fastest way to build modern sites.",
+        description: "Platform for deploying modern web projects.",
         icon: SiNetlify,
         tags: ["Deployment", "CDN"],
       },
       {
         name: "GitHub Actions",
-        description: "Automate software workflows with CI/CD.",
+        description: "CI/CD automation for repository workflows and deployments.",
         icon: SiGithubactions,
         tags: ["CI/CD", "Automation"],
+      },
+      {
+        name: "Cloudflare",
+        description: "Edge platform for DNS, security, and delivery.",
+        icon: SiCloudflare,
+        tags: ["Infrastructure", "DNS", "Delivery"],
       },
     ],
   },
@@ -293,25 +344,25 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Git",
-        description: "Distributed version control system.",
+        description: "Distributed version control for source code changes.",
         icon: SiGit,
         tags: ["Version Control"],
       },
       {
         name: "GitHub",
-        description: "Platform for code hosting and collaboration.",
+        description: "Code hosting and collaboration for Git repositories.",
         icon: SiGithub,
         tags: ["Collaboration", "Git"],
       },
       {
         name: "Figma",
-        description: "Collaborative interface design tool.",
+        description: "Collaborative tool for interface design and prototyping.",
         icon: SiFigma,
         tags: ["Design", "UI/UX"],
       },
       {
         name: "WordPress",
-        description: "Open source CMS for beautiful websites.",
+        description: "Content management system for publishing websites.",
         icon: SiWordpress,
         tags: ["CMS", "PHP"],
       },
@@ -322,25 +373,25 @@ const toolsData: ToolCategory[] = [
     items: [
       {
         name: "Flutter",
-        description: "UI toolkit for natively compiled apps.",
+        description: "Toolkit for building cross-platform native applications.",
         icon: SiFlutter,
         tags: ["Mobile", "Cross-platform"],
       },
       {
         name: "Dart",
-        description: "Client-optimized language for fast apps.",
+        description: "Language for building fast client applications.",
         icon: SiDart,
         tags: ["Language", "Mobile"],
       },
       {
         name: "React Native",
-        description: "Build native apps using React.",
+        description: "Framework for building native apps with React.",
         icon: SiReact,
         tags: ["Mobile", "Cross-platform"],
       },
       {
         name: "Expo",
-        description: "Framework and platform for universal React apps.",
+        description: "Tooling for developing universal React applications.",
         icon: SiExpo,
         tags: ["Mobile", "Tooling"],
       },
@@ -407,7 +458,7 @@ export default function StackPage() {
       
       <div className="flex flex-col gap-6 w-full min-w-0">
         <div className="space-y-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-[650] tracking-[-0.025em] text-foreground">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
             My Development Arsenal
           </h1>
           <p className="text-lg md:text-xl leading-relaxed text-muted-foreground w-full break-words">
@@ -422,6 +473,7 @@ export default function StackPage() {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors duration-300" />
             <Input
               type="text"
+              aria-label="Search tools"
               placeholder="Search tools..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -440,6 +492,7 @@ export default function StackPage() {
                 variant="outline"
                 size="icon"
                 onClick={() => scroll("left")}
+                aria-label="Scroll categories left"
                 className="h-8 w-8 rounded-full shadow-sm bg-background border-border text-foreground hover:bg-secondary hover:text-primary transition-all shrink-0"
               >
                 <ChevronLeft className="h-4 w-4" />
@@ -457,6 +510,7 @@ export default function StackPage() {
                   <button
                     key={category}
                     onClick={() => setActiveCategory(category)}
+                    aria-pressed={isActive}
                     className={`relative px-5 h-9 text-sm font-medium rounded-full whitespace-nowrap transition-colors outline-none shrink-0 snap-start flex items-center justify-center ${
                       isActive
                         ? "text-primary-foreground"
@@ -485,6 +539,7 @@ export default function StackPage() {
                 variant="outline"
                 size="icon"
                 onClick={() => scroll("right")}
+                aria-label="Scroll categories right"
                 className="h-8 w-8 rounded-full shadow-sm bg-background border-border text-foreground hover:bg-secondary hover:text-primary transition-all shrink-0"
               >
                 <ChevronRight className="h-4 w-4" />
@@ -497,43 +552,33 @@ export default function StackPage() {
 
       <div className="flex-grow flex flex-col relative w-full min-w-0">
         {filteredTools.length > 0 ? (
-          <div className="space-y-10 lg:space-y-16">
+          <div className="space-y-8 lg:space-y-10">
             {filteredTools.map((category, idx) => (
-              <section key={idx} className="space-y-4 lg:space-y-6 min-w-0">
-                <h2 className="text-xs lg:text-sm font-semibold text-muted-foreground uppercase tracking-wider pl-1">
+              <section key={idx} className="space-y-3 min-w-0">
+                <h2 className="text-xs lg:text-sm font-medium text-muted-foreground uppercase tracking-wider pl-1">
                   {category.category}
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 min-[87.5rem]:grid-cols-3 gap-3">
                   {category.items.map((tool, toolIdx) => (
                     <Card
                       key={toolIdx}
-                      className="group border-border bg-card py-1 lg:py-2 hover:border-primary/50 hover:shadow-sm transition-all duration-200 min-w-0"
+                      className="group h-full gap-0 border-border bg-card py-0 shadow-none hover:border-foreground/20 hover:bg-muted/20 transition-[background-color,border-color] duration-200 ease-[cubic-bezier(.22,1,.36,1)] motion-reduce:transition-none min-w-0"
                     >
-                      <CardContent className="p-4 lg:p-5 flex items-start gap-4 min-w-0">
-                        <div className="p-2 bg-secondary rounded-lg border border-border group-hover:border-primary/20 transition-colors shrink-0">
+                      <CardContent className="flex items-center gap-3 p-4 min-w-0">
+                        <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-muted/50">
                           <ToolLogo tool={tool} />
                         </div>
-                        <div className="space-y-2 w-full min-w-0">
-                          <div className="space-y-1 min-w-0">
-                            <h3 className="font-semibold text-foreground text-lg truncate">
-                              {tool.name}
-                            </h3>
-                            <p className="text-sm lg:text-base text-muted-foreground leading-relaxed line-clamp-2 break-words">
-                              {tool.description}
-                            </p>
-                          </div>
-                          <div className="flex flex-wrap gap-2 pt-1 min-w-0">
-                            {tool.tags.map((tag, tagIdx) => (
-                              <Badge
-                                key={tagIdx}
-                                variant="secondary"
-                                className="font-normal text-[10px] lg:text-xs px-2 py-0.5 border-border"
-                              >
-                                {tag}
-                              </Badge>
-                            ))}
-                          </div>
+                        <div className="min-w-0 flex-1 space-y-1">
+                          <h3 className="truncate text-[15px] font-medium leading-5 text-foreground">
+                            {tool.name}
+                          </h3>
+                          <p
+                            title={tool.description}
+                            className="line-clamp-2 text-[13px] leading-5 text-muted-foreground md:line-clamp-1"
+                          >
+                            {tool.description}
+                          </p>
                         </div>
                       </CardContent>
                     </Card>
@@ -553,13 +598,13 @@ export default function StackPage() {
               </div>
 
               <div className="space-y-3">
-                <h3 className="text-2xl font-semibold tracking-[-0.015em]">
+                <h3 className="text-2xl font-medium tracking-tight">
                   No results found
                 </h3>
                 <p className="text-muted-foreground text-base px-6">
-                  We couldn't find any tools matching{" "}
+                  We couldn&apos;t find any tools matching{" "}
                   <span className="text-foreground font-semibold italic">
-                    "{query}"
+                    &quot;{query}&quot;
                   </span>
                   . Try adjusting your search or category.
                 </p>

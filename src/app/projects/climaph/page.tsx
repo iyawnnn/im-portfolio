@@ -65,7 +65,7 @@ export default function ClimaPHPage() {
       
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-[650] tracking-[-0.025em] text-foreground">
+          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
             ClimaPH
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
@@ -101,7 +101,7 @@ export default function ClimaPHPage() {
       
       <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
         <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Project Links</h3>
+          <h3 className="text-lg font-medium">Project Links</h3>
           <p className="text-sm text-muted-foreground max-w-md">
             Explore the live application or review the codebase on GitHub.
           </p>
@@ -128,12 +128,12 @@ export default function ClimaPHPage() {
         <div className="xl:col-span-2 space-y-12">
           
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Layout className="w-6 h-6 text-primary" /> Core Features
             </h2>
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1">
+                <h3 className="font-medium text-foreground mb-1">
                   Interactive Mapping
                 </h3>
                 <p className="text-muted-foreground text-sm">
@@ -141,7 +141,7 @@ export default function ClimaPHPage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1">
+                <h3 className="font-medium text-foreground mb-1">
                   Localized Forecasting
                 </h3>
                 <p className="text-muted-foreground text-sm">
@@ -149,7 +149,7 @@ export default function ClimaPHPage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1">
+                <h3 className="font-medium text-foreground mb-1">
                   Location Management
                 </h3>
                 <p className="text-muted-foreground text-sm">
@@ -161,19 +161,19 @@ export default function ClimaPHPage() {
 
           
           <section className="space-y-6">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Cpu className="w-6 h-6 text-primary" /> Architecture & Implementation
             </h2>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">The Challenge</h3>
+              <h3 className="text-xl font-medium">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
                 The application required managing complex client state for mapping and user preferences while ensuring strict security protocols. Exposing external API credentials to the client browser was a critical vulnerability that needed to be addressed without compromising performance.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">The Solution</h3>
+              <h3 className="text-xl font-medium">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
                   <strong>State & Fetching:</strong> Implemented Zustand for streamlined global state management and SWR for reactive data synchronization across components.
@@ -190,7 +190,7 @@ export default function ClimaPHPage() {
 
           
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <ShieldCheck className="w-6 h-6 text-primary" /> Security & Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -210,7 +210,7 @@ export default function ClimaPHPage() {
             </CardHeader>
             <div className="px-6 pb-6 space-y-6">
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Frontend
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -224,7 +224,7 @@ export default function ClimaPHPage() {
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Backend & Security
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -235,7 +235,7 @@ export default function ClimaPHPage() {
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   APIs
                 </h4>
                 <div className="flex flex-wrap gap-2">

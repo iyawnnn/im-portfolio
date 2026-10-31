@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <article className="w-full flex flex-col">
         <div className="flex flex-col mb-8 max-w-4xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-[650] tracking-[-0.025em] text-foreground font-sans leading-[1.05]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-foreground font-sans leading-[1.05]">
             {meta.title}
           </h1>
           
@@ -84,7 +84,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
             
             <div className="flex flex-col">
-              <span className="font-semibold text-foreground text-sm sm:text-base leading-none mb-1 sm:mb-1.5">
+              <span className="font-medium text-foreground text-sm sm:text-base leading-none mb-1 sm:mb-1.5">
                 Ian Macabulos
               </span>
               
@@ -111,7 +111,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         
         <div className="prose prose-neutral dark:prose-invert max-w-none w-full
           prose-headings:font-sans prose-p:font-sans prose-a:font-sans
-          prose-headings:font-semibold prose-headings:tracking-[-0.015em] prose-headings:text-foreground
+          prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-foreground
           prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:text-base sm:prose-p:text-[1.05rem]
           prose-a:text-foreground prose-a:underline prose-a:underline-offset-4
           prose-img:rounded-xl sm:prose-img:rounded-2xl prose-img:border prose-img:border-border/50

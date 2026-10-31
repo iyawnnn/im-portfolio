@@ -68,7 +68,7 @@ export default function ThryvePage() {
       {/* --- HEADER --- */}
       <div className="flex flex-col gap-6">
         <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-[650] tracking-[-0.025em] text-foreground">
+          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
             Thryve
           </h1>
           <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
@@ -111,7 +111,7 @@ export default function ThryvePage() {
       {/* --- DEMO & CODE CARD --- */}
       <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
         <div className="space-y-1">
-          <h3 className="text-lg font-semibold">Project Links</h3>
+          <h3 className="text-lg font-medium">Project Links</h3>
           <p className="text-sm text-muted-foreground max-w-md">
             Explore the live application or review the codebase on GitHub.
           </p>
@@ -140,12 +140,12 @@ export default function ThryvePage() {
         <div className="xl:col-span-2 space-y-12">
           {/* Core Features */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Layout className="w-6 h-6 text-primary" /> Core Features
             </h2>
             <div className="grid gap-4">
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1">
+                <h3 className="font-medium text-foreground mb-1">
                   Holistic Tracking
                 </h3>
                 <p className="text-muted-foreground text-sm">
@@ -155,7 +155,7 @@ export default function ThryvePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1">
+                <h3 className="font-medium text-foreground mb-1">
                   Gamification Engine
                 </h3>
                 <p className="text-muted-foreground text-sm">
@@ -165,7 +165,7 @@ export default function ThryvePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-semibold text-foreground mb-1">
+                <h3 className="font-medium text-foreground mb-1">
                   Visual Analytics
                 </h3>
                 <p className="text-muted-foreground text-sm">
@@ -179,12 +179,12 @@ export default function ThryvePage() {
 
           {/* Development Process */}
           <section className="space-y-6">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Cpu className="w-6 h-6 text-primary" /> Development Process
             </h2>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">The Challenge</h3>
+              <h3 className="text-xl font-medium">The Challenge</h3>
               <p className="text-muted-foreground leading-relaxed">
                 The primary challenge was managing the state for multiple
                 interconnected data streams. For example, deleting a workout
@@ -195,7 +195,7 @@ export default function ThryvePage() {
             </div>
 
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold">The Solution</h3>
+              <h3 className="text-xl font-medium">The Solution</h3>
               <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
                 <li>
                   <strong>Reactive State Management:</strong> Leveraged Pinia
@@ -219,7 +219,7 @@ export default function ThryvePage() {
 
           {/* Key Takeaways */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold tracking-[-0.015em] flex items-center gap-2">
+            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
               <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
             </h2>
             <p className="text-muted-foreground leading-relaxed">
@@ -242,7 +242,7 @@ export default function ThryvePage() {
             </CardHeader>
             <div className="px-6 pb-6 space-y-6">
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Frontend
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -255,7 +255,7 @@ export default function ThryvePage() {
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Backend
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -266,7 +266,7 @@ export default function ThryvePage() {
               </div>
 
               <div>
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">
+                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
                   Services
                 </h4>
                 <div className="flex flex-wrap gap-2">

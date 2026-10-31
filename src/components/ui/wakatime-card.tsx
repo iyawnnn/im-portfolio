@@ -40,11 +40,11 @@ export async function WakaTimeCard() {
         <div className="flex justify-between items-start z-10">
           <div className="flex items-center gap-2">
             <CodeXml className="w-4 h-4 text-foreground" />
-            <span className="text-[10px] font-mono text-muted-foreground tracking-widest uppercase">Dev Metrics</span>
+            <span className="text-xs font-medium text-muted-foreground tracking-wider uppercase">Dev Metrics</span>
           </div>
           
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono text-muted-foreground uppercase">Last 7 Days</span>
+            <span className="text-xs font-medium text-muted-foreground tracking-wider uppercase">Last 7 Days</span>
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground opacity-75 will-change-transform transform-gpu"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-foreground"></span>
@@ -58,7 +58,7 @@ export async function WakaTimeCard() {
           </div>
           
           <div className="flex flex-col min-w-0 flex-1">
-            <h3 className="text-base font-semibold text-foreground truncate leading-tight">
+            <h3 className="text-base font-medium tracking-tight text-foreground truncate leading-tight">
               {data?.total || "0 hrs"}
             </h3>
             <p className="text-sm font-medium text-muted-foreground truncate mt-0.5">Logged</p>

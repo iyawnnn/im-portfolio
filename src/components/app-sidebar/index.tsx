@@ -93,7 +93,7 @@ function NavSection({
   return (
     <section className="w-full">
       {!isCollapsed && (
-        <h2 className="mb-3 px-3 text-[10px] font-semibold uppercase text-sidebar-foreground/50 transition-opacity duration-300 tracking-widest">
+        <h2 className="mb-3 px-3 text-xs font-medium uppercase text-sidebar-foreground/50 transition-opacity duration-300 tracking-wider">
           {title}
         </h2>
       )}
@@ -266,7 +266,7 @@ export function AppSidebar() {
               : "w-auto opacity-100 visible",
           )}
         >
-          <h1 className="truncate text-base font-semibold leading-none tracking-[-0.01em]">
+          <h1 className="truncate text-base font-medium leading-none tracking-[-0.01em]">
             Ian Macabulos
           </h1>
           <p className="whitespace-nowrap text-[12px] font-normal text-muted-foreground mt-1">
