@@ -91,7 +91,7 @@ export default function ContactPage() {
         <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground mb-4">
           Let’s work together.
         </h1>
-        <p className="text-lg text-muted-foreground leading-relaxed">
+        <p className="text-base font-normal tracking-normal text-muted-foreground leading-6">
           I’m currently looking for freelance opportunities or a full-time role.
           If you have a project that needs a clean, performant interface, I'd
           love to hear about it.
@@ -172,7 +172,7 @@ export default function ContactPage() {
                 </div>
                 <div className="pb-2 pt-2">
                   <h4 className="font-medium tracking-tight text-foreground">Send a Message</h4>
-                  <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                  <p className="text-sm font-normal tracking-normal text-muted-foreground mt-1 leading-5">
                     Tell me a little about what you&apos;re working on, what you
                     need help with, or just say hello.
                   </p>
@@ -189,7 +189,7 @@ export default function ContactPage() {
                 </div>
                 <div className="pb-2 pt-2">
                   <h4 className="font-medium tracking-tight text-foreground">I&apos;ll Get Back to You</h4>
-                  <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                  <p className="text-sm font-normal tracking-normal text-muted-foreground mt-1 leading-5">
                     I&apos;ll read your message and get back to you as soon as I
                     can, usually within the day.
                   </p>
@@ -205,7 +205,7 @@ export default function ContactPage() {
                 </div>
                 <div className="pt-2">
                   <h4 className="font-medium tracking-tight text-foreground">Let&apos;s Talk</h4>
-                  <p className="text-sm text-muted-foreground mt-1 leading-relaxed">
+                  <p className="text-sm font-normal tracking-normal text-muted-foreground mt-1 leading-5">
                     If it sounds like a good fit, we can talk through the idea,
                     timeline, and next steps.
                   </p>

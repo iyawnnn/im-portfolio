@@ -95,7 +95,7 @@ export async function WakaTimeCard() {
             <h3 className="text-base font-medium tracking-tight text-foreground truncate leading-tight">
               {data?.total || "0 hrs"}
             </h3>
-            <p className="text-sm font-medium text-muted-foreground truncate mt-0.5">Logged</p>
+            <p className="text-sm font-normal tracking-normal leading-5 text-muted-foreground truncate mt-0.5">Logged</p>
             <p className="text-[10px] text-muted-foreground truncate mt-1">
               Top: {data?.language || "Unknown"}
             </p>

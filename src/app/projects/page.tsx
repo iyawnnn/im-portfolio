@@ -129,7 +129,7 @@ export default function ProjectsPage({
         <h1 className="text-4xl md:text-5xl font-medium tracking-tight lg:text-6xl text-foreground leading-[1.05]">
           Crafted Projects
         </h1>
-        <p className="text-lg md:text-xl leading-relaxed text-muted-foreground w-full">
+        <p className="text-base font-normal tracking-normal leading-6 text-muted-foreground w-full">
           A collection of side projects, freelance hustle, and school
           requirements that definitely didn't cause a mid-degree identity
           crisis.
@@ -267,10 +267,10 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
         </div>
 
         <CardHeader className="px-6 pt-3 pb-1">
-          <CardTitle className="text-xl group-hover:text-primary transition-colors">
+          <CardTitle className="text-lg group-hover:text-primary transition-colors">
             {project.title}
           </CardTitle>
-          <CardDescription className="line-clamp-2 text-sm sm:text-base">
+          <CardDescription className="line-clamp-2">
             {project.description}
           </CardDescription>
         </CardHeader>

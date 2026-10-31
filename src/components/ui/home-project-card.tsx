@@ -102,10 +102,10 @@ export function HomeProjectCard({
           <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-30" />
         </div>
         <CardHeader className="px-6 pt-3 pb-1">
-          <CardTitle className="text-xl group-hover:text-primary transition-colors">
+          <CardTitle className="text-lg group-hover:text-primary transition-colors">
             {project.title}
           </CardTitle>
-          <CardDescription className="line-clamp-2 text-sm sm:text-base">
+          <CardDescription className="line-clamp-2">
             {project.description}
           </CardDescription>
         </CardHeader>

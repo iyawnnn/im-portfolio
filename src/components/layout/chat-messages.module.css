@@ -1,0 +1,112 @@
+.message {
+  animation: arrive 180ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: scale 180ms ease-out, translate 180ms ease-out;
+}
+
+.message[data-reaction-focused] {
+  z-index: 30;
+  scale: 1.01;
+  translate: 0 -2px;
+}
+
+.message[data-reaction-focused] > :global([data-slot="bubble-content"]) {
+  box-shadow: 0 3px 12px color-mix(in oklch, var(--foreground) 6%, transparent);
+}
+
+.reactionBackdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: color-mix(in oklch, var(--background) 12%, transparent);
+  backdrop-filter: blur(0);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 180ms ease-out, backdrop-filter 180ms ease-out, visibility 0s linear 180ms;
+}
+
+.reactionBackdrop[data-state="open"] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  backdrop-filter: blur(3px);
+  transition-delay: 0s;
+}
+
+.reactionTrigger {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 140ms ease-out;
+}
+
+.reactionTrigger:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tray {
+  transform-origin: var(--radix-popover-content-transform-origin);
+  animation: tray-in 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tray[data-state="closed"] {
+  animation: tray-out 140ms ease-out;
+}
+
+.reactionChip[data-state="open"] > button {
+  animation: reaction-pop 220ms ease-out;
+}
+
+.reactionChip[data-state="closed"] {
+  animation: reaction-out 140ms ease-out;
+}
+
+.emoji {
+  transition: transform 140ms ease-out, background-color 140ms ease-out;
+}
+
+.emoji:hover, .emoji:focus-visible { transform: scale(1.1); }
+
+.dot {
+  animation: typing 840ms ease-in-out infinite;
+}
+.dot:nth-child(2) { animation-delay: 120ms; }
+.dot:nth-child(3) { animation-delay: 240ms; }
+
+@media (hover: hover) and (pointer: fine) {
+  .reactionTrigger { pointer-events: auto; }
+  :global([data-slot="bubble"]):hover .reactionTrigger,
+  :global([data-slot="bubble"]):focus-within .reactionTrigger,
+  .reactionTrigger[data-state="open"] { opacity: 1; }
+}
+
+@keyframes arrive {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes tray-in {
+  from { opacity: 0; transform: translateY(4px) scale(0.94); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes tray-out {
+  to { opacity: 0; }
+}
+@keyframes reaction-pop {
+  0% { opacity: 0; transform: translateY(4px) scale(0.7); }
+  70% { opacity: 1; transform: translateY(0) scale(1.1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes reaction-out {
+  to { opacity: 0; scale: 0.85; }
+}
+@keyframes typing {
+  0%, 100% { opacity: 0.35; transform: scale(0.75); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .message, .tray, .dot, .reactionChip, .reactionChip > button { animation: none !important; }
+  .message, .emoji, .reactionTrigger, .reactionBackdrop { transition: none; }
+  .message[data-reaction-focused] { scale: 1; translate: none; }
+  .emoji:hover, .emoji:focus-visible { transform: none; }
+}

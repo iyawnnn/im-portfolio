@@ -17,7 +17,7 @@ export function GiscusComments() {
   }
 
   return (
-    <div className="mt-12 w-full border-t border-border/50 pt-8">
+    <div className="mt-12 w-full pt-8">
       <Giscus
         id="comments"
         repo={process.env.NEXT_PUBLIC_GISCUS_REPO as `${string}/${string}`}
