@@ -1,10 +1,10 @@
 export const revalidate = 60;
 
 import Link from "next/link";
-import { Suspense } from "react";
-import { ArrowRight, Calendar, CaretLeft as ChevronLeft, CaretRight as ChevronRight } from "@phosphor-icons/react/ssr";
+import Image from "next/image";
+import { CaretLeft as ChevronLeft, CaretRight as ChevronRight } from "@phosphor-icons/react/ssr";
 import { getAllPostsMeta, PostMeta } from "@/lib/mdx";
-import { ViewCounter } from "@/components/ui/view-counter";
+import { Card, CardContent } from "@/components/ui/card";
 
 export const metadata = {
   title: "Blog",
@@ -12,7 +12,7 @@ export const metadata = {
     "Thoughts on web development, minimalist design, and the occasional realization that I overcomplicated a simple function.",
 };
 
-const POSTS_PER_PAGE = 3;
+const POSTS_PER_PAGE = 6;
 
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("en-US", {
@@ -21,16 +21,6 @@ function formatDate(date: string) {
     year: "numeric",
     timeZone: "UTC",
   }).format(new Date(date));
-}
-
-function Views({ slug }: { slug: string }) {
-  return (
-    <Suspense
-      fallback={<span className="h-4 w-14 animate-pulse rounded bg-muted" />}
-    >
-      <ViewCounter slug={slug} />
-    </Suspense>
-  );
 }
 
 export default async function BlogPage({
@@ -59,66 +49,44 @@ export default async function BlogPage({
         </p>
       </header>
 
-      <section aria-label="Blog articles" className="border-t border-border/60">
-        {pagePosts.map((post: PostMeta, index) => (
-          <article
-            key={post.slug}
-            className="group border-b border-border/50 transition-colors duration-300 hover:border-border hover:bg-muted/20"
-          >
-            <div className="grid min-w-0 gap-4 px-1 py-7 sm:grid-cols-[2.5rem_minmax(0,1fr)] sm:gap-4 sm:px-3 sm:py-9 md:grid-cols-[3rem_minmax(0,1fr)_10rem] md:gap-6 lg:px-4">
-              <span className="hidden pt-1 text-xs font-medium tracking-[0.06em] text-muted-foreground/60 sm:block">
-                {String(startIndex + index + 1).padStart(2, "0")}
-              </span>
-
-              <div className="min-w-0">
-                <div className="mb-2 flex items-center gap-3 sm:hidden">
-                  <span className="text-[11px] font-medium tracking-[0.06em] text-muted-foreground/60">
-                    {String(startIndex + index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="h-px w-8 bg-border" />
+      <section aria-label="Blog articles" className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+        {pagePosts.map((post: PostMeta) => (
+          <article key={post.slug} className="min-w-0">
+            <Link
+              href={`/blog/${post.slug}`}
+              aria-labelledby={`article-${post.slug}`}
+              className="group block h-full rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <Card className="h-full gap-0 overflow-hidden p-0 border-border/50 shadow-sm transition-[border-color,box-shadow] duration-300 group-hover:border-border group-hover:shadow-md motion-reduce:transition-none">
+                <div className="relative aspect-video overflow-hidden border-b border-border/50 bg-muted">
+                  {post.coverImage && (
+                    <Image
+                      src={post.coverImage}
+                      alt=""
+                      fill
+                      sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1023px) calc((100vw - 5.5rem) / 2), (max-width: 1151px) calc((100vw - 8rem) / 2), 32rem"
+                      className="object-cover grayscale transition-[filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:grayscale-0 group-focus-within:grayscale-0 motion-reduce:transition-none"
+                    />
+                  )}
                 </div>
-
-                <h2 className="text-xl font-medium leading-snug tracking-tight text-foreground/90 transition-[color,transform] duration-300 group-hover:translate-x-1 group-hover:text-foreground sm:text-2xl">
-                  <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                </h2>
-
-                <p className="mt-3 max-w-3xl text-sm sm:text-base font-normal tracking-normal leading-6 text-muted-foreground">
-                  {post.description}
-                </p>
-
-                <div className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs font-medium text-muted-foreground md:hidden">
-                  <span className="inline-flex items-center gap-1.5">
-                    <Calendar className="h-3.5 w-3.5 opacity-70" />
+                <CardContent className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+                  <h2 id={`article-${post.slug}`} className="line-clamp-2 text-xl font-medium leading-snug tracking-tight text-foreground">
+                    {post.title}
+                  </h2>
+                  <p className="line-clamp-2 text-sm font-normal leading-6 tracking-normal text-muted-foreground sm:text-base">
+                    {post.description}
+                  </p>
+                  <div className="mt-auto pt-3 text-xs text-muted-foreground sm:text-sm">
                     <time dateTime={post.date}>{formatDate(post.date)}</time>
-                  </span>
-                  <span aria-hidden="true">&middot;</span>
-                  <Views slug={post.slug} />
-                </div>
-
-                <Link
-                  href={`/blog/${post.slug}`}
-                  className="group/forward mt-5 inline-flex items-center text-sm font-medium text-muted-foreground transition-colors duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-foreground"
-                >
-                  Read Article
-                  <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe:group-hover/forward:-rotate-45 motion-safe:group-focus-visible/forward:-rotate-45 motion-safe:group-hover/forward:translate-x-px motion-safe:group-hover/forward:-translate-y-px motion-safe:group-focus-visible/forward:translate-x-px motion-safe:group-focus-visible/forward:-translate-y-px motion-reduce:transition-none" />
-                </Link>
-              </div>
-
-              <div className="hidden pt-1 text-right text-xs font-medium leading-relaxed text-muted-foreground md:flex md:flex-col md:items-end md:gap-1.5 lg:text-sm">
-                <span className="inline-flex items-center gap-1.5">
-                  <Calendar className="h-3.5 w-3.5 opacity-70" />
-                  <time dateTime={post.date}>{formatDate(post.date)}</time>
-                </span>
-                <span>
-                  <Views slug={post.slug} />
-                </span>
-              </div>
-            </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           </article>
         ))}
 
         {posts.length === 0 && (
-          <div className="py-12 text-center text-muted-foreground">
+          <div className="py-12 text-center text-muted-foreground md:col-span-2">
             No system logs available yet. Check back later.
           </div>
         )}

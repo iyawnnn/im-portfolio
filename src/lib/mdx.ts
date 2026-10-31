@@ -7,12 +7,17 @@ export interface PostMeta {
   title: string;
   description: string;
   date: string;
+  readingTime: number;
   coverImage?: string;
   icon?: string; 
   slug: string;
 }
 
 const rootDirectory = path.join(process.cwd(), "src", "content", "blog");
+
+function getReadingTime(content: string) {
+  return Math.max(1, Math.ceil(content.split(/\s+/g).length / 200));
+}
 
 // Wrap in cache() to memoize the result
 export const getPostBySlug = cache((slug: string): { meta: PostMeta; content: string } => {
@@ -30,6 +35,7 @@ export const getPostBySlug = cache((slug: string): { meta: PostMeta; content: st
     title: data.title,
     description: data.description,
     date: data.date,
+    readingTime: getReadingTime(content),
     coverImage: data.coverImage,
     icon: data.icon || null, 
     slug: realSlug,
@@ -45,12 +51,13 @@ export const getAllPostsMeta = cache((): PostMeta[] => {
   return files.map((fileName) => {
     const filePath = path.join(rootDirectory, fileName);
     const fileContent = fs.readFileSync(filePath, "utf8");
-    const { data } = matter(fileContent);
+    const { data, content } = matter(fileContent);
     
     return {
       title: data.title,
       description: data.description,
       date: data.date,
+      readingTime: getReadingTime(content),
       coverImage: data.coverImage,
       icon: data.icon || null, 
       slug: fileName.replace(/\.mdx$/, ""),

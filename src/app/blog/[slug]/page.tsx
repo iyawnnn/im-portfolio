@@ -10,7 +10,7 @@ import { ViewCounter } from "@/components/ui/view-counter";
 import { ShareButtons } from "@/components/ui/share-buttons";
 import { GiscusComments } from "@/components/ui/giscus-comments";
 import { ReportView } from "@/components/ui/report-view";
-import { Suspense } from "react"; // 1. IMPORT SUSPENSE
+import { Suspense } from "react";
 
 export async function generateStaticParams() {
   const posts = getAllPostsMeta();
@@ -58,75 +58,74 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const resolvedParams = await params;
   const { meta, content } = getPostBySlug(resolvedParams.slug);
 
-  const wordCount = content.split(/\s+/g).length;
-  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+  const date = new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(meta.date));
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col px-6 sm:px-8 lg:px-12 pt-8 md:pt-12 pb-16 font-sans">
+    <div className="mx-auto flex w-full max-w-6xl flex-col px-6 pt-8 pb-16 font-sans sm:px-8 md:pt-12 lg:px-12">
       
       <ReportView slug={resolvedParams.slug} />
 
       <div className="mb-6 md:mb-10">
         <Link href="/blog" className="group inline-flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground py-2">
-          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" /> Back to Articles
+          <ArrowLeft className="mr-2 h-4 w-4 transition-transform motion-safe:group-hover:-translate-x-1 motion-reduce:transition-none" aria-hidden="true" /> Back to Articles
         </Link>
       </div>
 
-      <article className="w-full flex flex-col">
-        <div className="flex flex-col mb-8 max-w-4xl">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-foreground font-sans leading-[1.05]">
+      <article className="flex w-full flex-col gap-8 md:gap-10">
+        <header className="flex w-full flex-col gap-5">
+          <h1 className="text-3xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-5xl">
             {meta.title}
           </h1>
-          
-          <div className="flex items-center gap-3 mt-6 sm:mt-8">
-            <div className="relative h-10 w-10 sm:h-11 sm:w-11 rounded-full overflow-hidden bg-muted border border-border/50 shadow-sm shrink-0">
-              <Image src="/about/ian-macabulos-2026.webp" alt="Portrait of Ian Macabulos" fill sizes="44px" className="object-cover" />
-            </div>
-            
-            <div className="flex flex-col">
-              <span className="font-medium text-foreground text-sm sm:text-base leading-none mb-1 sm:mb-1.5">
-                Ian Macabulos
+
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground sm:text-sm">
+            <span className="inline-flex w-full items-center gap-2 font-medium text-foreground sm:w-auto">
+              <span className="relative size-8 shrink-0 overflow-hidden rounded-full border border-border/50 bg-muted">
+                <Image src="/about/ian-macabulos-2026.webp" alt="" fill sizes="32px" className="object-cover" />
               </span>
-              
-              <div className="flex flex-row flex-wrap items-center gap-2 text-xs sm:text-sm text-muted-foreground font-medium">
-                <time dateTime={meta.date}>{meta.date}</time>
-                <span className="text-[8px] sm:text-[10px] opacity-50">●</span>
-                <span>{readingTime} min read</span>
-                <span className="text-[8px] sm:text-[10px] opacity-50">●</span>
-                
-                {/* 2. WRAP IN SUSPENSE WITH A SKELETON FALLBACK */}
-                <Suspense fallback={<div className="h-4 w-12 bg-muted animate-pulse rounded" />}>
-                  <ViewCounter slug={resolvedParams.slug} />
-                </Suspense>
-              </div>
-            </div>
+              Ian Macabulos
+            </span>
+            <span aria-hidden="true" className="hidden text-muted-foreground/50 sm:inline">|</span>
+            <time dateTime={meta.date}>{date}</time>
+            <span aria-hidden="true" className="text-muted-foreground/50">|</span>
+            <span>{meta.readingTime} min read</span>
+            <span aria-hidden="true" className="text-muted-foreground/50">|</span>
+            <Suspense fallback={<span className="h-4 w-14 animate-pulse rounded bg-muted" />}>
+              <ViewCounter slug={resolvedParams.slug} />
+            </Suspense>
           </div>
-        </div>
+        </header>
 
         {meta.coverImage && (
-          <div className="relative w-full aspect-video md:aspect-[21/9] mb-8 md:mb-12 overflow-hidden rounded-xl md:rounded-2xl border border-border/50 bg-muted/20 shadow-sm">
-            <Image src={meta.coverImage} alt={`Cover visual for the article: ${meta.title}`} fill sizes="(max-width: 1152px) 100vw, 1152px" className="object-cover" priority />
+          <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-muted shadow-sm">
+            <Image src={meta.coverImage} alt={`Cover visual for the article: ${meta.title}`} fill sizes="(max-width: 639px) calc(100vw - 3rem), (max-width: 1023px) calc(100vw - 4rem), (max-width: 1407px) calc(100vw - 22rem), 1056px" className="object-cover" priority />
           </div>
         )}
-        
-        <div className="prose prose-neutral dark:prose-invert max-w-none w-full
-          prose-headings:font-sans prose-p:font-sans prose-a:font-sans
-          prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-foreground
-          prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:text-base sm:prose-p:text-[1.05rem]
-          prose-a:text-foreground prose-a:underline prose-a:underline-offset-4
-          prose-img:rounded-xl sm:prose-img:rounded-2xl prose-img:border prose-img:border-border/50
-          prose-blockquote:border-l-[3px] prose-blockquote:border-foreground prose-blockquote:bg-muted/80 dark:prose-blockquote:bg-muted/20 prose-blockquote:px-4 sm:prose-blockquote:px-6 prose-blockquote:py-3 sm:prose-blockquote:py-4 prose-blockquote:rounded-r-xl prose-blockquote:not-italic prose-blockquote:text-foreground prose-blockquote:text-sm sm:prose-blockquote:text-base
-          prose-code:text-foreground prose-code:bg-muted/80 dark:prose-code:bg-muted/30 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-mono prose-code:text-sm sm:prose-code:text-base prose-code:before:content-none prose-code:after:content-none
-          prose-pre:bg-[#111111] dark:prose-pre:bg-muted/20 prose-pre:border prose-pre:border-border/50 prose-pre:rounded-xl prose-pre:text-sm">
+
+        <div className="w-full min-w-0">
+          <div className="prose prose-neutral dark:prose-invert max-w-none w-full
+            prose-headings:font-sans prose-p:font-sans prose-a:font-sans
+            prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-foreground
+            prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:text-base sm:prose-p:text-[1.05rem]
+            prose-a:text-foreground prose-a:underline prose-a:underline-offset-4
+            prose-img:rounded-xl sm:prose-img:rounded-2xl prose-img:border prose-img:border-border/50
+            prose-blockquote:border-l-[3px] prose-blockquote:border-foreground prose-blockquote:bg-muted/80 dark:prose-blockquote:bg-muted/20 prose-blockquote:px-4 sm:prose-blockquote:px-6 prose-blockquote:py-3 sm:prose-blockquote:py-4 prose-blockquote:rounded-r-xl prose-blockquote:not-italic prose-blockquote:text-foreground prose-blockquote:text-sm sm:prose-blockquote:text-base
+            prose-code:text-foreground prose-code:bg-muted/80 dark:prose-code:bg-muted/30 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-mono prose-code:text-sm sm:prose-code:text-base prose-code:before:content-none prose-code:after:content-none
+            prose-pre:bg-[#111111] dark:prose-pre:bg-muted/20 prose-pre:border prose-pre:border-border/50 prose-pre:rounded-xl prose-pre:text-sm">
           
-          <MDXRemote source={content} components={{ a: CustomLink }} />
-        </div>
+            <MDXRemote source={content} components={{ a: CustomLink }} />
+          </div>
 
-        <div className="mt-12 flex justify-between items-center border-t border-border/50 pt-8">
-          <ShareButtons slug={resolvedParams.slug} title={meta.title} />
-        </div>
+          <div className="mt-12 flex justify-between items-center border-t border-border/50 pt-8">
+            <ShareButtons slug={resolvedParams.slug} title={meta.title} />
+          </div>
 
-        <GiscusComments />
+          <GiscusComments />
+        </div>
       </article>
     </div>
   );
