@@ -1,0 +1,55 @@
+.overlay {
+  display: none;
+  touch-action: none;
+}
+
+:global(html[data-brand-intro]) .overlay {
+  display: grid;
+  animation: exit 550ms cubic-bezier(0.22, 1, 0.36, 1) 1550ms both;
+}
+
+:global(html[data-brand-intro]) .content {
+  animation: focus 550ms cubic-bezier(0.22, 1, 0.36, 1) 1550ms both;
+}
+
+.mark {
+  height: 72px;
+  width: auto;
+  overflow: visible;
+}
+
+.mark [data-mark-outline] path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 560ms ease-in-out 150ms both;
+}
+
+.mark [data-mark-outline] path:nth-child(2) { animation-delay: 230ms; animation-duration: 650ms; }
+.mark [data-mark-outline] path:nth-child(3) { animation-delay: 310ms; animation-duration: 650ms; }
+.mark [data-mark-outline] path:nth-child(4) { animation-delay: 390ms; animation-duration: 380ms; }
+.mark [data-mark-outline] path:nth-child(5) { animation-delay: 470ms; animation-duration: 320ms; }
+.mark [data-mark-outline] path:nth-child(6) { animation-delay: 550ms; animation-duration: 500ms; }
+
+.mark [data-mark-fill] {
+  animation: fill 500ms ease-out 850ms both;
+}
+
+.mark [data-mark-outline] {
+  animation: fade-outline 250ms ease-out 1050ms both;
+}
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fill { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fade-outline { to { opacity: 0; } }
+@keyframes exit { from { opacity: 1; } to { opacity: 0; visibility: hidden; pointer-events: none; } }
+@keyframes focus { from { opacity: 0.8; translate: 0 6px; } to { opacity: 1; translate: 0 0; } }
+
+@media (min-width: 640px) {
+  .mark { height: 96px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-brand-intro]) .overlay { display: none; animation: none; }
+  :global(html[data-brand-intro]) .content { animation: none; }
+  .mark, .mark * { animation: none !important; }
+}

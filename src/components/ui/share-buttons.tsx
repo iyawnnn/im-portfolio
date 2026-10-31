@@ -4,6 +4,7 @@ import { Twitter, Linkedin } from "lucide-react";
 import { Link as LinkIcon, Check } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { ActionTooltip } from "@/components/ui/action-tooltip";
 
 interface ShareButtonsProps {
   slug: string;
@@ -33,19 +34,25 @@ export function ShareButtons({ slug, title }: ShareButtonsProps) {
     <div className="flex items-center gap-3">
       <span className="text-sm font-medium text-muted-foreground">Share this article:</span>
       <div className="flex gap-2">
-        <Button variant="outline" size="icon" className="h-8 w-8" asChild>
-          <a href={twitterUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on X">
-            <Twitter className="h-4 w-4" />
-          </a>
-        </Button>
-        <Button variant="outline" size="icon" className="h-8 w-8" asChild>
-          <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
-            <Linkedin className="h-4 w-4" />
-          </a>
-        </Button>
-        <Button variant="outline" size="icon" className="h-8 w-8" onClick={copyToClipboard} aria-label="Copy link">
-          {copied ? <Check className="h-4 w-4 text-white-500" /> : <LinkIcon className="h-4 w-4" />}
-        </Button>
+        <ActionTooltip label="Share on X" side="top" avoidCollisions={false} desktopOnly={false}>
+          <Button variant="outline" size="icon" className="h-8 w-8" asChild>
+            <a href={twitterUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on X">
+              <Twitter className="h-4 w-4" />
+            </a>
+          </Button>
+        </ActionTooltip>
+        <ActionTooltip label="Share on LinkedIn" side="top" avoidCollisions={false} desktopOnly={false}>
+          <Button variant="outline" size="icon" className="h-8 w-8" asChild>
+            <a href={linkedinUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
+              <Linkedin className="h-4 w-4" />
+            </a>
+          </Button>
+        </ActionTooltip>
+        <ActionTooltip label={copied ? "Copied" : "Copy link"} side="top" avoidCollisions={false} desktopOnly={false}>
+          <Button variant="outline" size="icon" className="h-8 w-8" onClick={copyToClipboard} aria-label="Copy link">
+            {copied ? <Check className="h-4 w-4 text-white-500" /> : <LinkIcon className="h-4 w-4" />}
+          </Button>
+        </ActionTooltip>
       </div>
     </div>
   );

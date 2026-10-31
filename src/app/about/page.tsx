@@ -51,13 +51,13 @@ export default function AboutPage() {
 
           {/* Hero Section Intro */}
           <div className="space-y-4">
-            <div className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+            <div className="text-base sm:text-lg font-normal tracking-normal leading-6 sm:leading-7 text-muted-foreground">
               <TextGenerateEffect
                 words={paragraph1}
                 className="text-muted-foreground font-normal"
               />
             </div>
-            <div className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+            <div className="text-base sm:text-lg font-normal tracking-normal leading-6 sm:leading-7 text-muted-foreground">
               <TextGenerateEffect
                 words={paragraph2}
                 className="text-muted-foreground font-normal"
@@ -97,7 +97,7 @@ export default function AboutPage() {
             </div>
             <CardTitle className="text-xl">Career Goals</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3 text-muted-foreground leading-relaxed text-sm lg:text-base">
+          <CardContent className="space-y-3 text-muted-foreground text-sm lg:text-base font-normal tracking-normal leading-6">
             <div className="flex items-start gap-3">
               <Rocket className="mt-1 h-4 w-4 text-primary shrink-0" />
               <span>
@@ -126,7 +126,7 @@ export default function AboutPage() {
             </div>
             <CardTitle className="text-xl">Soft Skills</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3 text-muted-foreground leading-relaxed text-sm lg:text-base">
+          <CardContent className="space-y-3 text-muted-foreground text-sm lg:text-base font-normal tracking-normal leading-6">
             <div className="flex items-start gap-3">
               <SearchCheck className="mt-1 h-4 w-4 text-primary shrink-0" />
               <span>
@@ -155,7 +155,7 @@ export default function AboutPage() {
             </div>
             <CardTitle className="text-xl">Interests</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3 text-muted-foreground leading-relaxed text-sm lg:text-base">
+          <CardContent className="space-y-3 text-muted-foreground text-sm lg:text-base font-normal tracking-normal leading-6">
             <div className="flex items-start gap-3">
               <Zap className="mt-1 h-4 w-4 text-primary shrink-0" />
               <span>
@@ -184,7 +184,7 @@ export default function AboutPage() {
             </div>
             <CardTitle className="text-xl">Hobbies</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3 text-muted-foreground leading-relaxed text-sm lg:text-base">
+          <CardContent className="space-y-3 text-muted-foreground text-sm lg:text-base font-normal tracking-normal leading-6">
             <div className="flex items-start gap-3">
               <BookOpen className="mt-1 h-4 w-4 text-primary shrink-0" />
               <span>
@@ -269,7 +269,7 @@ export default function AboutPage() {
             Let&rsquo;s build something awesome
           </h2>
 
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-muted-foreground lg:text-base">
+          <p className="mx-auto mt-4 max-w-lg text-sm lg:text-base font-normal tracking-normal leading-6 text-muted-foreground">
             Have an idea, a <strong>freelance project</strong> that needs another
             developer, or a <strong>team I could contribute to</strong>? I&rsquo;m
             always open to <strong>good opportunities</strong>, interesting

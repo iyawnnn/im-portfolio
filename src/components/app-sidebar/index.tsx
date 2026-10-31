@@ -25,6 +25,8 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/hooks/use-sidebar";
+import { ActionTooltip } from "@/components/ui/action-tooltip";
+import { ignoreSingleKey, searchShortcut } from "@/lib/keyboard-shortcuts";
 
 const PeerlistIcon = ({ className }: { className?: string }) => (
   <svg
@@ -104,68 +106,79 @@ function NavSection({
 
           return (
             <li key={link.title} className="w-full">
-              <Link
-                href={link.href}
-                target={isExternal ? "_blank" : undefined}
-                prefetch={false}
-                className={cn(
-                  "group flex items-center rounded-xl py-2.5 text-sm font-medium transition-all duration-200 border",
-                  isCollapsed ? "justify-center px-2" : "justify-between px-3",
-                  isActive
-                    ? "bg-sidebar-accent border-sidebar-border/50 text-sidebar-foreground shadow-sm font-[550]"
-                    : "border-transparent text-muted-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-foreground",
-                )}
+              <ActionTooltip
+                enabled={isCollapsed}
+                label={link.title === "Github" ? "GitHub" : link.title}
+                shortcut={"shortcut" in link ? link.shortcut : undefined}
+                external={isExternal}
+                side="right"
+                avoidCollisions={false}
               >
-                <div
+                <Link
+                  href={link.href}
+                  aria-label={link.title}
+                  aria-keyshortcuts={"shortcut" in link ? link.shortcut : undefined}
+                  target={isExternal ? "_blank" : undefined}
+                  prefetch={false}
                   className={cn(
-                    "flex items-center transition-all",
-                    isCollapsed ? "gap-0" : "gap-3",
+                    "group flex items-center rounded-xl py-2.5 text-sm font-medium transition-all duration-200 border",
+                    isCollapsed ? "justify-center px-2" : "justify-between px-3",
+                    isActive
+                      ? "bg-sidebar-accent border-sidebar-border/50 text-sidebar-foreground shadow-sm font-[550]"
+                      : "border-transparent text-muted-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-foreground",
                   )}
                 >
-                  <link.icon
+                  <div
                     className={cn(
-                      "h-4 w-4 stroke-2 transition-colors duration-200",
-                      isActive
-                        ? "text-sidebar-foreground"
-                        : "text-muted-foreground group-hover:text-sidebar-foreground",
+                      "flex items-center transition-all",
+                      isCollapsed ? "gap-0" : "gap-3",
                     )}
-                  />
-                  <span
+                  >
+                    <link.icon
+                      className={cn(
+                        "h-4 w-4 stroke-2 transition-colors duration-200",
+                        isActive
+                          ? "text-sidebar-foreground"
+                          : "text-muted-foreground group-hover:text-sidebar-foreground",
+                      )}
+                    />
+                    <span
+                      className={cn(
+                        "transition-all duration-300 overflow-hidden whitespace-nowrap",
+                        isCollapsed
+                          ? "w-0 opacity-0 invisible"
+                          : "w-auto opacity-100 visible",
+                      )}
+                    >
+                      {link.title}
+                    </span>
+                  </div>
+
+                  <div
                     className={cn(
-                      "transition-all duration-300 overflow-hidden whitespace-nowrap",
+                      "hidden md:flex transition-all duration-300 overflow-hidden",
                       isCollapsed
                         ? "w-0 opacity-0 invisible"
                         : "w-auto opacity-100 visible",
                     )}
                   >
-                    {link.title}
-                  </span>
-                </div>
-
-                <div
-                  className={cn(
-                    "hidden md:flex transition-all duration-300 overflow-hidden",
-                    isCollapsed
-                      ? "w-0 opacity-0 invisible"
-                      : "w-auto opacity-100 visible",
-                  )}
-                >
-                  <span
-                    className={cn(
-                      "flex h-5 w-5 items-center justify-center rounded border text-[10px] transition-all duration-200",
-                      isActive
-                        ? "border-sidebar-border bg-background shadow-sm text-foreground font-medium"
-                        : "border-sidebar-border/60 bg-sidebar-accent/30 text-muted-foreground group-hover:border-sidebar-border/80 group-hover:bg-background group-hover:text-foreground group-hover:shadow-sm font-medium",
-                    )}
-                  >
-                    {"shortcut" in link ? (
-                      link.shortcut
-                    ) : (
-                      <ArrowUpRight className="h-3 w-3" />
-                    )}
-                  </span>
-                </div>
-              </Link>
+                    <span
+                      className={cn(
+                        "flex h-5 w-5 items-center justify-center rounded border text-[10px] transition-all duration-200",
+                        isActive
+                          ? "border-sidebar-border bg-background shadow-sm text-foreground font-medium"
+                          : "border-sidebar-border/60 bg-sidebar-accent/30 text-muted-foreground group-hover:border-sidebar-border/80 group-hover:bg-background group-hover:text-foreground group-hover:shadow-sm font-medium",
+                      )}
+                    >
+                      {"shortcut" in link ? (
+                        link.shortcut
+                      ) : (
+                        <ArrowUpRight className="h-3 w-3" />
+                      )}
+                    </span>
+                  </div>
+                </Link>
+              </ActionTooltip>
             </li>
           );
         })}
@@ -177,21 +190,27 @@ function NavSection({
 export function AppSidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
   const { isCollapsed, toggleSidebar } = useSidebar();
+  const toggleTheme = React.useCallback(() => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  }, [resolvedTheme, setTheme]);
+  const themeAction = mounted && resolvedTheme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+  const searchKeys = mounted ? searchShortcut(navigator.platform) : "Ctrl K";
 
   React.useEffect(() => {
     setMounted(true);
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement ||
-        e.target instanceof HTMLSelectElement
-      ) {
+      if (ignoreSingleKey(e)) return;
+      const key = e.key.toLowerCase();
+      if (["t", "s", "a"].includes(key)) {
+        e.preventDefault();
+        if (key === "t") toggleTheme();
+        else if (key === "s") toggleSidebar();
+        else window.dispatchEvent(new CustomEvent("open-chat"));
         return;
       }
-      if (e.metaKey || e.ctrlKey || e.altKey) return;
       const allLinks = [...MAIN_LINKS, ...CONNECT_LINKS];
       const target = allLinks.find(
         (link) =>
@@ -205,7 +224,7 @@ export function AppSidebar() {
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [router]);
+  }, [router, toggleTheme, toggleSidebar]);
 
   return (
     <aside
@@ -214,19 +233,22 @@ export function AppSidebar() {
         isCollapsed ? "px-3 pb-3 pt-5 items-center" : "p-5",
       )}
     >
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={toggleSidebar}
-        aria-label="Toggle Sidebar"
-        className={cn(
-          "absolute -right-3 top-8 z-50 h-6 w-6 rounded-full border border-sidebar-border bg-sidebar text-sidebar-foreground shadow-sm hover:bg-sidebar-accent",
-          isCollapsed ? "rotate-180" : "",
-        )}
-      >
-        <ChevronLeft className="h-3.5 w-3.5" />
-        <span className="sr-only">Toggle Sidebar</span>
-      </Button>
+      <ActionTooltip label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"} shortcut="S" side="right" avoidCollisions={false}>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={toggleSidebar}
+          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          aria-keyshortcuts="S"
+          className={cn(
+            "absolute -right-3 top-8 z-50 h-6 w-6 rounded-full border border-sidebar-border bg-sidebar text-sidebar-foreground shadow-sm hover:bg-sidebar-accent",
+            isCollapsed ? "rotate-180" : "",
+          )}
+        >
+          <ChevronLeft className="h-3.5 w-3.5" />
+          <span className="sr-only">{isCollapsed ? "Expand sidebar" : "Collapse sidebar"}</span>
+        </Button>
+      </ActionTooltip>
 
       <header
         className={cn(
@@ -302,50 +324,58 @@ export function AppSidebar() {
             isCollapsed ? "flex-col items-center" : "flex-row items-center",
           )}
         >
-          <Button
-            variant="outline"
-            onClick={() =>
-              window.dispatchEvent(new CustomEvent("open-command-palette"))
-            }
-            className={cn(
-              "bg-background/50 text-muted-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-foreground transition-all border-sidebar-border/60 rounded-xl h-10",
-              isCollapsed
-                ? "w-10 p-0 justify-center shrink-0"
-                : "flex-1 justify-between px-3",
-            )}
-          >
-            {isCollapsed ? (
-              <Search className="h-4 w-4" />
-            ) : (
-              <>
-                <span className="flex items-center gap-2 font-normal text-sm">
-                  <Search className="h-4 w-4 shrink-0" />
-                  Search...
-                </span>
-                <kbd className="pointer-events-none inline-flex h-5 items-center gap-1 rounded border border-sidebar-border/50 bg-muted/50 px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-                  <span className="text-[10px]">⌘</span>K
-                </kbd>
-              </>
-            )}
-          </Button>
-
-          <Button
-            variant="outline"
-            size="icon"
-            className={cn(
-              "shrink-0 rounded-xl border-sidebar-border/60 bg-background/50 text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all h-10 w-10",
-              isCollapsed ? "" : "",
-            )}
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          >
-            {mounted &&
-              (theme === "dark" ? (
-                <Sun className="h-4 w-4 stroke-2" />
+          <ActionTooltip enabled={isCollapsed} label="Search" shortcut={searchKeys} side="right" avoidCollisions={false}>
+            <Button
+              variant="outline"
+              aria-label="Search"
+              aria-keyshortcuts="Meta+K Control+K"
+              onClick={() =>
+                window.dispatchEvent(new CustomEvent("open-command-palette"))
+              }
+              className={cn(
+                "bg-background/50 text-muted-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-foreground transition-all border-sidebar-border/60 rounded-xl h-10",
+                isCollapsed
+                  ? "w-10 p-0 justify-center shrink-0"
+                  : "flex-1 justify-between px-3",
+              )}
+            >
+              {isCollapsed ? (
+                <Search className="h-4 w-4" />
               ) : (
-                <Moon className="h-4 w-4 stroke-2" />
-              ))}
-            <span className="sr-only">Toggle Theme</span>
-          </Button>
+                <>
+                  <span className="flex items-center gap-2 font-normal text-sm">
+                    <Search className="h-4 w-4 shrink-0" />
+                    Search...
+                  </span>
+                  <kbd className="pointer-events-none inline-flex h-5 items-center gap-1 rounded border border-sidebar-border/50 bg-muted/50 px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                    {searchKeys}
+                  </kbd>
+                </>
+              )}
+            </Button>
+          </ActionTooltip>
+
+          <ActionTooltip label="Toggle mode" shortcut="T" side={isCollapsed ? "right" : "top"} avoidCollisions={false}>
+            <Button
+              variant="outline"
+              size="icon"
+              className={cn(
+                "shrink-0 rounded-xl border-sidebar-border/60 bg-background/50 text-foreground shadow-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-all h-10 w-10",
+                isCollapsed ? "" : "",
+              )}
+              onClick={toggleTheme}
+              aria-label={themeAction}
+              aria-keyshortcuts="T"
+            >
+              {mounted &&
+                (resolvedTheme === "dark" ? (
+                  <Sun className="h-4 w-4 stroke-2" />
+                ) : (
+                  <Moon className="h-4 w-4 stroke-2" />
+                ))}
+              <span className="sr-only">{themeAction}</span>
+            </Button>
+          </ActionTooltip>
         </div>
       </footer>
     </aside>

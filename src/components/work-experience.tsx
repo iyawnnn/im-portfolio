@@ -99,7 +99,7 @@ export function WorkExperience() {
                     <span className="flex w-full flex-col gap-1 text-sm font-normal text-muted-foreground sm:flex-row sm:flex-wrap sm:items-center sm:gap-2">
                       <span>{experience.employmentType}</span>
                       <span aria-hidden="true" className="hidden sm:inline">
-                        ·
+                        |
                       </span>
                       <span className="tabular-nums">{experience.period}</span>
                     </span>
@@ -107,7 +107,7 @@ export function WorkExperience() {
                 </h4>
 
                 <Collapsible.Content className={styles.content}>
-                  <ul className="ml-2 mr-2 mt-3 list-disc space-y-2 pl-4 text-sm leading-relaxed text-muted-foreground marker:text-[0.65em] marker:text-muted-foreground">
+                  <ul className="ml-2 mr-2 mt-3 list-disc space-y-2 pl-4 text-sm font-normal tracking-normal leading-6 text-muted-foreground marker:text-[0.65em] marker:text-muted-foreground">
                     {experience.responsibilities.map((responsibility) => (
                       <li key={responsibility}>{responsibility}</li>
                     ))}

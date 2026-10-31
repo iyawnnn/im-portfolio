@@ -1,0 +1,30 @@
+.dot {
+  bottom: -20px;
+  width: var(--dot-width);
+  height: var(--dot-height);
+  animation-delay: var(--dot-delay);
+}
+
+@media (max-width: 767px) {
+  .dots { opacity: 0.65; }
+  .dot {
+    width: calc(var(--dot-width) * 0.65);
+    height: calc(var(--dot-height) * 0.65);
+    animation-delay: calc(var(--dot-delay) - 8s);
+  }
+  .dot:nth-child(n + 7) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dot {
+    animation: none;
+    bottom: 25%;
+    will-change: auto;
+  }
+  .dot:nth-child(3n) { bottom: 45%; }
+  .dot:nth-child(3n + 1) { bottom: 65%; }
+  .radar :global(.animate-ripple) { animation: none; }
+  .radar :global(.animate-ripple):nth-child(1) { transform: scale(0.8); }
+  .radar :global(.animate-ripple):nth-child(2) { transform: scale(1.4); opacity: 0.6; }
+  .radar :global(.animate-ripple):nth-child(3) { transform: scale(2); opacity: 0.3; }
+}

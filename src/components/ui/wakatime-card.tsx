@@ -1,7 +1,39 @@
 import React from "react";
-import { Terminal, Code as CodeXml, ArrowUpRight } from "@phosphor-icons/react/ssr";
+import { Code as CodeXml, ArrowUpRight } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
+import {
+  SiTypescript,
+  SiJavascript,
+  SiPython,
+  SiPhp,
+  SiGo,
+  SiRust,
+  SiHtml5,
+  SiCss3,
+  SiVuedotjs,
+  SiReact,
+  SiCplusplus,
+  SiGnubash,
+} from "react-icons/si";
+import { FaJava } from "react-icons/fa";
+
+const languageIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  typescript: SiTypescript,
+  javascript: SiJavascript,
+  python: SiPython,
+  php: SiPhp,
+  java: FaJava,
+  "c++": SiCplusplus,
+  html: SiHtml5,
+  css: SiCss3,
+  go: SiGo,
+  rust: SiRust,
+  "shell script": SiGnubash,
+  "vue.js": SiVuedotjs,
+  vue: SiVuedotjs,
+  react: SiReact,
+};
 
 async function fetchWakaTimeData() {
   const apiKey = process.env.WAKATIME_API_KEY;
@@ -30,6 +62,8 @@ async function fetchWakaTimeData() {
 
 export async function WakaTimeCard() {
   const data = await fetchWakaTimeData();
+  const language = data?.language?.trim().toLowerCase() ?? "";
+  const LanguageIcon = Object.hasOwn(languageIcons, language) ? languageIcons[language] : CodeXml;
 
   return (
     <Link href="https://wakatime.com/@iyawn" target="_blank" rel="noopener noreferrer" className="block group outline-none">
@@ -54,14 +88,14 @@ export async function WakaTimeCard() {
 
         <div className="flex items-center gap-4 z-10 mt-auto w-full">
           <div className="relative flex items-center justify-center h-16 w-16 shrink-0 rounded-md overflow-hidden border border-border/50 shadow-md bg-secondary/50 group-hover:bg-secondary transition-colors transform-gpu">
-            <Terminal className="h-6 w-6 text-foreground" />
+            <LanguageIcon className="h-7 w-7 text-foreground" />
           </div>
           
           <div className="flex flex-col min-w-0 flex-1">
             <h3 className="text-base font-medium tracking-tight text-foreground truncate leading-tight">
               {data?.total || "0 hrs"}
             </h3>
-            <p className="text-sm font-medium text-muted-foreground truncate mt-0.5">Logged</p>
+            <p className="text-sm font-normal tracking-normal leading-5 text-muted-foreground truncate mt-0.5">Logged</p>
             <p className="text-[10px] text-muted-foreground truncate mt-1">
               Top: {data?.language || "Unknown"}
             </p>

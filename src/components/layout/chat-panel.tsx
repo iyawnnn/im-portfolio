@@ -8,8 +8,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { CustomLink } from "@/components/mdx/preview-link";
-
-
+import { Bubble, BubbleContent, BubbleGroup } from "@/components/ui/bubble";
+import { ChatReactions, readReactions, type Reaction } from "./chat-reactions";
+import styles from "./chat-messages.module.css";
 type Message = {
   id: string;
   role: "user" | "assistant";
@@ -26,7 +27,6 @@ const INITIAL_MESSAGE: Message = {
 const MAX_CHARS = 500;
 
 export function ChatPanel({ onClose }: { onClose: () => void }) {
-
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>(() => {
     const savedChat = localStorage.getItem("portfolio-chat-history");
@@ -41,6 +41,43 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [chatError, setChatError] = useState<string | null>(null);
+  const [reactions, setReactions] = useState<Record<string, Reaction>>(readReactions);
+  const [reactionTarget, setReactionTarget] = useState<{ id: string; touch: boolean } | null>(null);
+  const focusedReaction = reactionTarget?.touch && messages.some((m) => m.id === reactionTarget.id && m.content)
+    ? reactionTarget.id : null;
+
+  useEffect(() => {
+    try {
+      if (Object.keys(reactions).length) {
+        localStorage.setItem("portfolio-chat-reactions", JSON.stringify(reactions));
+      } else {
+        localStorage.removeItem("portfolio-chat-reactions");
+      }
+    } catch {
+      // Reactions still work when browser storage is unavailable.
+    }
+  }, [reactions]);
+
+  const reactToMessage = (id: string, reaction: Reaction) => {
+    setReactions((previous) => {
+      const next = { ...previous };
+      if (next[id] === reaction) delete next[id];
+      else next[id] = reaction;
+      return next;
+    });
+  };
+
+  const groups = messages.filter((message) => message.content).reduce<Message[][]>(
+    (groups, message) => {
+      const last = groups.at(-1);
+      if (last?.[0].role === message.role) last.push(message);
+      else groups.push([message]);
+      return groups;
+    },
+    [],
+  );
+  const lastMessage = messages.at(-1);
+  const showTyping = isLoading && (lastMessage?.role === "user" || !lastMessage?.content);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -67,15 +104,20 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
   }, []);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current?.scrollIntoView({
+      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+    });
   };
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isLoading]);
 
   const clearChat = () => {
+    setReactionTarget(null);
     setMessages([INITIAL_MESSAGE]);
+    setReactions({});
+    localStorage.removeItem("portfolio-chat-reactions");
     localStorage.removeItem("portfolio-chat-history");
   };
 
@@ -138,6 +180,12 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
+      const appendChunk = (chunk: string) => {
+        if (!chunk) return;
+        setMessages((prev) => prev.map((msg) =>
+          msg.id === assistantMessageId ? { ...msg, content: msg.content + chunk } : msg,
+        ));
+      };
       let done = false;
 
       while (!done) {
@@ -145,21 +193,10 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
         done = readerDone;
 
         if (value) {
-          const chunk = decoder.decode(value, { stream: true });
-
-          // ARTIFICIAL TYPING EFFECT
-          for (let i = 0; i < chunk.length; i++) {
-            setMessages((prev) =>
-              prev.map((msg) =>
-                msg.id === assistantMessageId
-                  ? { ...msg, content: msg.content + chunk[i] }
-                  : msg,
-              ),
-            );
-            await new Promise((resolve) => setTimeout(resolve, 1));
-          }
+          appendChunk(decoder.decode(value, { stream: true }));
         }
       }
+      appendChunk(decoder.decode());
     } catch (error: unknown) {
       console.error("Chat Error:", error);
 
@@ -176,7 +213,13 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 lg:inset-auto lg:bottom-6 lg:right-6 lg:w-[400px] lg:rounded-2xl lg:border bg-background p-4 lg:p-0 shadow-2xl transition-all z-50 flex flex-col h-[100dvh] lg:h-[600px] overscroll-none overflow-hidden">
+    <div data-chat-panel className="fixed inset-0 lg:inset-auto lg:bottom-6 lg:right-6 lg:w-[400px] lg:rounded-2xl lg:border bg-background p-4 lg:p-0 shadow-2xl transition-all z-50 flex flex-col h-[100dvh] lg:h-[600px] overscroll-none overflow-hidden">
+      <div
+        aria-hidden="true"
+        data-state={focusedReaction ? "open" : "closed"}
+        className={styles.reactionBackdrop}
+        onPointerDown={() => setReactionTarget(null)}
+      />
       {/* Header */}
       <div className="flex items-center justify-between border-b border-border/50 pb-4 pt-4 px-4 lg:mt-0 shrink-0 bg-background">
         <div className="flex items-center gap-3">
@@ -232,59 +275,69 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
 
       {/* Message Area */}
       <div className="flex-1 overflow-y-auto py-4 px-4 flex flex-col gap-4 bg-background [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-        {messages.map((m) => (
-          <div
-            key={m.id}
-            className={`flex ${m.role === "user" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-2 duration-300`}
-          >
-            {m.role === "user" ? (
-              <div className="bg-foreground text-background rounded-2xl rounded-br-sm px-4 py-2.5 max-w-[85%] text-sm leading-relaxed whitespace-pre-wrap">
-                {m.content}
-              </div>
-            ) : (
-              <div className="bg-muted text-foreground rounded-2xl rounded-bl-sm border border-border/50 px-4 py-2.5 max-w-[85%] text-sm leading-relaxed">
-                <div
-                  className="prose prose-sm dark:prose-invert max-w-none break-words
-                    prose-p:leading-relaxed prose-p:my-1
-                    prose-a:text-foreground hover:prose-a:text-foreground/80 prose-a:underline prose-a:underline-offset-4 prose-a:font-semibold transition-colors
-                    prose-code:bg-background/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
-                    prose-pre:bg-background/50 prose-pre:p-3 prose-pre:rounded-lg prose-pre:border prose-pre:border-border/50"
+        {groups.map((group) => (
+          <BubbleGroup key={group[0].id} className="gap-2.5">
+            {group.map((m) => (
+              <Bubble
+                key={m.id}
+                align={m.role === "user" ? "end" : "start"}
+                variant={m.role === "user" ? "default" : "muted"}
+                data-message-id={m.id}
+                data-reaction-focused={focusedReaction === m.id || undefined}
+                className={`${styles.message} max-w-[85%] ${m.role === "assistant" ? "mb-2" : ""}`}
+              >
+                <BubbleContent
+                  className={m.role === "user"
+                    ? "rounded-2xl rounded-br-sm bg-foreground px-4 py-2.5 text-background whitespace-pre-wrap [overflow-wrap:anywhere]"
+                    : "rounded-2xl rounded-bl-sm border-border/50 px-4 py-2.5 text-foreground"}
                 >
-                  <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                      a: ({ href, children }) => {
-                        if (!href) return <a>{children}</a>;
-                        return <CustomLink href={href}>{children}</CustomLink>;
-                      },
-                    }}
-                  >
-                    {m.content}
-                  </ReactMarkdown>
-                </div>
-              </div>
-            )}
-          </div>
+                  {m.role === "user" ? m.content : (
+                    <div
+                      className="prose prose-sm dark:prose-invert max-w-none min-w-0 [overflow-wrap:anywhere]
+                        prose-p:leading-relaxed prose-p:my-1
+                        prose-a:text-foreground hover:prose-a:text-foreground/80 prose-a:underline prose-a:underline-offset-4 prose-a:font-semibold transition-colors
+                        prose-code:bg-background/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
+                        prose-pre:max-w-full prose-pre:overflow-x-auto prose-pre:bg-background/50 prose-pre:text-foreground prose-pre:p-3 prose-pre:rounded-lg prose-pre:border prose-pre:border-border/50
+                        [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
+                    >
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
+                          a: ({ href, children }) => {
+                            if (!href) return <a>{children}</a>;
+                            return <CustomLink href={href}>{children}</CustomLink>;
+                          },
+                        }}
+                      >
+                        {m.content}
+                      </ReactMarkdown>
+                    </div>
+                  )}
+                </BubbleContent>
+                {m.role === "assistant" && !(isLoading && m.id === lastMessage?.id) && (
+                  <ChatReactions
+                    value={reactions[m.id]}
+                    open={reactionTarget?.id === m.id}
+                    touchMode={reactionTarget?.id === m.id && reactionTarget.touch}
+                    onOpenChange={(open, touch = false) => setReactionTarget(open ? { id: m.id, touch } : null)}
+                    onChange={(reaction) => reactToMessage(m.id, reaction)}
+                  />
+                )}
+              </Bubble>
+            ))}
+          </BubbleGroup>
         ))}
 
-        {/* Typing Indicator */}
-        {isLoading && messages[messages.length - 1]?.role === "user" && (
-          <div className="flex justify-start animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <div className="bg-muted border border-border/50 text-muted-foreground rounded-2xl rounded-bl-sm px-4 py-3.5 max-w-[85%] flex items-center gap-1.5">
-              <span
-                className="h-1.5 w-1.5 bg-foreground/50 rounded-full animate-bounce"
-                style={{ animationDelay: "0ms" }}
-              />
-              <span
-                className="h-1.5 w-1.5 bg-foreground/50 rounded-full animate-bounce"
-                style={{ animationDelay: "150ms" }}
-              />
-              <span
-                className="h-1.5 w-1.5 bg-foreground/50 rounded-full animate-bounce"
-                style={{ animationDelay: "300ms" }}
-              />
-            </div>
-          </div>
+        {showTyping && (
+          <BubbleGroup>
+            <Bubble variant="muted" className={styles.message} role="status" aria-label="Ian is typing">
+              <BubbleContent className="flex h-9 w-[60px] items-center justify-center gap-1.5 rounded-2xl rounded-bl-sm border-border/50 p-0">
+                {[0, 1, 2].map((dot) => (
+                  <span key={dot} aria-hidden="true" className={`${styles.dot} size-1.5 rounded-full bg-foreground/60`} />
+                ))}
+              </BubbleContent>
+            </Bubble>
+          </BubbleGroup>
         )}
         <div ref={messagesEndRef} />
       </div>

@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+﻿import { Suspense } from "react";
 import Link from "next/link";
 import {
   Code as CodeXml,
@@ -25,11 +25,11 @@ import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { ScrollRestoration } from "@/components/ui/scroll-restoration";
-import { HomeProjectCard } from "@/components/ui/home-project-card";
+import { HomeProjectCard, type ProjectData } from "@/components/ui/home-project-card";
 
 import { getAllPostsMeta } from "@/lib/mdx";
 
-const HOME_PROJECTS = [
+const HOME_PROJECTS: ProjectData[] = [
   {
     title: "UA LabSign — Laboratory Attendance System",
     description:
@@ -46,7 +46,7 @@ const HOME_PROJECTS = [
     link: "/projects/ac-core",
     image: "/projects/ac-core/accore-cover.webp",
     video: "/projects/ac-core/accore-demo.mp4",
-    tags: ["MEAN Stack", "Leaflet.js", "Zoneless", "GeoJSON"],
+    tags: ["Angular", "Node.js", "Express", "MongoDB"],
   },
 ];
 
@@ -131,7 +131,7 @@ export default function ExplorePage() {
           </div>
         </div>
 
-        <p className="text-base leading-relaxed text-muted-foreground sm:text-lg">
+        <p className="text-base sm:text-lg font-normal tracking-normal leading-6 sm:leading-7 text-muted-foreground">
           I am a Full-Stack Developer based in the Philippines who builds web
           apps, learns new tech, and occasionally argues with my laptop
           (basically, I spend most of my time debugging my own decisions).
@@ -210,7 +210,7 @@ export default function ExplorePage() {
               <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-foreground mb-3">
                 Localhost Tales
               </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+              <p className="text-sm font-normal tracking-normal text-muted-foreground leading-5 mb-8">
                 Deep dives into modern full-stack architecture, system optimization, and the realities of production-grade software.
               </p>
               <Button
@@ -251,13 +251,13 @@ export default function ExplorePage() {
 
       <section className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
         <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
-          <div className="absolute inset-0 z-0 hidden md:block">
+          <div className="absolute inset-0 z-0">
             <MovingDots />
           </div>
           <CardHeader className="relative z-10">
             <CodeXml className="h-8 w-8 text-primary mb-2 sm:h-10 sm:w-10" />
             <CardTitle className="text-lg sm:text-xl">Stack</CardTitle>
-            <CardDescription className="text-xs sm:text-sm">
+            <CardDescription>
               The tech behind my projects.
             </CardDescription>
           </CardHeader>
@@ -273,14 +273,14 @@ export default function ExplorePage() {
           </CardFooter>
         </Card>
 
-        <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
-          <div className="absolute inset-0 z-0 hidden md:block">
+        <Card className="group relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
+          <div className="absolute inset-0 z-0">
             <Radar />
           </div>
           <CardHeader className="relative z-10">
             <FileText className="h-8 w-8 text-primary mb-2 sm:h-10 sm:w-10" />
             <CardTitle className="text-lg sm:text-xl">Resume</CardTitle>
-            <CardDescription className="text-xs sm:text-sm">
+            <CardDescription>
               My professional journey and qualifications.
             </CardDescription>
           </CardHeader>
@@ -299,3 +299,4 @@ export default function ExplorePage() {
     </div>
   );
 }
+

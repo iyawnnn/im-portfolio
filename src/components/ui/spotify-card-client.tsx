@@ -87,7 +87,7 @@ export function SpotifyCardClient() {
           </div>
           <div className="flex flex-col min-w-0 flex-1">
             <h3 className="text-base font-medium tracking-tight text-muted-foreground truncate">Spotify Offline</h3>
-            <p className="text-xs text-muted-foreground/50 truncate mt-1">No active network playback</p>
+            <p className="text-xs font-normal tracking-normal leading-5 text-muted-foreground truncate mt-1">No active network playback</p>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 w-full h-[2px] bg-border/30" />
@@ -142,7 +142,7 @@ export function SpotifyCardClient() {
           
           <div className="flex flex-col min-w-0 flex-1">
             <h3 className="text-base font-medium tracking-tight text-foreground truncate leading-tight">{data.title}</h3>
-            <p className="text-sm font-medium text-muted-foreground truncate mt-0.5">{data.artist}</p>
+            <p className="text-sm font-normal tracking-normal leading-5 text-muted-foreground truncate mt-0.5">{data.artist}</p>
             <p className="text-[10px] text-muted-foreground truncate mt-1">{data.album}</p>
           </div>
 
