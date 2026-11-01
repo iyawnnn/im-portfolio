@@ -66,7 +66,7 @@ export default async function BlogPage({
                       alt=""
                       fill
                       sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1023px) calc((100vw - 5.5rem) / 2), (max-width: 1151px) calc((100vw - 8rem) / 2), 32rem"
-                      className="object-cover grayscale transition-[filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:grayscale-0 group-focus-within:grayscale-0 motion-reduce:transition-none"
+                      className="object-cover"
                     />
                   )}
                 </div>
@@ -77,7 +77,7 @@ export default async function BlogPage({
                   <p className="line-clamp-2 text-sm font-normal leading-6 tracking-normal text-muted-foreground sm:text-base">
                     {post.description}
                   </p>
-                  <div className="mt-auto pt-3 text-xs text-muted-foreground sm:text-sm">
+                  <div className="mt-auto pt-1 text-xs text-muted-foreground sm:text-sm">
                     <time dateTime={post.date}>{formatDate(post.date)}</time>
                   </div>
                 </CardContent>

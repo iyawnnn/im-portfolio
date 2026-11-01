@@ -1,0 +1,44 @@
+---
+title: "Search Should Match How People Actually Ask"
+date: "2026-09-20"
+description: "Good search connects formal information to the words people already know."
+coverImage: "/blog/search-should-match-how-people-ask/cover.webp"
+---
+
+Information can be accurate, published, and still be practically invisible if people do not know what to search for. I ran into that problem while building [Better San Fernando](https://bettersanfernando.org), an independent civic-information and transparency portal for San Fernando, Pampanga. It is not an official City Government website. The project organizes public services, projects, legislation, records, and other civic information so people can find and trace it to its sources.
+
+The portal grew from the [BetterLGU starter and reference](https://github.com/iyanski/betterlocalgov), which gave the project an important foundation. As I adapted it for San Fernando, I had to think about how its structured information could be found by someone who did not already know the structure behind it.
+
+### The database is not the user
+
+Public records and government information often arrive with formal names, office terminology, acronyms, and source-specific labels. Those names matter: they help preserve what a source actually says and make a record traceable. But a resident may begin with a shorter phrase, a description of what they need, or a familiar local term rather than an official service title.
+
+That difference creates a gap between how information is stored and how someone thinks to look for it. The database might contain a record, while a search for a related everyday phrase returns nothing. From the system’s point of view, the information is present. From the user’s point of view, it may as well be missing.
+
+This is not unique to civic information. Someone searching a support site might describe a symptom rather than know the product’s internal feature name. A person in a documentation site may search for the outcome they want, not the page title an engineer chose. Search has to account for the vocabulary on both sides.
+
+### Search is partly a language problem
+
+In Better San Fernando, I used MiniSearch and curated aliases to connect official terms with familiar English and Filipino phrases. The aliases help a query reach relevant information without rewriting the underlying official name or source-derived record.
+
+That separation matters. Making a record easier to find should not silently change what the record says. The interface can recognize related language while continuing to display an official title faithfully and preserve its source. Search broadens the paths to information; it should not blur the distinction between a source and an interpretation of that source.
+
+Aliases also require judgment. They should represent a meaningful relationship, not merely add every vaguely related word in the hope that something matches. An alias that is too broad can make results less useful. Curating them means thinking about the likely query, the information it should surface, and whether that connection is defensible.
+
+### Not every search problem needs AI
+
+For this bounded problem, conventional search and explicit aliases offered useful properties. The matching behavior could be inspected, and a relationship could be added or corrected deliberately. A result did not depend on a generated interpretation of a record; it came from a search index and known vocabulary.
+
+That does not make AI search inherently wrong. A larger, less structured collection or a task involving semantic similarity may call for a different approach. The point is to start with the actual problem. If a clear search index and curated vocabulary solve it, a more complex system may add costs without making the experience meaningfully better.
+
+Explicit behavior is also easier to maintain. If a familiar term fails to find the right service, the relationship can be reviewed. If it brings back an irrelevant result, the alias can be narrowed. This is a practical feedback loop: inspect what people may search, test the matches, and adjust the vocabulary without altering the source record.
+
+The same principle applies outside civic portals. A help center can connect error codes to plain-language symptoms. An ecommerce catalog can account for common product names. A command palette can recognize an action by the task someone wants to complete. Search is part of the interface’s language design, not just a query sent to an index.
+
+### Findability is part of publishing
+
+Publishing information is only one part of making it accessible. If people need to know the system’s internal vocabulary before they can find a page, the information is technically available but poorly connected to their intent.
+
+Building Better San Fernando made me treat search as a translation layer: it connects the vocabulary of a system to the language a person brings with them, while keeping the underlying information faithful to its sources. That work is not solved once the index exists. It takes care to decide which terms belong together and to preserve the meaning of what is being found.
+
+Good search does not force people to learn the system’s vocabulary first. It meets them closer to the words they already use.
