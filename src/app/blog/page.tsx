@@ -1,3 +1,4 @@
+import reveal from "@/components/layout/page-reveal.module.css";
 export const revalidate = 60;
 
 import Link from "next/link";
@@ -40,16 +41,16 @@ export default async function BlogPage({
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 p-4 pt-8 font-sans md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       <header className="flex w-full max-w-4xl flex-col gap-4">
-        <h1 className="text-4xl font-medium leading-[1.05] tracking-tight text-foreground md:text-5xl lg:text-6xl">
+        <h1 className={`text-4xl font-medium leading-[1.05] tracking-tight text-foreground md:text-5xl lg:text-6xl ${reveal.primary}`}>
           Localhost Tales
         </h1>
-        <p className="w-full text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground">
+        <p className={`w-full text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground ${reveal.secondary}`}>
           Thoughts on code, design, and why I spent three hours fixing a single
           semicolon.
         </p>
       </header>
 
-      <section aria-label="Blog articles" className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+      <section key={currentPage} aria-label="Blog articles" className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 ${reveal.grid}`}>
         {pagePosts.map((post: PostMeta) => (
           <article key={post.slug} className="min-w-0">
             <Link

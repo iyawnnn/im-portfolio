@@ -1,5 +1,7 @@
 "use client";
 
+import reveal from "@/components/layout/page-reveal.module.css";
+
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search, RotateCcw, TestTube, ChevronLeft, ChevronRight, Bot, Workflow } from "lucide-react";
@@ -458,17 +460,17 @@ export default function StackPage() {
       
       <div className="flex flex-col gap-6 w-full min-w-0">
         <div className="space-y-4">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
+          <h1 className={`text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.08] text-foreground ${reveal.primary}`}>
             My Development Arsenal
           </h1>
-          <p className="text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground w-full break-words">
+          <p className={`text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground w-full break-words ${reveal.secondary}`}>
             The languages, frameworks, databases, and tools that keep me
             coding, caffeinated, and occasionally questioning my life choices.
             These are the technologies I trust to make sure projects ship.
           </p>
         </div>
 
-        <div className="space-y-5 pt-4 min-w-0">
+        <div className={`space-y-5 pt-4 min-w-0 ${reveal.secondary} ${reveal.details}`}>
           <div className="relative w-full group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors duration-300" />
             <Input
@@ -552,7 +554,7 @@ export default function StackPage() {
 
       <div className="flex-grow flex flex-col relative w-full min-w-0">
         {filteredTools.length > 0 ? (
-          <div className="space-y-8 lg:space-y-10">
+          <div className={`space-y-8 lg:space-y-10 ${reveal.stackGroups}`}>
             {filteredTools.map((category, idx) => (
               <section key={idx} className="space-y-3 min-w-0">
                 <h2 className="text-xs lg:text-sm font-medium text-muted-foreground uppercase tracking-wider pl-1">

@@ -1,5 +1,7 @@
 "use client";
 
+import reveal from "@/components/layout/page-reveal.module.css";
+
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -71,12 +73,9 @@ export default function ContactPage() {
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       {/* --- HEADER --- */}
       <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
         className="max-w-3xl"
       >
-        <div className="flex items-center gap-3 mb-4">
+        <div className={`flex items-center gap-3 mb-4 ${reveal.secondary} ${reveal.label}`}>
           <Badge
             variant="outline"
             className="px-3 py-1 border-primary/20 text-primary bg-primary/5"
@@ -88,12 +87,12 @@ export default function ContactPage() {
             Available for new projects
           </Badge>
         </div>
-        <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground mb-4">
+        <h1 className={`text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground mb-4 ${reveal.primary}`}>
           Let’s work together.
         </h1>
-        <p className="text-lg font-normal tracking-normal text-muted-foreground leading-7">
+        <p className={`text-lg font-normal tracking-normal text-muted-foreground leading-7 ${reveal.secondary} ${reveal.subtitle}`}>
           I’m currently looking for freelance opportunities or a full-time role.
-          If you have a project that needs a clean, performant interface, I'd
+          If you have a project that needs a clean, performant interface, I&apos;d
           love to hear about it.
         </p>
       </motion.div>
@@ -101,10 +100,7 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 xl:gap-20 items-start">
         {/* --- LEFT COLUMN: INFO & STEPS --- */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="lg:col-span-5 flex flex-col gap-8"
+          className={`lg:col-span-5 flex flex-col gap-8 ${reveal.secondary} ${reveal.details}`}
         >
           {/* 1. Direct Contact */}
           <div className="space-y-4">
@@ -217,10 +213,7 @@ export default function ContactPage() {
 
         {/* --- RIGHT COLUMN: FORM & TIME --- */}
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="lg:col-span-7 flex flex-col gap-6"
+          className={`lg:col-span-7 flex flex-col gap-6 ${reveal.secondary} ${reveal.details}`}
         >
           <Card className="border border-border/40 shadow-sm bg-card/30 overflow-hidden py-0">
             <CardContent className="p-5 md:p-6">
@@ -238,7 +231,7 @@ export default function ContactPage() {
                       Message received!
                     </h3>
                     <p className="text-muted-foreground max-w-[280px] mx-auto text-sm">
-                      Thank you for reaching out. I'll get back to you shortly.
+                      Thank you for reaching out. I&apos;ll get back to you shortly.
                     </p>
                   </div>
                   <Button

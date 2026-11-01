@@ -1,8 +1,9 @@
 "use client";
 
+import reveal from "@/components/layout/page-reveal.module.css";
+
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   BookOpen,
   Brain,
@@ -23,7 +24,6 @@ import {
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 
 export default function AboutPage() {
   const paragraph1 = `I’m a 4th-year Information Technology student at Holy Angel University, specializing in Web Development. I’m more of a web app guy. I enjoy turning ideas into actual systems people can use, not just pages that look nice and call it a day.`;
@@ -33,42 +33,32 @@ export default function AboutPage() {
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       {/* --- HERO SECTION --- */}
-      <motion.section
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+      <section
         className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between"
       >
         <div className="flex max-w-2xl flex-col gap-4">
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <div className={`flex items-center gap-2 text-muted-foreground ${reveal.secondary} ${reveal.label}`}>
             <MapPin className="h-4 w-4" />
             <span className="text-sm font-medium">Based in Philippines</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-medium tracking-tight lg:text-6xl text-foreground leading-[1.05]">
+          <h1 className={`text-4xl md:text-5xl font-medium tracking-tight lg:text-6xl text-foreground leading-[1.05] ${reveal.primary}`}>
             About Me
           </h1>
 
           {/* Hero Section Intro */}
-          <div className="space-y-4">
+          <div className={`space-y-4 ${reveal.primary} ${reveal.copy}`}>
             <div className="text-base sm:text-lg font-normal tracking-normal leading-6 sm:leading-7 text-muted-foreground">
-              <TextGenerateEffect
-                words={paragraph1}
-                className="text-muted-foreground font-normal"
-              />
+              {paragraph1}
             </div>
             <div className="text-base sm:text-lg font-normal tracking-normal leading-6 sm:leading-7 text-muted-foreground">
-              <TextGenerateEffect
-                words={paragraph2}
-                className="text-muted-foreground font-normal"
-                delay={3.6}
-              />
+              {paragraph2}
             </div>
           </div>
         </div>
 
         {/* Profile Image */}
-        <div className="shrink-0 mx-auto md:mx-0">
+        <div className={`shrink-0 mx-auto md:mx-0 ${reveal.secondary} ${reveal.controls}`}>
           <div className="relative h-48 w-48 overflow-hidden rounded-2xl border border-border shadow-md sm:h-56 sm:w-56 md:h-64 md:w-64">
             <Image
               src="/about/ian-macabulos-2026.webp"
@@ -81,14 +71,11 @@ export default function AboutPage() {
             />
           </div>
         </div>
-      </motion.section>
+      </section>
 
       {/* --- GRID SECTIONS --- */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="grid grid-cols-1 gap-6 md:grid-cols-2"
+      <section
+        className={`grid grid-cols-1 gap-6 md:grid-cols-2 ${reveal.secondary} ${reveal.media}`}
       >
         <Card className="h-full bg-card border-border/50">
           <CardHeader className="flex flex-row items-center gap-4 space-y-0">
@@ -205,13 +192,10 @@ export default function AboutPage() {
             </div>
           </CardContent>
         </Card>
-      </motion.section>
+      </section>
 
       {/* --- CALL TO ACTION --- */}
-      <motion.section
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
+      <section
         className="relative overflow-hidden rounded-3xl border border-primary/20 bg-card p-8 text-center shadow-sm md:p-12"
       >
         <div
@@ -289,7 +273,7 @@ export default function AboutPage() {
             </Link>
           </div>
         </div>
-      </motion.section>
+      </section>
     </div>
   );
 }

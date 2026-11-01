@@ -1,9 +1,10 @@
 "use client";
 
+import reveal from "@/components/layout/page-reveal.module.css";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   Briefcase,
   GraduationCap,
@@ -65,20 +66,17 @@ export default function ResumePage() {
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+      <div
         className="flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-8 border-b border-border/40 pb-8 text-center md:text-left w-full"
       >
         <div className="flex flex-col items-center md:items-start space-y-4 w-full md:w-auto">
           <div>
-            <h1 className="text-4xl md:text-5xl font-medium tracking-tight leading-[1.08] text-foreground lg:text-6xl">
+            <h1 className={`text-4xl md:text-5xl font-medium tracking-tight leading-[1.08] text-foreground lg:text-6xl ${reveal.primary}`}>
               Ian Macabulos
             </h1>
           </div>
 
-          <div className="flex flex-wrap justify-center md:justify-start items-center gap-3 sm:gap-4 text-sm text-muted-foreground">
+          <div className={`flex flex-wrap justify-center md:justify-start items-center gap-3 sm:gap-4 text-sm text-muted-foreground ${reveal.secondary}`}>
             <div className="flex items-center gap-1.5">
               <MapPin className="w-4 h-4 text-primary" />
               <span>Pampanga, Philippines</span>
@@ -91,7 +89,7 @@ export default function ResumePage() {
           </div>
         </div>
 
-        <div className="flex justify-center w-full md:w-auto shrink-0 mt-2 md:mt-0">
+        <div className={`flex justify-center w-full md:w-auto shrink-0 mt-2 md:mt-0 ${reveal.secondary} ${reveal.controls}`}>
           <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
             <HoverBorderGradient
               containerClassName="rounded-full"
@@ -103,130 +101,120 @@ export default function ResumePage() {
             </HoverBorderGradient>
           </Link>
         </div>
-      </motion.div>
+      </div>
 
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="space-y-6 w-full"
-      >
-        <div className="flex items-center gap-3 pb-2 border-border/40 mb-2">
-          <div className="p-2 bg-primary/10 rounded-md text-primary">
-            <User className="w-5 h-5" />
+      <div className={`flex w-full flex-col gap-12 ${reveal.secondary} ${reveal.media}`}>
+        <section
+          className="space-y-6 w-full"
+        >
+          <div className="flex items-center gap-3 pb-2 border-border/40 mb-2">
+            <div className="p-2 bg-primary/10 rounded-md text-primary">
+              <User className="w-5 h-5" />
+            </div>
+            <h2 className="text-xl font-medium tracking-tight">Professional Summary</h2>
           </div>
-          <h2 className="text-xl font-medium tracking-tight">Professional Summary</h2>
-        </div>
         
-        <p className="text-muted-foreground leading-6 md:leading-7 text-base md:text-lg font-normal tracking-normal">
-          Full-Stack Developer and Information Technology student with hands-on experience building web applications, backend services, and production-ready systems using modern technologies. Experienced across frontend and backend development, database design, API development, testing, deployment, and AI-assisted workflows. Open to entry-level software development roles and freelance opportunities where I can contribute to practical, reliable, and user-focused digital products.
-        </p>
-      </motion.section>
+          <p className="text-muted-foreground leading-6 md:leading-7 text-base md:text-lg font-normal tracking-normal">
+            Full-Stack Developer and Information Technology student with hands-on experience building web applications, backend services, and production-ready systems using modern technologies. Experienced across frontend and backend development, database design, API development, testing, deployment, and AI-assisted workflows. Open to entry-level software development roles and freelance opportunities where I can contribute to practical, reliable, and user-focused digital products.
+          </p>
+        </section>
 
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="space-y-6 w-full"
-      >
-        <div className="flex items-center gap-3 pb-2 border-b border-border/40">
-          <div className="p-2 bg-primary/10 rounded-md text-primary">
-            <Briefcase className="w-5 h-5" />
-          </div>
-          <h2 className="text-xl font-medium tracking-tight">Work Experience</h2>
-        </div>
-
-        <WorkExperience />
-      </motion.section>
-
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="space-y-6 w-full"
-      >
-        <div className="flex items-center gap-3 pb-2 border-b border-border/40">
-          <div className="p-2 bg-primary/10 rounded-md text-primary">
-            <GraduationCap className="w-5 h-5" />
-          </div>
-          <h2 className="text-xl font-medium tracking-tight">Education</h2>
-        </div>
-
-        <div className="space-y-6">
-          <div className="group rounded-xl border border-border/50 bg-card p-6 transition-all hover:border-primary/30 hover:shadow-sm">
-            <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
-              <div>
-                <h3 className="text-lg md:text-xl font-medium tracking-tight text-foreground">
-                  Holy Angel University
-                </h3>
-                <p className="text-muted-foreground text-sm md:text-base font-normal tracking-normal leading-5 md:leading-6">
-                  Bachelor of Science in Information Technology, Major in Web Development
-                </p>
-              </div>
-              <Badge variant="secondary" className="w-fit h-fit py-1">
-                2023 – Expected Graduation: 2027
-              </Badge>
+        <section
+          className="space-y-6 w-full"
+        >
+          <div className="flex items-center gap-3 pb-2 border-b border-border/40">
+            <div className="p-2 bg-primary/10 rounded-md text-primary">
+              <Briefcase className="w-5 h-5" />
             </div>
+            <h2 className="text-xl font-medium tracking-tight">Work Experience</h2>
+          </div>
 
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Award className="w-4 h-4 text-primary" />
-                <span>
-                  Academic Honors: Consistent Dean’s and President’s Lister, A.Y. 2023-2026
-                </span>
-              </div>
+          <WorkExperience />
+        </section>
+
+        <section
+          className="space-y-6 w-full"
+        >
+          <div className="flex items-center gap-3 pb-2 border-b border-border/40">
+            <div className="p-2 bg-primary/10 rounded-md text-primary">
+              <GraduationCap className="w-5 h-5" />
             </div>
+            <h2 className="text-xl font-medium tracking-tight">Education</h2>
           </div>
-        </div>
-      </motion.section>
 
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.4 }}
-        className="space-y-6 w-full"
-      >
-        <div className="flex items-center gap-3 pb-2 border-b border-border/40">
-          <div className="p-2 bg-primary/10 rounded-md text-primary">
-            <Award className="w-5 h-5" />
-          </div>
-          <h2 className="text-xl font-medium tracking-tight">Certifications &amp; Training</h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {CERTIFICATIONS.map((cert, idx) => (
-            <a
-              key={idx}
-              href={cert.link}
-              target="_blank"
-              rel="noreferrer"
-              className="group relative overflow-hidden rounded-xl border border-border/50 bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md flex items-center gap-4"
-            >
-              <div className="h-12 w-12 shrink-0 relative bg-neutral-950 rounded-lg border border-border/50 overflow-hidden flex items-center justify-center shadow-inner">
-                <Image
-                  src={cert.icon}
-                  alt={cert.org}
-                  fill
-                  className={`object-contain transition-transform duration-300 group-hover:scale-110 ${cert.imageClass}`}
-                />
+          <div className="space-y-6">
+            <div className="group rounded-xl border border-border/50 bg-card p-6 transition-all hover:border-primary/30 hover:shadow-sm">
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
+                <div>
+                  <h3 className="text-lg md:text-xl font-medium tracking-tight text-foreground">
+                    Holy Angel University
+                  </h3>
+                  <p className="text-muted-foreground text-sm md:text-base font-normal tracking-normal leading-5 md:leading-6">
+                    Bachelor of Science in Information Technology, Major in Web Development
+                  </p>
+                </div>
+                <Badge variant="secondary" className="w-fit h-fit py-1">
+                  2023 – Expected Graduation: 2027
+                </Badge>
               </div>
 
-              <div className="flex-1 min-w-0">
-                <h4 className="font-medium tracking-tight text-sm md:text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">
-                  {cert.name}
-                </h4>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1.5">
-                  <span>{cert.org}</span>
-                  <span className="w-1 h-1 rounded-full bg-border" />
-                  <span>{cert.date}</span>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Award className="w-4 h-4 text-primary" />
+                  <span>
+                    Academic Honors: Consistent Dean’s and President’s Lister, A.Y. 2023-2026
+                  </span>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
 
-              <ArrowUpRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
-            </a>
-          ))}
-        </div>
-      </motion.section>
+        <section
+          className="space-y-6 w-full"
+        >
+          <div className="flex items-center gap-3 pb-2 border-b border-border/40">
+            <div className="p-2 bg-primary/10 rounded-md text-primary">
+              <Award className="w-5 h-5" />
+            </div>
+            <h2 className="text-xl font-medium tracking-tight">Certifications &amp; Training</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {CERTIFICATIONS.map((cert, idx) => (
+              <a
+                key={idx}
+                href={cert.link}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative overflow-hidden rounded-xl border border-border/50 bg-card p-5 transition-all hover:border-primary/50 hover:shadow-md flex items-center gap-4"
+              >
+                <div className="h-12 w-12 shrink-0 relative bg-neutral-950 rounded-lg border border-border/50 overflow-hidden flex items-center justify-center shadow-inner">
+                  <Image
+                    src={cert.icon}
+                    alt={cert.org}
+                    fill
+                    className={`object-contain transition-transform duration-300 group-hover:scale-110 ${cert.imageClass}`}
+                  />
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-medium tracking-tight text-sm md:text-base leading-tight group-hover:text-primary transition-colors line-clamp-2">
+                    {cert.name}
+                  </h4>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1.5">
+                    <span>{cert.org}</span>
+                    <span className="w-1 h-1 rounded-full bg-border" />
+                    <span>{cert.date}</span>
+                  </div>
+                </div>
+
+                <ArrowUpRight className="w-5 h-5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              </a>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
