@@ -32,22 +32,22 @@ import { getAllPostsMeta } from "@/lib/mdx";
 
 const HOME_PROJECTS: ProjectData[] = [
   {
-    title: "UA LabSign — Laboratory Attendance System",
+    title: "Neffi",
     description:
-      "A zero-trust web and mobile laboratory attendance platform combining device-bound cryptographic signatures, instant geofencing, and role-based academic workflows.",
-    link: "/projects/ua-attendance",
-    image: "/projects/ua-attendance/ua-attendance-cover.webp",
-    video: "/projects/ua-attendance/ua-attendance-demo.mp4",
-    tags: ["Next.js", "PostgreSQL", "React Native", "Expo"],
+      "A physical-and-digital NFC card platform combining secure activation, customizable profiles, permanent card URLs, and the operational workflows behind the product.",
+    link: "/projects/neffi",
+    image: "/projects/neffi/cover.webp",
+    video: "/projects/neffi/neffi-demo.mp4",
+    tags: ["Next.js", "PostgreSQL", "Drizzle", "Better Auth"],
   },
   {
-    title: "AC-CORE (Angeles City Center for Operational Reporting and Engineering)",
+    title: "Better San Fernando",
     description:
-      "A proactive GovTech platform for Angeles City featuring Geospatial Signal Routing (GSR) to predict flooding risks and a Paved Paradox algorithm to prioritize infrastructure repairs.",
-    link: "/projects/ac-core",
-    image: "/projects/ac-core/accore-cover.webp",
-    video: "/projects/ac-core/accore-demo.mp4",
-    tags: ["Angular", "Node.js", "Express", "MongoDB"],
+      "An open-source civic-information and transparency portal making San Fernando’s public information easier to find, understand, and verify.",
+    link: "/projects/better-san-fernando",
+    image: "/projects/better-san-fernando/cover.webp",
+    video: "/projects/better-san-fernando/bettersanfernando-demo.mp4",
+    tags: ["Next.js", "TypeScript", "MapLibre", "Zod"],
   },
 ];
 
