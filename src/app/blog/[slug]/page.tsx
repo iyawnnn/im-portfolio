@@ -1,3 +1,4 @@
+import reveal from "@/components/layout/page-reveal.module.css";
 export const revalidate = 60;
 
 import { getPostBySlug, getAllPostsMeta } from "@/lib/mdx";
@@ -66,11 +67,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   }).format(new Date(meta.date));
 
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col px-6 pt-8 pb-16 font-sans sm:px-8 md:pt-12 lg:px-12">
+    <div className={`mx-auto flex w-full max-w-6xl flex-col px-6 pt-8 pb-16 font-sans sm:px-8 md:pt-12 lg:px-12 ${reveal.articleDetail}`}>
       
       <ReportView slug={resolvedParams.slug} />
 
-      <div className="mb-6 md:mb-10">
+      <div className={`mb-6 md:mb-10 ${reveal.secondary} ${reveal.label}`}>
         <Link href="/blog" className="group inline-flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground py-2">
           <ArrowLeft className="mr-2 h-4 w-4 transition-transform motion-safe:group-hover:-translate-x-1 motion-reduce:transition-none" aria-hidden="true" /> Back to Articles
         </Link>
@@ -78,11 +79,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <article className="flex w-full flex-col gap-8 md:gap-10">
         <header className="flex w-full flex-col gap-5">
-          <h1 className="text-3xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-5xl">
+          <h1 className={`text-3xl font-medium leading-[1.1] tracking-tight text-foreground sm:text-4xl md:text-5xl ${reveal.primary}`}>
             {meta.title}
           </h1>
 
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground sm:text-sm">
+          <div className={`flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground sm:text-sm ${reveal.secondary}`}>
             <span className="inline-flex w-full items-center gap-2 font-medium text-foreground sm:w-auto">
               <span className="relative size-8 shrink-0 overflow-hidden rounded-full border border-border/50 bg-muted">
                 <Image src="/about/ian-macabulos-2026.webp" alt="" fill sizes="32px" className="object-cover" />
@@ -101,7 +102,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </header>
 
         {meta.coverImage && (
-          <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-muted shadow-sm">
+          <div className={`relative aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-muted shadow-sm ${reveal.secondary} ${reveal.media}`}>
             <Image src={meta.coverImage} alt={`Cover visual for the article: ${meta.title}`} fill sizes="(max-width: 639px) calc(100vw - 3rem), (max-width: 1023px) calc(100vw - 4rem), (max-width: 1407px) calc(100vw - 22rem), 1056px" className="object-cover" priority />
           </div>
         )}

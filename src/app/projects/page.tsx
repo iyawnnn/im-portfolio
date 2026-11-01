@@ -1,9 +1,10 @@
 "use client";
 
+import reveal from "@/components/layout/page-reveal.module.css";
+
 import React, { useState, useRef, use } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { CaretLeft as ChevronLeft, CaretRight as ChevronRight } from "@phosphor-icons/react/ssr";
 
 import {
@@ -138,32 +139,27 @@ export default function ProjectsPage({
 
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-10 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+      <div
         className="flex flex-col gap-4 w-full max-w-4xl"
       >
-        <h1 className="text-4xl md:text-5xl font-medium tracking-tight lg:text-6xl text-foreground leading-[1.05]">
+        <h1 className={`text-4xl md:text-5xl font-medium tracking-tight lg:text-6xl text-foreground leading-[1.05] ${reveal.primary}`}>
           Crafted Projects
         </h1>
-        <p className="text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground w-full">
+        <p className={`text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground w-full ${reveal.secondary}`}>
           A collection of side projects, freelance hustle, and school
           requirements that definitely didn&apos;t cause a mid-degree identity
           crisis.
         </p>
-      </motion.div>
+      </div>
 
-      <motion.ul
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start"
+      <ul
+        key={currentPage}
+        className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start ${reveal.grid}`}
       >
         {paginatedProjects.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
-      </motion.ul>
+      </ul>
 
       {totalPages > 1 && (
         <div className="flex items-center justify-between w-full pt-4">

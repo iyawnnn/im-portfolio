@@ -22,7 +22,7 @@ import { GitHubContributionGraph } from "@/components/ui/github-contribution-gra
 import { SpotifyCard } from "@/components/ui/spotify-card";
 import { WakaTimeCard } from "@/components/ui/wakatime-card";
 import { TextFlip } from "@/components/ui/text-flip";
-import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
+import heroStyles from "./hero.module.css";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { ScrollRestoration } from "@/components/ui/scroll-restoration";
@@ -52,19 +52,12 @@ const HOME_PROJECTS: ProjectData[] = [
 ];
 
 const ROLES = [
-  "Full-Stack Developer.",
-  "Backend AI Engineer.",
-  "Open-Source Maintainer.",
-  "Product-Minded Engineer.",
+  "Backend AI Engineer",
+  "Open-Source Maintainer",
+  "Full-Stack Developer",
 ];
 
 export default function ExplorePage() {
-  const wordsLine1 = [
-    { text: "Hey," },
-    { text: "I’m" },
-    { text: "Ian.", className: "text-foreground" },
-  ];
-
   const latestPosts = getAllPostsMeta()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3);
@@ -87,25 +80,20 @@ export default function ExplorePage() {
         </h1>
 
         <div className="flex max-w-full min-w-0 flex-col items-start justify-center gap-1 text-4xl sm:text-[2.75rem] lg:gap-2 lg:text-[3.25rem] font-medium tracking-tight leading-none">
-          <TypewriterEffectSmooth
-            words={wordsLine1}
-            className="p-0 m-0"
-            cursorClassName="bg-primary"
-            duration={1.5}
-            hideCursorOnComplete={true}
-          />
+          <div className={heroStyles.reveal}>Hey, I’m Ian.</div>
           <TextFlip
             words={ROLES}
-            className="max-w-full min-w-0 text-foreground"
+            startDelay={1600}
+            className={`max-w-full min-w-0 text-foreground ${heroStyles.reveal} ${heroStyles.role}`}
           />
         </div>
 
-        <p className="text-base sm:text-lg font-normal tracking-normal leading-6 sm:leading-7 text-muted-foreground">
+        <p className={`text-base sm:text-lg font-normal tracking-normal leading-6 sm:leading-7 text-muted-foreground ${heroStyles.reveal} ${heroStyles.copy}`}>
           I build reliable systems and polished interfaces, from backend
           architecture to the details that make products feel finished.
         </p>
 
-        <div className="flex flex-wrap gap-3 mt-2">
+        <div className={`flex flex-wrap gap-3 mt-2 ${heroStyles.reveal} ${heroStyles.actions}`}>
           <Button
             asChild
             variant="secondary"
@@ -129,7 +117,7 @@ export default function ExplorePage() {
       </section>
 
       <section className="flex flex-col gap-4 md:gap-6 mt-4">
-        <div className="flex items-center justify-between">
+        <div className={`flex items-center justify-between ${heroStyles.projectsHeading}`}>
           <h2 className="text-xl font-medium tracking-tight sm:text-2xl">
             Projects Overview
           </h2>
@@ -144,7 +132,7 @@ export default function ExplorePage() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start">
+        <div className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start ${heroStyles.projects}`}>
           {HOME_PROJECTS.map((project, index) => (
             <HomeProjectCard
               key={project.title}

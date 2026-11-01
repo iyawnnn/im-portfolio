@@ -22,6 +22,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         className={cn(
           "hidden fixed top-0 bottom-0 left-0 h-full bg-background z-50 transition-all duration-300 ease-in-out lg:flex shrink-0 transform-gpu will-change-transform",
           isCollapsed ? "w-[70px]" : "w-64",
+          styles.sidebar,
         )}
       >
         <AppSidebar />
@@ -43,7 +44,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
         )}
       >
         {/* Page Content */}
-        <div data-brand-intro-content className={cn("flex flex-col flex-1 w-full min-w-0", styles.content)}>
+        <div data-brand-intro-content className="flex flex-col flex-1 w-full min-w-0">
           {children}
         </div>
 

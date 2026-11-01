@@ -8,9 +8,10 @@ import { cn } from "@/lib/utils";
 type TextFlipProps = {
   words: readonly string[];
   className?: string;
+  startDelay?: number;
 };
 
-export function TextFlip({ words, className }: TextFlipProps) {
+export function TextFlip({ words, className, startDelay = 3200 }: TextFlipProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref);
   const shouldReduceMotion = useReducedMotion();
@@ -30,12 +31,28 @@ export function TextFlip({ words, className }: TextFlipProps) {
       return;
     }
 
-    const interval = window.setInterval(() => {
-      setIndex((currentIndex) => (currentIndex + 1) % words.length);
-    }, 3200);
+    let timeout: ReturnType<typeof setTimeout>;
+    let interval: ReturnType<typeof setInterval>;
+    const advance = () => setIndex((currentIndex) => (currentIndex + 1) % words.length);
+    const start = () => {
+      timeout = setTimeout(() => {
+        advance();
+        interval = setInterval(advance, 3200);
+      }, startDelay);
+    };
 
-    return () => window.clearInterval(interval);
-  }, [isDocumentVisible, isInView, shouldReduceMotion, words.length]);
+    if (document.documentElement.hasAttribute("data-brand-intro")) {
+      document.addEventListener("brand-intro-complete", start, { once: true });
+    } else {
+      start();
+    }
+
+    return () => {
+      document.removeEventListener("brand-intro-complete", start);
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
+  }, [isDocumentVisible, isInView, shouldReduceMotion, words.length, startDelay]);
 
   return (
     <span
