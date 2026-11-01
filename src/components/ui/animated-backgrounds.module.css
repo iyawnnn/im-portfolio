@@ -1,30 +1,120 @@
-.dot {
-  bottom: -20px;
-  width: var(--dot-width);
-  height: var(--dot-height);
-  animation-delay: var(--dot-delay);
+.meteors {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: var(--foreground);
+  pointer-events: none;
+}
+
+.meteor {
+  position: absolute;
+  height: var(--thickness);
+  opacity: 0;
+  background: linear-gradient(to right, currentColor 0 12%, color-mix(in srgb, currentColor 70%, transparent) 30%, transparent 100%);
+  transform-origin: left center;
+  animation: meteor-fall linear infinite;
+  animation-duration: var(--duration);
+  animation-delay: var(--delay);
+}
+
+.paused .meteor { animation-play-state: paused; }
+
+.meteor { --duration: 3.4s; }
+
+/* Lanes follow x+y = const so streaks never run parallel-adjacent; head starts just outside the top/right edge, travel stays at 45deg like the streak */
+.meteor:nth-child(1) { left: 100%; top: 0; width: 156px; --start-x: -10px; --start-y: -20px; --end-x: -260px; --end-y: 230px; --thickness: 1.5px; --delay: -0.272s; --peak: 0.66; }
+.meteor:nth-child(2) { left: 100%; top: 0; width: 64px; --start-x: 20px; --start-y: 130px; --end-x: -100px; --end-y: 250px; --thickness: 0.8px; --delay: -1.054s; --peak: 0.3; }
+.meteor:nth-child(3) { left: 100%; top: 0; width: 84px; --start-x: -150px; --start-y: -20px; --end-x: -300px; --end-y: 130px; --thickness: 0.9px; --delay: -1.598s; --peak: 0.34; }
+.meteor:nth-child(4) { left: 100%; top: 0; width: 132px; --start-x: 20px; --start-y: 50px; --end-x: -220px; --end-y: 290px; --thickness: 1.3px; --delay: -2.448s; --peak: 0.56; }
+.meteor:nth-child(5) { left: 100%; top: 0; width: 72px; --start-x: -80px; --start-y: -20px; --end-x: -210px; --end-y: 110px; --thickness: 0.9px; --delay: -3.094s; --peak: 0.32; }
+
+@keyframes meteor-fall {
+  0% { opacity: 0; transform: translate3d(var(--start-x), var(--start-y), 0) rotate(-45deg); }
+  8%, 30% { opacity: var(--peak); }
+  55%, 100% { opacity: 0; transform: translate3d(var(--end-x), var(--end-y), 0) rotate(-45deg); }
+}
+
+@media (max-width: 1023px) {
+  .meteor { --duration: 3.2s; }
+  .meteor:nth-child(n + 5) { display: none; }
+  .meteor:nth-child(1) { --start-x: 0px; --start-y: -20px; --end-x: -190px; --end-y: 170px; --delay: -0.256s; width: 120px; }
+  .meteor:nth-child(2) { --start-x: 20px; --start-y: 130px; --end-x: -80px; --end-y: 230px; --delay: -1.088s; width: 56px; }
+  .meteor:nth-child(3) { --start-x: -90px; --start-y: -20px; --end-x: -190px; --end-y: 80px; --delay: -1.76s; width: 70px; }
+  .meteor:nth-child(4) { --start-x: 20px; --start-y: 50px; --end-x: -150px; --end-y: 220px; --delay: -2.656s; width: 100px; }
 }
 
 @media (max-width: 767px) {
-  .dots { opacity: 0.65; }
-  .dot {
-    width: calc(var(--dot-width) * 0.65);
-    height: calc(var(--dot-height) * 0.65);
-    animation-delay: calc(var(--dot-delay) - 8s);
-  }
-  .dot:nth-child(n + 7) { display: none; }
+  .meteor { --duration: 3s; }
+  .meteor:nth-child(n + 4) { display: none; }
+  .meteor:nth-child(1) { --start-x: -40px; --start-y: -20px; --end-x: -210px; --end-y: 150px; --delay: -0.3s; width: 104px; }
+  .meteor:nth-child(2) { --start-x: 20px; --start-y: 60px; --end-x: -120px; --end-y: 200px; --delay: -1.35s; width: 70px; }
+  .meteor:nth-child(3) { --start-x: -120px; --start-y: -20px; --end-x: -220px; --end-y: 80px; --delay: -2.34s; width: 60px; }
+}
+
+.radar { --size: 200px; --cycle: 4.2s; --peak: 0.26; }
+
+.origin {
+  position: absolute;
+  top: 72px;
+  right: 110px;
+  width: 0;
+  height: 0;
+}
+
+.ring {
+  position: absolute;
+  left: calc(var(--size) / -2);
+  top: calc(var(--size) / -2);
+  width: var(--size);
+  height: var(--size);
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+  animation:
+    radar-expand var(--cycle) cubic-bezier(0.25, 0.1, 0.25, 1) infinite,
+    radar-fade var(--cycle) linear infinite;
+  animation-delay: var(--delay);
+}
+
+.ring:nth-child(1) { --delay: 0s; }
+.ring:nth-child(2) { --delay: -1.4s; }
+.ring:nth-child(3) { --delay: -2.8s; }
+
+@keyframes radar-expand {
+  from { transform: scale(0.4); }
+  to { transform: scale(1.7); }
+}
+
+/* Invisible until the ring has separated from the source, then fades out as it grows */
+@keyframes radar-fade {
+  0%, 12% { opacity: 0; }
+  22% { opacity: var(--peak); }
+  65% { opacity: calc(var(--peak) * 0.4); }
+  100% { opacity: 0; }
+}
+
+@media (max-width: 1023px) {
+  .radar { --size: 170px; }
+  .origin { top: 66px; right: 80px; }
+}
+
+@media (max-width: 767px) {
+  .radar { --size: 150px; --cycle: 4s; --peak: 0.24; }
+  .origin { top: 62px; right: 70px; }
+  .ring:nth-child(2) { --delay: -2s; }
+  .ring:nth-child(3) { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dot {
-    animation: none;
-    bottom: 25%;
-    will-change: auto;
-  }
-  .dot:nth-child(3n) { bottom: 45%; }
-  .dot:nth-child(3n + 1) { bottom: 65%; }
-  .radar :global(.animate-ripple) { animation: none; }
-  .radar :global(.animate-ripple):nth-child(1) { transform: scale(0.8); }
-  .radar :global(.animate-ripple):nth-child(2) { transform: scale(1.4); opacity: 0.6; }
-  .radar :global(.animate-ripple):nth-child(3) { transform: scale(2); opacity: 0.3; }
+  .meteor { left: auto; top: auto; animation: none; opacity: var(--peak); transform: rotate(-45deg); }
+  .meteor:nth-child(1) { left: 68%; top: 24%; }
+  .meteor:nth-child(2) { left: 82%; top: 56%; }
+  .meteor:nth-child(3) { left: 76%; top: 12%; }
+  .meteor:nth-child(4) { left: 62%; top: 72%; }
+  .meteor:nth-child(n + 5) { display: none; }
+  .ring { animation: none; will-change: auto; opacity: var(--peak); }
+  .ring:nth-child(1) { transform: scale(0.75); }
+  .ring:nth-child(2) { transform: scale(1.15); opacity: calc(var(--peak) * 0.6); }
+  .ring:nth-child(3) { transform: scale(1.6); opacity: calc(var(--peak) * 0.3); }
 }

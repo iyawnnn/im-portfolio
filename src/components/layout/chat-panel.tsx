@@ -213,7 +213,7 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div data-chat-panel className="fixed inset-0 lg:inset-auto lg:bottom-6 lg:right-6 lg:w-[400px] lg:rounded-2xl lg:border bg-background p-4 lg:p-0 shadow-2xl transition-all z-50 flex flex-col h-[100dvh] lg:h-[600px] overscroll-none overflow-hidden">
+    <div data-chat-panel className="flex h-full min-h-0 flex-col overscroll-none overflow-hidden">
       <div
         aria-hidden="true"
         data-state={focusedReaction ? "open" : "closed"}
@@ -274,7 +274,7 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* Message Area */}
-      <div className="flex-1 overflow-y-auto py-4 px-4 flex flex-col gap-4 bg-background [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      <div data-lenis-prevent className="flex-1 overflow-y-auto py-4 px-4 flex flex-col gap-4 bg-background [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
         {groups.map((group) => (
           <BubbleGroup key={group[0].id} className="gap-2.5">
             {group.map((m) => (

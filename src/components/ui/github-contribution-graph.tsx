@@ -291,7 +291,7 @@ function LoadingGrid({
   gap: number;
 }) {
   return (
-    <div className="animate-pulse">
+    <div className="animate-pulse motion-reduce:animate-none">
       <div
         className="mb-2 grid h-4 justify-between"
         style={{
@@ -364,7 +364,7 @@ export function GitHubContributionGraph() {
           </p>
         )}
         {!error && isLoading && (
-          <span aria-hidden="true" className="h-5 w-64 max-w-full animate-pulse rounded bg-muted" />
+          <span aria-hidden="true" className="h-5 w-64 max-w-full animate-pulse motion-reduce:animate-none rounded bg-muted" />
         )}
       </div>
       <div ref={containerRef} className="min-w-0 w-full">

@@ -2,6 +2,7 @@ import React from "react";
 import { Code as CodeXml, ArrowUpRight } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   SiTypescript,
   SiJavascript,
@@ -107,5 +108,25 @@ export async function WakaTimeCard() {
         </div>
       </Card>
     </Link>
+  );
+}
+
+export function WakaTimeCardSkeleton() {
+  return (
+    <Card className="flex h-[160px] w-full flex-col overflow-hidden border-border/50 bg-card p-6 shadow-sm" role="status" aria-label="Loading development metrics">
+      <div className="flex items-start justify-between gap-4" aria-hidden="true">
+        <Skeleton className="h-3 w-24" />
+        <Skeleton className="h-3 w-20" />
+      </div>
+      <div className="mt-auto flex w-full items-center gap-4" aria-hidden="true">
+        <Skeleton className="h-16 w-16 shrink-0" />
+        <div className="flex min-w-0 flex-1 flex-col gap-2">
+          <Skeleton className="h-4 w-28 max-w-full" />
+          <Skeleton className="h-3 w-16" />
+          <Skeleton className="h-2 w-20" />
+        </div>
+        <Skeleton className="h-8 w-8 shrink-0 rounded-full" />
+      </div>
+    </Card>
   );
 }

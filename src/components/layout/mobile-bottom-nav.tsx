@@ -66,6 +66,7 @@ export function MobileBottomNav() {
   return (
     <div className="h-full w-full">
       <div
+        data-lenis-prevent
         className="flex h-full w-full items-center overflow-x-auto overflow-y-hidden px-4 pb-2
         snap-x snap-mandatory 
         [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']"

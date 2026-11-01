@@ -27,7 +27,7 @@ export type SpotifyData = {
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export function SpotifyCardClient() {
-  const { data } = useSWR<SpotifyData>("/api/spotify", fetcher, {
+  const { data, error } = useSWR<SpotifyData>("/api/spotify", fetcher, {
     refreshInterval: 10000, 
     revalidateOnFocus: true,
   });
@@ -54,10 +54,10 @@ export function SpotifyCardClient() {
     };
   }, [data]);
 
-  if (!data) {
+  if (!data && !error) {
     return (
       <Card
-        className="flex h-[160px] w-full animate-pulse flex-col border-border/50 bg-card p-6"
+        className="flex h-[160px] w-full animate-pulse motion-reduce:animate-none flex-col border-border/50 bg-card p-6"
         aria-label="Loading Spotify activity"
       >
         <div className="h-3 w-24 rounded bg-muted" />
@@ -78,7 +78,7 @@ export function SpotifyCardClient() {
         <div className="flex justify-between items-start z-10">
           <div className="flex items-center gap-2">
             <SpotifyIcon className="w-5 h-5 text-muted-foreground opacity-50" />
-            <span className="text-xs font-medium text-muted-foreground tracking-wider uppercase">System Idle</span>
+            <span className="text-xs font-medium text-muted-foreground tracking-wider uppercase">{error ? "Unavailable" : "System Idle"}</span>
           </div>
         </div>
         <div className="flex items-center gap-4 mt-auto w-full z-10">
@@ -86,8 +86,8 @@ export function SpotifyCardClient() {
             <Music className="w-6 h-6 text-muted-foreground/50" />
           </div>
           <div className="flex flex-col min-w-0 flex-1">
-            <h3 className="text-base font-medium tracking-tight text-muted-foreground truncate">Spotify Offline</h3>
-            <p className="text-xs font-normal tracking-normal leading-5 text-muted-foreground truncate mt-1">No active network playback</p>
+            <h3 className="text-base font-medium tracking-tight text-muted-foreground truncate">{error ? "Spotify unavailable" : "Spotify Offline"}</h3>
+            <p className="text-xs font-normal tracking-normal leading-5 text-muted-foreground truncate mt-1">{error ? "Activity could not be loaded" : "No active network playback"}</p>
           </div>
         </div>
         <div className="absolute bottom-0 left-0 w-full h-[2px] bg-border/30" />
