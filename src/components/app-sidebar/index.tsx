@@ -297,7 +297,7 @@ export function AppSidebar() {
         </div>
       </header>
 
-      <nav className="flex flex-1 flex-col space-y-8 overflow-y-auto overflow-x-hidden w-full no-scrollbar">
+      <nav data-lenis-prevent className="flex flex-1 flex-col space-y-8 overflow-y-auto overflow-x-hidden w-full no-scrollbar">
         <NavSection
           title="Main"
           links={MAIN_LINKS}

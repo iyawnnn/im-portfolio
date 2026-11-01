@@ -95,7 +95,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <span aria-hidden="true" className="text-muted-foreground/50">|</span>
             <span>{meta.readingTime} min read</span>
             <span aria-hidden="true" className="text-muted-foreground/50">|</span>
-            <Suspense fallback={<span className="h-4 w-14 animate-pulse rounded bg-muted" />}>
+            <Suspense fallback={<span className="h-4 w-14 animate-pulse motion-reduce:animate-none rounded bg-muted" />}>
               <ViewCounter slug={resolvedParams.slug} />
             </Suspense>
           </div>

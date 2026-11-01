@@ -17,10 +17,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { MovingDots, Radar } from "@/components/ui/animated-backgrounds";
+import { MeteorField, Radar } from "@/components/ui/animated-backgrounds";
 import { GitHubContributionGraph } from "@/components/ui/github-contribution-graph";
 import { SpotifyCard } from "@/components/ui/spotify-card";
-import { WakaTimeCard } from "@/components/ui/wakatime-card";
+import { WakaTimeCard, WakaTimeCardSkeleton } from "@/components/ui/wakatime-card";
 import { TextFlip } from "@/components/ui/text-flip";
 import heroStyles from "./hero.module.css";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -151,7 +151,7 @@ export default function ExplorePage() {
           <SpotifyCard />
         </Suspense>
         
-        <Suspense fallback={<Skeleton className="h-[160px] w-full rounded-xl bg-card border border-border/50 shadow-sm" />}>
+        <Suspense fallback={<WakaTimeCardSkeleton />}>
           <WakaTimeCard />
         </Suspense>
       </section>
@@ -209,7 +209,7 @@ export default function ExplorePage() {
       <section className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2">
         <Card className="relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
           <div className="absolute inset-0 z-0">
-            <MovingDots />
+            <Radar />
           </div>
           <CardHeader className="relative z-10">
             <CodeXml className="h-8 w-8 text-primary mb-2 sm:h-10 sm:w-10" />
@@ -232,7 +232,7 @@ export default function ExplorePage() {
 
         <Card className="group relative overflow-hidden flex flex-col justify-between rounded-xl bg-card shadow-sm border border-border/50 transition-all hover:shadow-md">
           <div className="absolute inset-0 z-0">
-            <Radar />
+            <MeteorField />
           </div>
           <CardHeader className="relative z-10">
             <FileText className="h-8 w-8 text-primary mb-2 sm:h-10 sm:w-10" />

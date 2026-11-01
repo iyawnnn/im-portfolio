@@ -54,6 +54,7 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isSubmitting) return;
     setIsSubmitting(true);
     setErrorMessage("");
 
@@ -219,6 +220,7 @@ export default function ContactPage() {
             <CardContent className="p-5 md:p-6">
               {isSuccess ? (
                 <motion.div
+                  role="status"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center justify-center text-center py-10 space-y-4"
@@ -312,7 +314,7 @@ export default function ContactPage() {
                   </div>
 
                   {errorMessage && (
-                    <div className="text-red-500 text-xs font-medium bg-red-500/10 p-2.5 rounded-md flex items-center gap-2">
+                    <div role="alert" className="text-red-500 text-xs font-medium bg-red-500/10 p-2.5 rounded-md flex items-center gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
                       {errorMessage}
                     </div>
@@ -326,7 +328,7 @@ export default function ContactPage() {
                     >
                       {isSubmitting ? (
                         <span className="flex items-center">
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin motion-reduce:animate-none" />
                           Sending...
                         </span>
                       ) : (

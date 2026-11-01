@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import "lenis/dist/lenis.css";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { SidebarProvider } from "@/hooks/use-sidebar";
@@ -8,6 +9,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { ChatWidget } from "@/components/layout/chat-widget";
 import { CommandMenuLoader } from "@/components/layout/command-menu-loader";
 import { BrandIntro } from "@/components/layout/brand-intro";
+import { SmoothScroll } from "@/components/layout/smooth-scroll";
+import { CustomCursor } from "@/components/layout/custom-cursor";
 
 // Decide before paint; the timeout releases the page even if hydration fails.
 const brandIntroScript = `(() => {
@@ -128,6 +131,8 @@ export default function RootLayout({
         >
           <BrandIntro />
           <SidebarProvider>
+            <SmoothScroll />
+            <CustomCursor />
             <LayoutWrapper>{children}</LayoutWrapper>
           </SidebarProvider>
         </ThemeProvider>

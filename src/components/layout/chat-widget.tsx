@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 import { CircleNotch as LoaderCircle } from "@phosphor-icons/react/ssr";
 import { AiChatLauncher } from "@/components/ui/ai-chat-launcher";
+import styles from "./chat-widget.module.css";
 
 const ChatPanel = dynamic(
   () => import("./chat-panel").then((module) => module.ChatPanel),
@@ -16,21 +17,43 @@ const ChatPanel = dynamic(
 function ChatPanelLoading() {
   return (
     <div
-      className="fixed inset-0 z-50 flex h-[100dvh] items-center justify-center overflow-hidden bg-background shadow-2xl lg:inset-auto lg:bottom-6 lg:right-6 lg:h-[600px] lg:w-[400px] lg:rounded-2xl lg:border"
+      className="flex h-full items-center justify-center"
       role="status"
       aria-label="Loading AI chat"
     >
-      <LoaderCircle className="size-5 animate-spin text-muted-foreground" />
+      <LoaderCircle className="size-5 animate-spin motion-reduce:animate-none text-muted-foreground" />
     </div>
   );
 }
 
 export function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [phase, setPhase] = useState<"closed" | "opening" | "open" | "closing">("closed");
 
   const openChat = useCallback(() => {
-    setIsOpen(true);
+    setPhase((current) => current === "open" ? current : "opening");
   }, []);
+
+  const closeChat = useCallback(() => {
+    setPhase(matchMedia("(prefers-reduced-motion: reduce)").matches ? "closed" : "closing");
+  }, []);
+
+  useEffect(() => {
+    if (phase !== "opening") return;
+    let nextFrame = 0;
+    const frame = requestAnimationFrame(() => {
+      nextFrame = requestAnimationFrame(() => setPhase("open"));
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      cancelAnimationFrame(nextFrame);
+    };
+  }, [phase]);
+
+  useEffect(() => {
+    if (phase !== "closing") return;
+    const timeout = window.setTimeout(() => setPhase("closed"), 205);
+    return () => window.clearTimeout(timeout);
+  }, [phase]);
 
   useEffect(() => {
     window.addEventListener("open-chat", openChat);
@@ -39,8 +62,20 @@ export function ChatWidget() {
 
   return (
     <>
-      <AiChatLauncher onClick={openChat} hidden={isOpen} />
-      {isOpen && <ChatPanel onClose={() => setIsOpen(false)} />}
+      <AiChatLauncher onClick={openChat} hidden={phase !== "closed"} returning={phase === "closing"} />
+      {phase !== "closed" && (
+        <div
+          className={styles.shell}
+          data-state={phase}
+          onTransitionEnd={(event) => {
+            if (phase === "closing" && event.target === event.currentTarget && event.propertyName === "transform") {
+              setPhase("closed");
+            }
+          }}
+        >
+          <ChatPanel onClose={closeChat} />
+        </div>
+      )}
     </>
   );
 }

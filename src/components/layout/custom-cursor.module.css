@@ -1,0 +1,120 @@
+.cursor,
+.burst {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 300;
+  color: var(--foreground);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.cursor {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+
+.cursor[data-visible="true"] {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cursor svg {
+  position: absolute;
+  transition: opacity 150ms ease-out, transform 150ms ease-out;
+}
+
+.arrow,
+.hand {
+  fill: var(--background);
+  stroke: currentColor;
+  stroke-width: 1.3px;
+  stroke-linejoin: round;
+}
+
+.arrow {
+  stroke-width: 1.5px;
+  transform-origin: 1.5px 1.5px;
+}
+
+.hand {
+  opacity: 0;
+  transform: scale(0.9);
+  transform-origin: 9px 1.5px;
+}
+
+.hand path + path {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.cursor[data-mode="interactive"] .arrow {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.cursor[data-mode="interactive"] .hand {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.cursor[data-pressed="true"] .arrow,
+.cursor[data-pressed="true"] .hand {
+  transform: scale(0.95);
+  transition-duration: 80ms;
+}
+
+.ibeam {
+  opacity: 0;
+  stroke: currentColor;
+  stroke-width: 1.35px;
+  stroke-linecap: round;
+}
+
+.cursor[data-mode="text"] .arrow,
+.cursor[data-mode="text"] .hand {
+  opacity: 0;
+}
+
+.cursor[data-mode="text"] .ibeam {
+  opacity: 1;
+}
+
+.burst {
+  visibility: visible;
+  stroke: currentColor;
+  stroke-width: 1.35px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.burst g {
+  opacity: 0;
+  transform-origin: 24px 24px;
+}
+
+.burst.firing g {
+  animation: cursor-burst 230ms ease-out forwards;
+}
+
+@keyframes cursor-burst {
+  0%, 15% { opacity: 0.9; transform: scale(0.85); }
+  100% { opacity: 0; transform: scale(1.1); }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .cursor,
+  .burst { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor,
+  .cursor svg { transition: none; }
+  .cursor[data-mode="interactive"] .arrow,
+  .cursor[data-pressed="true"] .arrow,
+  .cursor[data-pressed="true"] .hand { transform: none; }
+  .cursor[data-mode="interactive"] .hand { transform: scale(1); }
+  .burst { display: none; }
+}
