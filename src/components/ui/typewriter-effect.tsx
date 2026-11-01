@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export const TypewriterEffectSmooth = ({
@@ -22,11 +22,14 @@ export const TypewriterEffectSmooth = ({
   duration?: number;
   hideCursorOnComplete?: boolean;
 }) => {
+  const shouldReduceMotion = useReducedMotion();
   const [showCursor, setShowCursor] = useState(delay === 0);
 
   useEffect(() => {
     let startTimeout: NodeJS.Timeout;
     let endTimeout: NodeJS.Timeout;
+
+    if (shouldReduceMotion) return;
 
     if (delay > 0) {
       startTimeout = setTimeout(() => {
@@ -47,7 +50,7 @@ export const TypewriterEffectSmooth = ({
       clearTimeout(startTimeout);
       clearTimeout(endTimeout);
     };
-  }, [delay, duration, hideCursorOnComplete]);
+  }, [delay, duration, hideCursorOnComplete, shouldReduceMotion]);
 
   const wordsArray = words.map((word) => {
     return {
@@ -85,13 +88,13 @@ export const TypewriterEffectSmooth = ({
       <motion.div
         className="overflow-hidden"
         initial={{
-          width: "0%",
+          width: shouldReduceMotion ? "fit-content" : "0%",
         }}
         animate={{
           width: "fit-content",
         }}
         transition={{
-          duration: duration,
+          duration: shouldReduceMotion ? 0 : duration,
           ease: "linear",
           delay: delay,
         }}
@@ -121,7 +124,7 @@ export const TypewriterEffectSmooth = ({
         className={cn(
           "block rounded-sm w-[4px] h-[1em] bg-primary",
           cursorClassName,
-          !showCursor && "invisible",
+          (!showCursor || shouldReduceMotion) && "invisible",
         )}
       ></motion.span>
     </div>

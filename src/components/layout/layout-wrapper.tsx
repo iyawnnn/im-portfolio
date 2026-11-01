@@ -38,7 +38,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
       */}
       <main
         className={cn(
-          "flex flex-col min-h-screen w-full pt-16 lg:pt-0 pb-24 lg:pb-0 transition-all duration-300 ease-in-out transform-gpu will-change-transform min-w-0",
+          "flex flex-col min-h-screen w-full pt-[72px] lg:pt-0 pb-24 lg:pb-0 transition-all duration-300 ease-in-out transform-gpu will-change-transform min-w-0",
           isCollapsed ? "lg:pl-[70px]" : "lg:pl-64",
         )}
       >

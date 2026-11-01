@@ -21,6 +21,7 @@ import { MovingDots, Radar } from "@/components/ui/animated-backgrounds";
 import { GitHubContributionGraph } from "@/components/ui/github-contribution-graph";
 import { SpotifyCard } from "@/components/ui/spotify-card";
 import { WakaTimeCard } from "@/components/ui/wakatime-card";
+import { TextFlip } from "@/components/ui/text-flip";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -50,26 +51,18 @@ const HOME_PROJECTS: ProjectData[] = [
   },
 ];
 
+const ROLES = [
+  "Full-Stack Developer.",
+  "Backend AI Engineer.",
+  "Open-Source Maintainer.",
+  "Product-Minded Engineer.",
+];
+
 export default function ExplorePage() {
   const wordsLine1 = [
     { text: "Hey," },
     { text: "I’m" },
-    { text: "Ian,", className: "text-foreground" },
-  ];
-
-  const wordsLine2Desktop = [
-    { text: "A", className: "text-foreground" },
-    { text: "Full-Stack", className: "text-foreground" },
-    { text: "Developer.", className: "text-foreground" },
-  ];
-
-  const wordsLine2Mobile = [
-    { text: "A", className: "text-foreground" },
-    { text: "Full-Stack", className: "text-foreground" },
-  ];
-
-  const wordsLine3Mobile = [
-    { text: "Developer.", className: "text-foreground" },
+    { text: "Ian.", className: "text-foreground" },
   ];
 
   const latestPosts = getAllPostsMeta()
@@ -93,7 +86,7 @@ export default function ExplorePage() {
           Ian Macabulos - Full-Stack Developer Philippines
         </h1>
 
-        <div className="flex flex-col items-start justify-center min-h-[4em] sm:min-h-[2em] text-4xl sm:text-[2.75rem] lg:text-[3.25rem] font-medium tracking-tight leading-none">
+        <div className="flex max-w-full min-w-0 flex-col items-start justify-center gap-1 text-4xl sm:text-[2.75rem] lg:gap-2 lg:text-[3.25rem] font-medium tracking-tight leading-none">
           <TypewriterEffectSmooth
             words={wordsLine1}
             className="p-0 m-0"
@@ -101,40 +94,15 @@ export default function ExplorePage() {
             duration={1.5}
             hideCursorOnComplete={true}
           />
-
-          <div className="hidden md:block mt-1 lg:mt-2">
-            <TypewriterEffectSmooth
-              words={wordsLine2Desktop}
-              className="p-0"
-              cursorClassName="bg-muted-foreground"
-              delay={1.5}
-              duration={1.5}
-            />
-          </div>
-
-          <div className="block md:hidden flex flex-col items-start mt-0">
-            <TypewriterEffectSmooth
-              words={wordsLine2Mobile}
-              className="p-0"
-              cursorClassName="bg-muted-foreground"
-              delay={1.5}
-              duration={1.2}
-              hideCursorOnComplete={true}
-            />
-            <TypewriterEffectSmooth
-              words={wordsLine3Mobile}
-              className="p-0 mt-1"
-              cursorClassName="bg-muted-foreground"
-              delay={2.7}
-              duration={1.2}
-            />
-          </div>
+          <TextFlip
+            words={ROLES}
+            className="max-w-full min-w-0 text-foreground"
+          />
         </div>
 
         <p className="text-base sm:text-lg font-normal tracking-normal leading-6 sm:leading-7 text-muted-foreground">
-          I am a Full-Stack Developer based in the Philippines who builds web
-          apps, learns new tech, and occasionally argues with my laptop
-          (basically, I spend most of my time debugging my own decisions).
+          I build reliable systems and polished interfaces, from backend
+          architecture to the details that make products feel finished.
         </p>
 
         <div className="flex flex-wrap gap-3 mt-2">
