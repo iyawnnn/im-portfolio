@@ -1,44 +1,53 @@
 ---
 title: "A Typo, a Timeout, and TypeScript"
 date: "2026-05-02"
-description: "The reality check I got after building a fast inventory dashboard in JavaScript and watching it silently fail."
+description: "One wrong property name turned into hours of debugging—and pushed me to take data contracts more seriously."
 coverImage: "/blog/migrating-mamar-typescript/cover.webp"
 ---
 
-Move fast and break things. That was my mindset when I first started building the new digital system for a local bakery. 
+An `ECONNABORTED` timeout sent me looking through the backend of [Mama R's](/projects/mamars), an application I was building for a local bakery. I expected to find a problem with an API request or a database connection. Instead, the cause was a property name.
 
-The goal for [Mama R's](/projects/mamars) was simple. I needed to help the business transition from manual paper logs to a secure digital environment. The owner needed a way to log orders, monitor real-time stock levels, and print physical receipts from a web browser. 
+By then, the application had grown beyond its original order and inventory flows. Expense tracking and end-of-day reconciliation had added more data moving between screens, requests, and the backend. I could still explain each part on its own, but I was having a harder time remembering exactly what shape an object had at every boundary.
 
-I built the initial version using the MERN stack with pure JavaScript. The appeal was obvious. JavaScript allows for incredible development speed. You do not have to configure a compiler, and you do not have to define strict types for every single variable. You just write the logic, save the file, and run it. 
+### One property, several hours
 
-For a while, this worked perfectly. But as the business requirements expanded rapidly to include an expense manager and an end-of-day cash reconciliation tool, that rapid prototyping environment became a massive liability.
+The expense object was supposed to have an `amount` property. Somewhere along the way, the code used `expense.cost` instead.
 
-### The Silent Failure
+That distinction was easy to miss while reading the surrounding logic. Both names made sense for an expense, and the request was far enough from where the object was created that I did not immediately connect the two. I spent time checking the Express backend, the request, and the database path because the timeout looked like a deeper problem.
 
-The breaking point was a frustrating `ECONNABORTED` timeout error. It was a silent failure that brought the entire React frontend to a halt. 
+Eventually I traced the value back through the flow and found that the property being read did not match the property on the object. The immediate fix was small: use `expense.amount`. Finding it took much longer because I had been debugging the layers around the data instead of checking the assumption I had made about the data itself.
 
-In a pure JavaScript environment, errors often hide until you run the code and a specific edge case breaks the application. After hours of staring at the terminal and debugging the Express backend, I finally found the culprit. 
+I do not think this was a JavaScript problem in isolation. The same kind of mismatch can happen when a value crosses several boundaries and the expected shape is unclear. JavaScript let me build the first version quickly, but in this case I was relying on memory to keep the names consistent as the application grew.
 
-Somewhere in the code, a financial expense object was being routed to the database. Instead of using the correct property name `expense.amount`, the code was trying to pass `expense.cost`. 
+The timeout was also only a symptom. A missing property does not automatically cause a database connection to hang, and a timeout can have many causes. What mattered here was that the wrong property sent me investigating a failure far away from the original assumption.
 
-Because JavaScript does not care about data shapes until runtime, it happily sent the malformed request to the server. The MongoDB database did not know how to process the missing data, the connection hung, and the system eventually threw a timeout error. 
+### Adding a stronger contract
 
-> I realized I was trying to manage complex financial states and secure stock history logs using a language that allowed me to easily pass broken data. It was completely unsustainable.
+I migrated the project to TypeScript so I could describe the data shapes I expected and get feedback while working on them. For an expense, a small interface can make the intended property clear:
 
-### Enforcing the Rules
+```ts
+interface Expense {
+  description: string;
+  amount: number;
+}
 
-Migrating an active project is always a challenge, but I needed a more robust architecture. I decided to transition the entire codebase to TypeScript.
+function getAmount(expense: Expense) {
+  return expense.amount;
+}
+```
 
-With TypeScript, I was able to define exactly what an Expense, a Product, and a Sales Order looked like. I created strict interface contracts for every piece of data moving through the system. If I tried to type `expense.cost` again, the code editor immediately threw a red underline and stopped me from saving the file. 
+With that type in place, writing `expense.cost` in the function would produce a type error: `cost` is not part of `Expense`. That feedback appears before I run the flow, close to the line where I made the wrong assumption. It does not remove the need to trace a request, but it can shorten the trip for this class of mistake.
 
-This proactive error catching changed everything. Instead of waiting for a runtime disaster to freeze the dashboard, the compiler acted as a strict boundary. It ensured that only perfectly formatted data could move between the frontend and the database, which is absolutely critical when handling sensitive cash reconciliation data.
+The interface is a description used during development, not a check performed on every value arriving from a request. If an API returns unexpected data, declaring it to be an `Expense` does not make it one. Data from outside the application still needs validation at runtime, and the code still needs to handle API failures and database issues.
 
-### Breaking the Guesswork
+The useful change was making the expected shape visible where I worked with it. Instead of remembering whether the property was called `cost` or `amount`, I could check the type and let the editor point out a mismatch.
 
-The migration did more than just prevent bugs. It completely supercharged my development environment. 
+### Less guessing
 
-To ensure the system was fast enough for rapid order entry during busy bakery hours, I rebuilt the frontend using Vite. I also rely heavily on Tailwind CSS and Shadcn UI for a clean, professional aesthetic. Integrating these complex UI components in JavaScript usually involves a lot of guesswork and constantly checking external documentation. 
+The benefit showed up in ordinary edits too. When I returned to an expense flow after working on another part of the application, the editor could show the available properties and their expected types. That was a helpful starting point, especially when the object passed through several functions.
 
-With TypeScript, the autocomplete features inside my code editor became incredibly powerful. When I added a new UI component, the editor showed me exactly what properties and data types were required to make it work. It bridged the gap between the component library and my custom backend logic flawlessly.
+Refactoring became easier to reason about for the same reason. If I changed a property on a shared type, TypeScript could point me toward typed code that still expected the old name. I still had to inspect the affected paths and test the behavior, but I had a clearer list of places to revisit.
 
-Building fast is great, but handling evolving business needs requires stability. Trading raw development speed for strict data contracts was the best decision I made for this codebase.
+It also made boundaries easier to think about: what does this function expect, what does it return, and where does untrusted data enter? Writing down those expectations did not settle every question, but it made assumptions easier to find and challenge.
+
+The original fix was one property name. The lesson was about how much work had gone into finding it. As a system grows, relying on memory and implicit object shapes gets expensive. Good types do not replace runtime validation or testing, but they can make many mistakes much harder to miss.

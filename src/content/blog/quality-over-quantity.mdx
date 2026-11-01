@@ -1,62 +1,46 @@
 ---
 title: "Ten Repositories, Zero Usable Applications"
 date: "2026-04-15"
-description: "How I stopped rushing through school assignments and learned to build secure, polished software."
+description: "Revisiting old projects taught me that starting software and finishing it are different skills."
 coverImage: "/blog/quality-over-quantity/cover.webp"
 ---
 
 Ten repositories. Zero usable applications.
 
-I looked at my GitHub profile a few months ago and realized something terrible. I had spent a year building projects, but I would not want a real user to touch any of them.
+That title is intentionally provocative. The projects were not all broken or literally unusable. Many had working features and had fulfilled their original purpose: an assignment was submitted, a demo worked, or an application was deployed. Looking back through my GitHub, though, I saw a lot of work that I did not feel ready to hand to someone else or maintain over time. I had often treated submission or deployment as the finish line, and revisiting the projects showed me what I had postponed.
 
-When I first started doing school assignments and side projects, my only goal was to finish. I just wanted the code to compile. If the login button worked and the database accepted a string of text, I closed my laptop and moved on. I was obsessed with quantity. I wanted to build as many things as possible to make my resume look packed with experience.
+### Finishing was the goal
 
-I layered logic on top of logic. I tried to be clever instead of being clear.
+For a while, my pattern was simple: requirement, implement, submit or deploy, move on. Starting another repository felt like visible progress. I could point to a new feature or a new app and say I had built something. I rarely asked whether I would understand the code a few months later, or whether someone else could use the application without me explaining how it worked.
 
-But then I actually tried to use one of my own applications a month later. 
+At the time, I measured a project by whether the required feature worked, whether I could demonstrate it, and whether I could turn it in before moving to the next thing. That was my mindset, not a problem with the assignments. The code could satisfy the requirement without being something I was proud to maintain.
 
-The user interface was clunky. The security was basically nonexistent. The overall user experience was completely ignored. It hit me that a portfolio with ten broken applications is much worse than a portfolio with two highly polished products.
+The unfinished parts were often less dramatic than a broken core feature. An empty state might be confusing. An error might leave the user unsure what to do next. The interface could behave inconsistently across screen sizes. A flow might make sense only because I already knew what each step was supposed to mean. I would notice those things, then tell myself they were polish for later.
 
-So I stopped building new things. I went back to my old code.
+Later often meant never. Once I had submitted or deployed the project, I was already thinking about what to start next.
 
-### The Database Migration Strategy
+### Going back was harder than starting over
 
-Before I even touched the user interfaces, I had to fix my infrastructure. I was hosting my databases on Supabase. Supabase is fantastic, but their free tier only allows you to run two active projects at a time. Because I had so many unoptimized, half-finished projects, I was constantly hitting my limits. 
+Reopening an old project months later felt different from starting a new one. When I start something, the choices are fresh. I remember why a component exists, what an unfamiliar name refers to, and which shortcuts I took to get a feature working. Returning later removes that context.
 
-I made the strategic decision to migrate the databases for my best projects directly to Neon. Neon offers a generous serverless PostgreSQL environment that easily handles multiple databases on a free tier. This migration forced me to rewrite my database schemas and Prisma queries, which immediately exposed how messy my original code was.
+I had to reconstruct it from the code. Some logic was harder to follow than I remembered. A few names that had seemed obvious while I was writing them no longer explained much. Duplicated code showed where I had chosen the quickest local fix. Some flows depended on assumptions that were never written down. Even basic configuration could take time to rediscover before I could make a useful change.
 
-### The SubVantage Reality Check
+That made adding a new feature less straightforward than I expected. Before changing anything, I had to understand what the existing code was doing and whether its behavior was intentional. Sometimes I realized I would now make the interface clearer or choose a simpler structure. The code was not necessarily wrong; it was simply harder to work with than it needed to be.
 
-The first project I rebuilt was [SubVantage](/projects/subvantage), a subscription management platform. On paper, it was a great idea. In reality, it was falling apart.
+On projects such as [SubVantage](/projects/subvantage), going back meant spending time understanding earlier decisions before I could improve the experience. That was useful in a way a blank project was not. Starting taught me how to get an idea running. Returning showed me whether the decisions I had made were understandable and maintainable.
 
-When I started digging into the codebase after the Neon migration, I found several critical failures that I had previously ignored.
+### Fewer projects, more attention
 
-* **The Silent Failures:** The email notification service was completely broken. It was supposed to remind users of upcoming billing cycles, but it was failing silently in the background. Because I never wrote proper error handling, the system just swallowed the bugs and left the user in the dark.
-* **The Broken Archive:** The archive page was another disaster. When a user tried to view their past subscriptions, the database queries were so unoptimized that the page simply timed out and crashed. 
-* **Zero Security:** I realized that handling financial data required actual security, not just a simple password field.
+I did not stop starting new projects. I stopped assuming that starting something new was automatically more valuable than improving something I already had. Progress began to include the work that was less visible: making an error understandable, removing a confusing step, simplifying duplicated logic, or writing down an assumption so it would not have to be rediscovered.
 
-I fixed the serverless functions handling the email triggers so they would deliver reliable notifications. I rewrote the Prisma database queries to paginate the archive data, turning a page that used to crash into a page that loads instantly. Most importantly, I implemented Two-Factor Authentication (2FA) and proper session management.
+When I returned to a project, I started asking whether another person could understand the main flow without a guided tour. I paid more attention to what happened when a request failed or a page had no data. I tried to notice when I was adding complexity because it helped the user or the code, and when I was adding it because it seemed impressive.
 
-### Refining the Neural Engine in Kodasync
+Those questions did not give every project a neat ending. Software can always be refined, and some projects are worth leaving behind. But deciding what to maintain became part of the work. Sometimes the right improvement was to remove a layer or narrow the feature rather than build one more thing on top.
 
-After securing SubVantage, I turned my attention to [Kodasync](/projects/kodasync). Kodasync is a Neural Code and Knowledge Engine designed to centralize technical knowledge for software engineers using AI.
+### What “finished” means now
 
-The original frontend was chaotic. It was supposed to be a professional intelligence hub, but there were too many harsh borders, conflicting colors, and cluttered navigation menus. It felt like a cheap school project instead of a premium developer tool. 
+I do not think finished means perfect, bug-free, or ready for every possible use. It means I can return to the project, understand how its important parts fit together, and make changes without guessing at every step. It means the main flows communicate their state, failures are handled as clearly as I can manage, and another person has a fair chance of using the software without needing me beside them.
 
-Furthermore, I was running a hybrid architecture with a Next.js frontend and a FastAPI Python backend handling heavy vector embeddings through pgvector. The heavy AI processing was making the interface freeze.
+There will still be bugs, rough edges, and decisions I would change later. The difference is that I no longer treat the moment a feature works as proof that the project is finished. Maintenance, refinement, and clarity are part of building software, not chores that begin after the real work is done.
 
-I spent days just deleting code. I stripped out the chaotic designs and focused entirely on the core mechanics. 
-
-1. **The Monaco Upgrade:** I completely integrated the Monaco Editor to give the studio a true, high-performance Visual Studio Code feel.
-2. **Background Tasking:** I offloaded the heavy AI vector calculations to background threads in FastAPI. This kept the UI highly responsive even when the engine was ingesting large documentation URLs.
-3. **A Clean Palette:** I abandoned the colorful buttons and adopted a strict, professional Green and White color scheme. This approach eliminated visual noise and allowed the user to focus entirely on the code.
-
-### The Lesson Learned
-
-Somewhere between migrating my databases to Neon and deploying the newly secured versions of my applications, something finally clicked.
-
-> You will never build a perfect system. But you can always build a system that respects the user.
-
-Code is never truly finished. There will always be bugs to fix and dependencies to update. But taking the time to write clean, secure, and beautifully designed applications completely changes how you think as an engineer. 
-
-The days of rushing to the finish line just to check a box are over. It is no longer about how many repositories I can create in a month. It is simply time to build things that actually work well.
+Starting projects taught me how to build. Returning to them taught me how to finish.
