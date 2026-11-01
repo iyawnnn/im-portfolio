@@ -1,40 +1,44 @@
 ---
-title: "Designing for Failure at Lazada Scale"
+title: "A Cloud Diagram Is Easy. Failure Is the Hard Part."
 date: "2026-03-15"
-description: "Earning the AWS Cloud Foundations badge was the easy part. Designing a highly available cloud architecture for millions of users was the real test."
+description: "An AWS course project taught me the difference between knowing services and reasoning about failure."
 coverImage: "/blog/architecting-lazada/cover.webp"
 ---
 
-I recently completed the [AWS Academy Cloud Foundations Badge](https://www.credly.com/badges/96846437-3bb4-48cd-95f2-a9b4540fb83e/public_url). 
+AWS Academy taught me what services such as EC2, VPCs, IAM, load balancers, and Availability Zones were for. I completed the [Cloud Foundations coursework and badge](https://www.credly.com/badges/96846437-3bb4-48cd-95f2-a9b4540fb83e/public_url), and I could explain the basic purpose of each service. The harder part came when I had to reason about how they fit together.
 
-It was a strict requirement for my degree. For a few weeks, my life consisted of nothing but memorizing technical acronyms. I learned the strict differences between an Elastic Compute Cloud (EC2) instance, a Simple Storage Service (S3) bucket, and a Virtual Private Cloud (VPC). I studied security groups and Identity and Access Management (IAM) roles. I passed the exam, acquired the digital badge, and felt highly confident about my cloud computing knowledge.
+For our final project in Cloud Computing (6CLOUDCOM), taught by [Dr. Jonilo Mababa](https://www.linkedin.com/in/jmababa/), our team designed an AWS architecture for a business case study. We chose Lazada Singapore Pte. Ltd. We modeled scalability, redundancy, and failure for the course; this was not work commissioned by Lazada or a representation of its production infrastructure. I valued the chance to study Cloud Computing under Dr. Mababa, whose emphasis on failure shaped how we approached the diagrams.
 
-But knowing what a tool does is very different from knowing how to build a scalable house with it.
+A diagram can look convincing while leaving basic questions unanswered. What happens if an application instance disappears? What if traffic grows? What if an Availability Zone becomes unavailable? And when one component is made redundant, which dependency becomes the next bottleneck?
 
-### The Reality Check
+### Knowing the pieces is not designing the system
 
-The real test arrived during our final project for the 6CLOUDCOM class under [Dr. Jonilo Mababa](https://www.linkedin.com/in/jmababa/). The assignment was not a simple multiple-choice exam. We were tasked to design a comprehensive, fault-tolerant AWS cloud architecture for a massive, real-world business enterprise. 
+Learning AWS services gave me vocabulary, but vocabulary is not architecture judgment. Knowing that EC2 provides compute, that a load balancer routes requests, or that an Auto Scaling Group adjusts capacity does not tell you which parts of a particular system need protection from failure.
 
-My team chose Lazada Singapore Pte. Ltd.
+The assignment pushed us to think about relationships. Where does a request go? Which components depend on one another? Where does state live? What happens to a request if a dependency is unavailable? A service diagram describes the pieces; the connections and assumptions between them determine how the system behaves.
 
-Lazada is not a lightweight application. It is a dominant third-party ecommerce marketplace that routinely handles 160 million active monthly users across Southeast Asia. You cannot simply spin up a single server, attach a database, and hope the system survives a major sale event like 11.11 or a monthly payday rush.
+That distinction changed how I approached our diagrams. Instead of adding services because they commonly appear in cloud architectures, we had to explain what each one was meant to do in our scenario. Architecture is about relationships between components, not just knowing the components themselves.
 
-Suddenly, the basic textbook definitions I memorized for my certification were no longer enough to solve the problem.
+### Start asking what fails
 
-### Architecting for Massive Scale
+Dr. Mababa emphasized thinking about failure instead of designing only for the happy path. Werner Vogels, CTO of Amazon, captured that idea in a line we returned to: “Everything fails, all the time.” The final project made us apply it to the diagrams. We moved past “How does the request reach the application?” and asked “What happens when this part stops working?”
 
-We had to transition from theoretical knowledge to practical systems design. It took hours of diagramming infrastructure logic and debating routing tables to finalize our five architecture blueprints. We had to implement several advanced cloud patterns to ensure the system would not collapse under pressure.
+For example, multiple application instances can reduce dependence on a single machine. A load balancer can route requests among targets it considers healthy. That does not make every failure disappear, but it gives the design a way to continue when one instance is unavailable.
 
-* **Traffic Distribution:** We mapped out Elastic Load Balancers (ELB) across multiple subnets. This ensures that when millions of users simultaneously search for products, the incoming network traffic is evenly distributed so no single server becomes a bottleneck.
-* **Elastic Capacity:** We architected Auto Scaling Groups for our compute resources. During a massive midnight sale, the system must automatically provision new servers to handle the spike. Once the sale ends, it must instantly terminate those extra servers to minimize billing costs.
-* **Fault Tolerance:** We deployed our resources across multiple Availability Zones (AZ). If a physical data center in Singapore experiences a power failure, the Lazada application must seamlessly route users to a secondary data center without dropping their active shopping carts.
+Traffic growth raised a different question. An Auto Scaling Group can add or remove compute capacity according to configured metrics and policies. It is not a guarantee that capacity will appear instantly or that every spike will be handled perfectly. The policy, the time it takes to respond, and the rest of the architecture all matter.
 
-### Expecting Failure
+We also considered distributing appropriate resources across Availability Zones. That can reduce dependence on one failure domain, but it does not guarantee zero downtime. A design still has to account for how traffic is routed, what state is shared, and which dependencies remain outside that distribution. Spreading instances across zones alone does not preserve every active session or make an application resilient by default.
 
-> Everything fails, all the time. (Werner Vogels, CTO of Amazon)
+### Redundancy needs a reason
 
-Dr. Jonilo Mababa repeatedly emphasized this harsh reality during our course. A cloud service is just a single mechanical gear. The architecture itself is the entire engine. You cannot build an engine assuming all the parts will function perfectly forever. You must design the entire system expecting those gears to break at the worst possible moment.
+It is easy to make a diagram more complicated by adding components associated with high availability. A load balancer, several instances, and multiple Availability Zones may look reassuring on a slide. Each addition also introduces behavior that someone has to understand and configure.
 
-That single project completely changed how I look at backend development and system operations. It is incredibly easy for a developer to say that they will just put their application in the cloud. It is an entirely different engineering challenge to wire those cloud services together securely, efficiently, and at a massive scale.
+The more useful question is: what failure or constraint is this decision meant to handle? Why are there multiple instances? What happens to state if one disappears? Which dependency is still a single point of failure? What does the system do while capacity is changing?
 
-The initial AWS badge successfully got my foot in the door and gave me the correct technical vocabulary. However, architecting a complex system that could theoretically support Alibaba-level web traffic is what actually made me feel like a true software engineer.
+Those questions do not always have one right answer. They do make it easier to evaluate whether a component belongs in the design, and to identify where the diagram is incomplete. Redundancy is useful when you understand which dependency it protects against and what assumptions remain.
+
+### What I learned
+
+Before the assignment, I thought of cloud design mostly as learning what each service could do. The work made me see that knowing the services is only a starting point. The harder task is tracing how a system behaves when a component fails, a dependency is unavailable, or a design assumption stops holding.
+
+An architecture diagram should explain more than the happy path. It should make clear where requests go when everything works, and help answer what happens when something stops working. That is the difference between recognizing the pieces and reasoning about the system.

@@ -37,7 +37,7 @@ export function TextFlip({ words, className, startDelay = 3200 }: TextFlipProps)
     const start = () => {
       timeout = setTimeout(() => {
         advance();
-        interval = setInterval(advance, 3200);
+        interval = setInterval(advance, 3000);
       }, startDelay);
     };
 
@@ -75,10 +75,15 @@ export function TextFlip({ words, className, startDelay = 3200 }: TextFlipProps)
           <motion.span
             key={words[index]}
             className="col-start-1 row-start-1 min-w-0"
-            initial={{ y: "-20%", opacity: 0, filter: "blur(1px)" }}
-            animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
-            exit={{ y: "35%", opacity: 0, filter: "blur(1px)" }}
-            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ y: "-0.25em", opacity: 0, filter: "blur(2px)" }}
+            animate={{ y: "0em", opacity: 1, filter: "blur(0px)" }}
+            exit={{
+              y: "0.25em",
+              opacity: 0,
+              filter: "blur(2px)",
+              transition: { duration: 0.2, ease: "easeOut" },
+            }}
+            transition={{ type: "spring", visualDuration: 0.35, bounce: 0 }}
           >
             {words[index]}
           </motion.span>

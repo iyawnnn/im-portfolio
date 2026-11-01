@@ -1,4 +1,4 @@
-﻿import { Suspense } from "react";
+import { Suspense } from "react";
 import Link from "next/link";
 import {
   Code as CodeXml,
@@ -52,9 +52,10 @@ const HOME_PROJECTS: ProjectData[] = [
 ];
 
 const ROLES = [
-  "Backend AI Engineer",
-  "Open-Source Maintainer",
-  "Full-Stack Developer",
+  "Full-Stack Developer.",
+  "Backend AI Engineer.",
+  "Product Engineer.",
+  "Open-Source Maintainer.",
 ];
 
 export default function ExplorePage() {
@@ -80,11 +81,11 @@ export default function ExplorePage() {
         </h1>
 
         <div className="flex max-w-full min-w-0 flex-col items-start justify-center gap-1 text-4xl sm:text-[2.75rem] lg:gap-2 lg:text-[3.25rem] font-medium tracking-tight leading-none">
-          <div className={heroStyles.reveal}>Hey, I’m Ian.</div>
+          <div className={`text-[1.75rem] sm:text-[2.75rem] lg:text-[3.25rem] ${heroStyles.reveal}`}>Hey, I’m Ian.</div>
           <TextFlip
             words={ROLES}
             startDelay={1600}
-            className={`max-w-full min-w-0 text-foreground ${heroStyles.reveal} ${heroStyles.role}`}
+            className={`max-w-full min-w-0 text-[1.75rem] sm:text-[2.75rem] lg:text-[3.25rem] text-foreground ${heroStyles.reveal} ${heroStyles.role}`}
           />
         </div>
 
