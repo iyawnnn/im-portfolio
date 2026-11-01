@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "KodaSync - Neural Code & Knowledge Engine | Ian Macabulos",
+  title: "KodaSync - Developer Knowledge Workspace | Ian Macabulos",
   description:
-    "A professional intelligence hub for developers. Features a neural chat interface, Monaco Editor, and semantic search powered by Next.js, FastAPI, and Groq SDK.",
+    "A developer knowledge workspace for code, technical notes, and imported documentation, with semantic retrieval, project-scoped RAG chat, and a Monaco-powered Studio.",
   alternates: {
     canonical: "/projects/kodasync",
   },
   openGraph: {
-    title: "KodaSync - Neural Code & Knowledge Engine | Ian Macabulos",
+    title: "KodaSync - Developer Knowledge Workspace | Ian Macabulos",
     description:
-      "A professional intelligence hub for developers. Features a neural chat interface, Monaco Editor, and semantic search powered by Next.js, FastAPI, and Groq SDK.",
+      "A developer knowledge workspace for code, technical notes, and imported documentation, with semantic retrieval, project-scoped RAG chat, and a Monaco-powered Studio.",
     siteName: "Ian Macabulos Portfolio",
     type: "website",
   },

@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Mama R's | Inventory and Sales Operations Dashboard | Ian Macabulos",
+  title: "Mama R's | Internal Bakery Operations System | Ian Macabulos",
   description:
-    "A custom TypeScript MERN stack application built for a local business. It features streamlined order processing, granular stock management, and financial reconciliation.",
+    "Mama R's is an internal bakery operations system connecting orders, payments, inventory movement, expenses, reporting, and end-of-day cash reconciliation.",
   alternates: {
     canonical: "/projects/mamars",
   },
   openGraph: {
-    title: "Mama R's | Inventory and Sales Operations Dashboard | Ian Macabulos",
+    title: "Mama R's | Internal Bakery Operations System | Ian Macabulos",
     description:
-      "A custom TypeScript MERN stack application built for a local business. It features streamlined order processing, granular stock management, and financial reconciliation.",
+      "Mama R's is an internal bakery operations system connecting orders, payments, inventory movement, expenses, reporting, and end-of-day cash reconciliation.",
     siteName: "Ian Macabulos Portfolio",
     type: "website",
   },

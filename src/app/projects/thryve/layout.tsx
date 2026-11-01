@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Thryve - Unified Health & Fitness Ecosystem | Ian Macabulos",
+  title: "Thryve | Full-Stack Health Tracking Application",
   description:
-    "A full-stack health application built on the MEVN stack (MongoDB, Vue.js, Node.js). Features workout logging, nutrition tracking, and gamified achievements.",
+    "A third-year academic full-stack health tracker that brings workouts, meals, water intake, sleep, personal targets, progress views, and achievements into one authenticated application.",
   alternates: {
     canonical: "/projects/thryve",
   },
   openGraph: {
-    title: "Thryve - Unified Health & Fitness Ecosystem | Ian Macabulos",
+    title: "Thryve | Full-Stack Health Tracking Application",
     description:
-      "A full-stack health application built on the MEVN stack (MongoDB, Vue.js, Node.js). Features workout logging, nutrition tracking, and gamified achievements.",
+      "A third-year academic full-stack health tracker that brings workouts, meals, water intake, sleep, personal targets, progress views, and achievements into one authenticated application.",
     siteName: "Ian Macabulos Portfolio",
     type: "website",
   },

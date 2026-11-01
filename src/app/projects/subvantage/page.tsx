@@ -1,25 +1,23 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Link from "next/link";
+import { useEffect } from "react";
+
 import { Github } from "lucide-react";
-import {
-  ArrowLeft,
-  ArrowSquareOut as ExternalLink,
-  Stack as Layers,
-  Briefcase,
-  Cpu,
-  Globe,
-  Layout,
-  RocketLaunch as Rocket,
-  TrendUp as TrendingUp,
-  Shield,
-  Database,
-  Flask as TestTube,
-} from "@phosphor-icons/react/ssr";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ArrowSquareOut as ExternalLink } from "@phosphor-icons/react/ssr";
+import { ProjectDetailLayout } from "@/components/layout/project-detail-layout";
+
+const normalizationSteps = [
+  ["Personal cost", "Read the record’s cost, currency, billing cycle, and trial state. Use the recorded split cost when greater than zero; otherwise use the full cost."],
+  ["Currency normalization", "Express that amount in the user’s preferred currency."],
+  ["Billing normalization", "Divide yearly plans by 12 for monthly comparison. Keep trials visible, outside paid monthly burn. Sum the normalized active, paid commitments."],
+];
+
+const financialViews = [
+  ["Monthly burn", "The normalized monthly cost of active, paid subscriptions, using the user’s share where recorded."],
+  ["Annual projection", "Monthly liability multiplied by 12: a simple annualized estimate from the current records."],
+  ["Upcoming commitments", "The next four scheduled bills are ordered by due date. Future start dates and billing cycles determine the next payment, shown in the subscription’s original currency."],
+  ["Cancelled-cost history", "Cancelled plans are summarized as estimated monthly recurring cost no longer active, separate from current spending. This is a comparison of recorded costs, not guaranteed savings."],
+];
 
 export default function SubVantagePage() {
   // Scroll to top on load
@@ -53,292 +51,191 @@ export default function SubVantagePage() {
   };
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      {/* --- BACK NAVIGATION --- */}
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div>
-        <Link
-          href="/projects"
-          className="group flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          All Projects
-        </Link>
-      </div>
-
-      {/* --- HEADER --- */}
-      <div className="flex flex-col gap-6">
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
-            SubVantage
-          </h1>
-          <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Intelligent Subscription Manager & Tracker
-          </h2>
-        </div>
-
-        <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          SubVantage is a comprehensive financial tool built to help users regain control over their recurring expenses. Recently hardened with enterprise-grade security features, the platform utilizes strict API rate-limiting, secure HTTP headers, and Two-Factor Authentication (2FA). The dynamic dashboard calculates monthly burn and annual forecasts in real-time, all powered by a lightning-fast serverless PostgreSQL database.
-        </p>
-
-        <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">Next.js 15</Badge>
-          <Badge variant="secondary">TypeScript</Badge>
-          <Badge variant="secondary">Neon Postgres</Badge>
-          <Badge variant="secondary">Prisma</Badge>
-          <Badge variant="secondary">2FA Security</Badge>
-        </div>
-      </div>
-
-      {/* --- HERO MEDIA (Video) --- */}
-      <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
-        <video
-          aria-hidden="true"
-          tabIndex={-1}
-          src="/projects/subvantage/subvantage-demo.mp4"
-          poster="/projects/subvantage/subvantage-cover.webp"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-        />
-      </div>
-
-      {/* --- DEMO & CODE CARD --- */}
-      <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
-        <div className="space-y-1">
-          <h3 className="text-lg font-medium">Project Links</h3>
-          <p className="text-sm text-muted-foreground max-w-md">
-            Explore the live application or review the codebase on GitHub.
-          </p>
-        </div>
-        <div className="flex gap-3 w-full md:w-auto">
-          <Button asChild className="flex-1 md:flex-none font-medium">
-            <Link href="https://subvantage.iansebastian.dev/" target="_blank">
-              <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="flex-1 md:flex-none font-medium"
-          >
-            <Link href="https://github.com/iyawnnn/SubVantage" target="_blank">
-              <Github className="mr-2 h-4 w-4" /> Source Code
-            </Link>
-          </Button>
-        </div>
-      </div>
-
-      {/* --- DETAILED CONTENT --- */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        {/* LEFT COLUMN (Main Content) */}
-        <div className="xl:col-span-2 space-y-12">
-          {/* Core Features */}
+      <ProjectDetailLayout
+        title="SubVantage"
+        subtitle="A Clearer View of Recurring Spending"
+        description="SubVantage is a subscription-management dashboard that turns recurring expenses with different currencies, billing cycles, trials, and shared costs into one comparable financial view. It tracks active commitments, upcoming renewals, cancellation history, and spending patterns so recurring costs are easier to understand before the next charge."
+        technologies={["Next.js", "TypeScript", "PostgreSQL", "Prisma", "NextAuth"]}
+        media={
+          <video
+            aria-hidden="true"
+            tabIndex={-1}
+            src="/projects/subvantage/subvantage-demo.mp4"
+            poster="/projects/subvantage/subvantage-cover.webp"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-full w-full object-cover"
+          />
+        }
+        linksDescription="Explore the recurring-spend dashboard or inspect the calculations and subscription lifecycle behind it."
+        links={[
+          { label: "Live Site", href: "https://subvantage.iansebastian.dev/", icon: <ExternalLink aria-hidden="true" className="mr-2 h-4 w-4" /> },
+          { label: "Source Code", href: "https://github.com/iyawnnn/SubVantage", icon: <Github aria-hidden="true" className="mr-2 h-4 w-4" />, variant: "outline" },
+        ]}
+      >
+        <div className="w-full min-w-0 space-y-12">
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Layout className="w-6 h-6 text-primary" /> Core Features
-            </h2>
-            <div className="grid gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-primary" /> Financial Pulse
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  A real-time dashboard displaying Monthly Burn, Annual Forecasts, and Total Saved amounts. Interactive Recharts visualize spending velocity so users can identify heavy payment cycles effortlessly.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-primary" /> Advanced Security Architecture
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Protects sensitive financial data using Time-based One-Time Password (TOTP) Two-Factor Authentication. The application is secured against common vulnerabilities with strict API rate-limiting and enforced HTTP security headers.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <Database className="w-4 h-4 text-primary" /> Serverless Data Management
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Powered by a Neon Serverless PostgreSQL database and Prisma ORM. This architecture provides highly efficient connection pooling to ensure instant data retrieval when users modify their subscription portfolios.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Development Process */}
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Cpu className="w-6 h-6 text-primary" /> Development Process
-            </h2>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Challenge</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                As the application scaled, the primary challenge evolved from building the frontend UI to overhauling the backend architecture. Migrating the primary database to Neon while simultaneously implementing rigorous security measures (like 2FA and edge-level rate-limiting) required careful orchestration to prevent data loss or service disruption for existing users.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Solution</h3>
-              <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
-                <li>
-                  <strong>Database Migration:</strong> Seamlessly transitioned to Neon Postgres with Prisma, establishing a robust relational structure capable of handling high-volume currency conversions and state updates.
-                </li>
-                <li>
-                  <strong>Security Hardening:</strong> Engineered a secure authentication pipeline incorporating 2FA verification steps, reinforced by Content Security Policies (CSP) and HTTP Strict Transport Security (HSTS).
-                </li>
-                <li>
-                  <strong>Transactional Emails:</strong> Continued leveraging the Resend API to handle critical transactional emails (like trial expiry warnings and OTP codes) with high deliverability, fully decoupled from the main application thread.
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          {/* Testing & QA */}
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <TestTube className="w-6 h-6 text-primary" /> Quality Assurance
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              To guarantee that the newly secured endpoints and database connections functioned flawlessly, I expanded the application's testing suite:
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-medium text-foreground mb-2">
-                  Unit & Integration Testing
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Using <strong>Vitest</strong>, I wrote extensive tests covering critical utility functions, ensuring currency math, security validations, and date logic remained 100% accurate post-migration.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-medium text-foreground mb-2">
-                  End-to-End (E2E) Testing
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Utilized <strong>Playwright</strong> to simulate complete user journeys, testing the full lifecycle from signing up and passing 2FA verification to adding subscriptions and viewing dynamic chart updates.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Key Takeaways */}
-          <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Upgrading SubVantage drastically improved my understanding of production-level security and database management. Executing a live migration to <strong>Neon Postgres</strong> and enforcing <strong>2FA protocols</strong> taught me how to architect applications that prioritize data integrity and user trust without sacrificing frontend performance.
+            <h2 className="text-2xl font-medium tracking-tight">The problem is not one subscription. It is the total.</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              One monthly plan is easy to understand. Add annual bills, different
+              currencies, free trials, shared costs, staggered renewal dates,
+              and paused or cancelled plans, and a list of individual prices
+              stops answering the useful question:
+              how much am I actually committed to each month? I built SubVantage
+              around making those unlike costs comparable.
             </p>
           </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">Different billing models need one financial baseline</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Normalization starts with what belongs to the user: a positive
+              personal split cost takes precedence over the full bill. That
+              amount is converted to the preferred currency, then yearly plans
+              are spread across 12 months. Only active, non-trial subscriptions
+              contribute to paid monthly burn.
+            </p>
+            <ol className="divide-y divide-border/50 border-y border-border/50">
+              {normalizationSteps.map(([title, description], index) => (
+                <li key={title} className="flex min-w-0 gap-4 py-4">
+                  <span aria-hidden="true" className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-medium">{index + 1}</span>
+                  <div className="min-w-0 space-y-1">
+                    <h3 className="font-medium">{title}</h3>
+                    <p className="text-base leading-7 text-muted-foreground">{description}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">A dollar plan and a peso plan still belong in the same total</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Each subscription keeps its original currency. Aggregate values
+              use exchange-rate normalization to express unlike costs in the
+              user’s chosen base currency. External rates are fetched with hourly
+              revalidation, with fallback rates when the request fails.
+            </p>
+            <h3 className="font-medium">Preferences are part of the financial model</h3>
+            <p className="text-base leading-7 text-muted-foreground">
+              Onboarding and settings store the preferred currency and email
+              notification preference. Changing currency affects the aggregated
+              dashboard totals. Individual upcoming bills retain
+              their original currency so the charge remains recognizable.
+            </p>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">What a common baseline makes visible</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {financialViews.map(([title, description]) => (
+                <div key={title} className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                  <h3 className="font-medium">{title}</h3>
+                  <p className="text-base leading-7 text-muted-foreground">{description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">A cancelled subscription should not disappear from the story</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              A plan can be paused, cancelled into the archive, or restored when
+              needed. Keeping those choices separate from permanent deletion
+              preserves the record and makes cancellation’s effect on recurring
+              commitments visible.
+            </p>
+            <dl className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <dt className="font-medium">Pause / resume</dt>
+                <dd className="text-base leading-7 text-muted-foreground">Pausing keeps the record while leaving it out of active spending.</dd>
+              </div>
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <dt className="font-medium">Cancel / archive / restore</dt>
+                <dd className="text-base leading-7 text-muted-foreground">Restore an archived plan to Active without creating a new record. Stopping a recurring cost is part of its financial story too.</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">Renewal dates matter more before the charge happens</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              SubVantage can surface upcoming trials and renewals before they
+              become another charge. Scheduled email checks look two days ahead
+              for trial dates and through the next three days for active-plan
+              renewals. Resend handles delivery requests; the renewal check records
+              successful sends to reduce repeat notifications on the same day.
+              The goal is to put the decision before the next charge.
+            </p>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">Sometimes the useful insight is a duplicate hiding in plain sight</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <h3 className="font-medium">Duplicate vendor subscriptions</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  The dashboard groups active records by vendor and surfaces
+                  repeated services as a redundancy signal. A trial can still be
+                  part of a duplicate group while remaining outside its paid total.
+                  Two active subscriptions for the same service are worth a second look.
+                </p>
+              </div>
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <h3 className="font-medium">A review signal, not a cancellation decision</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  These are deterministic grouping rules. A repeated vendor name
+                  suggests possible redundancy, but separate plans may serve
+                  different needs. The dashboard flags the pattern; the user
+                  decides whether either commitment is unnecessary.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">Subscription records stay scoped to the account that owns them</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Subscription Server Actions require an authenticated session, scope
+              vendor records to that user, and check ownership before editing.
+              Updates and deletes use both the subscription ID and user ID.
+              Those checks live on the server, beyond what the interface chooses to show.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">Financial totals are only useful if the rules stay predictable</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Vitest tests cover currency conversion, yearly-to-monthly
+              normalization, personal split costs, and trial exclusion. Reminder
+              tests mock the database and email service to check trial reminder
+              sends and the no-trials case. Playwright scenarios
+              cover sign-up/sign-in and subscription creation, archiving, and
+              deletion. GitHub Actions builds the application and runs those
+              browser scenarios. The calculation tests keep the core normalization
+              rules explicit as the interface evolves.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">Making recurring spending visible before it becomes background noise</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              SubVantage’s more interesting problem was making unlike costs
+              comparable. Currency, yearly billing, trials, personal shares,
+              renewal dates, and cancellation all change what a subscription
+              means financially. Bringing those rules together turned a list of
+              services into a clearer view of ongoing commitments.
+            </p>
+          </section>
         </div>
-
-        {/* RIGHT COLUMN (Tech Stack & Meta) */}
-        <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          {/* Tech Stack Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Layers className="w-5 h-5 text-primary" /> Tech Stack
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-6">
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Frontend
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Next.js 15</Badge>
-                  <Badge variant="outline">React 19</Badge>
-                  <Badge variant="outline">Tailwind CSS</Badge>
-                  <Badge variant="outline">Shadcn UI</Badge>
-                  <Badge variant="outline">Recharts</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Backend & Services
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Neon Postgres</Badge>
-                  <Badge variant="outline">Prisma ORM</Badge>
-                  <Badge variant="outline">Resend</Badge>
-                  <Badge variant="outline">2FA Auth</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Testing & Tools
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">Vitest</Badge>
-                  <Badge variant="outline">Playwright</Badge>
-                  <Badge variant="outline">Git</Badge>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          {/* Context Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Globe className="w-5 h-5 text-primary" /> Context
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Type</span>
-                <span className="font-medium text-foreground">
-                  Personal Project
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Timeline</span>
-                <span className="font-medium text-foreground">Dec 2025</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Role</span>
-                <span className="font-medium text-foreground">
-                  Full Stack Developer
-                </span>
-              </div>
-            </div>
-          </Card>
-
-          {/* Deployment Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Rocket className="w-5 h-5 text-primary" /> Deployment
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Platform</span>
-                <span className="font-medium text-foreground">Vercel</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Version</span>
-                <span className="font-medium text-foreground">v2.0.0</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Database</span>
-                <span className="font-medium text-foreground">Neon</span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    </div>
+      </ProjectDetailLayout>
+    </>
   );
 }

@@ -1,23 +1,9 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Link from "next/link";
+import { useEffect } from "react";
 import { Github } from "lucide-react";
-import {
-  ArrowLeft,
-  ArrowSquareOut as ExternalLink,
-  Stack as Layers,
-  Briefcase,
-  Cpu,
-  DeviceMobile,
-  Globe,
-  Layout,
-  RocketLaunch as Rocket,
-  ShieldCheck,
-} from "@phosphor-icons/react/ssr";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ArrowSquareOut as ExternalLink } from "@phosphor-icons/react/ssr";
+import { ProjectDetailLayout } from "@/components/layout/project-detail-layout";
 
 const liveSite = "https://labsign.ua-cit.com/";
 const webRepository = "https://github.com/iyawnnn/UA-LabSign";
@@ -54,383 +40,183 @@ export default function UAAttendancePage() {
   };
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
-      <div>
-        <Link
-          href="/projects"
-          className="group flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft
+      <ProjectDetailLayout
+        title="UA LabSign — Laboratory Attendance System"
+        subtitle="Device-Bound Laboratory Attendance Across Web & Android"
+        description="UA LabSign replaces manual laboratory attendance with a coordinated web and Android workflow. Institutional sign-in, device-bound ECDSA P-256 signatures, client-side geofence checks, and short-lived room PINs connect each student check-in with faculty oversight and administrative records."
+        technologies={["Next.js", "TypeScript", "PostgreSQL", "React Native", "Expo"]}
+        media={
+          <video
             aria-hidden="true"
-            className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1"
+            tabIndex={-1}
+            src="/projects/ua-attendance/ua-attendance-demo.mp4"
+            poster="/projects/ua-attendance/ua-attendance-cover.webp"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-full w-full object-cover"
           />
-          All Projects
-        </Link>
-      </div>
-
-      <div className="flex flex-col gap-6">
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
-            UA LabSign — Laboratory Attendance System
-          </h1>
-          <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Zero-Trust Laboratory Attendance Tracking System
-          </h2>
-        </div>
-
-        <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          UA LabSign is a centralized web and mobile laboratory attendance
-          system designed to prevent proxy attendance and strengthen record
-          integrity. It combines device-bound ECDSA P-256 signatures, instant
-          GPS-based geofencing, institutional Google authentication, and
-          time-sensitive session PINs to verify identity, an authorized device,
-          physical presence, and active class context. Dedicated Student,
-          Faculty, and Administrator workflows support live attendance
-          monitoring, device recovery and revocation, schedule management,
-          reporting, and auditable system activity.
-        </p>
-
-        <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">Next.js</Badge>
-          <Badge variant="secondary">TypeScript</Badge>
-          <Badge variant="secondary">PostgreSQL</Badge>
-          <Badge variant="secondary">Prisma</Badge>
-          <Badge variant="secondary">React Native</Badge>
-          <Badge variant="secondary">Expo</Badge>
-        </div>
-      </div>
-
-      <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
-        <video
-          aria-hidden="true"
-          tabIndex={-1}
-          src="/projects/ua-attendance/ua-attendance-demo.mp4"
-          poster="/projects/ua-attendance/ua-attendance-cover.webp"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-        />
-      </div>
-
-      <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
-        <div className="space-y-1">
-          <h3 className="text-lg font-medium">Project Links</h3>
-          <p className="text-sm text-muted-foreground max-w-md">
-            Open the live platform or inspect the coordinated web/backend and
-            mobile applications.
-          </p>
-        </div>
-        <div className="flex gap-3 w-full md:w-auto flex-wrap">
-          <Button asChild className="flex-1 md:flex-none font-medium">
-            <Link
-              href={liveSite}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <ExternalLink aria-hidden="true" className="mr-2 h-4 w-4" />
-              Live Site
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="flex-1 md:flex-none font-medium"
-          >
-            <Link
-              href={webRepository}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github aria-hidden="true" className="mr-2 h-4 w-4" />
-              Web Repository
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="flex-1 md:flex-none font-medium"
-          >
-            <Link
-              href={mobileRepository}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Github aria-hidden="true" className="mr-2 h-4 w-4" />
-              Mobile Repository
-            </Link>
-          </Button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        <div className="xl:col-span-2 space-y-12">
+        }
+        linksDescription="Open the live platform or inspect the coordinated web/backend and mobile applications."
+        links={[
+          { label: "Live Site", href: liveSite, icon: <ExternalLink aria-hidden="true" className="mr-2 h-4 w-4" /> },
+          { label: "Web Source", href: webRepository, icon: <Github aria-hidden="true" className="mr-2 h-4 w-4" />, variant: "outline" },
+          { label: "Mobile Source", href: mobileRepository, icon: <Github aria-hidden="true" className="mr-2 h-4 w-4" />, variant: "outline" },
+        ]}
+      >
+        <div className="w-full min-w-0 space-y-12">
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Layout aria-hidden="true" className="w-6 h-6 text-primary" />
-              Coordinated Architecture
-            </h2>
-            <div className="grid gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <Globe aria-hidden="true" className="w-4 h-4 text-primary" />
-                  Web Portal & Backend
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  A Next.js App Router application built with React and
-                  TypeScript. Prisma manages the PostgreSQL data model on Neon,
-                  while the backend handles authentication, attendance
-                  verification, reporting, administrative workflows, and shared
-                  student APIs.
+            <h2 className="text-2xl font-medium tracking-tight">From manual laboratory logs to a verifiable digital workflow</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Paper logs and spreadsheets made laboratory attendance difficult to
+              audit: another student could sign for someone else, entries could
+              be inaccurate, and staff still had to consolidate the records.
+              I built UA LabSign to connect student check-in, faculty review,
+              and administration in one digital workflow with clearer attribution.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">An account alone cannot establish attendance</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              A university Google account establishes who signed in. It does not
+              establish which device submitted a check-in, whether that device
+              signed it, or whether a class PIN is still valid. UA LabSign combines
+              those server-side checks with a client-side location readiness gate
+              rather than treating a successful login as sufficient attendance evidence.
+            </p>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">One attendance workflow, two clients</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <h3 className="text-lg font-medium">Web portal</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  The Next.js portal connects student check-in with faculty and
+                  administrator dashboards, class sessions, attendance records,
+                  and reporting. Prisma and PostgreSQL hold the shared records.
                 </p>
               </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <DeviceMobile
-                    aria-hidden="true"
-                    className="w-4 h-4 text-primary"
-                  />
-                  Mobile Application
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  A React Native and Expo client using TypeScript, Expo
-                  Location, Expo Secure Store, Google Sign-In, and native
-                  cryptographic support. It connects to the shared backend for
-                  registration, recovery, device status, attendance check-in,
-                  and attendance history.
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <h3 className="text-lg font-medium">Android companion</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  The React Native and Expo app handles student sign-in, device
+                  key generation, and signed check-ins against the same backend.
+                  Private keys stay in SecureStore; readiness checks, history,
+                  and device recovery complete the student workflow.
                 </p>
               </div>
             </div>
           </section>
 
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <ShieldCheck
-                aria-hidden="true"
-                className="w-6 h-6 text-primary"
-              />
-              Zero-Trust Check-In Flow
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Each attendance submission must pass five independent verification
-              gates before it is recorded.
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">The device becomes part of the attendance credential</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Knowing an account’s credentials does not reproduce the device’s
+              private signing key. ECDSA P-256 lets the server check a request
+              against a registered public key while the private key remains on
+              the student’s device.
             </p>
+            <dl className="divide-y divide-border/50 border-y border-border/50">
+              <div className="space-y-2 py-4">
+                <dt className="font-medium">At registration</dt>
+                <dd className="text-base leading-7 text-muted-foreground">
+                  The device generates a key pair and registers its public key
+                  with the student’s account. The web client keeps the private
+                  CryptoKey in IndexedDB; Android stores its private key locally
+                  using Expo SecureStore.
+                </dd>
+              </div>
+              <div className="space-y-2 py-4">
+                <dt className="font-medium">At check-in</dt>
+                <dd className="text-base leading-7 text-muted-foreground">
+                  The device signs a payload containing the student ID, room,
+                  and timestamp. The server verifies that signature against the
+                  stored public key before accepting the attendance record.
+                </dd>
+              </div>
+            </dl>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">A check-in combines distinct signals</h2>
             <ol className="divide-y divide-border/50 border-y border-border/50">
               {[
-                [
-                  "1",
-                  "University Identity",
-                  "Approved institutional @ua.edu.ph Google account.",
-                ],
-                [
-                  "2",
-                  "Authorized Device",
-                  "The account must be bound to the currently registered device.",
-                ],
-                [
-                  "3",
-                  "Valid ECDSA P-256 Signature",
-                  "The backend verifies the signed attendance payload against the registered public key.",
-                ],
-                [
-                  "4",
-                  "Physical Presence / Geofence",
-                  "Foreground GPS confirms the student is inside the configured campus/laboratory geofence.",
-                ],
-                [
-                  "5",
-                  "Active Class Session / PIN",
-                  "The laboratory session must be active with a valid, unexpired instructor-generated PIN.",
-                ],
-              ].map(([step, title, description]) => (
-                <li key={step} className="flex gap-4 py-4">
-                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-medium text-primary">
-                    {step}
-                  </span>
-                  <div className="min-w-0">
-                    <h3 className="font-medium text-foreground">{title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                      {description}
-                    </p>
+                ["Institutional identity", "The student signs in through the approved university Google account flow."],
+                ["Registered device", "The student must have an active public-key binding; revoking or replacing it changes which key can verify a check-in."],
+                ["Signed attendance request", "The device signs the payload with its ECDSA P-256 private key. The backend verifies the signature against the stored public key and checks timestamp drift."],
+                ["Location readiness", "The client checks the configured campus geofence before enabling submission. Coordinates are not sent to the attendance endpoint for independent server-side GPS verification."],
+                ["Active class session", "The backend matches the room and unexpired PIN to a schedule, checks for duplicate attendance, and classifies the record as late or on time."],
+              ].map(([title, description], index) => (
+                <li key={title} className="flex min-w-0 gap-4 py-4">
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-medium">{index + 1}</span>
+                  <div className="min-w-0 space-y-1">
+                    <h3 className="font-medium">{title}</h3>
+                    <p className="text-base leading-7 text-muted-foreground">{description}</p>
                   </div>
                 </li>
               ))}
             </ol>
           </section>
 
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Cpu aria-hidden="true" className="w-6 h-6 text-primary" />
-              Security & Operations
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-medium text-foreground mb-2">
-                  Device-Bound Signing
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Each client generates an ECDSA P-256 key pair. The private key
-                  stays on the authorized device, while the registered public
-                  key lets the backend verify each signed attendance payload.
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">Security includes recovery and day-to-day operations</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {[
+                ["Device-bound signing", "The client keeps its private key; the server uses the registered public key to verify attendance submissions."],
+                ["Short-lived class access", "Faculty-generated room PINs expire, narrowing the window in which a class check-in can be accepted."],
+                ["Recovery and revocation", "A recovery PIN lets students re-bind a replacement device. Administrators can revoke outdated or compromised bindings."],
+                ["Auditable records", "Timestamps, history, filtering, manual exceptions, and reports make attendance and administrative activity reviewable."],
+              ].map(([title, description]) => (
+                <div key={title} className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                  <h3 className="font-medium">{title}</h3>
+                  <p className="text-base leading-7 text-muted-foreground">{description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">The check-in is only half of the workflow</h2>
+            <div className="divide-y divide-border/50 border-y border-border/50">
+              <div className="space-y-2 py-4">
+                <h3 className="font-medium">Faculty</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Start sessions for scheduled laboratory classes, generate
+                  short-lived PINs, watch attendance activity, review class
+                  records, handle legitimate exceptions, and export reports.
                 </p>
               </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-medium text-foreground mb-2">
-                  Privacy-Preserving Location Check
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  GPS is evaluated as a foreground check during the attendance
-                  flow. UA LabSign does not require continuous background
-                  location tracking.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-medium text-foreground mb-2">
-                  Recovery & Revocation
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Students can recover or transfer an account to a new device,
-                  while administrators can revoke a registered device and force
-                  reauthorization when needed.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-medium text-foreground mb-2">
-                  Reports & Auditability
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Faculty and administrators can filter attendance records,
-                  export structured reports, and review system activity through
-                  dedicated audit trails.
+              <div className="space-y-2 py-4">
+                <h3 className="font-medium">Administration</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Manage schedules, staff assignments, and registered devices,
+                  then review attendance records and audit history. The record
+                  stays useful after the student has checked in.
                 </p>
               </div>
             </div>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Briefcase aria-hidden="true" className="w-6 h-6 text-primary" />
-              Project Scope
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              UA LabSign replaces fragmented paper-based laboratory attendance
-              with coordinated web and mobile workflows designed to support
-              hundreds of students, 20+ faculty members, university
-              administrators, and multiple academic programs.
+            <h2 className="text-2xl font-medium tracking-tight">From check-in to a usable class record</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              UA LabSign turns a manual process into a connected record that
+              starts with the student’s device and continues through faculty
+              review, reporting, device management, and administrative auditing.
+              The web and Android clients share a workflow built around stronger
+              attribution and clearer records.
             </p>
           </section>
         </div>
-
-        <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Layers aria-hidden="true" className="w-5 h-5 text-primary" />
-                Tech Stack
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-6">
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Web Portal & Backend
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Next.js</Badge>
-                  <Badge variant="outline">React</Badge>
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">Tailwind CSS</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Mobile Application
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">React Native</Badge>
-                  <Badge variant="outline">Expo</Badge>
-                  <Badge variant="outline">Expo Location</Badge>
-                  <Badge variant="outline">Expo Secure Store</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Data & Security
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">PostgreSQL</Badge>
-                  <Badge variant="outline">Prisma</Badge>
-                  <Badge variant="outline">Neon</Badge>
-                  <Badge variant="outline">ECDSA P-256</Badge>
-                  <Badge variant="outline">Web Crypto API</Badge>
-                  <Badge variant="outline">bcrypt</Badge>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Globe aria-hidden="true" className="w-5 h-5 text-primary" />
-                Context
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Type</span>
-                <span className="font-medium text-foreground text-right">
-                  University System
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Clients</span>
-                <span className="font-medium text-foreground text-right">
-                  Web + Android
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Scope</span>
-                <span className="font-medium text-foreground text-right">
-                  Laboratory Attendance
-                </span>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Rocket aria-hidden="true" className="w-5 h-5 text-primary" />
-                Deployment
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Web</span>
-                <span className="font-medium text-foreground">Vercel</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Database</span>
-                <span className="font-medium text-foreground">Neon</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Mobile</span>
-                <span className="font-medium text-foreground">
-                  Expo / Android
-                </span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    </div>
+      </ProjectDetailLayout>
+    </>
   );
 }

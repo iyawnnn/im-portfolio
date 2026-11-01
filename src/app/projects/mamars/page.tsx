@@ -1,21 +1,12 @@
 "use client";
 
-import React, { useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Github } from "lucide-react";
-import {
-  ArrowLeft,
-  Stack as Layers,
-  Briefcase,
-  Cpu,
-  Globe,
-  Layout,
-  RocketLaunch as Rocket,
-  Lock,
-} from "@phosphor-icons/react/ssr";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { useEffect } from "react";
+
+import { Github, Lock } from "lucide-react";
+
+import { ProjectDetailLayout } from "@/components/layout/project-detail-layout";
 
 export default function MamaRsPage() {
   useEffect(() => {
@@ -41,261 +32,157 @@ export default function MamaRsPage() {
       {
         "@type": "ListItem",
         position: 3,
-        name: "Mama R's Bakery",
+        name: "Mama R's",
         item: "https://www.iansebastian.dev/projects/mamars",
       },
     ],
   };
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div>
-        <Link
-          href="/projects"
-          className="group flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          All Projects
-        </Link>
-      </div>
-
-      <div className="flex flex-col gap-6">
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
-            Mama R's
-          </h1>
-          <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Inventory & Sales Operations Dashboard
-          </h2>
-        </div>
-
-        <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          Mama R's is a custom business administration tool engineered with the MERN stack. It was designed to help a local bakery transition from manual paper logs to a secure digital environment. The system allows the business owner to log orders, print physical receipts, monitor real-time stock levels, record operational expenses, and execute end-of-day cash reconciliation from a web browser.
-        </p>
-
-        <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">TypeScript</Badge>
-          <Badge variant="secondary">React</Badge>
-          <Badge variant="secondary">Node.js</Badge>
-          <Badge variant="secondary">MongoDB</Badge>
-          <Badge variant="secondary">Tailwind CSS</Badge>
-        </div>
-      </div>
-
-      <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
-        <video
-          aria-hidden="true"
-          tabIndex={-1}
-          src="/projects/mamars/mamars-demo.mp4"
-          poster="/projects/mamars/mamars-cover.webp"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-        />
-      </div>
-
-      <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
-        <div className="space-y-1">
-          <h3 className="text-lg font-medium">Project Links</h3>
-          <p className="text-sm text-muted-foreground max-w-md">
-            The live application operates strictly as a secured client portal for internal business use only. You can review the complete source code on GitHub.
-          </p>
-        </div>
-        <div className="flex gap-3 w-full md:w-auto">
-          <Button
-            disabled
-            variant="secondary"
-            className="flex-1 md:flex-none font-medium opacity-80 cursor-not-allowed"
-          >
-            <Lock className="mr-2 h-4 w-4" /> Client Portal
-          </Button>
-
-          <Button
-            asChild
-            variant="outline"
-            className="flex-1 md:flex-none font-medium"
-          >
-            <Link href="https://github.com/iyawnnn/mamar-s" target="_blank">
-              <Github className="mr-2 h-4 w-4" /> Source Code
-            </Link>
-          </Button>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        <div className="xl:col-span-2 space-y-12">
+      <ProjectDetailLayout
+        title="Mama R's"
+        subtitle="Internal Bakery Operations System"
+        description="Mama R's is a custom internal operations system built for a local bakery to replace manual paper records with one browser-based workflow for orders, payments, inventory, expenses, reporting, and end-of-day cash reconciliation. It also supports printable receipts and stock-history tracking."
+        technologies={["React", "TypeScript", "Node.js", "Express", "MongoDB"]}
+        media={
+          <Image
+            src="/projects/mamars/mamars-branded-cover.webp"
+            alt="Mama R's Bakery identity on a navy background, labeled Bakery Admin"
+            fill
+            preload
+            sizes="(max-width: 767px) calc(100vw - 2rem), (max-width: 1023px) calc(100vw - 4rem), (max-width: 1407px) calc(100vw - 22rem), 66rem"
+            className="object-cover"
+          />
+        }
+        linksDescription="The deployed application is restricted to internal business use. The implementation is available publicly for code review."
+        links={[
+          {
+            label: "Internal System",
+            disabled: true,
+            icon: <Lock aria-hidden="true" className="mr-2 h-4 w-4" />,
+          },
+          {
+            label: "Source Code",
+            href: "https://github.com/iyawnnn/MamaR-s",
+            icon: <Github aria-hidden="true" className="mr-2 h-4 w-4" />,
+            variant: "outline",
+          },
+        ]}
+      >
+        <div className="w-full min-w-0 space-y-12">
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Layout className="w-6 h-6 text-primary" /> Core Features
+            <h2 className="text-2xl font-medium tracking-tight">
+              The bakery did not need another dashboard. It needed one place to run the day.
             </h2>
-            <div className="grid gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1">
-                  Order Processing & Receipts
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Features a streamlined order entry sheet for rapid logging during business hours. The system automatically calculates totals and can generate formatted, printable receipts for customers.
+            <p className="text-base leading-7 text-muted-foreground">
+              The bakery previously relied on manual records for day-to-day operations. Mama R&apos;s brings customer orders, payment progress, stock levels, expenses, receipts, and end-of-day reconciliation into one working record.
+            </p>
+            <p className="text-base leading-7 text-muted-foreground">
+              The goal was not simply to digitize separate forms, but to keep the operational pieces connected as an order moves through fulfillment.
+            </p>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">
+              An order stays useful from booking to fulfillment
+            </h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="min-w-0 space-y-2 rounded-lg border border-border/50 bg-card/50 p-5">
+                <h3 className="font-medium">Order and payment state</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Each order keeps the customer and order details, line items, quantities, prices at the time of order, target date, and amount paid. Payment status distinguishes unpaid, partial, and paid commitments.
                 </p>
               </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1">
-                  Granular Stock Management
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Maintains a digital product catalog with real-time stock tracking. It actively warns the user with low-stock alerts, provides a restock modal for easy updates, and keeps an immutable stock history log to track all inventory movements over time.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1">
-                  Financial Dashboard & Reconciliation
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Visualizes sales data through category pie charts and monthly metrics. It includes a dedicated expense manager and an end-of-day reconciliation tool to ensure the digital database matches the physical cash register.
+              <div className="min-w-0 space-y-2 rounded-lg border border-border/50 bg-card/50 p-5">
+                <h3 className="font-medium">Fulfillment and inventory</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Stock is not deducted when an order is created. When it enters fulfilled status, the backend checks the relevant product, verifies enough stock, reduces it, and records the movement in stock history. Updating an already fulfilled order does not deduct stock again.
                 </p>
               </div>
             </div>
           </section>
 
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Cpu className="w-6 h-6 text-primary" /> Development Process
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">
+              Knowing the stock count is useful. Knowing why it changed is better.
             </h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              The catalog supports products and variants, stock quantities, low-stock thresholds, and restocking. Relevant changes such as restocks, adjustments, and fulfillment create stock-history entries, so the current count is accompanied by an operational trail.
+            </p>
+          </section>
 
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Challenge</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                The initial application was built to simply log sales. However, the business requirements expanded rapidly to include expense tracking, printable receipts, and strict inventory logs. Managing complex financial states and preventing runtime errors required a more robust architecture.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Solution</h3>
-              <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
-                <li>
-                  <strong>TypeScript Integration:</strong> Migrated the entire codebase to TypeScript. This introduced strict type definitions for orders, expenses, and stock logs, ensuring data integrity across the application.
-                </li>
-                <li>
-                  <strong>Frontend Optimization:</strong> Rebuilt the user interface utilizing Vite and React. This update provided the high performance necessary for rapid order entry, while Tailwind CSS and Shadcn UI delivered a clean, professional aesthetic.
-                </li>
-                <li>
-                  <strong>Modular API Architecture:</strong> Engineered a scalable Node and Express backend. The application features distinct API routes for authentication, dashboard metrics, expenses, and stock logs to keep data flow organized and secure.
-                </li>
-              </ul>
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">
+              The digital total still has to match the cash drawer
+            </h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              End-of-day reconciliation turns the day&apos;s operational records into a practical closing check.
+            </p>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="min-w-0 space-y-2 rounded-lg border border-border/50 bg-card/50 p-5">
+                <h3 className="font-medium">Expected</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Recorded payment amounts from today&apos;s fulfilled orders, minus recorded expenses.
+                </p>
+              </div>
+              <div className="min-w-0 space-y-2 rounded-lg border border-border/50 bg-card/50 p-5">
+                <h3 className="font-medium">Actual</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  The physical cash count entered at closing. The interface shows whether the register is balanced, over, or short, alongside a daily order-and-expense ledger that can be printed as a Z-report.
+                </p>
+              </div>
             </div>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
+            <h2 className="text-2xl font-medium tracking-tight">
+              The same records become the reporting layer
             </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              This project provided extensive experience in translating evolving business needs into technical features. Implementing reconciliation tools and stock history logs taught me how to handle sensitive financial data and maintain accurate state across a full-stack application.
+            <p className="text-base leading-7 text-muted-foreground">
+              Fulfilled-order records feed dashboard and report views for daily and monthly sales and sales over time, alongside low-stock counts from inventory. Sales data can also be exported as CSV when it needs to leave the interface.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">
+              As the workflow grew, loose data contracts stopped being enough
+            </h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              The project began with a looser JavaScript implementation, then grew to cover orders, expenses, stock history, and reconciliation. Moving to TypeScript made the contracts between the React frontend, Express API, and MongoDB models explicit. The detailed migration story is in{" "}
+              <Link
+                href="/blog/migrating-mamar-typescript"
+                className="font-medium text-foreground underline underline-offset-4 transition-colors hover:text-muted-foreground"
+              >
+                A Typo, a Timeout, and TypeScript
+              </Link>
+              .
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">
+              Built for the people running the bakery, not public traffic
+            </h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              The application routes unauthenticated visitors to login and exposes its operational screens only after authentication. Passwords are hashed, and JWT checks protect the operational API routes. The deployed system is intended for the people running the bakery.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">
+              Turning daily bakery operations into one consistent record
+            </h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Mama R&apos;s started with a practical goal: replace paper-based operational tracking with something the bakery could use from a browser. Connecting fulfillment to inventory, expenses to reconciliation, and daily records to reporting turned separate manual tasks into one working system.
             </p>
           </section>
         </div>
-
-        <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Layers className="w-5 h-5 text-primary" /> Tech Stack
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-6">
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Frontend
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">React</Badge>
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">Vite</Badge>
-                  <Badge variant="outline">Tailwind CSS</Badge>
-                  <Badge variant="outline">Shadcn UI</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Backend
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Node.js</Badge>
-                  <Badge variant="outline">Express.js</Badge>
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">MongoDB</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Services
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Secure Authentication</Badge>
-                  <Badge variant="outline">REST API</Badge>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Globe className="w-5 h-5 text-primary" /> Context
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Type</span>
-                <span className="font-medium text-foreground">
-                  Freelance Project
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Timeline</span>
-                <span className="font-medium text-foreground">Apr 2025</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Role</span>
-                <span className="font-medium text-foreground">
-                  Full Stack Developer
-                </span>
-              </div>
-            </div>
-          </Card>
-
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Rocket className="w-5 h-5 text-primary" /> Deployment
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Frontend</span>
-                <span className="font-medium text-foreground">Netlify</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Backend</span>
-                <span className="font-medium text-foreground">Render</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Database</span>
-                <span className="font-medium text-foreground">
-                  MongoDB Atlas
-                </span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    </div>
+      </ProjectDetailLayout>
+    </>
   );
 }

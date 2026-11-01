@@ -19,6 +19,24 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 const PROJECTS: ProjectData[] = [
   {
+    title: "Neffi",
+    description:
+      "A physical-and-digital NFC card platform combining secure activation, customizable profiles, permanent card URLs, and the operational workflows behind the product.",
+    link: "/projects/neffi",
+    image: "/projects/neffi/cover.webp",
+    video: "/projects/neffi/neffi-demo.mp4",
+    tags: ["Next.js", "PostgreSQL", "Drizzle", "Better Auth"],
+  },
+  {
+    title: "Better San Fernando",
+    description:
+      "An open-source civic-information and transparency portal making San Fernando’s public information easier to find, understand, and verify.",
+    link: "/projects/better-san-fernando",
+    image: "/projects/better-san-fernando/cover.webp",
+    video: "/projects/better-san-fernando/bettersanfernando-demo.mp4",
+    tags: ["Next.js", "TypeScript", "MapLibre", "Zod"],
+  },
+  {
     title: "UA LabSign — Laboratory Attendance System",
     description:
       "A zero-trust web and mobile laboratory attendance platform combining device-bound cryptographic signatures, instant geofencing, and role-based academic workflows.",
@@ -31,11 +49,11 @@ const PROJECTS: ProjectData[] = [
     title:
       "AC-CORE (Angeles City Center for Operational Reporting and Engineering)",
     description:
-      "A proactive GovTech platform for Angeles City featuring Geospatial Signal Routing (GSR) to predict flooding risks and a Paved Paradox algorithm to prioritize infrastructure repairs.",
+      "A civic incident-reporting platform connecting geotagged resident reports with map-based review, status tracking, and municipal maintenance workflows.",
     image: "/projects/ac-core/accore-cover.webp",
     video: "/projects/ac-core/accore-demo.mp4",
     link: "/projects/ac-core",
-    tags: ["Angular", "Node.js", "Express", "MongoDB"],
+    tags: ["Angular", "Node.js", "MongoDB", "Leaflet.js"],
   },
   {
     title: "Grit",
@@ -49,8 +67,8 @@ const PROJECTS: ProjectData[] = [
   {
     title: "KodaSync",
     description:
-      "A professional intelligence hub combining a Monaco Editor with RAG-powered AI agents for a searchable, neural knowledge base.",
-    tags: ["Next.js", "FastAPI", "Python", "PostgreSQL"],
+      "A developer knowledge workspace turning code, technical notes, and imported documentation into searchable context for semantic retrieval, RAG chat, and AI-assisted editing.",
+    tags: ["Next.js", "FastAPI", "PostgreSQL", "pgvector"],
     link: "/projects/kodasync",
     image: "/projects/kodasync/kodasync-cover.webp",
     video: "/projects/kodasync/kodasync-demo.mp4",
@@ -58,8 +76,8 @@ const PROJECTS: ProjectData[] = [
   {
     title: "SubVantage",
     description:
-      "A secure financial dashboard for tracking subscriptions, fortified with Two-Factor Authentication (2FA) and powered by a high-performance serverless Neon PostgreSQL architecture.",
-    tags: ["Next.js", "TypeScript", "PostgreSQL"],
+      "A subscription-management dashboard that normalizes recurring costs across currencies and billing cycles, with lifecycle tracking, renewal visibility, spending projections, and cancellation history.",
+    tags: ["Next.js", "PostgreSQL", "Prisma", "NextAuth"],
     link: "/projects/subvantage",
     image: "/projects/subvantage/subvantage-cover.webp",
     video: "/projects/subvantage/subvantage-demo.mp4",
@@ -67,17 +85,16 @@ const PROJECTS: ProjectData[] = [
   {
     title: "Mama R's",
     description:
-      "A secure Inventory and Sales Operations Dashboard featuring real-time stock tracking, printable receipts, and end-of-day financial reconciliation.",
-    tags: ["TypeScript", "React", "Node.js", "MongoDB"],
+      "An internal bakery operations system that connects order fulfillment, inventory movement, expenses, reporting, and end-of-day cash reconciliation in one workflow.",
+    tags: ["React", "TypeScript", "Express", "MongoDB"],
     link: "/projects/mamars",
-    image: "/projects/mamars/mamars-cover.webp",
-    video: "/projects/mamars/mamars-demo.mp4",
+    image: "/projects/mamars/mamars-branded-cover.webp",
   },
   {
     title: "ClimaPH",
     description:
-      "A specialized weather  platform tailored for the Philippines, integrating real-time forecasts with lifestyle metrics.",
-    tags: ["Next.js", "TypeScript", "React"],
+      "A location-aware weather dashboard for Philippine cities, combining current conditions, short-range forecasts, air quality, and interactive weather maps.",
+    tags: ["Next.js", "TypeScript", "Zustand", "MapLibre"],
     link: "/projects/climaph",
     image: "/projects/climaph/climaph-cover.webp",
     video: "/projects/climaph/climaph-demo.mp4",
@@ -85,7 +102,7 @@ const PROJECTS: ProjectData[] = [
   {
     title: "Thryve",
     description:
-      "A unified health and fitness application tracking workouts, meals, and sleep with personalized analytics and achievement goals.",
+      "A third-year academic full-stack health tracker combining workouts, meals, hydration, sleep, daily goals, progress analytics, and achievement milestones.",
     tags: ["Vue", "Node.js", "Express", "MongoDB"],
     link: "/projects/thryve",
     image: "/projects/thryve/thryve-cover.webp",
@@ -94,8 +111,8 @@ const PROJECTS: ProjectData[] = [
   {
     title: "MovieLoom",
     description:
-      "A cinematic discovery interface allowing users to explore detailed movie metadata, cast profiles, and filmographies via the TMDb API.",
-    tags: ["React", "CSS3"],
+      "A React movie and TV discovery interface connecting TMDB search, genres, people, credits, trailers, and detailed title pages.",
+    tags: ["React", "React Router", "Vite", "TMDB API"],
     link: "/projects/movieloom",
     image: "/projects/movieloom/movieloom-cover.webp",
     video: "/projects/movieloom/movieloom-demo.mp4",
@@ -250,19 +267,21 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
             onLoad={() => setIsImageLoading(false)}
           />
 
-          <video
-            aria-hidden="true"
-            tabIndex={-1}
-            ref={videoRef}
-            src={project.video}
-            preload="none"
-            muted
-            playsInline
-            loop
-            className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${
-              isVideoPlaying ? "opacity-100" : "opacity-0"
-            }`}
-          />
+          {project.video && (
+            <video
+              aria-hidden="true"
+              tabIndex={-1}
+              ref={videoRef}
+              src={project.video}
+              preload="none"
+              muted
+              playsInline
+              loop
+              className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${
+                isVideoPlaying ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          )}
 
           <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-30" />
         </div>

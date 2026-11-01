@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "MovieLoom - Cinematic Discovery Engine | Ian Macabulos",
+  title: "MovieLoom | A Connected Movie & TV Discovery Interface",
   description:
-    "A responsive React application for discovering movies and TV shows. Features real-time search, genre filtering, and deep dives into cast and crew data via the TMDB API.",
+    "A personal React project for browsing TMDB movies, TV shows, people, genres, credits, trailers, and connected title pages in a responsive single-page interface.",
   alternates: {
     canonical: "/projects/movieloom",
   },
   openGraph: {
-    title: "MovieLoom - Cinematic Discovery Engine | Ian Macabulos",
+    title: "MovieLoom | A Connected Movie & TV Discovery Interface",
     description:
-      "A responsive React application for discovering movies and TV shows. Features real-time search, genre filtering, and deep dives into cast and crew data via the TMDB API.",
+      "A personal React project for browsing TMDB movies, TV shows, people, genres, credits, trailers, and connected title pages in a responsive single-page interface.",
     siteName: "Ian Macabulos Portfolio",
     type: "website",
   },

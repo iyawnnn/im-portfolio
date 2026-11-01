@@ -1,21 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Link from "next/link";
+import { useEffect } from "react";
+
 import { Github } from "lucide-react";
-import {
-  ArrowLeft,
-  ArrowSquareOut as ExternalLink,
-  Stack as Layers,
-  Cpu,
-  Globe,
-  Layout,
-  RocketLaunch as Rocket,
-  ShieldCheck,
-} from "@phosphor-icons/react/ssr";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ArrowSquareOut as ExternalLink } from "@phosphor-icons/react/ssr";
+import { ProjectDetailLayout } from "@/components/layout/project-detail-layout";
 
 export default function ClimaPHPage() {
   useEffect(() => {
@@ -48,251 +37,130 @@ export default function ClimaPHPage() {
   };
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div>
-        <Link
-          href="/projects"
-          className="group flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          All Projects
-        </Link>
-      </div>
-      
-      <div className="flex flex-col gap-6">
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
-            ClimaPH
-          </h1>
-          <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Comprehensive Weather Forecasting System for the Philippines
-          </h2>
-        </div>
-
-        <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          ClimaPH is a high-performance meteorological application built on the modern Next.js App Router ecosystem. Designed specifically for the Philippines, it delivers real-time weather monitoring, interactive MapLibre visualization layers, and highly accurate local forecasts. The platform is engineered with a strict focus on API security, type safety, and robust state management to ensure reliable data delivery.
-        </p>
-
-        <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">Next.js 16</Badge>
-          <Badge variant="secondary">Tailwind CSS v4</Badge>
-          <Badge variant="secondary">Zustand</Badge>
-          <Badge variant="secondary">MapLibre GL</Badge>
-        </div>
-      </div>
-      
-      <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
-        <video
-          aria-hidden="true"
-          tabIndex={-1}
-          src="/projects/climaph/climaph-demo.mp4"
-          poster="/projects/climaph/climaph-cover.webp"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-        />
-      </div>
-      
-      <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
-        <div className="space-y-1">
-          <h3 className="text-lg font-medium">Project Links</h3>
-          <p className="text-sm text-muted-foreground max-w-md">
-            Explore the live application or review the codebase on GitHub.
-          </p>
-        </div>
-        <div className="flex gap-3 w-full md:w-auto">
-          <Button asChild className="flex-1 md:flex-none font-medium">
-            <Link href="https://climaph.iansebastian.dev/" target="_blank">
-              <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="flex-1 md:flex-none font-medium"
-          >
-            <Link href="https://github.com/iyawnnn/ClimaPH" target="_blank">
-              <Github className="mr-2 h-4 w-4" /> Source Code
-            </Link>
-          </Button>
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        <div className="xl:col-span-2 space-y-12">
-          
+      <ProjectDetailLayout
+        title="ClimaPH"
+        subtitle="Weather for Everyday Decisions"
+        description="ClimaPH is a weather dashboard built around Philippine locations, combining current conditions, short-range forecasts, air-quality information, location search, and interactive weather maps in one responsive interface. It was one of my earlier projects for learning how to turn external data into a practical product instead of simply displaying raw responses."
+        technologies={["Next.js", "TypeScript", "Zustand", "MapLibre"]}
+        media={
+          <video
+            aria-hidden="true"
+            tabIndex={-1}
+            src="/projects/climaph/climaph-demo.mp4"
+            poster="/projects/climaph/climaph-cover.webp"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-full w-full object-cover"
+          />
+        }
+        linksDescription="Explore the weather dashboard or inspect how location, forecast, air-quality, and map data are handled in the codebase."
+        links={[
+          { label: "Live Site", href: "https://climaph.iansebastian.dev/", icon: <ExternalLink aria-hidden="true" className="mr-2 h-4 w-4" /> },
+          { label: "Source Code", href: "https://github.com/iyawnnn/ClimaPH", icon: <Github aria-hidden="true" className="mr-2 h-4 w-4" />, variant: "outline" },
+        ]}
+      >
+        <div className="w-full min-w-0 space-y-12">
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Layout className="w-6 h-6 text-primary" /> Core Features
-            </h2>
-            <div className="grid gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1">
-                  Interactive Mapping
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Integrated MapLibre GL and React Map GL to visualize dynamic meteorological layers, including temperature, cloud coverage, and wind patterns across the country.
+            <h2 className="text-2xl font-medium tracking-tight">Weather data is easy to fetch. Making it useful is the actual interface problem.</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              ClimaPH started with a simple goal: search for a place and understand
+              its weather quickly. It brings current conditions, temperature,
+              humidity and wind, a short-range forecast, air quality, and map context
+              into one responsive view. The forecast comes from an external provider;
+              the work here was shaping that data into an interface people can scan.
+            </p>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">Location became the first part of the weather experience</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <h3 className="font-medium">Search Philippine locations</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Location search uses the OpenCage geocoding route, which limits
+                  results to the Philippines before returning places to the dashboard.
                 </p>
               </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1">
-                  Localized Forecasting
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Provides accurate 3-day weather predictions and detailed daily temperature tracking, breaking down conditions across morning, afternoon, evening, and night segments.
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <h3 className="font-medium">Use the current location</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Browser geolocation can load weather for the device&apos;s
+                  coordinates. A reverse-geocoding lookup supplies a readable place
+                  name when one is available.
                 </p>
               </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1">
-                  Location Management
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Features automatic geolocation, real-time city search, recent search history tracking, and a persistent favorite locations list.
+            </div>
+            <p className="text-base leading-7 text-muted-foreground">
+              Zustand persists the selected location, temperature unit, favorite
+              places, map settings, and onboarding state in the browser, so the
+              dashboard remembers local preferences between visits.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">Raw forecast intervals needed a clearer shape</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              OpenWeatherMap&apos;s forecast arrives as points across multiple
+              intervals. ClimaPH groups available points into Morning, Afternoon,
+              Evening, and Night for its temperature view, then summarizes the first
+              three daily groups in a separate forecast. That adapts provider data
+              to the way someone scans weather across a day without generating a
+              forecast of its own.
+            </p>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">A forecast becomes more useful when the surrounding conditions are visible too</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <h3 className="font-medium">Air quality</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  The app retrieves air-pollution data and calculates an AQI-style
+                  value from PM2.5 with its own helper. Wind direction appears
+                  alongside the air-quality reading.
+                </p>
+              </div>
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <h3 className="font-medium">Weather map</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  MapLibre displays weather layers as raster tiles requested through
+                  an application route, with the selected location marked on the map.
                 </p>
               </div>
             </div>
           </section>
 
-          
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Cpu className="w-6 h-6 text-primary" /> Architecture & Implementation
-            </h2>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Challenge</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                The application required managing complex client state for mapping and user preferences while ensuring strict security protocols. Exposing external API credentials to the client browser was a critical vulnerability that needed to be addressed without compromising performance.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Solution</h3>
-              <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
-                <li>
-                  <strong>State & Fetching:</strong> Implemented Zustand for streamlined global state management and SWR for reactive data synchronization across components.
-                </li>
-                <li>
-                  <strong>Strict Environment Validation:</strong> Utilized @t3-oss/env-nextjs combined with Zod to enforce type-safe runtime validation of environment variables, ensuring server credentials never leak to the client.
-                </li>
-                <li>
-                  <strong>API Obfuscation:</strong> Constructed secure Next.js Route Handlers to proxy all requests to OpenWeatherMap and OpenCage Data. These endpoints include sanitized error handling to prevent detailed stack traces from reaching the browser.
-                </li>
-              </ul>
-            </div>
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">External data needs a clear application boundary</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Weather, location search, air-quality, and map-tile requests use
+              Next.js route handlers, with their route keys read from server
+              environment variables. The onboarding current-location lookup still
+              calls OpenWeatherMap directly from the browser using a public
+              environment key, so the boundary is not used by every provider request.
+            </p>
           </section>
 
-          
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <ShieldCheck className="w-6 h-6 text-primary" /> Security & Takeaways
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              This project demonstrates a rigorous approach to full-stack security and dynamic configuration. By isolating external dependencies behind proxy routes and validating configurations at runtime, the application is highly portable and resilient. It can be safely deployed in any environment while protecting service quotas.
+            <h2 className="text-2xl font-medium tracking-tight">An early project that taught me to design around data, not just display it</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              ClimaPH was one of the projects where I moved beyond calling an API
+              and rendering its response. Location search, forecast grouping,
+              persistent preferences, maps, and responsive data views pushed me to
+              think about how external data becomes a product experience. The
+              project is smaller than my later systems, but those lessons carried
+              forward.
             </p>
           </section>
         </div>
-
-        
-        <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          
-          <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Layers className="w-5 h-5 text-primary" /> Tech Stack
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-6">
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Frontend
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Next.js 16</Badge>
-                  <Badge variant="outline">React 19</Badge>
-                  <Badge variant="outline">Tailwind v4</Badge>
-                  <Badge variant="outline">Zustand</Badge>
-                  <Badge variant="outline">SWR</Badge>
-                  <Badge variant="outline">MapLibre GL</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Backend & Security
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Route Handlers</Badge>
-                  <Badge variant="outline">Zod Validation</Badge>
-                  <Badge variant="outline">env-nextjs</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  APIs
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">OpenWeatherMap</Badge>
-                  <Badge variant="outline">OpenCage Data</Badge>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Globe className="w-5 h-5 text-primary" /> Context
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Type</span>
-                <span className="font-medium text-foreground">
-                  Personal Project
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Timeline</span>
-                <span className="font-medium text-foreground">Aug 2025</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Role</span>
-                <span className="font-medium text-foreground">
-                  Full Stack Developer
-                </span>
-              </div>
-            </div>
-          </Card>
-
-          
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Rocket className="w-5 h-5 text-primary" /> Deployment
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Platform</span>
-                <span className="font-medium text-foreground">Vercel</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Architecture</span>
-                <span className="font-medium text-foreground">App Router</span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    </div>
+      </ProjectDetailLayout>
+    </>
   );
 }

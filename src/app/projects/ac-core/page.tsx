@@ -1,25 +1,31 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Link from "next/link";
+import { useEffect } from "react";
+
 import { Github } from "lucide-react";
-import {
-  ArrowLeft,
-  ArrowSquareOut as ExternalLink,
-  Stack as Layers,
-  Briefcase,
-  Cpu,
-  Globe,
-  Layout,
-  RocketLaunch as Rocket,
-  Pulse as Activity,
-  ShieldCheck,
-  Cloud,
-  NavigationArrow as Navigation,
-} from "@phosphor-icons/react/ssr";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ArrowSquareOut as ExternalLink } from "@phosphor-icons/react/ssr";
+import { ProjectDetailLayout } from "@/components/layout/project-detail-layout";
+
+const reportWorkflow = [
+  ["Report", "A resident describes a maintenance issue and attaches photo evidence."],
+  ["Locate", "Coordinates and barangay context place the report on the map."],
+  ["Add context", "The backend flags possible duplicates, fetches elevation when needed, and applies weather/commercial-zone priority rules."],
+  ["Review", "Administrators inspect the report alongside its map location and supporting context."],
+  ["Update", "Status moves through Reported, Under Review, In Progress, and Resolved as the case is handled."],
+  ["Track", "The report’s status history makes its progression visible after submission."],
+];
+
+const prioritizationRules = [
+  ["Weather-aware commercial-zone priority", "The backend polls and caches current Angeles City weather. When a report is in a configured priority commercial zone and the cached state indicates rain, it sets the high-priority flag and Critical severity. The rule is explicit and inspectable."],
+  ["Possible duplicate detection", "A same-category report created within the previous 24 hours and roughly 50 meters flags the new submission as a possible duplicate. Both records remain available for review; they are not automatically merged."],
+  ["Simplified elevation-based downstream context", "For active Flooding and Clogged Drain reports, the system compares locations within roughly 500 meters. A qualifying source is linked to the lowest nearby lower-elevation report. This adds distance/elevation context for review, not a prediction of floodwater flow."],
+];
+
+const engineeringDecisions = [
+  ["Zoneless Angular", "The Angular 21 frontend uses provideZonelessChangeDetection() with reactive state for maps, photo uploads, and report updates. This keeps interface changes tied to the state that changed rather than relying on legacy global change detection."],
+  ["Location belongs in the data model", "MongoDB and Mongoose store report locations as GeoJSON points with a geospatial index. Proximity checks work with the report’s coordinates instead of treating location as a text label attached afterward."],
+  ["Different interfaces for different jobs", "A resident needs to report an issue quickly from a phone. An administrator needs to filter, compare, and manage many reports. Separate citizen and administrative experiences give each workflow the density and controls it needs."],
+];
 
 export default function AcCorePage() {
   // Scroll to top on load
@@ -53,292 +59,145 @@ export default function AcCorePage() {
   };
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      {/* --- BACK NAVIGATION --- */}
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div>
-        <Link
-          href="/projects"
-          className="group flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          All Projects
-        </Link>
-      </div>
-
-      {/* --- HEADER --- */}
-      <div className="flex flex-col gap-6">
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
-            AC-CORE (Angeles City Center for Operational Reporting and Engineering)
-          </h1>
-          <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Municipal Maintenance & Incident Reporting System
-          </h2>
-        </div>
-
-        <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          AC-CORE replaces reactive legacy infrastructure management with a proactive digital platform. Engineered for the local government of Angeles City, it connects everyday citizens directly with engineering departments to report hazards like clogged drains and road erosion. The system utilizes geospatial mapping and live environmental syncing to predict and prevent severe downstream flooding.
-        </p>
-
-        <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">Angular 18</Badge>
-          <Badge variant="secondary">Node.js</Badge>
-          <Badge variant="secondary">MongoDB</Badge>
-          <Badge variant="secondary">Leaflet.js</Badge>
-          <Badge variant="secondary">Cloudinary</Badge>
-        </div>
-      </div>
-
-      {/* --- HERO MEDIA (Video) --- */}
-      <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
-        <video
-          aria-hidden="true"
-          tabIndex={-1}
-          src="/projects/ac-core/accore-demo.mp4"
-          poster="/projects/ac-core/accore-cover.webp"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-        />
-      </div>
-
-      {/* --- DEMO & CODE CARD --- */}
-      <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
-        <div className="space-y-1">
-          <h3 className="text-lg font-medium">Project Links</h3>
-          <p className="text-sm text-muted-foreground max-w-md">
-            Explore the live production application or review the codebase on GitHub.
-          </p>
-        </div>
-        <div className="flex gap-3 w-full md:w-auto">
-          <Button asChild className="flex-1 md:flex-none font-medium">
-            <Link href="https://ac-core.vercel.app/" target="_blank">
-              <ExternalLink className="mr-2 h-4 w-4" /> Live Platform
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="flex-1 md:flex-none font-medium"
-          >
-            <Link href="https://github.com/MMPA-Works/AC-CORE" target="_blank">
-              <Github className="mr-2 h-4 w-4" /> Source Code
-            </Link>
-          </Button>
-        </div>
-      </div>
-
-      {/* --- DETAILED CONTENT --- */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        {/* LEFT COLUMN (Main Content) */}
-        <div className="xl:col-span-2 space-y-12">
-          {/* Core Features */}
+      <ProjectDetailLayout
+        title="AC-CORE"
+        subtitle="Municipal Maintenance & Incident Reporting for Angeles City"
+        description="AC-CORE is a civic-tech academic team project designed around Angeles City’s municipal maintenance workflow. Citizens submit geotagged reports with photo evidence, while an administrative command center brings maps, environmental context, status history, and exports into one review workflow."
+        technologies={["Angular", "TypeScript", "Node.js", "MongoDB", "Leaflet.js"]}
+        media={
+          <video
+            aria-hidden="true"
+            tabIndex={-1}
+            src="/projects/ac-core/accore-demo.mp4"
+            poster="/projects/ac-core/accore-cover.webp"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-full w-full object-cover"
+          />
+        }
+        linksDescription="Explore the live reporting workflow or inspect the implementation behind the citizen and administrative experiences."
+        links={[
+          { label: "Live Site", href: "https://ac-core.vercel.app/", icon: <ExternalLink aria-hidden="true" className="mr-2 h-4 w-4" /> },
+          { label: "Source Code", href: "https://github.com/MMPA-Works/AC-CORE", icon: <Github aria-hidden="true" className="mr-2 h-4 w-4" />, variant: "outline" },
+        ]}
+      >
+        <div className="w-full min-w-0 space-y-12">
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Layout className="w-6 h-6 text-primary" /> Core Features
-            </h2>
-            <div className="grid gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <Activity className="w-4 h-4 text-primary" /> Frictionless Reporting & Tracker
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Allows citizens to log emergencies quickly using a Guest Reporting mode. The system utilizes Auto-Detect GPS for precision and includes a visual status timeline (the Pizza Tracker) so users can see exactly when their report is resolved.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <Cloud className="w-4 h-4 text-primary" /> Live Environmental Syncing
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Integrated the OpenWeatherMap API to automatically attach real-time rainfall and temperature data to every hazard report. This provides city engineers with immediate environmental context during monsoon storms.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <Navigation className="w-4 h-4 text-primary" /> LGU Command Center
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  A desktop dashboard featuring an interactive Leaflet map with MarkerCluster. Administrators can view active hazards, access the integrated 24/7 emergency directory, and export CSV reports for urban planning.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Development Process */}
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Cpu className="w-6 h-6 text-primary" /> Development Process
-            </h2>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Challenge</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                The primary challenge was designing a robust geospatial tracking application within a strict one-week academic sprint. The system needed to process high-resolution photo evidence and plot thousands of map markers without crashing browser threads on low-memory mobile devices.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Solution</h3>
-              <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
-                <li>
-                  <strong>Zoneless Architecture:</strong> Utilized the modern Angular 18 Zoneless architecture with Signals. This allowed the application to update specific screen components instead of scanning the entire page, drastically reducing battery drain.
-                </li>
-                <li>
-                  <strong>Cloud Visual Evidence:</strong> Integrated Cloudinary to handle all image uploads securely. This offloads heavy image processing from the local server to maintain fast response times.
-                </li>
-                <li>
-                  <strong>Geospatial Logic:</strong> Engineered a Paved Paradox algorithm to automatically prioritize infrastructure reports from heavily paved commercial zones, preventing economic bottlenecks and accidents.
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          {/* Performance & Security */}
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <ShieldCheck className="w-6 h-6 text-primary" /> Security & Performance
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Because this platform is designed to handle sensitive municipal data and emergency spikes, security and speed were heavily prioritized during development:
+            <h2 className="text-2xl font-medium tracking-tight">A report should not disappear into a black box</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Residents can notice a pothole, blocked drain, or damaged streetlight
+              long before it becomes a larger problem. Reporting only helps if
+              that observation reaches a maintenance review workflow and the
+              resident can follow what happens next. AC-CORE connects citizen
+              observations with administrative review so a submission becomes
+              a traceable case.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-medium text-foreground mb-2">
-                  Strict Authentication
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  The admin portal is secured using JSON Web Tokens (JWT) and Bcrypt password hashing. Citizens can access the portal seamlessly using secure Google OAuth 2.0 integration.
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">Two sides of the same workflow</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <h3 className="text-lg font-medium">Citizen reporting</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Account and guest reporting capture the issue’s category,
+                  severity, GPS coordinates, barangay, and photo evidence.
+                  Report details and status history let residents follow progress
+                  after submission.
                 </p>
               </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-medium text-foreground mb-2">
-                  API Protection
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Implemented Express Rate Limiting and Helmet middleware on the Node.js backend to protect the municipal database from malicious spam reporting and external attacks.
+              <div className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                <h3 className="text-lg font-medium">Administrative review</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  A clustered Leaflet map connects incoming reports with spatial
+                  context. Search, filters, severity and status controls,
+                  historical records, and CSV exports support review across
+                  the reporting queue.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Key Takeaways */}
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">From street report to traceable case</h2>
+            <ol className="divide-y divide-border/50 border-y border-border/50">
+              {reportWorkflow.map(([title, description], index) => (
+                <li key={title} className="flex min-w-0 gap-4 py-4">
+                  <span aria-hidden="true" className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-medium">{index + 1}</span>
+                  <div className="min-w-0 space-y-1">
+                    <h3 className="font-medium">{title}</h3>
+                    <p className="text-base leading-7 text-muted-foreground">{description}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">Prioritization rules that can be explained</h2>
+            <div className="divide-y divide-border/50 border-y border-border/50">
+              {prioritizationRules.map(([title, description]) => (
+                <div key={title} className="min-w-0 py-5 space-y-2">
+                  <h3 className="font-medium">{title}</h3>
+                  <p className="text-base leading-7 text-muted-foreground">{description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              Leading the development of AC-CORE demonstrated my ability to architect complex full-stack solutions under extreme time pressure. Translating a real-world bureaucratic problem into a highly optimized, map-driven application proved the direct impact that thoughtful software engineering has on public safety and infrastructure.
+            <h2 className="text-2xl font-medium tracking-tight">Keeping location, evidence, and status together</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              A reviewer should not have to reconstruct an issue from separate
+              messages and photos. The report keeps its description, category,
+              coordinates, barangay, severity, and Cloudinary-hosted evidence
+              alongside community verifications and status history. The report
+              itself becomes the record that both sides can inspect.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">My role in AC-CORE</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              AC-CORE was developed by MMPA Works as a team project. I worked as
+              Lead Full-Stack Developer &amp; Project Manager, helping shape the
+              product direction while leading implementation of the citizen-facing
+              experience and coordinating the project across its frontend,
+              backend, geospatial, and QA workstreams.
+            </p>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">Engineering decisions</h2>
+            <div className="divide-y divide-border/50 border-y border-border/50">
+              {engineeringDecisions.map(([title, description]) => (
+                <div key={title} className="min-w-0 py-5 space-y-2">
+                  <h3 className="font-medium">{title}</h3>
+                  <p className="text-base leading-7 text-muted-foreground">{description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">From report to something an operator can act on</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              AC-CORE turns a resident’s observation into a structured maintenance
+              record that can be located, reviewed, prioritized, updated, and
+              exported. The project taught me that civic reporting goes beyond
+              the form: the harder part is designing what happens after someone
+              presses submit.
             </p>
           </section>
         </div>
-
-        {/* RIGHT COLUMN (Tech Stack & Meta) */}
-        <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          {/* Tech Stack Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Layers className="w-5 h-5 text-primary" /> Tech Stack
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-6">
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Frontend
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Angular 18</Badge>
-                  <Badge variant="outline">TypeScript</Badge>
-                  <Badge variant="outline">Tailwind CSS</Badge>
-                  <Badge variant="outline">Spartan UI</Badge>
-                  <Badge variant="outline">Leaflet.js</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Backend & Services
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Node.js</Badge>
-                  <Badge variant="outline">Express.js</Badge>
-                  <Badge variant="outline">Cloudinary</Badge>
-                  <Badge variant="outline">OpenWeather API</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Database & Security
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">MongoDB</Badge>
-                  <Badge variant="outline">Mongoose</Badge>
-                  <Badge variant="outline">JWT Auth</Badge>
-                  <Badge variant="outline">Zod Validation</Badge>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          {/* Context Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Globe className="w-5 h-5 text-primary" /> Context
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Type</span>
-                <span className="font-medium text-foreground">
-                  Academic (1-Week Sprint)
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Timeline</span>
-                <span className="font-medium text-foreground">Mar 2026</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Role</span>
-                <span className="font-medium text-foreground text-right max-w-[140px]">
-                  Lead Full-Stack
-                </span>
-              </div>
-            </div>
-          </Card>
-
-          {/* Deployment Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Rocket className="w-5 h-5 text-primary" /> Deployment
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Frontend</span>
-                <span className="font-medium text-foreground">Vercel</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Backend</span>
-                <span className="font-medium text-foreground">Render</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Database</span>
-                <span className="font-medium text-foreground">MongoDB</span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    </div>
+      </ProjectDetailLayout>
+    </>
   );
 }

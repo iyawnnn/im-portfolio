@@ -3,14 +3,14 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "UA LabSign — Laboratory Attendance System | Ian Macabulos",
   description:
-    "A zero-trust web and mobile laboratory attendance system using device-bound ECDSA P-256 signatures, instant geofencing, and role-based academic workflows.",
+    "UA LabSign replaces manual laboratory attendance with web and Android check-ins using device-bound ECDSA P-256 signatures, client-side geofence checks, and short-lived room PINs.",
   alternates: {
     canonical: "/projects/ua-attendance",
   },
   openGraph: {
     title: "UA LabSign — Laboratory Attendance System | Ian Macabulos",
     description:
-      "A zero-trust web and mobile laboratory attendance system using device-bound ECDSA P-256 signatures, instant geofencing, and role-based academic workflows.",
+      "UA LabSign replaces manual laboratory attendance with web and Android check-ins using device-bound ECDSA P-256 signatures, client-side geofence checks, and short-lived room PINs.",
     siteName: "Ian Macabulos Portfolio",
     type: "website",
   },
