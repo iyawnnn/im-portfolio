@@ -1,0 +1,46 @@
+---
+title: "Two Internships, Two Ways of Working"
+date: "2026-10-30"
+description: "Two internships showed me different ways context, communication, and learning shape software work."
+coverImage: "/blog/two-internships-two-ways-of-working/cover.webp"
+---
+
+I finished two internships in the same year, and they barely felt like the same kind of experience. At [Sortr](https://sortr.com.au/), I worked on-site as a Full-Stack Web Developer Intern. At [FlyRank AI](https://internship.flyrank.ai/), I worked remotely as a Backend AI Engineer Intern. Both involved software, but the environments asked me to pay attention to different parts of the work.
+
+I do not see one arrangement as better than the other. The contrast helped me notice how much of development happens around the code: the context people share, the way progress becomes visible, and the effort required to keep learning when no one is sitting nearby.
+
+### On-site taught me context
+
+At Sortr, being physically around the team gave me a view of work that a task description alone cannot contain. I could see the setting in which internal software and production web pages existed, and communicate directly with people around the work. That proximity made it easier to understand that requirements are part of a broader organizational context.
+
+My work included an internal IT service-desk ticketing system for employees and production WordPress pages. I also worked on responsive layouts, technical SEO, image delivery, and frontend performance. These different tasks placed me near the context around the software: it belonged to an actual workplace and its needs, not a hypothetical brief detached from the people around it.
+
+Being on-site does not mean every question disappears or every need is obvious. It does make some context easier to notice and discuss. A short clarification can prevent a developer from making a confident but incorrect assumption about what a task is for. The lesson for me was to pay attention to the environment around a feature, not only the words in its ticket.
+
+### Remote work made progress more explicit
+
+FlyRank was a different rhythm. My internship work was backend-focused and included assignments and implementation exercises around TypeScript, Fastify, PostgreSQL, usage metering, quotas, token tracking, and Stripe in test mode. Remote work made it important to leave evidence of progress in the work itself: code, completed tasks, tests, and clear written communication.
+
+Independence is not the same as disappearing. When people are not sharing a room, communication has to carry more of the context that might otherwise be exchanged casually. Written updates, a focused question, or a test that explains expected behavior can make the work easier for someone else to review and continue.
+
+That changed how I thought about “being productive.” It was not just spending time at a keyboard. It was making the state of the work understandable: what I had completed, what I was uncertain about, and what needed review. Remote work did not remove collaboration; it made the parts of collaboration that could otherwise stay implicit more visible.
+
+### Backend work made failure paths harder to ignore
+
+The billing-related exercises gave me concrete cases to think through. A request might be retried. A webhook might arrive more than once. Usage needs to be accounted for consistently, and a quota should have a clear effect on what the system permits. Testing these flows meant looking beyond whether one successful request returned the expected response.
+
+The more useful question became: what if this request happens twice, arrives later than expected, or fails partway through? Idempotency, webhook processing, usage accounting, and automated tests each address part of that problem. These were internship assignments and backend exercises rather than production billing infrastructure, but they gave me practical cases for thinking through retries and failure states.
+
+This was a useful shift in perspective. Backend work is not only about making the happy path function. It is also about making repeated events, partial failures, and accounting rules explicit enough to reason about and test. The details matter because a system can return a successful response and still leave its state inconsistent if the surrounding workflow is not considered.
+
+### Learning became part of the work
+
+Remote work also made self-directed learning a more visible part of my routine. During this period, I completed 20 courses through [Anthropic Academy](https://academy.claude.com/), covering topics across AI, Claude tools, APIs, MCP, and agents. I shared the milestone in a [LinkedIn post](https://lnkd.in/p/gPbMef3d).
+
+The number is a record of time spent learning, not proof of expertise. Courses helped me build vocabulary and try structured exercises, but they did not replace implementation, testing, or the need to understand a particular system. The useful part was making learning fit alongside the work: identify what I needed to understand, study it, and apply that knowledge carefully.
+
+### What both internships changed
+
+Sortr helped me see how proximity can reveal context around a product and a team’s work. FlyRank pushed me toward more explicit communication, backend reasoning, and self-directed learning. Neither experience was simply “writing code”; each made me consider how my work connected to other people and to the system around it.
+
+Before these internships, I mostly measured progress by whether I could build something. After them, I started paying more attention to whether I could build something with other people.
