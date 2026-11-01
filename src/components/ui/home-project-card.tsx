@@ -12,7 +12,7 @@ export interface ProjectData {
   description: string;
   link: string;
   image: string;
-  video: string;
+  video?: string;
   tags: ProjectTechnology[];
 }
 
@@ -86,19 +86,21 @@ export function HomeProjectCard({
             }`}
             onLoad={() => setIsImageLoading(false)}
           />
-          <video
-            aria-hidden="true"
-            tabIndex={-1}
-            ref={videoRef}
-            src={project.video}
-            preload="none"
-            muted
-            playsInline
-            loop
-            className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${
-              isVideoPlaying ? "opacity-100" : "opacity-0"
-            }`}
-          />
+          {project.video && (
+            <video
+              aria-hidden="true"
+              tabIndex={-1}
+              ref={videoRef}
+              src={project.video}
+              preload="none"
+              muted
+              playsInline
+              loop
+              className={`absolute inset-0 w-full h-full object-cover z-20 transition-opacity duration-500 ${
+                isVideoPlaying ? "opacity-100" : "opacity-0"
+              }`}
+            />
+          )}
           <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/10 z-30" />
         </div>
         <CardHeader className="px-6 pt-3 pb-1">

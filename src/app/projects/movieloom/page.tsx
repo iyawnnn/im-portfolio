@@ -1,21 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Link from "next/link";
+import { useEffect } from "react";
+
 import { Github } from "lucide-react";
-import {
-  ArrowLeft,
-  ArrowSquareOut as ExternalLink,
-  Stack as Layers,
-  Briefcase,
-  Cpu,
-  Globe,
-  Layout,
-  RocketLaunch as Rocket,
-} from "@phosphor-icons/react/ssr";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ArrowSquareOut as ExternalLink } from "@phosphor-icons/react/ssr";
+import { ProjectDetailLayout } from "@/components/layout/project-detail-layout";
 
 export default function MovieLoomPage() {
   // Scroll to top on load
@@ -49,283 +38,133 @@ export default function MovieLoomPage() {
   };
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      {/* --- BACK NAVIGATION --- */}
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />  
-      <div>
-        <Link
-          href="/projects"
-          className="group flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          All Projects
-        </Link>
-      </div>
-
-      {/* --- HEADER --- */}
-      <div className="flex flex-col gap-6">
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
-            MovieLoom
-          </h1>
-          <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Cinematic Discovery Engine
-          </h2>
-        </div>
-
-        <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          MovieLoom is a dynamic movie and TV show discovery platform designed
-          to provide users with an immersive browsing experience. It features
-          comprehensive databases for films, actors, and genres, allowing users
-          to explore trending titles, search for favorites, and dive deep into
-          cast filmographies—all wrapped in a fully responsive, custom-styled
-          interface.
-        </p>
-
-        <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">React</Badge>
-          <Badge variant="secondary">Vite</Badge>
-          <Badge variant="secondary">CSS3</Badge>
-          <Badge variant="secondary">TMDB API</Badge>
-        </div>
-      </div>
-
-      {/* --- HERO MEDIA (Video) --- */}
-      <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
-        <video
-          aria-hidden="true"
-          tabIndex={-1}
-          src="/projects/movieloom/movieloom-demo.mp4"
-          poster="/projects/movieloom/movieloom-cover.webp"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-        />
-      </div>
-
-      {/* --- DEMO & CODE CARD --- */}
-      <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
-        <div className="space-y-1">
-          <h3 className="text-lg font-medium">Project Links</h3>
-          <p className="text-sm text-muted-foreground max-w-md">
-            Explore the live application or review the codebase on GitHub.
-          </p>
-        </div>
-        <div className="flex gap-3 w-full md:w-auto">
-          <Button asChild className="flex-1 md:flex-none font-medium">
-            <Link href="https://movieloom.iansebastian.dev/" target="_blank">
-              <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="flex-1 md:flex-none font-medium"
-          >
-            <Link href="https://github.com/iyawnnn/MovieLoom" target="_blank">
-              <Github className="mr-2 h-4 w-4" /> Source Code
-            </Link>
-          </Button>
-        </div>
-      </div>
-
-      {/* --- DETAILED CONTENT --- */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        {/* LEFT COLUMN (Main Content) */}
-        <div className="xl:col-span-2 space-y-12">
-          {/* Core Features */}
+      />
+      <ProjectDetailLayout
+        title="MovieLoom"
+        subtitle="A Connected Movie & TV Discovery Interface"
+        description="MovieLoom is a React-based movie and TV discovery interface powered by TMDB. It connects popular, currently playing, top-rated, and upcoming titles with search, genre browsing, people, cast information, trailers, images, and dedicated detail pages in one responsive single-page application. Built as a personal project in June 2025, it was one of my earlier frontend projects for organizing content-heavy external data into a connected experience."
+        technologies={["React", "React Router", "Vite", "TMDB API"]}
+        media={
+          <video
+            aria-hidden="true"
+            tabIndex={-1}
+            src="/projects/movieloom/movieloom-demo.mp4"
+            poster="/projects/movieloom/movieloom-cover.webp"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-full w-full object-cover"
+          />
+        }
+        linksDescription="Explore the movie and TV browser or inspect how TMDB data is organized across search, discovery, people, and detail routes."
+        links={[
+          { label: "Live Site", href: "https://movieloom.iansebastian.dev/", icon: <ExternalLink aria-hidden="true" className="mr-2 h-4 w-4" /> },
+          { label: "Source Code", href: "https://github.com/iyawnnn/MovieLoom", icon: <Github aria-hidden="true" className="mr-2 h-4 w-4" />, variant: "outline" },
+        ]}
+      >
+        <div className="w-full min-w-0 space-y-12">
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Layout className="w-6 h-6 text-primary" /> Core Features
-            </h2>
-            <div className="grid gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1">
-                  Extensive Database
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Access to thousands of movies and TV shows with detailed
-                  metadata, including ratings, release dates, and plot summaries
-                  sourced via API.
+            <h2 className="text-2xl font-medium tracking-tight">The interesting part was connecting the catalog, not just displaying it.</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              MovieLoom consumes TMDB data across several discovery contexts. The
+              homepage brings together popular, currently playing, top-rated, and
+              upcoming movies, while its featured title loads additional details
+              and cast information. Each shelf provides a route into the movie page
+              and the surrounding catalog.
+            </p>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">A search result can be a movie, a show, or a person.</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              TMDB multi-search returns different result types. MovieLoom filters
+              for entries it can display, then routes each type to the matching
+              detail experience.
+            </p>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+              <div className="min-w-0 space-y-2 rounded-lg border border-border/50 bg-card/50 p-5">
+                <h3 className="font-medium">Movie</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  A title opens its dedicated movie detail page.
                 </p>
               </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1">
-                  Smart Search & Filtering
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Robust search functionality allows users to find specific
-                  titles, while genre-based filtering helps discover new content
-                  based on mood.
+              <div className="min-w-0 space-y-2 rounded-lg border border-border/50 bg-card/50 p-5">
+                <h3 className="font-medium">TV show</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  A series opens its TV detail page, with its own credits and media.
                 </p>
               </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1">
-                  Cast & Crew Insights
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Dedicated pages for actors and directors (People Page)
-                  displaying biographies and known-for credits, linking the
-                  entire cinematic universe.
+              <div className="min-w-0 space-y-2 rounded-lg border border-border/50 bg-card/50 p-5">
+                <h3 className="font-medium">Person</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  A performer opens a page of their credits and known work.
                 </p>
               </div>
             </div>
           </section>
 
-          {/* Development Process */}
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Cpu className="w-6 h-6 text-primary" /> Development Process
-            </h2>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Challenge</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                The primary challenge was managing the vast amount of data from
-                the API and presenting it in a visually consistent manner
-                without relying on CSS frameworks. Maintaining responsive grid
-                layouts for movie posters across different screen sizes using
-                only custom CSS required precise media query management.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Solution</h3>
-              <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
-                <li>
-                  <strong>Modular CSS:</strong> I adopted a modular CSS
-                  approach, creating separate stylesheets for each page (e.g.,
-                  `HomePage.css`, `PersonDetailsPage.css`) to maintain clean and
-                  maintainable styles.
-                </li>
-                <li>
-                  <strong>Efficient Routing:</strong> Leveraged React Router to
-                  handle dynamic routes for Movie IDs and Person IDs, ensuring a
-                  seamless single-page application (SPA) experience.
-                </li>
-                <li>
-                  <strong>API Abstraction:</strong> Created a centralized
-                  `api.js` utility using Axios to handle requests, simplifying
-                  data fetching logic across components.
-                </li>
-              </ul>
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">A title becomes useful when the surrounding context arrives with it.</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="min-w-0 space-y-2 rounded-lg border border-border/50 bg-card/50 p-5">
+                <h3 className="font-medium">Title information</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Movie detail requests append credits, images, and videos. The
+                  page presents release year, runtime, rating, overview, directors,
+                  writers, and cast together.
+                </p>
+              </div>
+              <div className="min-w-0 space-y-2 rounded-lg border border-border/50 bg-card/50 p-5">
+                <h3 className="font-medium">Trailers and images</h3>
+                <p className="text-base leading-7 text-muted-foreground">
+                  Backdrops and additional videos extend the title page. When a
+                  trailer is unavailable, the page falls back to a teaser and then
+                  another YouTube video when available. Videos are embedded from
+                  YouTube rather than hosted by MovieLoom.
+                </p>
+              </div>
             </div>
           </section>
 
-          {/* Key Takeaways */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              MovieLoom honed my skills in vanilla CSS layout techniques
-              (Flexbox & Grid) and interacting with complex third-party REST
-              APIs. It demonstrated the importance of component reusability when
-              building content-heavy applications.
+            <h2 className="text-2xl font-medium tracking-tight">Movies lead to people, and people lead back to more movies.</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              The people pages bring together trending people, popular actors,
+              and individual profiles. A person&apos;s combined credits are
+              deduplicated and ordered before more titles are revealed, giving
+              visitors another path from a cast member to their wider filmography.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">Genres became another route into the same catalog.</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              MovieLoom fetches TMDB movie and TV genres, then groups popular
+              results from both catalogs for browsing. Opening a genre provides
+              more results that can be loaded progressively, with movie and TV
+              entries leading to their existing detail routes.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">The project where content started shaping the architecture</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              MovieLoom was one of my earlier React projects, built as a personal
+              frontend project with custom CSS rather than a styling framework. As
+              its frontend developer, I worked through responsive grids and flex
+              layouts, horizontal shelves, hero and detail layouts, modals, and
+              breakpoint behavior. Connecting search results, titles, people,
+              genres, and credits taught me how the shape of an external API can
+              guide routes and interface structure.
             </p>
           </section>
         </div>
-
-        {/* RIGHT COLUMN (Tech Stack & Meta) */}
-        <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          {/* Tech Stack Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Layers className="w-5 h-5 text-primary" /> Tech Stack
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-6">
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Frontend
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">React</Badge>
-                  <Badge variant="outline">Vite</Badge>
-                  <Badge variant="outline">CSS3</Badge>
-                  <Badge variant="outline">React Router</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Data & API
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">TMDB API</Badge>
-                  <Badge variant="outline">Axios</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Tools
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">ESLint</Badge>
-                  <Badge variant="outline">Vercel</Badge>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          {/* Context Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Globe className="w-5 h-5 text-primary" /> Context
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Type</span>
-                <span className="font-medium text-foreground">
-                  Personal Project
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Timeline</span>
-                <span className="font-medium text-foreground">June 2025</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Role</span>
-                <span className="font-medium text-foreground">
-                  Frontend Developer
-                </span>
-              </div>
-            </div>
-          </Card>
-
-          {/* Deployment Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Rocket className="w-5 h-5 text-primary" /> Deployment
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Platform</span>
-                <span className="font-medium text-foreground">Vercel</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Version</span>
-                <span className="font-medium text-foreground">v1.0.0</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>API</span>
-                <span className="font-medium text-foreground">TMDB</span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    </div>
+      </ProjectDetailLayout>
+    </>
   );
 }

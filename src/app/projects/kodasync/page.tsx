@@ -1,25 +1,38 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Link from "next/link";
+import { useEffect } from "react";
+
 import { Github } from "lucide-react";
-import {
-  ArrowLeft,
-  ArrowSquareOut as ExternalLink,
-  Stack as Layers,
-  Briefcase,
-  Cpu,
-  Globe,
-  Layout,
-  RocketLaunch as Rocket,
-  Robot as Bot,
-  Code,
-  Flask as TestTube,
-  MagnifyingGlass as Search,
-} from "@phosphor-icons/react/ssr";
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { ArrowRight, ArrowSquareOut as ExternalLink } from "@phosphor-icons/react/ssr";
+import { ProjectDetailLayout } from "@/components/layout/project-detail-layout";
+
+const ingestionSteps = [
+  ["Create a note", "Capture code or technical knowledge."],
+  ["Store content", "Save text, language, and project association."],
+  ["Generate tags", "Enrich a new note in the background."],
+  ["Create an embedding", "Represent the content in 384 dimensions."],
+  ["Persist the vector", "Store it with the note using pgvector."],
+  ["Retrieve by meaning", "Compare it with an embedded query."],
+];
+
+const chatSteps = [
+  ["Embed and scope", "Embed the question, restrict notes to the authenticated user, and apply the selected project filter when present."],
+  ["Retrieve context", "Rank by cosine distance and take up to three relevant notes, rather than sending the whole library."],
+  ["Build and stream", "Combine note text, project context, the question, and conversation history, then stream the model’s response."],
+  ["Keep the conversation", "Persist messages and cache the completed response for repeated user/project/question combinations."],
+];
+
+const workspaces = [
+  ["Library", "Store, pin, filter, and organize notes by project. Keep saved code and documentation editable and easy to revisit."],
+  ["Studio", "Work in Monaco and request focused AI-assisted fixes, explanations, security review, documentation, optimization, or test drafts for the editor’s content."],
+  ["Chat", "Ask questions with retrieved notes as context, optionally limiting retrieval to the project you are working on."],
+];
+
+const decisions = [
+  ["Save first, enrich afterward", "Ordinary note creation saves the record and dispatches tag generation and embedding creation through FastAPI BackgroundTasks. The creation response does not wait for that enrichment; URL imports use their own fetch-and-embed path."],
+  ["Stream the answer as it arrives", "FastAPI streams response chunks and the chat interface renders them incrementally. The interaction does not wait for the entire generated answer before showing text."],
+  ["Cache repeated work, bound expensive requests", "Redis caches semantic-search results, AI actions, and repeated chat responses. API rate limits bound expensive creation, import, and AI endpoints."],
+];
 
 export default function KodaSyncPage() {
   // Scroll to top on load
@@ -53,339 +66,177 @@ export default function KodaSyncPage() {
   };
 
   return (
-    <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
-      {/* --- BACK NAVIGATION --- */}
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div>
-        <Link
-          href="/projects"
-          className="group flex items-center text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
-          All Projects
-        </Link>
-      </div>
-
-      {/* --- HEADER --- */}
-      <div className="flex flex-col gap-6">
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.08] text-foreground">
-            KodaSync
-          </h1>
-          <h2 className="text-xl md:text-2xl font-medium text-muted-foreground">
-            Neural Code & Knowledge Engine
-          </h2>
-        </div>
-
-        <p className="text-lg leading-relaxed text-muted-foreground w-full">
-          KodaSync is a professional intelligence hub designed to centralize
-          technical knowledge for software engineers. It solves the "lost
-          context" problem in modern development by utilizing high-dimensional
-          vector embeddings to understand the underlying intent of your code. It
-          combines a high-performance <strong>Monaco Editor</strong> with
-          contextual AI agents to transform scattered snippets into a
-          searchable, neural knowledge base.
-        </p>
-
-        <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-muted-foreground/80">
-          <Badge variant="secondary">Next.js 15</Badge>
-          <Badge variant="secondary">FastAPI</Badge>
-          <Badge variant="secondary">Groq SDK</Badge>
-          <Badge variant="secondary">pgvector</Badge>
-          <Badge variant="secondary">Docker</Badge>
-        </div>
-      </div>
-
-      {/* --- HERO MEDIA (Video) --- */}
-      <div className="aspect-video w-full overflow-hidden rounded-xl border border-border/50 bg-secondary/20 shadow-sm">
-        <video
-          aria-hidden="true"
-          tabIndex={-1}
-          src="/projects/kodasync/kodasync-demo.mp4"
-          poster="/projects/kodasync/kodasync-cover.webp"
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="h-full w-full object-cover"
-        />
-      </div>
-
-      {/* --- DEMO & CODE CARD --- */}
-      <div className="rounded-xl border border-border/50 bg-card p-6 md:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
-        <div className="space-y-1">
-          <h3 className="text-lg font-medium">Project Links</h3>
-          <p className="text-sm text-muted-foreground max-w-md">
-            Experience the neural research assistant live or inspect the
-            architecture on GitHub.
-          </p>
-        </div>
-        <div className="flex gap-3 w-full md:w-auto">
-          <Button asChild className="flex-1 md:flex-none font-medium">
-            <Link href="https://kodasync.iansebastian.dev/" target="_blank">
-              <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="flex-1 md:flex-none font-medium"
-          >
-            <Link href="https://github.com/iyawnnn/KodaSync" target="_blank">
-              <Github className="mr-2 h-4 w-4" /> Source Code
-            </Link>
-          </Button>
-        </div>
-      </div>
-
-      {/* --- DETAILED CONTENT --- */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-12">
-        {/* LEFT COLUMN (Main Content) */}
-        <div className="xl:col-span-2 space-y-12">
-          {/* Core Features */}
+      <ProjectDetailLayout
+        title="KodaSync"
+        subtitle="A Searchable Technical Memory for Developers"
+        description="KodaSync is a developer knowledge workspace for code, technical notes, and imported documentation. Saved material can be grouped by project, embedded for semantic retrieval, and reused as chat context. A Monaco-powered Studio brings editing and focused AI code actions into the same workspace."
+        technologies={["Next.js", "FastAPI", "PostgreSQL", "pgvector", "Redis"]}
+        media={
+          <video
+            aria-hidden="true"
+            tabIndex={-1}
+            src="/projects/kodasync/kodasync-demo.mp4"
+            poster="/projects/kodasync/kodasync-cover.webp"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-full w-full object-cover"
+          />
+        }
+        linksDescription="Explore the developer knowledge workspace or inspect the semantic retrieval and AI pipeline behind it."
+        links={[
+          { label: "Live Site", href: "https://kodasync.iansebastian.dev/", icon: <ExternalLink aria-hidden="true" className="mr-2 h-4 w-4" /> },
+          { label: "Source Code", href: "https://github.com/iyawnnn/KodaSync", icon: <Github aria-hidden="true" className="mr-2 h-4 w-4" />, variant: "outline" },
+        ]}
+      >
+        <div className="w-full min-w-0 space-y-12">
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Layout className="w-6 h-6 text-primary" /> Core Features
-            </h2>
-            <div className="grid gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <Bot className="w-4 h-4 text-primary" /> Neural Chat Interface
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  An AI workspace using{" "}
-                  <strong>Retrieval Augmented Generation (RAG)</strong> to
-                  provide project-specific answers. It automatically retrieves
-                  relevant notes from your library to provide context-aware
-                  solutions.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <Code className="w-4 h-4 text-primary" /> The Studio
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  A full-featured code editor built with the{" "}
-                  <strong>Monaco Editor</strong> engine (VS Code core). It
-                  includes AI actions to Scan Security, Generate Tests, and
-                  Document code instantly.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h3 className="font-medium text-foreground mb-1 flex items-center gap-2">
-                  <Search className="w-4 h-4 text-primary" /> Semantic Knowledge
-                  Engine
-                </h3>
-                <p className="text-muted-foreground text-sm">
-                  Uses <strong>FastEmbed</strong> (384-dimension vectors) to
-                  enable natural language search. Includes a Knowledge Scraper
-                  to import technical documentation directly from URLs.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Development Process */}
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Cpu className="w-6 h-6 text-primary" /> Development Process
-            </h2>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Challenge</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                The main challenge was orchestrating the "Hybrid Architecture"
-                between a modern Next.js frontend and a high-performance Python
-                backend. I needed to ensure that heavy vector processing and AI
-                inference didn't block the UI, while maintaining a real-time
-                editing experience in the Monaco Editor.
-              </p>
-            </div>
-
-            <div className="space-y-4">
-              <h3 className="text-xl font-medium">The Solution</h3>
-              <ul className="space-y-3 text-muted-foreground leading-relaxed list-disc pl-5 marker:text-primary">
-                <li>
-                  <strong>Async-First Backend:</strong> Built the API with
-                  FastAPI and <strong>SlowAPI</strong> rate limiting to handle
-                  high concurrency.
-                </li>
-                <li>
-                  <strong>Neural Search:</strong> Implemented{" "}
-                  <strong>pgvector</strong> for efficient vector storage and
-                  retrieval, allowing the AI to "remember" project-specific
-                  context.
-                </li>
-                <li>
-                  <strong>Background Tasking:</strong> Offloaded tag generation
-                  and embedding calculations to background threads, keeping the
-                  UI responsive during complex data ingestion.
-                </li>
-              </ul>
-            </div>
-          </section>
-
-          {/* Testing & QA */}
-          <section className="space-y-6">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <TestTube className="w-6 h-6 text-primary" /> Quality Assurance
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              To ensure the neural engine remains reliable, I implemented a
-              comprehensive testing strategy that validates both the API logic
-              and the AI's streaming capabilities:
+            <h2 className="text-2xl font-medium tracking-tight">Saving knowledge is easy. Finding it again is the problem.</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Code snippets, debugging notes, architecture decisions, and useful
+              documentation accumulate across projects. Exact-word search helps
+              when you remember what you saved, but a new problem often starts
+              with an idea rather than a filename or phrase. I built KodaSync to
+              give that knowledge a retrieval path and the context to make it useful again.
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-medium text-foreground mb-2">
-                  Integration Testing
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  Using <strong>Pytest</strong> and <strong>TestClient</strong>,
-                  I wrote tests covering auth flows, vector search, and RAG
-                  logic. I specifically mocked AI streams to validate chat
-                  responses without calling expensive external APIs.
-                </p>
-              </div>
-              <div className="rounded-lg border border-border/50 bg-card/50 p-4">
-                <h4 className="font-medium text-foreground mb-2">
-                  CI/CD Pipeline
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  A robust <strong>GitHub Actions</strong> workflow that spins
-                  up ephemeral Docker containers for{" "}
-                  <strong>PostgreSQL (pgvector)</strong> and{" "}
-                  <strong>Redis</strong>. This ensures the full integration
-                  suite runs successfully on every push before deployment.
-                </p>
-              </div>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">A note becomes more than stored text</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              FastEmbed turns a note’s title and content into a 384-dimensional
+              vector. Stored alongside the note in PostgreSQL through pgvector,
+              that representation makes similarity-based retrieval possible.
+              Tags help organize the library; embeddings support a different way to find it.
+            </p>
+            <ol className="grid grid-cols-1 gap-x-6 sm:grid-cols-3">
+              {ingestionSteps.map(([title, description], index) => (
+                <li key={title} className="min-w-0 border-t border-border/50 py-4 space-y-2">
+                  <div className="flex items-start gap-3">
+                    <span aria-hidden="true" className="text-muted-foreground">{index + 1}.</span>
+                    <h3 className="min-w-0 flex-1 font-medium">{title}</h3>
+                    {index < ingestionSteps.length - 1 && <ArrowRight aria-hidden="true" className="mt-1 size-4 shrink-0 rotate-90 text-muted-foreground sm:rotate-0" />}
+                  </div>
+                  <p className="text-sm leading-6 text-muted-foreground">{description}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">Searching for the idea, not the exact phrase</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              The semantic-search endpoint embeds a question and compares it with
+              the authenticated user’s note vectors using cosine distance. The
+              closest notes are returned as candidate context. This complements
+              the Library’s keyword and tag filters when the wording of a question
+              differs from the wording of a saved note.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">The same question can mean something different in another project</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              An authentication question needs the context of the codebase you
+              are working in. Selecting a project for chat restricts the candidate
+              notes before semantic ranking, keeping unrelated project notes out
+              of that retrieval step.
+            </p>
+            <ol className="flex flex-col gap-3 border-y border-border/50 py-4 sm:flex-row sm:flex-wrap sm:items-center">
+              {["Question", "Selected project", "Project notes", "Semantic ranking", "Relevant context"].map((step, index) => (
+                <li key={step} className="flex items-center gap-3 text-sm font-medium">
+                  {index > 0 && <ArrowRight aria-hidden="true" className="size-4 shrink-0 rotate-90 text-muted-foreground sm:rotate-0" />}
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">Chat starts with retrieval, not an empty prompt</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              Retrieval-augmented generation supplies relevant note text to an
+              existing language model. KodaSync does not train a model on the
+              library; it chooses context for each uncached question.
+            </p>
+            <ol className="divide-y divide-border/50 border-y border-border/50">
+              {chatSteps.map(([title, description], index) => (
+                <li key={title} className="flex min-w-0 gap-4 py-4">
+                  <span className="text-muted-foreground tabular-nums">{index + 1}.</span>
+                  <div className="min-w-0 space-y-1">
+                    <h3 className="font-medium">{title}</h3>
+                    <p className="text-base leading-7 text-muted-foreground">{description}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">One workspace, three ways to use the knowledge</h2>
+            <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
+              {workspaces.map(([title, description]) => (
+                <div key={title} className="min-w-0 rounded-lg border border-border/50 bg-card/50 p-5 space-y-2">
+                  <h3 className="text-lg font-medium">{title}</h3>
+                  <p className="text-base leading-7 text-muted-foreground">{description}</p>
+                </div>
+              ))}
             </div>
           </section>
 
-          {/* Key Takeaways */}
           <section className="space-y-4">
-            <h2 className="text-2xl font-medium tracking-tight flex items-center gap-2">
-              <Briefcase className="w-6 h-6 text-primary" /> Key Takeaways
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              KodaSync pushed my boundaries in Full-Stack Engineering,
-              specifically in bridging the gap between application logic and AI
-              infrastructure. Mastering <strong>Docker</strong> for
-              containerization and implementing a real-time <strong>RAG</strong>{" "}
-              pipeline gave me the tools to build production-grade AI
-              applications.
+            <h2 className="text-2xl font-medium tracking-tight">Documentation can enter the same knowledge system</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              URL import fetches a supplied page, removes common noise such as
+              scripts, navigation, and styles, and extracts readable text. GitHub
+              file links are converted to raw-file URLs, with language detection
+              for common code extensions. Saving the import creates a note and
+              embedding, so existing documentation can join the retrieval pipeline
+              without being rewritten by hand.
+            </p>
+          </section>
+
+          <section className="space-y-5">
+            <h2 className="text-2xl font-medium tracking-tight">Keeping the workspace responsive</h2>
+            <div className="divide-y divide-border/50 border-y border-border/50">
+              {decisions.map(([title, description]) => (
+                <div key={title} className="py-4 space-y-2">
+                  <h3 className="font-medium">{title}</h3>
+                  <p className="text-base leading-7 text-muted-foreground">{description}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">Testing the system around the model</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              GitHub Actions starts PostgreSQL with pgvector and Redis, then runs
+              backend Pytest integration tests. The suite mocks AI and Redis calls
+              while exercising note creation, retrieval, deletion, AI-action
+              routes, and chat persistence. Generated answers can vary; the
+              surrounding application behavior can still be checked independently.
+            </p>
+          </section>
+
+          <section className="space-y-4">
+            <h2 className="text-2xl font-medium tracking-tight">Building memory around the model</h2>
+            <p className="text-base leading-7 text-muted-foreground">
+              The useful part of KodaSync is the pipeline around generation:
+              deciding what to save, how to retrieve it, and which project’s
+              context belongs in a conversation. Building that pipeline alongside
+              an editable library, streamed chat, and testable API flows made
+              saved technical knowledge reusable across the workspace.
             </p>
           </section>
         </div>
-
-        {/* RIGHT COLUMN (Tech Stack & Meta) */}
-        <div className="flex flex-col gap-8 md:grid md:grid-cols-2 md:gap-6 xl:flex xl:flex-col xl:gap-8">
-          {/* Tech Stack Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50 md:col-span-2 xl:col-span-1">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Layers className="w-5 h-5 text-primary" /> Tech Stack
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-6">
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Frontend
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Next.js 15</Badge>
-                  <Badge variant="outline">Monaco Editor</Badge>
-                  <Badge variant="outline">Tailwind CSS</Badge>
-                  <Badge variant="outline">Shadcn UI</Badge>
-                  <Badge variant="outline">Axios</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Backend & AI
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">FastAPI</Badge>
-                  <Badge variant="outline">Groq SDK</Badge>
-                  <Badge variant="outline">Llama 3</Badge>
-                  <Badge variant="outline">SQLModel</Badge>
-                  <Badge variant="outline">FastEmbed</Badge>
-                </div>
-              </div>
-
-              <div>
-                <h4 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-                  Infrastructure
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="outline">Docker</Badge>
-                  <Badge variant="outline">GitHub Actions</Badge>
-                  <Badge variant="outline">Supabase</Badge>
-                  <Badge variant="outline">Upstash Redis</Badge>
-                </div>
-              </div>
-            </div>
-          </Card>
-
-          {/* Context Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Globe className="w-5 h-5 text-primary" /> Context
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Type</span>
-                <span className="font-medium text-foreground">
-                  Personal Project
-                </span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Timeline</span>
-                <span className="font-medium text-foreground">Jan 2026</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Role</span>
-                <span className="font-medium text-foreground">
-                  Full Stack Developer
-                </span>
-              </div>
-            </div>
-          </Card>
-
-          {/* Deployment Widget */}
-          <Card className="border-border/50 shadow-sm bg-card/50">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg">
-                <Rocket className="w-5 h-5 text-primary" /> Deployment
-              </CardTitle>
-            </CardHeader>
-            <div className="px-6 pb-6 space-y-4 text-sm text-muted-foreground">
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Frontend</span>
-                <span className="font-medium text-foreground">Vercel</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Backend</span>
-                <span className="font-medium text-foreground">Render</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Database</span>
-                <span className="font-medium text-foreground">Supabase</span>
-              </div>
-              <div className="flex justify-between border-b border-border/50 pb-2">
-                <span>Redis</span>
-                <span className="font-medium text-foreground">Upstash</span>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    </div>
+      </ProjectDetailLayout>
+    </>
   );
 }

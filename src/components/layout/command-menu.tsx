@@ -26,6 +26,8 @@ import {
 } from "@/components/ui/command";
 
 const ALL_PROJECTS = [
+  { title: "Neffi", href: "/projects/neffi" },
+  { title: "Better San Fernando", href: "/projects/better-san-fernando" },
   { title: "UA Lab Attendance", href: "/projects/ua-attendance" },
   { title: "AC-CORE", href: "/projects/ac-core" },
   { title: "Grit", href: "/projects/grit" },

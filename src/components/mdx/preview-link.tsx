@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { ComponentPropsWithoutRef } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -14,10 +15,11 @@ const previewMap: Record<string, string> = {
   "/projects/grit": "/projects/grit/grit-cover.webp",
   "/projects/climaph": "/projects/climaph/climaph-cover.webp",
   "/projects/ac-core": "/projects/ac-core/accore-cover.webp",
+  "/projects/better-san-fernando": "/projects/better-san-fernando/cover.webp",
   "/projects/ua-attendance": "/blog/ua-labsign/ua-labsign-preview.webp",
   "https://labsign.ua-cit.com/": "/blog/ua-labsign/ua-labsign-preview.webp",
   "/projects/kusinago": "/projects/kusinago/kusinago-cover.webp",
-  "/projects/mamars": "/projects/mamars/mamars-cover.webp",
+  "/projects/mamars": "/projects/mamars/mamars-branded-cover.webp",
   "/projects/movieloom": "/projects/movieloom/movieloom-cover.webp",
   "/projects/thryve": "/projects/thryve/thryve-cover.webp",
 
@@ -54,7 +56,7 @@ const previewMap: Record<string, string> = {
   "https://www.instagram.com/blythe/": "/preview-links/andrea-preview-image.webp",
 };
 
-export const CustomLink = ({ href, children, ...props }: any) => {
+export const CustomLink = ({ href = "", children, ...props }: ComponentPropsWithoutRef<"a">) => {
   const isInternal = href && href.startsWith("/");
   const previewImage = previewMap[href];
 
