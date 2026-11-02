@@ -464,9 +464,8 @@ export default function StackPage() {
             Tech Stack
           </h1>
           <p className={`text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground w-full break-words ${reveal.secondary}`}>
-            The languages, frameworks, databases, and tools that keep me
-            coding, caffeinated, and occasionally questioning my life choices.
-            These are the technologies I trust to make sure projects ship.
+            The languages, frameworks, databases, tools, and platforms I use to
+            build, test, and ship full-stack web applications.
           </p>
         </div>
 

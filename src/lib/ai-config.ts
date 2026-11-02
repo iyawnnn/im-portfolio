@@ -113,12 +113,12 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 4. PROJECTS (General & Specific)
-  if (fuzzyMatch(msg, ["project", "projects", "portfolio", "built", "made", "create", "subvantage", "accore", "kodasync", "kusinago", "mamars", "movieloom", "thryve", "attendance", "grit", "climaph", "bettersanfernando", "san fernando", "github", "repo", "source", "website", "link", "best", "next"])) {
+  if (fuzzyMatch(msg, ["project", "projects", "portfolio", "built", "made", "create", "neffi", "labsign", "subvantage", "accore", "kodasync", "kusinago", "mamars", "movieloom", "thryve", "attendance", "grit", "climaph", "bettersanfernando", "san fernando", "github", "repo", "source", "website", "link", "best", "next"])) {
     prompt += `
   Your Projects (STRICT RULE: ONLY use the exact descriptions provided below. DO NOT invent features or capabilities. If you don't know, say so.):
 
   IF ASKED GENERALLY ABOUT YOUR PROJECTS, YOUR BEST WORK, OR "WHAT'S NEXT":
-  - DO NOT list all 10 projects.
+  - DO NOT list all of your projects.
   - Mention your top projects based on this exact ranking: 
     1. Neffi
     2. Better San Fernando
@@ -194,7 +194,7 @@ export const buildDynamicPrompt = (userMessage: string) => {
   }
 
   // 5. BLOGS
-  if (fuzzyMatch(msg, ["blog", "article", "read", "write", "post", "insight", "quality", "civic", "broken", "lazada", "bacolod", "academic", "grades", "bettergov", "mmpa"])) {
+  if (fuzzyMatch(msg, ["blog", "article", "read", "write", "post", "insight", "quality", "civic", "broken", "lazada", "bacolod", "academic", "grades", "bettergov", "mmpa", "typo", "timeout", "labsign", "search", "tutorial", "internal"])) {
     prompt += `
   Your Blog (STRICT RULE: ONLY use the exact summaries provided below. DO NOT invent details about the articles.):
 
@@ -221,6 +221,21 @@ export const buildDynamicPrompt = (userMessage: string) => {
 
   - Better Bacolod: "This post explores my open-source contributions to BetterBacolod under BetterGov PH. I engineered interactive React and Recharts dashboards to visualize the city's flood control budget, fixed a critical hardcoded 200 Billion chart limit that would have broken the layout, and improved mobile accessibility. This work eventually led to the project owner, Matt Enarle, inviting me to be a core maintainer."
     * Default Link to append: \n\nRead the civic tech study here: [Read Better Bacolod](/blog/better-bacolod)
+
+  - A Typo, a Timeout, and TypeScript (or "migrating to TypeScript"): "While building Mama R's for a local bakery, an ECONNABORTED timeout sent me digging through the backend, but the real cause was a wrong property name: the code read expense.cost instead of expense.amount. Finding it took hours because I was debugging the layers around the data instead of the assumption about its shape. I migrated the project to TypeScript so data contracts were visible and mismatches got caught early, while noting that types do not replace runtime validation or testing."
+    * Default Link to append: \n\nRead the full story here: [Read A Typo, a Timeout, and TypeScript](/blog/migrating-mamar-typescript)
+
+  - From Class Requirement to Real Users (or "UA LabSign story"): "This post is about UA LabSign, which started as a friend's security-course project built around ECDSA and laboratory attendance. When their professor saw potential beyond the assignment, I continued as the developer toward something the university could potentially use. Real use changed what working meant: Android support with React Native and Expo, device-bound signing, and treating location as a useful signal rather than absolute proof of presence."
+    * Default Link to append: \n\nRead the story here: [Read From Class Requirement to Real Users](/blog/ua-labsign-story)
+
+  - Search Should Match How People Actually Ask (or "search" / "aliases"): "Using Better San Fernando, I wrote about how information can be published and still be practically invisible if people do not know the official vocabulary. I used MiniSearch with curated English and Filipino aliases to connect familiar phrases to official terms without changing the source records, and argued that explicit, inspectable search is often a better fit than AI for a bounded problem like this."
+    * Default Link to append: \n\nRead the post here: [Read Search Should Match How People Actually Ask](/blog/search-should-match-how-people-ask)
+
+  - An Internal Tool Shouldn't Need a Tutorial (or "service desk"): "During my on-site internship at Sortr, I worked on an internal IT service desk ticketing system for employees to report hardware and software issues. The post argues that internal users are still users: categories, statuses and confirmations should be clear enough that someone can describe a problem and understand what happens next without a developer nearby."
+    * Default Link to append: \n\nRead the post here: [Read An Internal Tool Shouldn't Need a Tutorial](/blog/internal-tools-shouldnt-need-a-tutorial)
+
+  - Two Internships, Two Ways of Working: "This post compares my on-site Full-Stack Web Developer internship at Sortr with my remote Backend AI Engineer internship at FlyRank AI. On-site taught me how much context surrounds a feature; remote work made progress, written communication and failure paths such as retries, duplicate webhooks, usage metering and quotas more explicit. I also mention completing 20 Anthropic Academy courses, framed as a record of time spent learning rather than proof of expertise."
+    * Default Link to append: \n\nRead the comparison here: [Read Two Internships, Two Ways of Working](/blog/two-internships-two-ways-of-working)
 
   CRITICAL RULES FOR LINK OUTPUT:
   1. NEVER try to use the markdown link as a word in the middle of your sentence. 

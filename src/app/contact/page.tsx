@@ -92,9 +92,8 @@ export default function ContactPage() {
           Let’s work together.
         </h1>
         <p className={`text-lg font-normal tracking-normal text-muted-foreground leading-7 ${reveal.secondary} ${reveal.subtitle}`}>
-          I’m currently looking for freelance opportunities or a full-time role.
-          If you have a project that needs a clean, performant interface, I&apos;d
-          love to hear about it.
+          Get in touch about full-stack development, freelance projects,
+          internships, or software opportunities.
         </p>
       </motion.div>
 

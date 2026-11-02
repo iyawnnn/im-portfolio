@@ -71,7 +71,7 @@ export default function ExperiencePage() {
             Experience
           </h1>
           <p className={`max-w-2xl text-base md:text-lg text-muted-foreground leading-6 md:leading-7 ${reveal.secondary}`}>
-            Full-stack developer building reliable systems and polished interfaces, with experience across web applications, internal tools, and production workflows.
+            Professional experience, education, and certifications across full-stack web development, software engineering, and production systems.
           </p>
         </div>
 

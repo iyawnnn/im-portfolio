@@ -39,12 +39,12 @@ export function ProjectsPage({
         className="flex flex-col gap-4 w-full max-w-4xl"
       >
         <h1 className={`text-4xl md:text-5xl font-medium tracking-tight lg:text-6xl text-foreground leading-[1.05] ${reveal.primary}`}>
-          Crafted Projects
+          Projects
         </h1>
         <p className={`text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground w-full ${reveal.secondary}`}>
-          A collection of side projects, freelance hustle, and school
-          requirements that definitely didn&apos;t cause a mid-degree identity
-          crisis.
+          Selected projects across full-stack web applications, internal tools,
+          civic platforms, and AI-powered products built across frontend and
+          backend systems.
         </p>
       </div>
 
