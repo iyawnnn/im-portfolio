@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export interface ProjectData {
   title: string;
+  commandTitle?: string;
   description: string;
   link: string;
   image: string;
