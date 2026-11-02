@@ -37,7 +37,7 @@ const MOBILE_LINKS = [
   { href: "/about", label: "About", icon: User, isExternal: false },
   { href: "/projects", label: "Projects", icon: Briefcase, isExternal: false },
   { href: "/stack", label: "Stack", icon: CodeXml, isExternal: false },
-  { href: "/resume", label: "Resume", icon: FileText, isExternal: false },
+  { href: "/experience", label: "Experience", icon: FileText, isExternal: false },
   { href: "/contact", label: "Contact", icon: Mail, isExternal: false },
   { href: "/blog", label: "Blog", icon: BookOpen, isExternal: false },
   {

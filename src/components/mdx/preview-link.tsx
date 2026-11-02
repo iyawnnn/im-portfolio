@@ -46,7 +46,7 @@ const previewMap: Record<string, string> = {
   "https://www.hau.edu.ph/": "/blog/academic-reality-check/hau-preview.webp",
 
   // Global Page Previews
-  "/resume": "/preview-links/resume-preview-image.webp",
+  "/experience": "/preview-links/resume-preview-image.webp",
   "/contact": "/preview-links/contact-preview-image.webp",
   "/stack": "/preview-links/stack-preview-image.webp",
   "/about": "/preview-links/about-preview-image.webp",

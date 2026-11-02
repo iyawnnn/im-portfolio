@@ -49,7 +49,7 @@ const MAIN_LINKS = [
   { title: "About", href: "/about", icon: User, shortcut: "2" },
   { title: "Projects", href: "/projects", icon: Briefcase, shortcut: "3" },
   { title: "Stack", href: "/stack", icon: CodeXml, shortcut: "4" },
-  { title: "Resume", href: "/resume", icon: FileText, shortcut: "5" },
+  { title: "Experience", href: "/experience", icon: FileText, shortcut: "5" },
   { title: "Blog", href: "/blog", icon: BookOpen, shortcut: "6" },
 ] as const;
 
@@ -288,9 +288,9 @@ export function AppSidebar() {
               : "w-auto opacity-100 visible",
           )}
         >
-          <h1 className="truncate text-base font-medium leading-none tracking-[-0.01em]">
+          <p className="truncate text-base font-medium leading-none tracking-[-0.01em]">
             Ian Macabulos
-          </h1>
+          </p>
           <p className="whitespace-nowrap text-[12px] font-normal text-muted-foreground mt-1">
             Full-Stack Developer
           </p>

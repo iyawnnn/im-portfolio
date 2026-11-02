@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import Link from "next/link";
 import {
@@ -57,6 +58,10 @@ const ROLES = [
   "Product Engineer.",
   "Open-Source Maintainer.",
 ];
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function ExplorePage() {
   const latestPosts = getAllPostsMeta()
@@ -236,7 +241,7 @@ export default function ExplorePage() {
           </div>
           <CardHeader className="relative z-10">
             <FileText className="h-8 w-8 text-primary mb-2 sm:h-10 sm:w-10" />
-            <CardTitle className="text-lg sm:text-xl">Resume</CardTitle>
+            <CardTitle className="text-lg sm:text-xl">Experience</CardTitle>
             <CardDescription>
               My professional journey and qualifications.
             </CardDescription>
@@ -248,7 +253,7 @@ export default function ExplorePage() {
               size="sm"
               className="w-full rounded-md shadow-sm transition-all hover:opacity-90 active:scale-95 md:w-auto md:h-10 md:px-4 md:py-2"
             >
-              <Link href="/resume" prefetch={false}>View Resume</Link>
+              <Link href="/experience" prefetch={false}>View Experience</Link>
             </Button>
           </CardFooter>
         </Card>

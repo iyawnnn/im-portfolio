@@ -9,9 +9,6 @@ import {
   Briefcase,
   GraduationCap,
   Medal as Award,
-  MapPin,
-  Envelope as Mail,
-  User,
   Eye,
   ArrowUpRight,
 } from "@phosphor-icons/react/ssr";
@@ -62,7 +59,7 @@ const CERTIFICATIONS = [
   },
 ];
 
-export default function ResumePage() {
+export default function ExperiencePage() {
   return (
     <div className="flex w-full max-w-6xl mx-auto flex-col gap-12 p-4 pt-8 md:p-8 md:pt-20 lg:p-12 lg:pt-24">
       
@@ -70,23 +67,12 @@ export default function ResumePage() {
         className="flex flex-col md:flex-row items-center md:justify-between gap-6 md:gap-8 border-b border-border/40 pb-8 text-center md:text-left w-full"
       >
         <div className="flex flex-col items-center md:items-start space-y-4 w-full md:w-auto">
-          <div>
-            <h1 className={`text-4xl md:text-5xl font-medium tracking-tight leading-[1.08] text-foreground lg:text-6xl ${reveal.primary}`}>
-              Ian Macabulos
-            </h1>
-          </div>
-
-          <div className={`flex flex-wrap justify-center md:justify-start items-center gap-3 sm:gap-4 text-sm text-muted-foreground ${reveal.secondary}`}>
-            <div className="flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-primary" />
-              <span>Pampanga, Philippines</span>
-            </div>
-            <div className="hidden sm:block text-border">|</div>
-            <div className="flex items-center gap-1.5">
-              <Mail className="w-4 h-4 text-primary" />
-              <span>iannmacabulos@gmail.com</span>
-            </div>
-          </div>
+          <h1 className={`text-4xl md:text-5xl font-medium tracking-tight leading-[1.08] text-foreground lg:text-6xl ${reveal.primary}`}>
+            Experience
+          </h1>
+          <p className={`max-w-2xl text-base md:text-lg text-muted-foreground leading-6 md:leading-7 ${reveal.secondary}`}>
+            Full-stack developer building reliable systems and polished interfaces, with experience across web applications, internal tools, and production workflows.
+          </p>
         </div>
 
         <div className={`flex justify-center w-full md:w-auto shrink-0 mt-2 md:mt-0 ${reveal.secondary} ${reveal.controls}`}>
@@ -97,28 +83,13 @@ export default function ResumePage() {
               className="bg-background text-foreground flex items-center space-x-2 px-6 py-3 font-medium transition-all hover:scale-105 active:scale-95"
             >
               <Eye className="h-4 w-4" />
-              <span>View Resume</span>
+              <span>View Résumé</span>
             </HoverBorderGradient>
           </Link>
         </div>
       </div>
 
       <div className={`flex w-full flex-col gap-12 ${reveal.secondary} ${reveal.media}`}>
-        <section
-          className="space-y-6 w-full"
-        >
-          <div className="flex items-center gap-3 pb-2 border-border/40 mb-2">
-            <div className="p-2 bg-primary/10 rounded-md text-primary">
-              <User className="w-5 h-5" />
-            </div>
-            <h2 className="text-xl font-medium tracking-tight">Professional Summary</h2>
-          </div>
-        
-          <p className="text-muted-foreground leading-6 md:leading-7 text-base md:text-lg font-normal tracking-normal">
-            Full-Stack Developer and Information Technology student with hands-on experience building web applications, backend services, and production-ready systems using modern technologies. Experienced across frontend and backend development, database design, API development, testing, deployment, and AI-assisted workflows. Open to entry-level software development roles and freelance opportunities where I can contribute to practical, reliable, and user-focused digital products.
-          </p>
-        </section>
-
         <section
           className="space-y-6 w-full"
         >

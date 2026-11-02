@@ -38,7 +38,7 @@ test("fresh homepage entry plays, completes, and skips on the next entry", () =>
 });
 
 test("direct non-home entry also suppresses a later homepage entry", () => {
-  for (const path of ["/projects", "/resume", "/about", "/stack", "/blog", "/contact"]) {
+  for (const path of ["/projects", "/experience", "/about", "/stack", "/blog", "/contact"]) {
     const first = enter(path);
     assert.equal(first.active(), false);
     assert.equal(enter("/", { seen: first.seen() }).active(), false);
