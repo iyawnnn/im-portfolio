@@ -1,127 +1,20 @@
 import type { MetadataRoute } from "next";
+import { PROJECTS } from "@/data/projects";
 import { getAllPostsMeta } from "@/lib/mdx";
+import { absoluteUrl } from "@/lib/seo";
 
+const CORE_PATHS = ["/", "/about", "/projects", "/stack", "/experience", "/contact", "/blog"];
+
+// Only blog posts carry a trustworthy date; other pages omit lastModified rather than invent freshness.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.iansebastian.dev";
-
-  const staticRoutes: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/projects/neffi`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/stack`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/resume`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/projects/kodasync`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects/subvantage`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/projects/mamars`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/projects/climaph`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/projects/thryve`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/projects/movieloom`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/projects/ac-core`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/projects/better-san-fernando`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/projects/grit`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/projects/ua-attendance`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-  ];
-
-  const posts = getAllPostsMeta();
-  const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: post.date ? new Date(post.date) : new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
+  const posts = getAllPostsMeta().map((post) => ({
+    url: absoluteUrl(`/blog/${post.slug}`),
+    lastModified: new Date(post.date),
   }));
 
-  return [...staticRoutes, ...blogRoutes];
+  return [
+    ...CORE_PATHS.map((path) => ({ url: absoluteUrl(path) })),
+    ...PROJECTS.map((project) => ({ url: absoluteUrl(project.link) })),
+    ...posts,
+  ];
 }

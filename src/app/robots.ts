@@ -1,14 +1,9 @@
-// src/app/robots.ts
 import type { MetadataRoute } from "next";
+import { absoluteUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.iansebastian.dev";
-
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
-    sitemap: `${baseUrl}/sitemap.xml`,
+    rules: { userAgent: "*", allow: "/" },
+    sitemap: absoluteUrl("/sitemap.xml"),
   };
 }
