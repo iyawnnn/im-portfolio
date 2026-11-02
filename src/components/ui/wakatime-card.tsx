@@ -37,13 +37,13 @@ const languageIcons: Record<string, React.ComponentType<{ className?: string }>>
 };
 
 async function fetchWakaTimeData() {
-  const apiKey = process.env.WAKATIME_API_KEY;
-  if (!apiKey) return null;
+  const accessToken = process.env.WAKATIME_ACCESS_TOKEN;
+  if (!accessToken) return null;
 
   try {
     const response = await fetch("https://wakatime.com/api/v1/users/current/stats/last_7_days", {
       headers: {
-        Authorization: `Basic ${Buffer.from(apiKey).toString("base64")}`,
+        Authorization: `Bearer ${accessToken}`,
       },
       // ISR: Cache the result and revalidate silently every 60 seconds
       next: { revalidate: 60 },
