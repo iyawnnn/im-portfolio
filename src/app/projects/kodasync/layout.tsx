@@ -1,25 +1,17 @@
-import type { Metadata } from "next";
+import { ProjectBreadcrumb } from "@/components/project-breadcrumb";
+import { projectMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "KodaSync - Developer Knowledge Workspace | Ian Macabulos",
-  description:
-    "A developer knowledge workspace for code, technical notes, and imported documentation, with semantic retrieval, project-scoped RAG chat, and a Monaco-powered Studio.",
-  alternates: {
-    canonical: "/projects/kodasync",
-  },
-  openGraph: {
-    title: "KodaSync - Developer Knowledge Workspace | Ian Macabulos",
-    description:
-      "A developer knowledge workspace for code, technical notes, and imported documentation, with semantic retrieval, project-scoped RAG chat, and a Monaco-powered Studio.",
-    siteName: "Ian Macabulos Portfolio",
-    type: "website",
-  },
-};
+export const metadata = projectMetadata(
+  "kodasync",
+  "KodaSync — Developer Knowledge Workspace",
+  "A developer knowledge workspace for code, technical notes, and imported documentation, with semantic retrieval, project-scoped RAG chat, and a Monaco-powered Studio.",
+);
 
-export default function KodaSyncLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <>{children}</>;
+export default function KodaSyncLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <ProjectBreadcrumb slug="kodasync" />
+      {children}
+    </>
+  );
 }

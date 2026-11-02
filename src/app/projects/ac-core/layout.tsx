@@ -1,25 +1,17 @@
-import type { Metadata } from "next";
+import { ProjectBreadcrumb } from "@/components/project-breadcrumb";
+import { projectMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "AC-CORE - Municipal Reporting System | Ian Macabulos",
-  description:
-    "AC-CORE is a civic-tech team project designed around Angeles City?s municipal maintenance workflow, connecting geotagged resident reports with map-based review, evidence, and status history.",
-  alternates: {
-    canonical: "/projects/ac-core",
-  },
-  openGraph: {
-    title: "AC-CORE - Municipal Reporting System | Ian Macabulos",
-    description:
-      "AC-CORE is a civic-tech team project designed around Angeles City?s municipal maintenance workflow, connecting geotagged resident reports with map-based review, evidence, and status history.",
-    siteName: "Ian Macabulos Portfolio",
-    type: "website",
-  },
-};
+export const metadata = projectMetadata(
+  "ac-core",
+  "AC-CORE — Municipal Reporting System",
+  "AC-CORE is a civic-tech team project designed around Angeles City’s municipal maintenance workflow, connecting geotagged resident reports with map-based review, evidence, and status history.",
+);
 
-export default function AcCoreLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <>{children}</>;
+export default function AcCoreLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <ProjectBreadcrumb slug="ac-core" />
+      {children}
+    </>
+  );
 }

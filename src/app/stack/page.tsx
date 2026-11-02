@@ -461,7 +461,7 @@ export default function StackPage() {
       <div className="flex flex-col gap-6 w-full min-w-0">
         <div className="space-y-4">
           <h1 className={`text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.08] text-foreground ${reveal.primary}`}>
-            My Development Arsenal
+            Tech Stack
           </h1>
           <p className={`text-lg md:text-xl font-normal tracking-normal leading-7 text-muted-foreground w-full break-words ${reveal.secondary}`}>
             The languages, frameworks, databases, and tools that keep me

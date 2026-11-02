@@ -4,16 +4,26 @@ export const revalidate = 60;
 import Link from "next/link";
 import Image from "next/image";
 import { CaretLeft as ChevronLeft, CaretRight as ChevronRight } from "@phosphor-icons/react/ssr";
-import { getAllPostsMeta, PostMeta } from "@/lib/mdx";
+import { getAllPostsMeta, POSTS_PER_PAGE, PostMeta } from "@/lib/mdx";
 import { Card, CardContent } from "@/components/ui/card";
+import { pageMetadata, paginatedPath } from "@/lib/seo";
 
-export const metadata = {
-  title: "Blog",
-  description:
-    "Thoughts on web development, minimalist design, and the occasional realization that I overcomplicated a simple function.",
-};
+type SearchParams = Promise<{ page?: string }>;
 
-const POSTS_PER_PAGE = 6;
+function clampPage(requested: number) {
+  const totalPages = Math.max(1, Math.ceil(getAllPostsMeta().length / POSTS_PER_PAGE));
+  return Math.min(Math.max(requested, 1), totalPages);
+}
+
+export async function generateMetadata({ searchParams }: { searchParams: SearchParams }) {
+  const page = clampPage(Number((await searchParams).page) || 1);
+  return pageMetadata({
+    title: "Blog",
+    description:
+      "Read Ian Macabulos' writing on full-stack development, system design, product decisions, project lessons, and building reliable software.",
+    path: paginatedPath("/blog", page),
+  });
+}
 
 function formatDate(date: string) {
   return new Intl.DateTimeFormat("en-US", {
@@ -29,12 +39,12 @@ export default async function BlogPage({
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
-  const requestedPage = Number((await searchParams).page) || 1;
+  const rawPage = (await searchParams).page;
   const posts = getAllPostsMeta().sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   );
   const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
-  const currentPage = Math.min(Math.max(requestedPage, 1), totalPages);
+  const currentPage = Math.min(Math.max(Number(rawPage) || 1, 1), totalPages);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const pagePosts = posts.slice(startIndex, startIndex + POSTS_PER_PAGE);
 

@@ -1,25 +1,11 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Tech Stack",
-  description:
-    "Explore my development arsenal. A comprehensive list of languages, frameworks, and tools I use, including Next.js, React, Node.js, and PostgreSQL.",
-  alternates: {
-    canonical: "/stack",
-  },
-  openGraph: {
-    title: "Tech Stack | Ian Macabulos",
-    description:
-      "Explore my development arsenal. A comprehensive list of languages, frameworks, and tools I use, including Next.js, React, Node.js, and PostgreSQL.",
-    siteName: "Ian Macabulos Portfolio",
-    type: "website",
-  },
-};
+  description: "Explore the languages, frameworks, databases, tools, and platforms Ian Macabulos uses to build and ship full-stack web applications.",
+  path: "/stack",
+});
 
-export default function StackLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function StackLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

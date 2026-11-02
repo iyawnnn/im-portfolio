@@ -13,6 +13,8 @@ export interface PostMeta {
   slug: string;
 }
 
+export const POSTS_PER_PAGE = 6;
+
 const rootDirectory = path.join(process.cwd(), "src", "content", "blog");
 
 function getReadingTime(content: string) {

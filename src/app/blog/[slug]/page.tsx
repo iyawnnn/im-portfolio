@@ -12,52 +12,40 @@ import { ShareButtons } from "@/components/ui/share-buttons";
 import { GiscusComments } from "@/components/ui/giscus-comments";
 import { ReportView } from "@/components/ui/report-view";
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/json-ld";
+import { PERSON_ID, absoluteUrl, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
 
 export async function generateStaticParams() {
   const posts = getAllPostsMeta();
   return posts.map((post) => ({ slug: post.slug }));
 }
 
-// Dynamic OpenGraph Generation
+function findPost(slug: string) {
+  try {
+    return getPostBySlug(slug);
+  } catch {
+    notFound();
+  }
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params;
-  const { meta } = getPostBySlug(resolvedParams.slug);
-  
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://www.iansebastian.dev";
-  const ogImageUrl = meta.coverImage ? `${baseUrl}${meta.coverImage}` : `${baseUrl}/opengraph-image.png`;
-  
-  return {
-    title: `${meta.title} | Blog | Ian Macabulos`,
+  const { slug } = await params;
+  const { meta } = findPost(slug);
+
+  return pageMetadata({
+    title: meta.title,
     description: meta.description,
-    alternates: {
-      canonical: `/blog/${resolvedParams.slug}`,
-    },
-    openGraph: {
-      title: meta.title,
-      description: meta.description,
-      url: `${baseUrl}/blog/${resolvedParams.slug}`,
-      type: "article",
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: meta.title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: meta.title,
-      description: meta.description,
-      images: [ogImageUrl],
-    },
-  };
+    path: `/blog/${slug}`,
+    image: meta.coverImage,
+    publishedTime: new Date(meta.date).toISOString(),
+  });
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const { meta, content } = getPostBySlug(resolvedParams.slug);
+  const { meta, content } = findPost(resolvedParams.slug);
+  const postPath = `/blog/${resolvedParams.slug}`;
 
   const date = new Intl.DateTimeFormat("en-US", {
     month: "short",
@@ -69,6 +57,29 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   return (
     <div className={`mx-auto flex w-full max-w-6xl flex-col px-6 pt-8 pb-16 font-sans sm:px-8 md:pt-12 lg:px-12 ${reveal.articleDetail}`}>
       
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "BlogPosting",
+              "@id": `${absoluteUrl(postPath)}#article`,
+              headline: meta.title,
+              description: meta.description,
+              url: absoluteUrl(postPath),
+              mainEntityOfPage: absoluteUrl(postPath),
+              datePublished: new Date(meta.date).toISOString(),
+              ...(meta.coverImage && { image: absoluteUrl(meta.coverImage) }),
+              author: { "@id": PERSON_ID },
+            },
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Blog", path: "/blog" },
+              { name: meta.title, path: postPath },
+            ]),
+          ],
+        }}
+      />
       <ReportView slug={resolvedParams.slug} />
 
       <div className={`mb-6 md:mb-10 ${reveal.secondary} ${reveal.label}`}>

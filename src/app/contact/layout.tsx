@@ -1,25 +1,11 @@
-import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Contact",
-  description:
-    "Get in touch for freelance projects, internships, or full-time opportunities. Let's build something awesome together.",
-  alternates: {
-    canonical: "/contact",
-  },
-  openGraph: {
-    title: "Contact | Ian Macabulos",
-    description:
-      "Get in touch for freelance projects, internships, or full-time opportunities. Let's build something awesome together.",
-    siteName: "Ian Macabulos Portfolio",
-    type: "website",
-  },
-};
+  description: "Get in touch with Ian Macabulos about full-stack development, web applications, internal tools, freelance work, internships, or software opportunities.",
+  path: "/contact",
+});
 
-export default function ContactLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function ContactLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }

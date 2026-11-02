@@ -1,25 +1,17 @@
-import type { Metadata } from "next";
+import { ProjectBreadcrumb } from "@/components/project-breadcrumb";
+import { projectMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Mama R's | Internal Bakery Operations System | Ian Macabulos",
-  description:
-    "Mama R's is an internal bakery operations system connecting orders, payments, inventory movement, expenses, reporting, and end-of-day cash reconciliation.",
-  alternates: {
-    canonical: "/projects/mamars",
-  },
-  openGraph: {
-    title: "Mama R's | Internal Bakery Operations System | Ian Macabulos",
-    description:
-      "Mama R's is an internal bakery operations system connecting orders, payments, inventory movement, expenses, reporting, and end-of-day cash reconciliation.",
-    siteName: "Ian Macabulos Portfolio",
-    type: "website",
-  },
-};
+export const metadata = projectMetadata(
+  "mamars",
+  "Mama R's — Bakery Operations System",
+  "Mama R's is an internal bakery operations system connecting orders, payments, inventory movement, expenses, reporting, and end-of-day cash reconciliation.",
+);
 
-export default function MamaRsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <>{children}</>;
+export default function MamaRsLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <ProjectBreadcrumb slug="mamars" />
+      {children}
+    </>
+  );
 }

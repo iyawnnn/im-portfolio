@@ -1,25 +1,26 @@
-import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
+import { PERSON_ID, absoluteUrl, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "About Me",
-  description:
-    "I am a 3rd-year IT student and Web Developer based in the Philippines. Learn more about my career goals, skills, and background.",
-  alternates: {
-    canonical: "/about",
-  },
-  openGraph: {
-    title: "About Me | Ian Macabulos",
-    description:
-      "I am a 3rd-year IT student and Web Developer based in the Philippines. Learn more about my career goals, skills, and background.",
-    siteName: "Ian Macabulos Portfolio",
-    type: "website",
-  },
-};
+export const metadata = pageMetadata({
+  title: "About",
+  description: "Learn about Ian Macabulos, a full-stack developer and Information Technology student in the Philippines, his background, approach to software, and the work he cares about.",
+  path: "/about",
+});
 
-export default function AboutLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <>{children}</>;
+export default function AboutLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          "@id": `${absoluteUrl("/about")}#profile`,
+          url: absoluteUrl("/about"),
+          name: "About Ian Macabulos",
+          mainEntity: { "@id": PERSON_ID },
+        }}
+      />
+      {children}
+    </>
+  );
 }

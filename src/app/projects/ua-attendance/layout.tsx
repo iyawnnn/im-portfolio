@@ -1,25 +1,17 @@
-import type { Metadata } from "next";
+import { ProjectBreadcrumb } from "@/components/project-breadcrumb";
+import { projectMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "UA LabSign — Laboratory Attendance System | Ian Macabulos",
-  description:
-    "UA LabSign replaces manual laboratory attendance with web and Android check-ins using device-bound ECDSA P-256 signatures, client-side geofence checks, and short-lived room PINs.",
-  alternates: {
-    canonical: "/projects/ua-attendance",
-  },
-  openGraph: {
-    title: "UA LabSign — Laboratory Attendance System | Ian Macabulos",
-    description:
-      "UA LabSign replaces manual laboratory attendance with web and Android check-ins using device-bound ECDSA P-256 signatures, client-side geofence checks, and short-lived room PINs.",
-    siteName: "Ian Macabulos Portfolio",
-    type: "website",
-  },
-};
+export const metadata = projectMetadata(
+  "ua-attendance",
+  "UA LabSign — Laboratory Attendance System",
+  "UA LabSign replaces manual laboratory attendance with web and Android check-ins using device-bound ECDSA P-256 signatures, client-side geofence checks, and short-lived room PINs.",
+);
 
-export default function UAAttendanceLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return <>{children}</>;
+export default function UaAttendanceLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <ProjectBreadcrumb slug="ua-attendance" />
+      {children}
+    </>
+  );
 }

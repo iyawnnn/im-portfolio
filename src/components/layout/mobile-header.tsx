@@ -46,9 +46,9 @@ export function MobileHeader() {
         </div>
 
         <div className="flex flex-col">
-          <h1 className="text-base font-medium leading-none tracking-[-0.01em]">
+          <p className="text-base font-medium leading-none tracking-[-0.01em]">
             Ian Macabulos
-          </h1>
+          </p>
           <p className="text-xs font-normal text-muted-foreground">
             Full-Stack Developer
           </p>
