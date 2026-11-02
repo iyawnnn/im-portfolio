@@ -2,13 +2,14 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import type { CommandEntries } from "./command-menu";
 
 const CommandMenu = dynamic(
   () => import("./command-menu").then((module) => module.CommandMenu),
   { ssr: false },
 );
 
-export function CommandMenuLoader() {
+export function CommandMenuLoader({ entries }: { entries: CommandEntries }) {
   const [shouldLoad, setShouldLoad] = useState(false);
 
   useEffect(() => {
@@ -29,5 +30,5 @@ export function CommandMenuLoader() {
     };
   }, []);
 
-  return shouldLoad ? <CommandMenu initialOpen /> : null;
+  return shouldLoad ? <CommandMenu initialOpen entries={entries} /> : null;
 }

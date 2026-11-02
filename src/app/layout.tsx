@@ -7,6 +7,9 @@ import { SidebarProvider } from "@/hooks/use-sidebar";
 import { LayoutWrapper } from "@/components/layout/layout-wrapper";
 import { Analytics } from "@vercel/analytics/react";
 import { ChatWidget } from "@/components/layout/chat-widget";
+import { PROJECTS } from "@/data/projects";
+import { PERSON_ID, SITE_NAME, WEBSITE_ID, absoluteUrl } from "@/lib/seo";
+import { getAllPostsMeta } from "@/lib/mdx";
 import { CommandMenuLoader } from "@/components/layout/command-menu-loader";
 import { BrandIntro } from "@/components/layout/brand-intro";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
@@ -44,41 +47,31 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
+const siteDescription =
+  "I'm Ian Macabulos, a full-stack developer in the Philippines building reliable web applications, internal tools, and AI-powered products with polished interfaces.";
+const siteTitle = "Ian Macabulos — Full-Stack Developer";
+
 export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_BASE_URL || "https://www.iansebastian.dev",
   ),
-  alternates: {
-    canonical: "/",
-  },
   title: {
-    default: "Ian Macabulos",
+    default: siteTitle,
     template: "%s | Ian Macabulos",
   },
-  description:
-    "A Full-Stack Developer based in the Philippines, crafting accessible and high-performance web applications with Next.js, TypeScript, and Node.js.",
-  keywords: [
-    "Ian Macabulos",
-    "Ian Sebastian Macabulos",
-    "Full-Stack Developer",
-    "Web Developer Philippines",
-    "Next.js Developer",
-    "React",
-    "TypeScript",
-  ],
+  description: siteDescription,
   openGraph: {
-    title: "Ian Macabulos",
-    description:
-      "Building scalable, high-performance web applications with the modern tech stack.",
-    url: process.env.NEXT_PUBLIC_BASE_URL || "https://www.iansebastian.dev",
+    title: siteTitle,
+    description: siteDescription,
+    url: "/",
     siteName: "Ian Macabulos",
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ian Macabulos",
-    description: "Full-Stack Developer based in the Philippines.",
+    title: siteTitle,
+    description: siteDescription,
   },
 };
 
@@ -87,21 +80,31 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const commandEntries = {
+    projects: PROJECTS.map(({ title, commandTitle, link }) => ({ title: commandTitle ?? title, href: link })),
+    posts: getAllPostsMeta()
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+      .map(({ title, slug }) => ({ title, href: `/blog/${slug}` })),
+  };
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
         "@type": "WebSite",
-        name: "Ian Macabulos",
-        url: "https://www.iansebastian.dev",
+        "@id": WEBSITE_ID,
+        name: SITE_NAME,
+        url: absoluteUrl(),
         alternateName: ["Ian Sebastian Macabulos", "Ian Macabulos Portfolio"],
+        publisher: { "@id": PERSON_ID },
       },
       {
         "@type": "Person",
-        name: "Ian Macabulos",
-        url: "https://www.iansebastian.dev",
+        "@id": PERSON_ID,
+        name: SITE_NAME,
+        url: absoluteUrl(),
         jobTitle: "Full-Stack Developer",
-        image: "https://www.iansebastian.dev/about/ian-macabulos-2026.webp",
+        image: absoluteUrl("/about/ian-macabulos-2026.webp"),
         sameAs: [
           "https://www.linkedin.com/in/ianmacabulos/",
           "https://github.com/iyawnnn",
@@ -136,7 +139,7 @@ export default function RootLayout({
             <LayoutWrapper>{children}</LayoutWrapper>
           </SidebarProvider>
         </ThemeProvider>
-        <CommandMenuLoader />
+        <CommandMenuLoader entries={commandEntries} />
         <ChatWidget />
         <Analytics />
       </body>

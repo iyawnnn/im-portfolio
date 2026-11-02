@@ -22,33 +22,12 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandShortcut,
 } from "@/components/ui/command";
 
-const ALL_PROJECTS = [
-  { title: "Neffi", href: "/projects/neffi" },
-  { title: "Better San Fernando", href: "/projects/better-san-fernando" },
-  { title: "UA Lab Attendance", href: "/projects/ua-attendance" },
-  { title: "AC-CORE", href: "/projects/ac-core" },
-  { title: "Grit", href: "/projects/grit" },
-  { title: "KodaSync", href: "/projects/kodasync" },
-  { title: "SubVantage", href: "/projects/subvantage" },
-  { title: "Mama R's", href: "/projects/mamars" },
-  { title: "ClimaPH", href: "/projects/climaph" },
-  { title: "Thryve", href: "/projects/thryve" },
-  { title: "MovieLoom", href: "/projects/movieloom" },
-  { title: "KusinaGo", href: "/projects/kusinago" },
-];
+type CommandLink = { title: string; href: string };
+export type CommandEntries = { projects: CommandLink[]; posts: CommandLink[] };
 
-const ALL_BLOGS = [
-  { title: "AC-CORE Insights", href: "/blog/ac-core-insights" },
-  { title: "Architecting Lazada", href: "/blog/architecting-lazada" },
-  { title: "Academic Reality Check", href: "/blog/academic-reality-check" },
-  { title: "Quality Over Quantity", href: "/blog/quality-over-quantity" },
-  { title: "Better Bacolod", href: "/blog/better-bacolod" },
-];
-
-export function CommandMenu({ initialOpen = false }: { initialOpen?: boolean }) {
+export function CommandMenu({ initialOpen = false, entries }: { initialOpen?: boolean; entries: CommandEntries }) {
   const [open, setOpen] = React.useState(initialOpen);
   const [searchQuery, setSearchQuery] = React.useState("");
   const router = useRouter();
@@ -78,12 +57,6 @@ export function CommandMenu({ initialOpen = false }: { initialOpen?: boolean }) 
     command();
   }, []);
 
-  const isSearching = searchQuery.length > 0;
-  
-  // Show a limited subset by default, but render everything when typing so the palette can filter it
-  const visibleProjects = isSearching ? ALL_PROJECTS : ALL_PROJECTS.slice(0, 3);
-  const visibleBlogs = isSearching ? ALL_BLOGS : ALL_BLOGS.slice(0, 2);
-
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
       <CommandInput 
@@ -96,9 +69,9 @@ export function CommandMenu({ initialOpen = false }: { initialOpen?: boolean }) 
           <CommandEmpty>No results found.</CommandEmpty>
 
           <CommandGroup heading="Quick Actions">
-            <CommandItem onSelect={() => runCommand(() => router.push("/resume"))}>
+            <CommandItem onSelect={() => runCommand(() => router.push("/experience"))}>
               <FileText />
-              <span>View Resume</span>
+              <span>View Experience</span>
             </CommandItem>
           </CommandGroup>
 
@@ -106,50 +79,41 @@ export function CommandMenu({ initialOpen = false }: { initialOpen?: boolean }) 
             <CommandItem value="explore" onSelect={() => runCommand(() => router.push("/"))}>
               <Home />
               <span>Explore</span>
-              <CommandShortcut>G H</CommandShortcut>
             </CommandItem>
             <CommandItem value="about" onSelect={() => runCommand(() => router.push("/about"))}>
               <User />
               <span>About</span>
-              <CommandShortcut>G A</CommandShortcut>
             </CommandItem>
             <CommandItem value="stack" onSelect={() => runCommand(() => router.push("/stack"))}>
               <CodeXml />
               <span>Stack</span>
-              <CommandShortcut>G S</CommandShortcut>
             </CommandItem>
           </CommandGroup>
 
           <CommandGroup heading="Projects">
-            {visibleProjects.map((project) => (
-              <CommandItem key={project.href} onSelect={() => runCommand(() => router.push(project.href))}>
+            {entries.projects.map((project) => (
+              <CommandItem key={project.href} value={`${project.title} ${project.href}`} onSelect={() => runCommand(() => router.push(project.href))}>
                 <FolderDot className="text-muted-foreground" />
                 <span>{project.title}</span>
               </CommandItem>
             ))}
-            {!isSearching && (
-              <CommandItem value="view all projects" onSelect={() => runCommand(() => router.push("/projects"))}>
-                <Briefcase />
-                <span>View All Projects...</span>
-                <CommandShortcut>G P</CommandShortcut>
-              </CommandItem>
-            )}
+            <CommandItem value="view all projects" onSelect={() => runCommand(() => router.push("/projects"))}>
+              <Briefcase />
+              <span>View All Projects...</span>
+            </CommandItem>
           </CommandGroup>
 
           <CommandGroup heading="Writing">
-            {visibleBlogs.map((blog) => (
-              <CommandItem key={blog.href} onSelect={() => runCommand(() => router.push(blog.href))}>
+            {entries.posts.map((blog) => (
+              <CommandItem key={blog.href} value={`${blog.title} ${blog.href}`} onSelect={() => runCommand(() => router.push(blog.href))}>
                 <PenTool className="text-muted-foreground" />
                 <span>{blog.title}</span>
               </CommandItem>
             ))}
-            {!isSearching && (
-              <CommandItem value="view all articles" onSelect={() => runCommand(() => router.push("/blog"))}>
-                <BookOpen />
-                <span>View All Articles...</span>
-                <CommandShortcut>G B</CommandShortcut>
-              </CommandItem>
-            )}
+            <CommandItem value="view all articles" onSelect={() => runCommand(() => router.push("/blog"))}>
+              <BookOpen />
+              <span>View All Articles...</span>
+            </CommandItem>
           </CommandGroup>
 
           <CommandGroup heading="Connect">
