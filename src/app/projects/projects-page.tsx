@@ -49,7 +49,7 @@ export function ProjectsPage({
         </p>
       </div>
 
-      <ul className="grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:gap-8">
+      <ul className={`grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:gap-8 ${reveal.grid}`}>
         {paginatedProjects.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
@@ -98,6 +98,9 @@ function ProjectCard({ project }: { project: (typeof PROJECTS)[0] }) {
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleMouseEnter = () => {
+    if (project.link === "/projects/rc-premier-properties" &&
+      window.matchMedia("(prefers-reduced-motion: reduce), (hover: none)").matches) return;
+
     hoverTimeoutRef.current = setTimeout(() => {
       if (videoRef.current) {
         if (videoRef.current.readyState === 0) {

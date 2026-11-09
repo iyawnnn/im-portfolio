@@ -89,7 +89,7 @@ export default function ExperiencePage() {
         </div>
       </div>
 
-      <div className={`flex w-full flex-col gap-12 ${reveal.secondary} ${reveal.media}`}>
+      <div className={`flex w-full flex-col gap-12 ${reveal.contentGroups}`}>
         <section
           className="space-y-6 w-full"
         >

@@ -404,6 +404,7 @@ const toolsData: ToolCategory[] = [
 export default function StackPage() {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
+  const [hasFiltered, setHasFiltered] = useState(false);
   
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -477,7 +478,7 @@ export default function StackPage() {
               aria-label="Search tools"
               placeholder="Search tools..."
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => { setHasFiltered(true); setQuery(e.target.value); }}
               className="pl-12 h-12 lg:h-14 w-full bg-secondary/30 border-border hover:border-primary/50 focus:bg-background focus:border-primary focus:ring-4 focus:ring-primary/10 rounded-2xl text-base transition-all duration-300 placeholder:text-muted-foreground/70"
             />
           </div>
@@ -510,7 +511,7 @@ export default function StackPage() {
                 return (
                   <button
                     key={category}
-                    onClick={() => setActiveCategory(category)}
+                    onClick={() => { setHasFiltered(true); setActiveCategory(category); }}
                     aria-pressed={isActive}
                     className={`relative px-5 h-9 text-sm font-medium rounded-full whitespace-nowrap transition-colors outline-none shrink-0 snap-start flex items-center justify-center ${
                       isActive
@@ -553,7 +554,7 @@ export default function StackPage() {
 
       <div className="flex-grow flex flex-col relative w-full min-w-0">
         {filteredTools.length > 0 ? (
-          <div className={`space-y-8 lg:space-y-10 ${reveal.stackGroups}`}>
+          <div className={`space-y-8 lg:space-y-10 ${hasFiltered ? "" : reveal.stackGroups}`}>
             {filteredTools.map((category, idx) => (
               <section key={idx} className="space-y-3 min-w-0">
                 <h2 className="text-xs lg:text-sm font-medium text-muted-foreground uppercase tracking-wider pl-1">

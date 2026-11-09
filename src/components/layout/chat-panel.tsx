@@ -17,23 +17,65 @@ type Message = {
   content: string;
 };
 
+type ChatRequestMessage = Pick<Message, "role" | "content">;
+
 const INITIAL_MESSAGE: Message = {
   id: "welcome-message",
   role: "assistant",
   content:
-    "Hey, I'm Ian. I'm a full-stack developer currently studying at Holy Angel University. What are you working on, or what would you like to know about my experience?",
+    "Hi, I’m Ian’s AI portfolio assistant. I can help you explore his projects, experience, and technical work.",
 };
 
 const MAX_CHARS = 500;
+const MAX_HISTORY_MESSAGES = 20;
+const MAX_USER_MESSAGE_CHARS = 2_000;
+const MAX_ASSISTANT_MESSAGE_CHARS = 8_000;
+const MAX_HISTORY_CHARS = 12_000;
+const MAX_REQUEST_BYTES = 32_000;
+
+function isMessage(value: unknown): value is Message {
+  return typeof value === "object" && value !== null
+    && typeof (value as Message).id === "string"
+    && ((value as Message).role === "user" || (value as Message).role === "assistant")
+    && typeof (value as Message).content === "string"
+    && (value as Message).content.length <= ((value as Message).role === "user"
+      ? MAX_USER_MESSAGE_CHARS
+      : MAX_ASSISTANT_MESSAGE_CHARS);
+}
+
+function requestMessage(message: Message): ChatRequestMessage {
+  return { role: message.role, content: message.content };
+}
+
+function requestSize(messages: Message[]) {
+  return new TextEncoder().encode(JSON.stringify({ messages: messages.map(requestMessage) })).length;
+}
+
+export function historyForRequest(messages: Message[], userMessage: Message): ChatRequestMessage[] {
+  const history = [...messages, userMessage].filter((message) =>
+    isMessage(message) && Boolean(message.content.trim()),
+  );
+  let start = Math.max(0, history.length - MAX_HISTORY_MESSAGES);
+
+  while (start < history.length - 1 && (
+    history[start].role !== "user"
+    || history.slice(start).reduce((total, message) => total + message.content.length, 0) > MAX_HISTORY_CHARS
+    || requestSize(history.slice(start)) > MAX_REQUEST_BYTES
+  )) start += 1;
+  return history.slice(start).map(requestMessage);
+}
 
 export function ChatPanel({ onClose }: { onClose: () => void }) {
   const [inputValue, setInputValue] = useState("");
   const [messages, setMessages] = useState<Message[]>(() => {
-    const savedChat = localStorage.getItem("portfolio-chat-history");
-    if (!savedChat) return [INITIAL_MESSAGE];
-
     try {
-      return JSON.parse(savedChat) as Message[];
+      const savedChat = localStorage.getItem("portfolio-chat-history");
+      if (!savedChat) return [INITIAL_MESSAGE];
+
+      const savedMessages: unknown = JSON.parse(savedChat);
+      return Array.isArray(savedMessages) && savedMessages.length && savedMessages.every(isMessage)
+        ? savedMessages.map((message) => message.id === INITIAL_MESSAGE.id ? INITIAL_MESSAGE : message)
+        : [INITIAL_MESSAGE];
     } catch (error) {
       console.error("Failed to parse chat history:", error);
       return [INITIAL_MESSAGE];
@@ -82,7 +124,11 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    localStorage.setItem("portfolio-chat-history", JSON.stringify(messages));
+    try {
+      localStorage.setItem("portfolio-chat-history", JSON.stringify(messages));
+    } catch {
+      // The chat still works when browser storage is unavailable.
+    }
   }, [messages]);
 
   useEffect(() => {
@@ -117,8 +163,12 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
     setReactionTarget(null);
     setMessages([INITIAL_MESSAGE]);
     setReactions({});
-    localStorage.removeItem("portfolio-chat-reactions");
-    localStorage.removeItem("portfolio-chat-history");
+    try {
+      localStorage.removeItem("portfolio-chat-reactions");
+      localStorage.removeItem("portfolio-chat-history");
+    } catch {
+      // The visible conversation has already been reset.
+    }
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -141,7 +191,7 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [...messages, userMessage] }),
+        body: JSON.stringify({ messages: historyForRequest(messages, userMessage) }),
       });
 
       // 1. HANDLE RATE LIMITS & SERVER CRASHES (Triggers Red Banner)
@@ -152,8 +202,8 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
         return;
       }
 
-      // 2. HANDLE BLOCKED KEYWORDS & OFF-TOPIC (Triggers normal AI chat bubble)
-      if (response.status === 400) {
+      // 2. HANDLE REDIRECTS & INVALID REQUESTS (Triggers normal AI chat bubble)
+      if (!response.ok) {
         const warningText = await response.text();
         setMessages((prev) => [
           ...prev,
@@ -164,7 +214,7 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
           },
         ]);
         setIsLoading(false);
-        return; // Exit early since there is no stream to read
+        return;
       }
 
       // 3. NORMAL AI STREAM
@@ -243,7 +293,7 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-foreground"></span>
               </span>
               <p className="text-[11px] text-muted-foreground leading-none">
-                Online
+                AI portfolio assistant
               </p>
             </div>
           </div>
@@ -289,7 +339,7 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
                 <BubbleContent
                   className={m.role === "user"
                     ? "rounded-2xl rounded-br-sm bg-foreground px-4 py-2.5 text-background whitespace-pre-wrap [overflow-wrap:anywhere]"
-                    : "rounded-2xl rounded-bl-sm border-border/50 px-4 py-2.5 text-foreground"}
+                    : "min-w-0 rounded-2xl rounded-bl-sm border-border/50 px-4 py-2.5 text-foreground"}
                 >
                   {m.role === "user" ? m.content : (
                     <div
@@ -297,7 +347,7 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
                         prose-p:leading-relaxed prose-p:my-1
                         prose-a:text-foreground hover:prose-a:text-foreground/80 prose-a:underline prose-a:underline-offset-4 prose-a:font-semibold transition-colors
                         prose-code:bg-background/50 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none
-                        prose-pre:max-w-full prose-pre:overflow-x-auto prose-pre:bg-background/50 prose-pre:text-foreground prose-pre:p-3 prose-pre:rounded-lg prose-pre:border prose-pre:border-border/50
+                        prose-pre:max-w-full prose-pre:overflow-x-auto prose-pre:whitespace-pre prose-pre:[overflow-wrap:normal] prose-pre:bg-background/50 prose-pre:text-foreground prose-pre:p-3 prose-pre:rounded-lg prose-pre:border prose-pre:border-border/50
                         [&_table]:block [&_table]:max-w-full [&_table]:overflow-x-auto"
                     >
                       <ReactMarkdown
@@ -307,6 +357,11 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
                             if (!href) return <a>{children}</a>;
                             return <CustomLink href={href}>{children}</CustomLink>;
                           },
+                          pre: ({ children }) => (
+                            <pre className="max-w-full overflow-x-auto whitespace-pre [overflow-wrap:normal]">
+                              {children}
+                            </pre>
+                          ),
                         }}
                       >
                         {m.content}
@@ -330,7 +385,7 @@ export function ChatPanel({ onClose }: { onClose: () => void }) {
 
         {showTyping && (
           <BubbleGroup>
-            <Bubble variant="muted" className={styles.message} role="status" aria-label="Ian is typing">
+            <Bubble variant="muted" className={styles.message} role="status" aria-label="AI portfolio assistant is typing">
               <BubbleContent className="flex h-9 w-[60px] items-center justify-center gap-1.5 rounded-2xl rounded-bl-sm border-border/50 p-0">
                 {[0, 1, 2].map((dot) => (
                   <span key={dot} aria-hidden="true" className={`${styles.dot} size-1.5 rounded-full bg-foreground/60`} />

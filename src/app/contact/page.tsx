@@ -213,7 +213,7 @@ export default function ContactPage() {
 
         {/* --- RIGHT COLUMN: FORM & TIME --- */}
         <motion.div
-          className={`lg:col-span-7 flex flex-col gap-6 ${reveal.secondary} ${reveal.details}`}
+          className={`lg:col-span-7 flex flex-col gap-6 ${reveal.secondary} ${reveal.form}`}
         >
           <Card className="border border-border/40 shadow-sm bg-card/30 overflow-hidden py-0">
             <CardContent className="p-5 md:p-6">

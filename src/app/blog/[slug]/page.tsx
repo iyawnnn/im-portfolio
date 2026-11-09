@@ -15,6 +15,31 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/json-ld";
 import { PERSON_ID, absoluteUrl, breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import { ArticleIntro } from "@/components/blog/article-intro";
+
+type ArticleNode = {
+  type?: string;
+  name?: string;
+  attributes?: unknown[];
+  children?: ArticleNode[];
+};
+
+function remarkArticleIntro() {
+  return (tree: ArticleNode) => {
+    if (!tree.children) return;
+
+    const firstSection = tree.children.findIndex((node) => node.type === "heading");
+    if (firstSection <= 0) return;
+
+    const intro = tree.children.splice(0, firstSection);
+    tree.children.unshift({
+      type: "mdxJsxFlowElement",
+      name: "ArticleIntro",
+      attributes: [],
+      children: intro,
+    });
+  };
+}
 
 export async function generateStaticParams() {
   const posts = getAllPostsMeta();
@@ -129,7 +154,16 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             prose-code:text-foreground prose-code:bg-muted/80 dark:prose-code:bg-muted/30 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded-md prose-code:font-mono prose-code:text-sm sm:prose-code:text-base prose-code:before:content-none prose-code:after:content-none
             prose-pre:bg-[#111111] dark:prose-pre:bg-muted/20 prose-pre:border prose-pre:border-border/50 prose-pre:rounded-xl prose-pre:text-sm">
           
-            <MDXRemote source={content} components={{ a: CustomLink }} />
+            <MDXRemote
+              source={content}
+              components={{
+                a: CustomLink,
+                ArticleIntro: ({ children }) => (
+                  <ArticleIntro className={reveal.articleBody}>{children}</ArticleIntro>
+                ),
+              }}
+              options={{ mdxOptions: { remarkPlugins: [remarkArticleIntro] } }}
+            />
           </div>
 
           <div className="mt-12 flex justify-between items-center border-t border-border/50 pt-8">

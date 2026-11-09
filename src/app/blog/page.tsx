@@ -60,7 +60,7 @@ export default async function BlogPage({
         </p>
       </header>
 
-      <section aria-label="Blog articles" className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
+      <section aria-label="Blog articles" className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 ${reveal.grid}`}>
         {pagePosts.map((post: PostMeta) => (
           <article key={post.slug} className="min-w-0">
             <Link

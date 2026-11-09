@@ -75,7 +75,7 @@ export default function AboutPage() {
 
       {/* --- GRID SECTIONS --- */}
       <section
-        className={`grid grid-cols-1 gap-6 md:grid-cols-2 ${reveal.secondary} ${reveal.media}`}
+        className={`grid grid-cols-1 gap-6 md:grid-cols-2 ${reveal.contentGroups}`}
       >
         <Card className="h-full bg-card border-border/50">
           <CardHeader className="flex flex-row items-center gap-4 space-y-0">

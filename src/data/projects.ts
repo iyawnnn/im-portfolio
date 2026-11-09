@@ -32,6 +32,15 @@ export const PROJECTS: ProjectData[] = [
     tags: ["Next.js", "PostgreSQL", "React Native", "Expo"],
   },
   {
+    title: "RC Premier Properties",
+    description:
+      "A real estate website I designed and developed for RC Premier Properties, combining property discovery, client inquiries, viewing requests, and an administrative workspace.",
+    link: "/projects/rc-premier-properties",
+    image: "/projects/rc-premier-properties/cover.webp",
+    video: "/projects/rc-premier-properties/rc-preview.mp4",
+    tags: ["Next.js", "TypeScript", "Express", "MongoDB"],
+  },
+  {
     title:
       "AC-CORE (Angeles City Center for Operational Reporting and Engineering)",
     commandTitle: "AC-CORE",

@@ -1,6 +1,7 @@
 import type { ElementType } from "react";
 import {
   SiAngular,
+  SiAuth0,
   SiCss3,
   SiCloudinary,
   SiDocker,
@@ -37,6 +38,7 @@ import { cn } from "@/lib/utils";
 
 const TECHNOLOGY_ICONS = {
   Angular: SiAngular,
+  Auth0: SiAuth0,
   "Better Auth": undefined,
   CSS3: SiCss3,
   Cloudinary: SiCloudinary,
