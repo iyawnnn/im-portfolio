@@ -6,7 +6,6 @@ import Image from "next/image";
 import { CaretLeft as ChevronLeft, CaretRight as ChevronRight } from "@phosphor-icons/react/ssr";
 import { getAllPostsMeta, POSTS_PER_PAGE, PostMeta } from "@/lib/mdx";
 import { Card, CardContent } from "@/components/ui/card";
-import { LinkPendingIndicator } from "@/components/ui/link-pending-indicator";
 import { pageMetadata, paginatedPath } from "@/lib/seo";
 
 type SearchParams = Promise<{ page?: string }>;
@@ -61,7 +60,7 @@ export default async function BlogPage({
         </p>
       </header>
 
-      <section key={currentPage} aria-label="Blog articles" className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 ${reveal.grid}`}>
+      <section aria-label="Blog articles" className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
         {pagePosts.map((post: PostMeta) => (
           <article key={post.slug} className="min-w-0">
             <Link
@@ -112,12 +111,11 @@ export default async function BlogPage({
           <div className="min-w-0">
             {currentPage > 1 && (
               <Link
-                href={`/blog?page=${currentPage - 1}`}
+                href={paginatedPath("/blog", currentPage - 1)}
                 aria-label={`Go to page ${currentPage - 1}`}
-                className="group relative inline-flex items-center text-xs font-medium text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+                className="group inline-flex items-center text-xs font-medium text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
                 prefetch
               >
-                <LinkPendingIndicator className="-right-3 top-1/2 -translate-y-1/2" />
                 <ChevronLeft className="mr-1 h-4 w-4 shrink-0 transition-transform duration-200 group-hover:-translate-x-1" />
                 Previous
               </Link>
@@ -131,12 +129,11 @@ export default async function BlogPage({
           <div className="min-w-0 text-right">
             {currentPage < totalPages && (
               <Link
-                href={`/blog?page=${currentPage + 1}`}
+                href={paginatedPath("/blog", currentPage + 1)}
                 aria-label={`Go to page ${currentPage + 1}`}
-                className="group relative inline-flex items-center text-xs font-medium text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
+                className="group inline-flex items-center text-xs font-medium text-muted-foreground transition-colors hover:text-foreground sm:text-sm"
                 prefetch
               >
-                <LinkPendingIndicator className="-right-3 top-1/2 -translate-y-1/2" />
                 Next
                 <ChevronRight className="ml-1 h-4 w-4 shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
               </Link>

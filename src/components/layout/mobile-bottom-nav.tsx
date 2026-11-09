@@ -13,7 +13,6 @@ import {
   BookOpen,
 } from "@phosphor-icons/react/ssr";
 import { cn, linkCurrent } from "@/lib/utils";
-import { LinkPendingIndicator } from "@/components/ui/link-pending-indicator";
 
 // --- CUSTOM ICONS ---
 const PeerlistIcon = ({ className }: { className?: string }) => (
@@ -90,14 +89,13 @@ export function MobileBottomNav() {
                     : "bg-transparent text-muted-foreground hover:bg-accent/50 hover:text-foreground",
                 )}
               >
-                <div className="relative flex items-center justify-center">
+                <div className="flex items-center justify-center">
                   <link.icon
                     className={cn(
                       "h-5 w-5 transition-all duration-300",
                       isActive ? "stroke-[2px] scale-105" : "stroke-[1.5px]",
                     )}
                   />
-                  {!link.isExternal && <LinkPendingIndicator className="-right-2 -top-1" />}
                 </div>
 
                 <span

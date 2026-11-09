@@ -26,7 +26,6 @@ import { cn, linkCurrent } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { ActionTooltip } from "@/components/ui/action-tooltip";
-import { LinkPendingIndicator } from "@/components/ui/link-pending-indicator";
 import { ignoreSingleKey, searchShortcut } from "@/lib/keyboard-shortcuts";
 
 const PeerlistIcon = ({ className }: { className?: string }) => (
@@ -123,7 +122,7 @@ function NavSection({
                   aria-current={current}
                   target={isExternal ? "_blank" : undefined}
                   className={cn(
-                    "group relative flex items-center rounded-xl py-2.5 text-sm font-medium transition-all duration-200 border",
+                    "group flex items-center rounded-xl py-2.5 text-sm font-medium transition-all duration-200 border",
                     isCollapsed ? "justify-center px-2" : "justify-between px-3",
                     isActive
                       ? "bg-sidebar-accent border-sidebar-border/50 text-sidebar-foreground shadow-sm font-[550]"
@@ -179,7 +178,6 @@ function NavSection({
                       )}
                     </span>
                   </div>
-                  {!isExternal && <LinkPendingIndicator className="right-1 top-1" />}
                 </Link>
               </ActionTooltip>
             </li>

@@ -6,9 +6,12 @@ import { pageRedirectTarget } from "@/lib/seo";
 // Pagination redirects live here because streamed pages can't send a real HTTP status after the loader has started.
 export function proxy(request: NextRequest) {
   const { pathname, searchParams } = request.nextUrl;
+  const page = searchParams.get("page");
+  if (page === null) return NextResponse.next();
+
   const items = pathname === "/projects" ? PROJECTS.length : getAllPostsMeta().length;
   const perPage = pathname === "/projects" ? PROJECTS_PER_PAGE : POSTS_PER_PAGE;
-  const target = pageRedirectTarget(pathname, searchParams.get("page") ?? undefined, Math.max(1, Math.ceil(items / perPage)));
+  const target = pageRedirectTarget(pathname, page, Math.max(1, Math.ceil(items / perPage)));
   if (!target) return NextResponse.next();
 
   const url = request.nextUrl.clone();

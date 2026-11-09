@@ -17,7 +17,7 @@ import {
 import { ProjectStackBadge } from "@/components/ui/project-stack-badge";
 import { PROJECTS, PROJECTS_PER_PAGE as ITEMS_PER_PAGE } from "@/data/projects";
 import { Skeleton } from "@/components/ui/skeleton";
-import { LinkPendingIndicator } from "@/components/ui/link-pending-indicator";
+import { paginatedPath } from "@/lib/seo";
 
 
 export function ProjectsPage({
@@ -49,10 +49,7 @@ export function ProjectsPage({
         </p>
       </div>
 
-      <ul
-        key={currentPage}
-        className={`grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8 items-start ${reveal.grid}`}
-      >
+      <ul className="grid grid-cols-1 items-start gap-6 md:grid-cols-2 lg:gap-8">
         {paginatedProjects.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
@@ -63,11 +60,10 @@ export function ProjectsPage({
           <div className="flex w-24 sm:w-32">
             {currentPage > 1 && (
               <Link
-                href={`/projects?page=${currentPage - 1}`}
-                className="relative flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+                href={paginatedPath("/projects", currentPage - 1)}
+                className="flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
                 prefetch={true} // Add aggressive prefetching
               >
-                <LinkPendingIndicator className="-right-3 top-1/2 -translate-y-1/2" />
                 <ChevronLeft className="mr-1.5 h-4 w-4 transition-transform group-hover:-translate-x-1" />{" "}
                 Previous
               </Link>
@@ -79,11 +75,10 @@ export function ProjectsPage({
           <div className="flex w-24 sm:w-32 justify-end">
             {currentPage < totalPages && (
               <Link
-                href={`/projects?page=${currentPage + 1}`}
-                className="relative flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
+                href={paginatedPath("/projects", currentPage + 1)}
+                className="flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
                 prefetch={true} // Add aggressive prefetching
               >
-                <LinkPendingIndicator className="-right-3 top-1/2 -translate-y-1/2" />
                 Next{" "}
                 <ChevronRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
