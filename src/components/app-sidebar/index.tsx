@@ -22,10 +22,11 @@ import {
   MagnifyingGlass as Search,
 } from "@phosphor-icons/react/ssr";
 
-import { cn } from "@/lib/utils";
+import { cn, linkCurrent } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { ActionTooltip } from "@/components/ui/action-tooltip";
+import { LinkPendingIndicator } from "@/components/ui/link-pending-indicator";
 import { ignoreSingleKey, searchShortcut } from "@/lib/keyboard-shortcuts";
 
 const PeerlistIcon = ({ className }: { className?: string }) => (
@@ -101,8 +102,9 @@ function NavSection({
       )}
       <ul className="space-y-1 w-full">
         {links.map((link) => {
-          const isActive = pathname === link.href;
           const isExternal = "isExternal" in link && link.isExternal;
+          const current = isExternal ? undefined : linkCurrent(pathname, link.href);
+          const isActive = Boolean(current);
 
           return (
             <li key={link.title} className="w-full">
@@ -118,10 +120,10 @@ function NavSection({
                   href={link.href}
                   aria-label={link.title}
                   aria-keyshortcuts={"shortcut" in link ? link.shortcut : undefined}
+                  aria-current={current}
                   target={isExternal ? "_blank" : undefined}
-                  prefetch={false}
                   className={cn(
-                    "group flex items-center rounded-xl py-2.5 text-sm font-medium transition-all duration-200 border",
+                    "group relative flex items-center rounded-xl py-2.5 text-sm font-medium transition-all duration-200 border",
                     isCollapsed ? "justify-center px-2" : "justify-between px-3",
                     isActive
                       ? "bg-sidebar-accent border-sidebar-border/50 text-sidebar-foreground shadow-sm font-[550]"
@@ -177,6 +179,7 @@ function NavSection({
                       )}
                     </span>
                   </div>
+                  {!isExternal && <LinkPendingIndicator className="right-1 top-1" />}
                 </Link>
               </ActionTooltip>
             </li>

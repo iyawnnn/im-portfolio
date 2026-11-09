@@ -17,6 +17,7 @@ import {
 import { ProjectStackBadge } from "@/components/ui/project-stack-badge";
 import { PROJECTS, PROJECTS_PER_PAGE as ITEMS_PER_PAGE } from "@/data/projects";
 import { Skeleton } from "@/components/ui/skeleton";
+import { LinkPendingIndicator } from "@/components/ui/link-pending-indicator";
 
 
 export function ProjectsPage({
@@ -63,10 +64,10 @@ export function ProjectsPage({
             {currentPage > 1 && (
               <Link
                 href={`/projects?page=${currentPage - 1}`}
-                className="flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
-                scroll={false}
+                className="relative flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
                 prefetch={true} // Add aggressive prefetching
               >
+                <LinkPendingIndicator className="-right-3 top-1/2 -translate-y-1/2" />
                 <ChevronLeft className="mr-1.5 h-4 w-4 transition-transform group-hover:-translate-x-1" />{" "}
                 Previous
               </Link>
@@ -79,10 +80,10 @@ export function ProjectsPage({
             {currentPage < totalPages && (
               <Link
                 href={`/projects?page=${currentPage + 1}`}
-                className="flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
-                scroll={false}
+                className="relative flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors group"
                 prefetch={true} // Add aggressive prefetching
               >
+                <LinkPendingIndicator className="-right-3 top-1/2 -translate-y-1/2" />
                 Next{" "}
                 <ChevronRight className="ml-1.5 h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>

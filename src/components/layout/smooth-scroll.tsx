@@ -1,15 +1,16 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import Lenis from "lenis";
 
 const SCROLL_LERP = 0.1;
 
 export function SmoothScroll() {
-  const pathname = usePathname();
+  // Pagination only changes the query, so it needs the same reset as a route change.
+  const url = `${usePathname()}?${useSearchParams()}`;
   const lenisRef = useRef<Lenis | null>(null);
-  const previousPathname = useRef(pathname);
+  const previousUrl = useRef(url);
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -33,13 +34,13 @@ export function SmoothScroll() {
   }, []);
 
   useEffect(() => {
-    if (pathname === previousPathname.current) return;
-    previousPathname.current = pathname;
+    if (url === previousUrl.current) return;
+    previousUrl.current = url;
     const lenis = lenisRef.current;
     if (!lenis) return;
     lenis.stop();
     lenis.start();
-  }, [pathname]);
+  }, [url]);
 
   return null;
 }

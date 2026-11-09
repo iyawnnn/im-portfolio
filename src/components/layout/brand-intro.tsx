@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { IanMark } from "@/components/brand/ian-mark";
+import { linkCurrent } from "@/lib/utils";
 import styles from "./brand-intro.module.css";
 
 export function BrandIntro() {
@@ -44,7 +45,7 @@ export function BrandIntro() {
       }
     };
     const frame = requestAnimationFrame(() => {
-      if (!root.hasAttribute("data-brand-intro") || pathname !== "/" || !overlay) {
+      if (!root.hasAttribute("data-brand-intro") || linkCurrent(pathname, "/") !== "page" || !overlay) {
         root.removeAttribute("data-brand-intro");
         setPresent(false);
         return;

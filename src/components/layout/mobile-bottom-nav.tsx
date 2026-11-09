@@ -12,7 +12,8 @@ import {
   Envelope as Mail,
   BookOpen,
 } from "@phosphor-icons/react/ssr";
-import { cn } from "@/lib/utils";
+import { cn, linkCurrent } from "@/lib/utils";
+import { LinkPendingIndicator } from "@/components/ui/link-pending-indicator";
 
 // --- CUSTOM ICONS ---
 const PeerlistIcon = ({ className }: { className?: string }) => (
@@ -73,14 +74,15 @@ export function MobileBottomNav() {
       >
         <div className="flex min-w-full w-fit mx-auto items-center justify-start gap-2 sm:gap-6 md:gap-8">
           {MOBILE_LINKS.map((link) => {
-            const isActive = pathname === link.href;
+            const current = link.isExternal ? undefined : linkCurrent(pathname, link.href);
+            const isActive = Boolean(current);
 
             return (
               <Link
                 key={link.label}
                 href={link.href}
                 target={link.isExternal ? "_blank" : undefined}
-                prefetch={false}
+                aria-current={current}
                 className={cn(
                   "snap-center group flex min-w-[5rem] flex-col items-center justify-center gap-1 rounded-lg py-2 px-2 transition-all duration-300",
                   isActive
@@ -95,6 +97,7 @@ export function MobileBottomNav() {
                       isActive ? "stroke-[2px] scale-105" : "stroke-[1.5px]",
                     )}
                   />
+                  {!link.isExternal && <LinkPendingIndicator className="-right-2 -top-1" />}
                 </div>
 
                 <span

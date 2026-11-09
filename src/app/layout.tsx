@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
@@ -134,7 +135,9 @@ export default function RootLayout({
         >
           <BrandIntro />
           <SidebarProvider>
-            <SmoothScroll />
+            <Suspense>
+              <SmoothScroll />
+            </Suspense>
             <CustomCursor />
             <LayoutWrapper>{children}</LayoutWrapper>
           </SidebarProvider>
